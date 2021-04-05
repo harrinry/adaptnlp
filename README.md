@@ -64,14 +64,6 @@ system specifies:
 python -m venv venv-adaptnlp
 ```
 
-##### AdaptNLP Install
-Install using pip in your virtual environment:
-```
-pip install adaptnlp
-```
-
-If you want to work on AdaptNLP, `pip install adaptnlp[dev]` will install its development tools.
-
 #### Requirements and Installation for Windows
 
 ##### PyTorch Install
