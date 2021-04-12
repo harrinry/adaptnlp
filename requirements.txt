@@ -1,9 +1,0 @@
-click
-jupyter
-jupyterlab
-torch>=1.4.0,<2.0.0
-flair @ git+git://github.com/flairNLP/flair.git@1843c4aa#egg=flair
-transformers>=4.0.0,<5.0.0
-datasets>=1.0.0,<2.0.0
-pandas>=1.0.0,<2.0.0
-fastai-minima==0.0.7
