@@ -28,8 +28,6 @@ from .transformers.finetuning import LMFineTunerManual
 cache_root = Path.home()/".adaptnlp"
 
 __version__ = "0.2.2"
-    pkg_resources.resource_string("adaptnlp", "VERSION.txt").decode("UTF-8").strip()
-)
 
 __all__ = [
     "__version__",

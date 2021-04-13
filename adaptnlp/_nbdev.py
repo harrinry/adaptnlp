@@ -74,7 +74,14 @@ index = {"logger": "13_transformers.finetuning.ipynb",
          "make_precision_recall_eval": "14_transformers.utils_squad_evaluate.ipynb",
          "run_precision_recall_analysis": "14_transformers.utils_squad_evaluate.ipynb",
          "histogram_na_prob": "14_transformers.utils_squad_evaluate.ipynb",
-         "main": "14_transformers.utils_squad_evaluate.ipynb"}
+         "main": "14_transformers.utils_squad_evaluate.ipynb",
+         "HF_TASKS": "15_model_hub.ipynb",
+         "HF_TASKS.__doc__": "15_model_hub.ipynb",
+         "HFModelResult": "15_model_hub.ipynb",
+         "HFModelSearchHub": "15_model_hub.ipynb",
+         "FLAIR_TASKS": "15_model_hub.ipynb",
+         "FLAIR_TASKS.__doc__": "15_model_hub.ipynb",
+         "FlairModelSearchHub": "15_model_hub.ipynb"}
 
 modules = ["token_classification.py",
            "sequence_classification.py",
@@ -90,7 +97,8 @@ modules = ["token_classification.py",
            "question_answering.py",
            "transformers/squad_metrics.py",
            "transformers/finetuning.py",
-           "transformers/utils_squad_evaluate.py"]
+           "transformers/utils_squad_evaluate.py",
+           "model_hub.py"]
 
 doc_url = "https://nbdev.github.io/adaptnlp/adaptnlp/"
 

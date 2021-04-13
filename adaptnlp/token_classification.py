@@ -62,6 +62,8 @@ class TransformersTokenTagger(AdaptiveModel):
         """Class method for loading and constructing this tagger
 
         * **model_name_or_path** - A key string of one of Transformer's pre-trained Token Tagger Model
+
+        Note: To search for valid models, you should use the AdaptNLP `model_hub` API
         """
         tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
         model = AutoModelForTokenClassification.from_pretrained(model_name_or_path)
@@ -255,13 +257,15 @@ class FlairTokenTagger(AdaptiveModel):
 
     Usage:
     ```python
-    >>> tagger = FlairTokenTagger.load("en-sentiment")
+    >>> tagger = FlairTokenTagger.load("flair/chunk-english-fast")
     >>> tagger.predict(text="Example text", mini_batch_size=32)
     ```
 
     **Parameters:**
 
     * **model_name_or_path** - A key string of one of Flair's pre-trained Token tagger Model
+
+    To find a list of available models, see [here](https://huggingface.co/models?filter=flair)
     """
 
     def __init__(self, model_name_or_path: str):
@@ -272,6 +276,8 @@ class FlairTokenTagger(AdaptiveModel):
         """Class method for loading a constructing this tagger
 
         * **model_name_or_path** - A key string of one of Flair's pre-trained Token tagger Model
+
+        To find a list of available models, see [here](https://huggingface.co/models?filter=flair)
         """
         tagger = cls(model_name_or_path)
         return tagger
