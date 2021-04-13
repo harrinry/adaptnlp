@@ -104,7 +104,7 @@ class HFModelSearchHub:
             raise ValueError(f'''`{task}` is not a valid task.
 
             Please choose a valid one available from HuggingFace: (https://huggingface.co/transformers/task_summary.html)
-            Or with the `TASKS` object''')
+            Or with the `HF_TASKS` object''')
         models = self.api.list_models(task)
         return self._format_results(models, as_dict, user_uploaded)
 
@@ -122,8 +122,15 @@ class HFModelSearchHub:
           hub.search_model_by_name('gpt2')
           ```
         """
-        models = self.api.list_models(name)
-        return self._format_results(models, as_dict, user_uploaded)
+        if user_uploaded:
+            models = self.api.list_models()
+            models = self._format_results(models, as_dict, user_uploaded)
+            models = [m for m in models if name in m.name]
+
+        else:
+            models = self.api.list_models(name)
+            models = self._format_results(models, as_dict, user_uploaded)
+        return models
 
 # Internal Cell
 _flair_tasks = {
@@ -177,7 +184,8 @@ class FlairModelSearchHub:
           hub.search_model_by_name('flair/chunk-english-fast')
           ```
         """
-        models = self.api.list_models(name)
+        models = self.api.list_models('flair')
+        models = [m for m in models if name in m.modelId]
         return self._format_results(models, as_dict, user_uploaded)
 
     def search_model_by_task(self, task:str, as_dict=False, user_uploaded=False) -> (List[HFModelResult], Dict[str, HFModelResult]):
@@ -195,11 +203,11 @@ class FlairModelSearchHub:
             # OR: #
             hub.search_model_by_task(FLAIR_TASKS.NAMED_ENTITY_RECOGNITION)
         """
-        if task not in FLAIR_TASKS.values():
+        if (task not in FLAIR_TASKS.values()) and (task != ''):
             raise ValueError(f'''`{task}` is not a valid task.
 
             Please choose a valid one available from Flair: (https://huggingface.co/flair)
-            Or with the `TASKS` object''')
+            Or with the `FLAIR_TASKS` object''')
         models = self.api.list_models('flair')
         models = [m for m in models if task in m.modelId]
         return self._format_results(models, as_dict, user_uploaded)
