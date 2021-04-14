@@ -34,6 +34,7 @@ from transformers import (
 )
 
 from .model import AdaptiveModel
+from .model_hub import HFModelResult
 
 from fastcore.basics import risinstance
 
@@ -70,11 +71,12 @@ class TransformersSequenceClassifier(AdaptiveModel):
         self.model.to(self.device)
 
     @classmethod
-    def load(cls, model_name_or_path: str) -> AdaptiveModel:
+    def load(cls, model_name_or_path: Union[HFModelResult, str]) -> AdaptiveModel:
         """Class method for loading and constructing this classifier
 
-        * **model_name_or_path** - A key string of one of Transformer's pre-trained Sequence Classifier Model
+        * **model_name_or_path** - A key string of one of Transformer's pre-trained Sequence Classifier Model or a `HFModelResult`
         """
+        if isinstance(model_name_or_path, HFModelResult): model_name_or_path = model_name_or_path.name
         tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
         model = AutoModelForSequenceClassification.from_pretrained(model_name_or_path)
         classifier = cls(tokenizer, model)
@@ -302,7 +304,7 @@ class FlairSequenceClassifier(AdaptiveModel):
 
     Usage:
     ```python
-    >>> classifier = FlairSequenceClassifier.load('en-sentiment')
+    >>> classifier = FlairSequenceClassifier.load('sentiment')
     >>> classifier.predict(text='Example text', mini_batch_size=32)
     ```
 
@@ -315,11 +317,12 @@ class FlairSequenceClassifier(AdaptiveModel):
         self.classifier = TextClassifier.load(model_name_or_path)
 
     @classmethod
-    def load(cls, model_name_or_path: str) -> AdaptiveModel:
+    def load(cls, model_name_or_path: Union[HFModelResult, str]) -> AdaptiveModel:
         """Class method for loading a constructing this classifier
 
-        * **model_name_or_path** - A key string of one of Flair's pre-trained Sequence Classifier Model
+        * **model_name_or_path** - A key string of one of Flair's pre-trained Sequence Classifier Model or a `HFModelResult`
         """
+        if isinstance(model_name_or_path, HFModelResult): model_name_or_path = model_name_or_path.name
         classifier = cls(model_name_or_path)
         return classifier
 

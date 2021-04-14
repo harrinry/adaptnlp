@@ -81,6 +81,7 @@ index = {"logger": "13_transformers.finetuning.ipynb",
          "HFModelSearchHub": "15_model_hub.ipynb",
          "FLAIR_TASKS": "15_model_hub.ipynb",
          "FLAIR_TASKS.__doc__": "15_model_hub.ipynb",
+         "FLAIR_MODELS": "15_model_hub.ipynb",
          "FlairModelSearchHub": "15_model_hub.ipynb"}
 
 modules = ["token_classification.py",

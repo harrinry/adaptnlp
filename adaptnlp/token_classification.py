@@ -25,6 +25,7 @@ from transformers import (
 )
 
 from .model import AdaptiveModel, DataLoader
+from .model_hub import HFModelResult
 
 from fastai_minima.utils import to_detach, apply, to_device
 
@@ -45,7 +46,7 @@ class TransformersTokenTagger(AdaptiveModel):
 
     **Parameters:**
 
-    * **tokenizer** - A tokenizer object from Huggingface's transformers (TODO)and tokenizers
+    * **tokenizer** - A tokenizer object from Huggingface's transformers (TODO) and tokenizers
     * **model** - A transformers token tagger model
     """
 
@@ -61,10 +62,11 @@ class TransformersTokenTagger(AdaptiveModel):
     def load(cls, model_name_or_path: str) -> AdaptiveModel:
         """Class method for loading and constructing this tagger
 
-        * **model_name_or_path** - A key string of one of Transformer's pre-trained Token Tagger Model
+        * **model_name_or_path** - A key string of one of Transformer's pre-trained Token Tagger Model or a `HFModelResult`
 
         Note: To search for valid models, you should use the AdaptNLP `model_hub` API
         """
+        if isinstance(model_name_or_path, HFModelResult): model_name_or_path = model_name_or_path.name
         tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
         model = AutoModelForTokenClassification.from_pretrained(model_name_or_path)
         tagger = cls(tokenizer, model)
