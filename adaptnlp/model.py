@@ -51,7 +51,6 @@ class _NoopModel(nn.Module):
 
     def forward(self, x): return x*self.a + self.b
 
-
 # Internal Cell
 class _BaseLearner:
     """
@@ -62,12 +61,13 @@ class _BaseLearner:
       - `lr_find`, `fit_one_cycle`, `fit_flat_cos`, `fit_sgdr`, `fit` (not implemented)
       - `metrics`, `opt_func`, `splitter`, `wd`, `moms` (not implemented)
     """
-    __cbs = [CudaCallback(), SetInputsCallback(), GatherInputsCallback()]
+    __cbs = [SetInputsCallback(), GatherInputsCallback()]
 
-    def __init__(self) -> None:
+    def __init__(self, device='cuda' if torch.cuda.is_available() else 'cpu') -> None:
         """
         Generates blank `Learner` and stores it away privately.
         """
+        self.__cbs.append(CudaCallback(device))
         self.__learner = Learner(self._generate_dls(), _NoopModel(), loss_func=noop, cbs=self.__cbs)
         self.__default_dls, self.__default_model = True, True
 
@@ -100,6 +100,11 @@ class _BaseLearner:
             raise ValueError("The default model is still set, you should override this with `_BaseLearner.set_model(x)`")
         return self.__learner.get_preds(dl=dl, cbs=cbs)
 
+    def set_device(self, device:str='cpu'):
+        if device != 'cpu' and device != 'cuda':
+            raise ValueError("Device must either be `cpu` or `cuda`")
+        self.__learn.__cbs[-1].device = device
+
     def set_as_dict(self, as_dict:bool=False):
         """
         Sets `is_dict` in the `SetInputsCallback`. Should be utilized whenever dictating
@@ -127,6 +132,11 @@ class AdaptiveModel(ABC):
     def set_as_dict(self, as_dict:bool=False):
         """ Sets `as_dict` in `_learn` """
         self._learn.set_as_dict(as_dict)
+
+    def set_device(self, device:str='cpu'):
+        """ Sets the device for `CudaCallback` in `__learn` """
+        self._learn.set_device(device)
+
 
     def get_preds(self, dl=None, cbs=[]):
         """
