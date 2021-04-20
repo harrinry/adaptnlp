@@ -21,6 +21,7 @@ from transformers import (
 
 from .callback import GeneratorCallback
 from .model import AdaptiveModel
+from .model_hub import HFModelResult, FlairModelResult
 
 from fastcore.basics import store_attr
 from fastcore.meta import delegates
@@ -183,7 +184,7 @@ class EasySummarizer:
     def summarize(
         self,
         text: Union[List[str], str],
-        model_name_or_path: str = "t5-small",
+        model_name_or_path: Union[str, HFModelResult, FlairModelResult] = "t5-small",
         mini_batch_size: int = 32,
         num_beams: int = 4,
         min_length: int = 0,

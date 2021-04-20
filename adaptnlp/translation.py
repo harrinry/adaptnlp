@@ -24,6 +24,7 @@ from .callback import GeneratorCallback
 from fastai_minima.utils import apply
 
 from fastcore.basics import Self
+from .model_hub import HFModelResult, FlairModelResult, HFModelHub, FlairModelHub
 
 # Cell
 logger = logging.getLogger(__name__)
@@ -194,12 +195,13 @@ class EasyTranslator:
         * **early_stopping** - if set to True beam search is stopped when at least num_beams sentences finished per batch.
         * **&ast;&ast;kwargs**(Optional) - Optional arguments for the Transformers `PreTrainedModel.generate()` method
         """
-        if not self.translators[model_name_or_path]:
-            self.translators[model_name_or_path] = TransformersTranslator.load(
-                model_name_or_path
+        name = getattr(model_name_or_path, 'name', model_name_or_path)
+        if not self.translators[name]:
+            self.translators[name] = TransformersTranslator.load(
+                name
             )
 
-        translator = self.translators[model_name_or_path]
+        translator = self.translators[name]
         return translator.predict(
             text=text,
             t5_prefix=t5_prefix,
