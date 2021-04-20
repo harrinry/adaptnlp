@@ -562,9 +562,9 @@ $('#toc').on('click', 'a', function() {
 <p>When fine-tuning the language model on data from a target task, the general-domain pretrained model is able to converge
 quickly and adapt to the idiosyncrasies of the target data.  This can be seen from the efforts of ULMFiT and Jeremy
 Howard's and Sebastian Ruder's approach on NLP transfer learning.</p>
-<p>With AdaptNLP's <a href="/adaptnlp/language_model.html#LMFineTuner"><code>LMFineTuner</code></a>, we can start to fine-tune state-of-the-art pretrained transformers architecture 
-language models provided by Hugging Face's Transformers library. <a href="/adaptnlp/language_model.html#LMFineTuner"><code>LMFineTuner</code></a> is built on <code>transformers.Trainer</code> so additional documentation on it can be found at Hugging Face's documentation <a href="https://huggingface.co/transformers/master/main_classes/trainer.html">here</a></p>
-<p>Below are the available transformers language models for fine-tuning with <a href="/adaptnlp/language_model.html#LMFineTuner"><code>LMFineTuner</code></a></p>
+<p>With AdaptNLP's <a href="/adaptnlplanguage_model.html#LMFineTuner"><code>LMFineTuner</code></a>, we can start to fine-tune state-of-the-art pretrained transformers architecture 
+language models provided by Hugging Face's Transformers library. <a href="/adaptnlplanguage_model.html#LMFineTuner"><code>LMFineTuner</code></a> is built on <code>transformers.Trainer</code> so additional documentation on it can be found at Hugging Face's documentation <a href="https://huggingface.co/transformers/master/main_classes/trainer.html">here</a></p>
+<p>Below are the available transformers language models for fine-tuning with <a href="/adaptnlplanguage_model.html#LMFineTuner"><code>LMFineTuner</code></a></p>
 
 </div>
 </div>
@@ -618,7 +618,7 @@ language models provided by Hugging Face's Transformers library. <a href="/adapt
 library.  Key shortcut names are located <a href="https://huggingface.co/transformers/pretrained_models.html">here</a>.</p>
 <p>The same goes for Huggingface's public model-sharing repository, which is available <a href="https://huggingface.co/models">here</a>
 as of v2.2.2 of the Transformers library.</p>
-<p>This tutorial will go over the following simple-to-use componenets of using the <a href="/adaptnlp/language_model.html#LMFineTuner"><code>LMFineTuner</code></a> to fine-tune pre-trained language models on your custom text data.</p>
+<p>This tutorial will go over the following simple-to-use componenets of using the <a href="/adaptnlplanguage_model.html#LMFineTuner"><code>LMFineTuner</code></a> to fine-tune pre-trained language models on your custom text data.</p>
 <ol>
 <li>Data loading and training arguments</li>
 <li>Language model training</li>
@@ -727,7 +727,7 @@ Archive:  wikitext-2-raw-v1.zip
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.-Language-model-training">2. Language model training<a class="anchor-link" href="#2.-Language-model-training"> </a></h2><p>Now that we have our data and training arguments, let's instantiate the <a href="/adaptnlp/language_model.html#LMFineTuner"><code>LMFineTuner</code></a> and load in a pre-trained language model we would like to fine-tune. In this case, we will use the <code>gpt2</code> pre-trained language model.</p>
+<h2 id="2.-Language-model-training">2. Language model training<a class="anchor-link" href="#2.-Language-model-training"> </a></h2><p>Now that we have our data and training arguments, let's instantiate the <a href="/adaptnlplanguage_model.html#LMFineTuner"><code>LMFineTuner</code></a> and load in a pre-trained language model we would like to fine-tune. In this case, we will use the <code>gpt2</code> pre-trained language model.</p>
 <p>Note: You can load in any model with the allowable architecture that we've specified above. You can even load in custom pre-trained models or models that you find in the Hugging Face repository that have already been fine-tuned and trained on NLP target tasks.</p>
 
 </div>
@@ -1189,7 +1189,7 @@ Training completed. Do not forget to share your model on huggingface.co/models =
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>And now you have your very own pre-trained language model that's been fine-tuned on your personal domain data!</p>
-<p>Since we've just fine-tuned a causal language model, we can actually load this straight into an <a href="/adaptnlp/text_generation.html#EasyTextGenerator"><code>EasyTextGenerator</code></a> class object and play around with our language model to evaluate it qualitatively with our own "eyes".</p>
+<p>Since we've just fine-tuned a causal language model, we can actually load this straight into an <a href="/adaptnlptext_generation.html#EasyTextGenerator"><code>EasyTextGenerator</code></a> class object and play around with our language model to evaluate it qualitatively with our own "eyes".</p>
 <p>All we have to do is pass in the directory that we've output our trained language model, in this case it's located in "./models"</p>
 
 </div>
