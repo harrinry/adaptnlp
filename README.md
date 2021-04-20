@@ -264,9 +264,9 @@ Check `localhost:8888` or `localhost:8888/lab` to access the container notebook 
 
 ## Contact
 
-Please contact the author Andrew Chang at achang@novetta.com with questions or comments regarding AdaptNLP.
+Please contact the author Zachary Mueller at zmueller@novetta.com with questions or comments regarding AdaptNLP.
 
-Follow  us on Twitter at [@achang1618](https://twitter.com/achang1618) and [@AdaptNLP](https://twitter.com/AdaptNLP) for
+Follow  us on Twitter at [@TheZachMueller](https://twitter.com/TheZachMueller) and [@AdaptNLP](https://twitter.com/AdaptNLP) for
 updates and NLP dialogue.
 
 ## License
