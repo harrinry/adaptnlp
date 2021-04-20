@@ -1,3 +1,7 @@
+# Title
+
+
+
 <p align="center">
     <a href="https://github.com/Novetta/adaptnlp"> <img src="https://raw.githubusercontent.com/novetta/adaptnlp/master/docs/img/NovettaAdaptNLPlogo-400px.png" width="400"/></a>
 </p>
@@ -48,14 +52,13 @@ Learning Researchers and Scientists a modular and **adaptive** approach to a var
   - [Dockerizing AdaptNLP with GPUs](https://hub.docker.com/r/achangnovetta/adaptnlp)
     - Easily build and run AdaptNLP containers leveraging NVIDIA GPUs with Docker
 
-
 ## Quick Start
 
-#### Requirements and Installation for Linux/Mac
+### Requirements and Installation for Linux/Mac
 
 Note: AdaptNLP will be using the latest stable torch version (v1.7 as of 11/2/20) which requires Python 3.7+. Please downgrade torch<=1.6 if using Python 3.6
 
-##### Virtual Environment
+#### Virtual Environment
 To avoid dependency clustering and issues, it would be wise to install AdaptNLP in a virtual environment.
 To create a new python 3.7+ virtual environment, run this command and then activate it however your operating
 system specifies:
@@ -64,12 +67,12 @@ system specifies:
 python -m venv venv-adaptnlp
 ```
 
-#### Requirements and Installation for Windows
+## Requirements and Installation for Windows
 
-##### PyTorch Install
+#### PyTorch Install
 PyTorch needs to be manually installed on Windows environments. If it's not already installed, proceed to http://pytorch.org/get-started/locally to select your preferences and then run the given install command. Note that the current version of PyTorch we use relies on cuda 10.1.
 
-##### AdaptNLP Install
+#### AdaptNLP Install
 Install using pip:
 ```
 pip install adaptnlp
@@ -77,11 +80,11 @@ pip install adaptnlp
 
 If you want to work on AdaptNLP, `pip install adaptnlp[dev]` will install its development tools.
 
-#### Examples and General Use
+## Examples and General Use
 
 Once you have installed AdaptNLP, here are a few examples of what you can run with AdaptNLP modules:
 
-##### Named Entity Recognition with `EasyTokenTagger`
+### Named Entity Recognition with `EasyTokenTagger`
 
 ```python
 from adaptnlp import EasyTokenTagger
@@ -100,7 +103,7 @@ for sentence in sentences:
 
 ```
 
-##### English Sentiment Classifier `EasySequenceClassifier`
+### English Sentiment Classifier `EasySequenceClassifier`
 
 ```python
 from adaptnlp import EasySequenceClassifier 
@@ -124,7 +127,7 @@ for sentence in sentences:
 
 ```
 
-##### Span-based Question Answering `EasyQuestionAnswering`
+### Span-based Question Answering `EasyQuestionAnswering`
 
 ```python
 from adaptnlp import EasyQuestionAnswering 
@@ -144,7 +147,7 @@ print(best_answer)
 pprint(best_n_answers)
 ```
 
-##### Summarization `EasySummarizer`
+### Summarization `EasySummarizer`
 
 ```python
 from adaptnlp import EasySummarizer
@@ -169,7 +172,7 @@ for s in summaries:
     print(s, "\n")
 ```
 
-##### Translation `EasyTranslator`
+### Translation `EasyTranslator`
 ```python
 from adaptnlp import EasyTranslator
 
@@ -185,7 +188,6 @@ print("Translations:\n")
 for t in translations:
     print(t, "\n")
 ```
-
 
 ## Tutorials
 
@@ -214,6 +216,7 @@ and straight forward use cases:
   
 Checkout the [documentation](https://novetta.github.io/adaptnlp) for more information.
   
+
 ## REST Service 
 
 We use FastAPI for standing up endpoints for serving state-of-the-art NLP models with AdaptNLP.
@@ -223,6 +226,7 @@ We use FastAPI for standing up endpoints for serving state-of-the-art NLP models
 The [REST](https://github.com/Novetta/adaptnlp/tree/master/rest) directory contains more detail on deploying a REST API locally or with docker in a very easy and
 fast way.
   
+
 ## Docker
 
 AdaptNLP official docker images are up on [Docker Hub](https://hub.docker.com/r/achangnovetta/adaptnlp).
@@ -232,7 +236,7 @@ running the tutorial and workshop notebooks.
 
 Images can build with GPU support if NVIDA-Docker is correctly installed.
 
-#### Pull and Run AdaptNLP Immediately
+### Pull and Run AdaptNLP Immediately
 Simply run an image with AdaptNLP installed from source in developer mode by running:
 ```
 docker run -itp 8888:8888 achangnovetta/adaptnlp:latest
@@ -245,7 +249,7 @@ docker run -itp 8888:8888 --gpus all achangnovetta/adaptnlp:latest
 Check `localhost:8888` or `localhost:8888/lab` to access the container notebook servers.
 
 
-#### Build
+### Build
 
 Refer to the `docker/` directory and run the following to build and run adaptnlp from the available images.
 
@@ -272,7 +276,3 @@ updates and NLP dialogue.
 ## License
 
 This project is licensed under the terms of the Apache 2.0 license.
- 
-
-
-

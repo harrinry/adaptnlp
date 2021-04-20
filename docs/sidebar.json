@@ -1,0 +1,31 @@
+{
+  "adaptnlp": {
+    "Overview": "/",
+    "File Utilities": "file_utils.html",
+    "Callbacks": "callback.html",
+    "Interacting with HuggingFace and Flair, Model Zoo": "model_hub.html",
+    "Model": "model.html",
+    "Embeddings": "embeddings.html",
+    "Tutorial: Easy Embeddings": "tutorial.embeddings.html",
+    "Token Tagging and Classification": "token_classification.html",
+    "Token Tagging with AdaptNLP": "tutorial.token_tagging.html",
+    "Sequence Classification": "sequence_classification.html",
+    "Tutorial: Sequence Classification": "tutorial.easy_sequence_classifier.html",
+    "Summarization": "summarization.html",
+    "Tutorial: Summarization": "tutorial.summarization.html",
+    "Translation": "translation.html",
+    "Tutorial: Translation": "tutorial.translation.html",
+    "Text Generation": "text_generation.html",
+    "Tutorial: Text Generation": "tutorial.easy_text_generator.html",
+    "Question Answering": "question_answering.html",
+    "Tutorial: Question Answering": "tutorial.question_answering.html",
+    "Language Models": "language_model.html",
+    "Training": "training.html",
+    "Transformers Squad Metrics": "transformers.squad_metrics.html",
+    "Transformers Fine-Tuning": "transformers.finetuning.html",
+    "transformers.utils_squad_evaluate": "transformers.utils_squad_evaluate.html",
+    "Tutorial: Fine-Tuning a Language Model": "tutorial.fine_tuning_lm.html",
+    "Tutorial: Fine Tune Transformers Models": "tutorial.fine_tuning_manual.html",
+    "Tutorial: Training Sequence Classifier Head": "tutorial.flair_seq_class_trainer.html"
+  }
+}
