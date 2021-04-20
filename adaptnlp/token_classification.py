@@ -29,7 +29,8 @@ from .model_hub import HFModelResult, FlairModelResult, FlairModelHub, HFModelHu
 
 from fastai_minima.utils import to_detach, apply, to_device
 
-from fastcore.basics import Self
+from fastcore.basics import Self, risinstance
+from fastcore.xtras import Path
 
 # Cell
 logger = logging.getLogger(__name__)
@@ -337,7 +338,7 @@ class EasyTokenTagger:
     def tag_text(
         self,
         text: Union[List[Sentence], Sentence, List[str], str],
-        model_name_or_path: str = "ner-ontonotes",
+        model_name_or_path: Union[str, FlairModelResult, HFModelResult] = "ner-ontonotes",
         mini_batch_size: int = 32,
         **kwargs,
     ) -> List[Sentence]:
@@ -350,17 +351,20 @@ class EasyTokenTagger:
         **return** - A list of Flair's `Sentence`'s
         """
         # Load Sequence Tagger Model and Pytorch Module into tagger dict
-        if hasattr(model_name_or_path, 'name'):
-            name = model_name_or_path.name
-        else:
-            name = model_name_or_path
+        name = getattr(model_name_or_path, 'name', model_name_or_path)
         if not self.token_taggers[name]:
             """
             self.token_taggers[model_name_or_path] = SequenceTagger.load(
                 model_name_or_path
             )
             """
-            if isinstance(model_name_or_path, FlairModelResult) or isinstance(model_name_or_path, HFModelResult):
+            if risinstance([FlairModelResult, HFModelResult], model_name_or_path):
+                try:
+                    self.token_taggers[name] = FlairTokenTagger.load(name)
+                except:
+                    self.token_taggers[name] = TransformersTokenTagger.load(name)
+            elif risinstance([str, Path], model_name_or_path) and (Path(model_name_or_path).exists() and Path(model_name_or_path).is_dir()):
+                # Load in previously existing model
                 try:
                     self.token_taggers[name] = FlairTokenTagger.load(name)
                 except:

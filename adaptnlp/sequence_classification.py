@@ -34,9 +34,10 @@ from transformers import (
 )
 
 from .model import AdaptiveModel
-from .model_hub import HFModelResult
+from .model_hub import HFModelResult, FlairModelResult
 
 from fastcore.basics import risinstance
+from fastcore.xtras import Path
 
 # Cell
 logger = logging.getLogger(__name__)
@@ -271,7 +272,7 @@ class TransformersSequenceClassifier(AdaptiveModel):
 
     def _mutate_model_head(self, class_label: ClassLabel) -> None:
         """Manually intialize new linear layers for prediction heads on specific language models that we're trying to train on"""
-        if isinstance(self.model, (BertPreTrainedModel, DistilBertPreTrainedModel)):
+        if risinstance([BertPreTrainedModel, DistilBertPreTrainedModel], self.model):
             self.model.classifier = nn.Linear(
                 self.model.config.hidden_size, class_label.num_classes
             )
@@ -317,12 +318,13 @@ class FlairSequenceClassifier(AdaptiveModel):
         self.classifier = TextClassifier.load(model_name_or_path)
 
     @classmethod
-    def load(cls, model_name_or_path: Union[HFModelResult, str]) -> AdaptiveModel:
+    def load(cls, model_name_or_path: Union[HFModelResult, FlairModelResult, str]) -> AdaptiveModel:
         """Class method for loading a constructing this classifier
 
         * **model_name_or_path** - A key string of one of Flair's pre-trained Sequence Classifier Model or a `HFModelResult`
         """
-        if isinstance(model_name_or_path, HFModelResult): model_name_or_path = model_name_or_path.name
+        if risinstance([HFModelResult, FlairModelResult], model_name_or_path):
+            model_name_or_path = model_name_or_path.name
         classifier = cls(model_name_or_path)
         return classifier
 
@@ -382,7 +384,7 @@ class EasySequenceClassifier:
     def tag_text(
         self,
         text: Union[List[Sentence], Sentence, List[str], str],
-        model_name_or_path: str = 'en-sentiment',
+        model_name_or_path: Union[str, FlairModelResult, HFModelResult] = 'en-sentiment',
         mini_batch_size: int = 32,
         **kwargs,
     ) -> List[Sentence]:
@@ -395,34 +397,43 @@ class EasySequenceClassifier:
         **return** A list of Flair's `Sentence`'s
         """
         # Load Text Classifier Model and Pytorch Module into tagger dict
-        if not self.sequence_classifiers[model_name_or_path]:
+        name = getattr(model_name_or_path, 'name', model_name_or_path)
+        if not self.sequence_classifiers[name]:
             """
-            self.sequence_classifiers[model_name_or_path] = TextClassifier.load(
+            self.sequence_classifiers[name] = TextClassifier.load(
                 model_name_or_path
             )
             """
-            # First check regular Flair:
-            models = self.flair_hub.search_model_by_name(model_name_or_path, user_uploaded=True)
-            flair = True
-            if len(models) < 1:
-                # Then the rest of HuggingFace
-                models = self.hf_hub.search_model_by_name(model_name_or_path, user_uploaded=True)
-                flair = False
-                if len(models) < 1:
-                    logger.info(
-                    f'{model_name_or_path} is not a valid model name.'
-                    )
-                    return [Sentence('')]
-            if flair:
-                self.sequence_classifiers[
-                    model_name_or_path
-                ] = FlairSequenceClassifier.load(model_name_or_path)
-            else:
-                self.sequence_classifiers[
-                    model_name_or_path
-                ] = TransformersSequenceClassifier.load(model_name_or_path)
+            if risinstance([FlairModelResult, HFModelResult], model_name_or_path):
+                try:
+                    self.sequence_classifiers[name] = FlairSequenceClassifier.load(name)
+                except:
+                    self.sequence_classifiers[name] = TransformersSequenceClassifier.load(name)
 
-        classifier = self.sequence_classifiers[model_name_or_path]
+            elif risinstance([str, Path], model_name_or_path) and (Path(model_name_or_path).exists() and Path(model_name_or_path).is_dir()):
+                # Load in previously existing model
+                try:
+                    self.sequence_classifiers[name] = FlairSequenceClassifier.load(name)
+                except:
+                    self.sequence_classifiers[name] = TransformersSequenceClassifier.load(name)
+
+            else:
+                # Flair
+                res = self.flair_hub.search_model_by_name(name, user_uploaded=True)
+                if len(res) < 1:
+                    # No models found
+                    res = self.hf_hub.search_model_by_name(model_name_or_path, user_uploaded=True)
+                    if len(res) < 1:
+                        logger.info("Not a valid `model_name_or_path` param")
+                        return [Sentence('')]
+                    else:
+                        name = res[0].name.replace('flairNLP', 'flair')
+                        self.sequence_classifiers[res[0].name] = TransformersSequenceClassifier.load(name)
+                else:
+                    name = res[0].name.replace('flairNLP/', '')
+                    self.sequence_classifiers[name] = FlairSequenceClassifier.load(name) # Returning the first should always be non-fast
+
+        classifier = self.sequence_classifiers[name]
         return classifier.predict(
             text=text,
             mini_batch_size=mini_batch_size,
