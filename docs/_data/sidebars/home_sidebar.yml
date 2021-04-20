@@ -120,5 +120,11 @@ entries:
       url: tutorial.flair_seq_class_trainer.html
     output: web
     title: Tutorials - Advanced
+  - folderitems:
+    - output: web,pdf
+      title: AdaptNLP Rest API
+      url: rest
+    output: web
+    title: NLP Services with FastAPI
   output: web
   title: Sidebar

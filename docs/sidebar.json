@@ -46,5 +46,8 @@
         "Fine-Tuning a Language Model": "tutorial.fine_tuning_lm.html",
         "Fine Tune Transformers Models": "tutorial.fine_tuning_manual.html",
         "Training Sequence Classifier Head": "tutorial.flair_seq_class_trainer.html"
+    },
+    "NLP Services with FastAPI": {
+        "AdaptNLP Rest API": "rest"
     }
 }
