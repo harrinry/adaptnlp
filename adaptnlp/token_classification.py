@@ -25,7 +25,7 @@ from transformers import (
 )
 
 from .model import AdaptiveModel, DataLoader
-from .model_hub import HFModelResult
+from .model_hub import HFModelResult, FlairModelResult, FlairModelHub, HFModelHub
 
 from fastai_minima.utils import to_detach, apply, to_device
 
@@ -350,31 +350,41 @@ class EasyTokenTagger:
         **return** - A list of Flair's `Sentence`'s
         """
         # Load Sequence Tagger Model and Pytorch Module into tagger dict
-        if not self.token_taggers[model_name_or_path]:
+        if hasattr(model_name_or_path, 'name'):
+            name = model_name_or_path.name
+        else:
+            name = model_name_or_path
+        if not self.token_taggers[name]:
             """
             self.token_taggers[model_name_or_path] = SequenceTagger.load(
                 model_name_or_path
             )
             """
-            # TODO: Find an alternative model-check method like an `is_available(model_name_or_path)
-            # Check whether this is a Transformers or Flair Sequence Classifier model we're loading
-            try:
-                self.token_taggers[model_name_or_path] = FlairTokenTagger.load(
-                    model_name_or_path
-                )
-            except (FileNotFoundError, KeyError):
-                logger.info(
-                    f"{model_name_or_path} not a valid Flair pre-trained model...checking transformers repo"
-                )
+            if isinstance(model_name_or_path, FlairModelResult) or isinstance(model_name_or_path, HFModelResult):
                 try:
-                    self.token_taggers[
-                        model_name_or_path
-                    ] = TransformersTokenTagger.load(model_name_or_path)
-                except ValueError:
-                    logger.info("Not a valid model_name_or_path param")
-                    return [Sentence("")]
+                    self.token_taggers[name] = FlairTokenTagger.load(name)
+                except:
+                    self.token_taggers[name] = TransformersTokenTagger.load(name)
+            else:
+                _flair_hub = FlairModelHub()
+                _hf_hub = HFModelHub()
+                res = _flair_hub.search_model_by_name(name, user_uploaded=True)
+                if len(res) < 1:
+                    # No models found
+                    res = _hf_hub.search_model_by_name(name, user_uploaded=True)
+                    if len(res) < 1:
+                        logger.info("Not a valid `model_name_or_path` param")
+                        return [Sentence('')]
+                    else:
+                        res[0].name.replace('flairNLP', 'flair')
+                        self.token_taggers[res[0].name] = TransformersTokenTagger.load(res[0].name)
+                        name = res[0].name
 
-        tagger = self.token_taggers[model_name_or_path]
+                else:
+                    name = res[0].name.replace('flairNLP/', '')
+                    self.token_taggers[name] = FlairTokenTagger.load(name) # Returning the first should always be the non-fast option
+
+        tagger = self.token_taggers[name]
         return tagger.predict(
             text=text,
             mini_batch_size=mini_batch_size,
