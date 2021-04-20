@@ -20,6 +20,7 @@ from transformers import (
 from fastprogress.fastprogress import progress_bar
 
 from .model import AdaptiveModel, DataLoader
+from .model_hub import HFModelResult
 
 from fastai_minima.utils import apply, default_device, to_device
 
@@ -228,7 +229,7 @@ class EasyTextGenerator:
     def generate(
         self,
         text: Union[List[str], str],
-        model_name_or_path: str = "gpt2",
+        model_name_or_path: [str, HFModelResult] = "gpt2",
         mini_batch_size: int = 32,
         num_tokens_to_produce: int = 50,
         **kwargs,
@@ -242,12 +243,13 @@ class EasyTextGenerator:
         * **num_tokens_to_produce** - Number of tokens you want to generate
         * **&ast;&ast;kwargs**(Optional) - Optional arguments for the Transformers `PreTrainedModel.generate()` method
         """
-        if not self.generators[model_name_or_path]:
-            self.generators[model_name_or_path] = TransformersTextGenerator.load(
-                model_name_or_path
+        name = getattr(model_name_or_path, 'name', model_name_or_path)
+        if not self.generators[name]:
+            self.generators[name] = TransformersTextGenerator.load(
+                name
             )
 
-        generator = self.generators[model_name_or_path]
+        generator = self.generators[name]
         return generator.predict(
             text=text,
             mini_batch_size=mini_batch_size,

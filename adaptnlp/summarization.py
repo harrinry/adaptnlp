@@ -184,7 +184,7 @@ class EasySummarizer:
     def summarize(
         self,
         text: Union[List[str], str],
-        model_name_or_path: Union[str, HFModelResult, FlairModelResult] = "t5-small",
+        model_name_or_path: Union[str, HFModelResult] = "t5-small",
         mini_batch_size: int = 32,
         num_beams: int = 4,
         min_length: int = 0,
