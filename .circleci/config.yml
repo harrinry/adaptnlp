@@ -1,35 +1,5 @@
-version: 2
+version: 3
 jobs:
-  cache_and_run_tests:
-    docker:
-      - image: circleci/python:3.7
-    resource_class: xlarge
-    working_directory: ~/adaptnlp
-    steps:
-      - checkout
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "requirements.txt" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run:
-          name: install dependencies
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
-            pip install -r requirements_dev.txt
-      - save_cache:
-          paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
-      - run: pip install .
-      - run: pip install .[dev]
-      - run:
-          name: run tests
-          command: |
-            python3 -m pytest
   deploy_doc:
     docker:
       - image: circleci/python:3.7
@@ -46,7 +16,6 @@ jobs:
           name: install mkdocs an deploy to gh-pages
           command: |
             python -m mkdocs gh-deploy -m "[skip ci] Deployed {sha} with MkDocs version: {version}"
-
 workflow_filters: &workflow_filters
   filters:
     branches:
@@ -57,7 +26,6 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - cache_and_run_tests
       - deploy_doc: *workflow_filters
   nightly:
     triggers:
