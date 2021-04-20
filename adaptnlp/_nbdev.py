@@ -101,7 +101,7 @@ modules = ["file_utils.py",
            "transformers/finetuning.py",
            "transformers/utils_squad_evaluate.py"]
 
-doc_url = "https://nbdev.github.io/adaptnlp/adaptnlp/"
+doc_url = "https://nbdev.github.io/adaptnlp/adaptnlp"
 
 git_url = "https://github.com/novetta/adaptnlp/tree/master/"
 
