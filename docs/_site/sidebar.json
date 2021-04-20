@@ -1,6 +1,7 @@
 {
   "Getting Started": {
-        "Overview": "/"
+      "Overview": "/",
+      "Contributing": "contributing"
     },
     "Models and Model Hubs": {
         "Language Models": "language_model.html",
@@ -8,7 +9,7 @@
         "The Model Hub": "model_hub.html"
     },
     "Class API": {
-        "Overview" :"/",
+        "Overview" :"api_intro",
         "": {
             "NLP Tasks": {
                 "Embeddings": "embeddings.html",
@@ -32,7 +33,7 @@
         }
     },
     "Tutorials - User Guide": {
-        "Tutorial- Intro" : "tutorial-intro.md",
+        "Tutorial- Intro" : "tutorial-intro",
         "Embeddings" : "tutorial.embeddings.html",
         "Question Answering": "tutorial.question_answering.html",
         "Sequence Classification": "tutorial.easy_sequence_classifier.html",
