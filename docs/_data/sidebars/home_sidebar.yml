@@ -11,7 +11,7 @@ entries:
       url: /
     - output: web,pdf
       title: Contributing
-      url: contributing.md
+      url: contributing
     output: web
     title: Getting Started
   - folderitems:
@@ -29,7 +29,7 @@ entries:
   - folderitems:
     - output: web,pdf
       title: Overview
-      url: api_intro.md
+      url: api_intro
       subfolders:
       - output: web
         subfolderitems:
@@ -84,7 +84,7 @@ entries:
   - folderitems:
     - output: web,pdf
       title: Tutorial- Intro
-      url: tutorial-intro.md
+      url: tutorial-intro
     - output: web,pdf
       title: Embeddings
       url: tutorial.embeddings.html
