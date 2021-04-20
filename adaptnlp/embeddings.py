@@ -19,11 +19,11 @@ from flair.embeddings import (
     TransformerWordEmbeddings,
 )
 
-from .model_hub import FlairModelSearchHub, HFModelSearchHub, FlairModelResult, HFModelResult
+from .model_hub import FlairModelHub, HFModelHub, FlairModelResult, HFModelResult
 
 # Cell
-_flair_hub = FlairModelSearchHub()
-_hf_hub = HFModelSearchHub()
+_flair_hub = FlairModelHub()
+_hf_hub = HFModelHub()
 
 # Cell
 logger = logging.getLogger(__name__)

@@ -359,7 +359,7 @@ class FlairSequenceClassifier(AdaptiveModel):
         pass
 
 # Cell
-from .model_hub import HFModelSearchHub, FlairModelSearchHub
+from .model_hub import HFModelHub, FlairModelHub
 
 # Cell
 class EasySequenceClassifier:
@@ -376,8 +376,8 @@ class EasySequenceClassifier:
 
     def __init__(self):
         self.sequence_classifiers: Dict[AdaptiveModel] = defaultdict(bool)
-        self.hf_hub = HFModelSearchHub()
-        self.flair_hub = FlairModelSearchHub()
+        self.hf_hub = HFModelHub()
+        self.flair_hub = FlairModelHub()
 
     def tag_text(
         self,
