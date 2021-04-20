@@ -1,6 +1,7 @@
 repository: muellerzr/adaptnlp
 output: web
 topnav_title: adaptnlp
+default_badges: {colab: true}
 site_title: adaptnlp
 company_name: Novetta
 description: An easy to use Natural Language Processing library and framework for predicting, training, fine-tuning, and serving up state-of-the-art NLP models.
