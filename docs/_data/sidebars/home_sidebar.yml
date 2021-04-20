@@ -81,7 +81,7 @@ entries:
   - folderitems:
     - output: web,pdf
       title: Tutorial- Intro
-      url: tutorial/index.md
+      url: tutorial-intro.md
     - output: web,pdf
       title: Embeddings
       url: tutorial.embeddings.html
