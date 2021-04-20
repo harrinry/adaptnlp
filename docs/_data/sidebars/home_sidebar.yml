@@ -27,54 +27,55 @@ entries:
     - output: web,pdf
       title: Overview
       url: /
-    - output: web
       subfolders:
-      - output: web,pdf
-        title: Embeddings
-        url: embeddings.html
-      - output: web,pdf
-        title: Question Answering
-        url: question_answering.html
-      - output: web,pdf
-        title: Sequence Classification
-        url: sequence_classification.html
-      - output: web,pdf
-        title: Summarization
-        url: summarization.html
-      - output: web,pdf
-        title: Text Generation
-        url: text_generation.html
-      - output: web,pdf
-        title: Token Tagging and Classification
-        url: token_classification.html
-      - output: web,pdf
-        title: Translation
-        url: translation.html
-      title: NLP Tasks
-    - output: web
-      subfolders:
-      - output: web,pdf
-        title: Callbacks
-        url: callback.html
-      - output: web,pdf
-        title: Training
-        url: training.html
-      title: Training Framework
-    - output: web
-      subfolders:
-      - output: web,pdf
-        title: File Utilities
-        url: file_utils.html
-      - output: web,pdf
-        title: Transformers Fine-Tuning
-        url: transformers.finetuning.html
-      - output: web,pdf
-        title: Transformers Squad Metrics
-        url: transformers.squad_metrics.html
-      - output: web,pdf
-        title: Transformers Squad Evaluate
-        url: transformers.utils_squad_evaluate.html
-      title: Utilities
+      - output: web
+        subfolderitems:
+        - output: web,pdf
+          title: Embeddings
+          url: embeddings.html
+        - output: web,pdf
+          title: Question Answering
+          url: question_answering.html
+        - output: web,pdf
+          title: Sequence Classification
+          url: sequence_classification.html
+        - output: web,pdf
+          title: Summarization
+          url: summarization.html
+        - output: web,pdf
+          title: Text Generation
+          url: text_generation.html
+        - output: web,pdf
+          title: Token Tagging and Classification
+          url: token_classification.html
+        - output: web,pdf
+          title: Translation
+          url: translation.html
+        title: NLP Tasks
+      - output: web
+        subfolderitems:
+        - output: web,pdf
+          title: Callbacks
+          url: callback.html
+        - output: web,pdf
+          title: Training
+          url: training.html
+        title: Training Framework
+      - output: web
+        subfolderitems:
+        - output: web,pdf
+          title: File Utilities
+          url: file_utils.html
+        - output: web,pdf
+          title: Transformers Fine-Tuning
+          url: transformers.finetuning.html
+        - output: web,pdf
+          title: Transformers Squad Metrics
+          url: transformers.squad_metrics.html
+        - output: web,pdf
+          title: Transformers Squad Evaluate
+          url: transformers.utils_squad_evaluate.html
+        title: Utilities
     output: web
     title: Class API
   - folderitems:
