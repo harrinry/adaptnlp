@@ -202,12 +202,13 @@ class EasySummarizer:
         * **early_stopping** - if set to True beam search is stopped when at least num_beams sentences finished per batch.
         * **&ast;&ast;kwargs**(Optional) - Optional arguments for the Transformers `PreTrainedModel.generate()` method
         """
-        if not self.summarizers[model_name_or_path]:
-            self.summarizers[model_name_or_path] = TransformersSummarizer.load(
-                model_name_or_path
+        name = getattr(model_name_or_path, 'name', model_name_or_path)
+        if not self.summarizers[name]:
+            self.summarizers[name] = TransformersSummarizer.load(
+                name
             )
 
-        summarizer = self.summarizers[model_name_or_path]
+        summarizer = self.summarizers[name]
         return summarizer.predict(
             text=text,
             mini_batch_size=mini_batch_size,
