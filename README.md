@@ -1,14 +1,11 @@
-# Title
-
+# Welcome to AdaptNLP
+> A high level framework and library for running, training, and deploying state-of-the-art Natural Language Processing (NLP) models for end to end tasks.
 
 
 <p align="center">
     <a href="https://github.com/Novetta/adaptnlp"> <img src="https://raw.githubusercontent.com/novetta/adaptnlp/master/docs/img/NovettaAdaptNLPlogo-400px.png" width="400"/></a>
 </p>
 
-<p align="center">
-<strong> A high level framework and library for running, training, and deploying state-of-the-art Natural Language Processing (NLP) models for end to end tasks.</strong>
-</p>
 <p align="center">
     <a href="https://circleci.com/gh/Novetta/adaptnlp">
         <img src="https://img.shields.io/circleci/build/github/Novetta/adaptnlp/master">

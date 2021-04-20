@@ -45,7 +45,7 @@ nb_path: "nbs/02_model_hub.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For convience the <a href="/adaptnlp/model_hub.html#HF_TASKS"><code>HF_TASKS</code></a> and <a href="/adaptnlp/model_hub.html#FLAIR_TASKS"><code>FLAIR_TASKS</code></a> objects can enable tab-completion for searching through the API:</p>
+<p>For convience the <a href="/adaptnlpmodel_hub.html#HF_TASKS"><code>HF_TASKS</code></a> and <a href="/adaptnlpmodel_hub.html#FLAIR_TASKS"><code>FLAIR_TASKS</code></a> objects can enable tab-completion for searching through the API:</p>
 
 </div>
 </div>
@@ -189,7 +189,7 @@ nb_path: "nbs/02_model_hub.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="HFModelResult.to_dict" class="doc_header"><code>HFModelResult.to_dict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L70" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>HFModelResult.to_dict</code>()</p>
 </blockquote>
-<p>Returns <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a> as a dictionary with the keys:</p>
+<p>Returns <a href="/adaptnlpmodel_hub.html#HFModelResult"><code>HFModelResult</code></a> as a dictionary with the keys:</p>
 <ul>
 <li><code>model_name</code></li>
 <li><code>tags</code></li>
@@ -378,7 +378,7 @@ nb_path: "nbs/02_model_hub.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>There are also cases where a <code>dict</code> may be easier to work with (perhaps utilizing a network API, or ease of use for some). We can instead return a dictionary of <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a> objects too by passing <code>as_dict=True</code> to any search call:</p>
+<p>There are also cases where a <code>dict</code> may be easier to work with (perhaps utilizing a network API, or ease of use for some). We can instead return a dictionary of <a href="/adaptnlpmodel_hub.html#HFModelResult"><code>HFModelResult</code></a> objects too by passing <code>as_dict=True</code> to any search call:</p>
 
 </div>
 </div>
@@ -605,7 +605,7 @@ nb_path: "nbs/02_model_hub.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Flair has a series of extra models available for use that are not available through HuggingFace such as <code>sentiment</code>, <code>communicative-functions</code>, and more. <a href="/adaptnlp/model_hub.html#FLAIR_MODELS"><code>FLAIR_MODELS</code></a> is a convience holder for quick lookup of these models (as no such list is easily available currently). When shown as results on the API they will be given the same <code>flair</code> prefix for convience.</p>
+<p>Flair has a series of extra models available for use that are not available through HuggingFace such as <code>sentiment</code>, <code>communicative-functions</code>, and more. <a href="/adaptnlpmodel_hub.html#FLAIR_MODELS"><code>FLAIR_MODELS</code></a> is a convience holder for quick lookup of these models (as no such list is easily available currently). When shown as results on the API they will be given the same <code>flair</code> prefix for convience.</p>
 
 </div>
 </div>
@@ -628,9 +628,9 @@ nb_path: "nbs/02_model_hub.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="FlairModelResult" class="doc_header"><code>class</code> <code>FlairModelResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L379" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FlairModelResult</code>(<strong><code>model_info</code></strong>:<code>ModelInfo</code>) :: <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a></p>
+<h2 id="FlairModelResult" class="doc_header"><code>class</code> <code>FlairModelResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L379" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FlairModelResult</code>(<strong><code>model_info</code></strong>:<code>ModelInfo</code>) :: <a href="/adaptnlpmodel_hub.html#HFModelResult"><code>HFModelResult</code></a></p>
 </blockquote>
-<p>A version of <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a> for Flair specifically.</p>
+<p>A version of <a href="/adaptnlpmodel_hub.html#HFModelResult"><code>HFModelResult</code></a> for Flair specifically.</p>
 <p>Includes which backend the model was found (such as on HuggingFace or Flair's private model list)</p>
 
 </div>
@@ -685,7 +685,7 @@ nb_path: "nbs/02_model_hub.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="/adaptnlp/model_hub.html#FlairModelHub"><code>FlairModelHub</code></a> is extremely similar to <a href="/adaptnlp/model_hub.html#HFModelHub"><code>HFModelHub</code></a>, with the two differences being that it will <strong>only</strong> return <code>Flair</code> models, and it has access to the <em>other</em> Flair models available that can't be accessed through the HuggingFace model hub</p>
+<p><a href="/adaptnlpmodel_hub.html#FlairModelHub"><code>FlairModelHub</code></a> is extremely similar to <a href="/adaptnlpmodel_hub.html#HFModelHub"><code>HFModelHub</code></a>, with the two differences being that it will <strong>only</strong> return <code>Flair</code> models, and it has access to the <em>other</em> Flair models available that can't be accessed through the HuggingFace model hub</p>
 
 </div>
 </div>
@@ -815,7 +815,7 @@ nb_path: "nbs/02_model_hub.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Since we have a <a href="/adaptnlp/model_hub.html#FLAIR_TASKS"><code>FLAIR_TASKS</code></a> object declared earlier, we can utilize it when searching for models by a task. Similar to <code>search_model_by_name</code> you should not include <code>flair/</code> in your search results, and instead search through the task key such as <code>ner</code> or <a href="/adaptnlp/model_hub.html#FLAIR_TASKS.NAMED_ENTITY_RECOGNITION"><code>FLAIR_TASKS.NAMED_ENTITY_RECOGNITION</code></a></p>
+<p>Since we have a <a href="/adaptnlpmodel_hub.html#FLAIR_TASKS"><code>FLAIR_TASKS</code></a> object declared earlier, we can utilize it when searching for models by a task. Similar to <code>search_model_by_name</code> you should not include <code>flair/</code> in your search results, and instead search through the task key such as <code>ner</code> or <a href="/adaptnlpmodel_hub.html#FLAIR_TASKS.NAMED_ENTITY_RECOGNITION"><code>FLAIR_TASKS.NAMED_ENTITY_RECOGNITION</code></a></p>
 
 </div>
 </div>
