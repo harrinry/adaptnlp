@@ -9,6 +9,9 @@ entries:
     - output: web,pdf
       title: Overview
       url: /
+    - output: web,pdf
+      title: Contributing
+      url: contributing.md
     output: web
     title: Getting Started
   - folderitems:
@@ -26,7 +29,7 @@ entries:
   - folderitems:
     - output: web,pdf
       title: Overview
-      url: /
+      url: api_intro.md
       subfolders:
       - output: web
         subfolderitems:
