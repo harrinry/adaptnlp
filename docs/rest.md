@@ -1,3 +1,7 @@
+---
+title: Rest API
+---
+
 # AdaptNLP-Rest API
 
 ## Quick Start

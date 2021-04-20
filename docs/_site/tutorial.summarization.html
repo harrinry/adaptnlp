@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Performing document summarization with AdaptNLP">
+<meta name="keywords" content=" fastai">
+<title>Tutorial - Summarization | adaptnlp</title>
+<link rel="stylesheet" href="/adaptnlp/assets/css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="assets//css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/adaptnlp/assets/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/adaptnlp/assets/css/customstyles.css">
+<link rel="stylesheet" href="/adaptnlp/assets/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/adaptnlp/assets/css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/adaptnlp/assets/js/jquery.navgoco.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement( document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "[%", right: "%]", display: true},
+      {left: "$", right: "$", display: false}
+    ]}
+  );
+});
+</script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="/adaptnlp/assets/js/toc.js"></script>
+<script src="/adaptnlp/assets/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/adaptnlp/assets/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="adaptnlp" href="http://localhost:4000/adaptnlp/feed.xml">
+
+<!-- Twitter cards -->
+
+
+
+<meta name="twitter:description" content="Performing document summarization with AdaptNLP">
+
+
+
+<meta name="twitter:card"  content="summary">
+
+
+<!-- end of Twitter cards -->
+
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+            // activate menu items where href is matching to current page
+            $("#mysidebar a[href='" + location.pathname.match(/(\/[^\/]*)$/)[1] + "']")
+                .parents('li').addClass('active')
+                .parents('ul').css('display', 'block');
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="http://localhost:4000/adaptnlp">&nbsp;<span class="projectTitle">adaptnlp</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://github.com/novetta/adaptnlp/tree/master/" target="_blank">github</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                
+                
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a href="#">Getting Started</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/">Overview</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Models and Model Hubs</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/language_model.html">Language Models</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/model.html">Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/model_hub.html">The Model Hub</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Class API</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/">Overview</a></li>
+          
+          
+          
+          <li class="subfolders">
+              <a href="#">NLP Tasks</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/embeddings.html">Embeddings</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/question_answering.html">Question Answering</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/sequence_classification.html">Sequence Classification</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/summarization.html">Summarization</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/text_generation.html">Text Generation</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/token_classification.html">Token Tagging and Classification</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/translation.html">Translation</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          <li class="subfolders">
+              <a href="#">Training Framework</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/callback.html">Callbacks</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/training.html">Training</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          <li class="subfolders">
+              <a href="#">Utilities</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/file_utils.html">File Utilities</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/transformers.finetuning.html">Transformers Fine-Tuning</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/transformers.squad_metrics.html">Transformers Squad Metrics</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/transformers.utils_squad_evaluate.html">Transformers Squad Evaluate</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Tutorials - User Guide</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial/index.md">Tutorial- Intro</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.embeddings.html">Embeddings</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.question_answering.html">Question Answering</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.easy_sequence_classifier.html">Sequence Classification</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.summarization.html">Summarization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.easy_text_generator.html">Text Generation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.token_tagging.html">Token Tagging</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.translation.html">Translation</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Tutorials - Advanced</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.fine_tuning_lm.html">Fine-Tuning a Language Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.fine_tuning_manual.html">Fine Tune Transformers Models</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.flair_seq_class_trainer.html">Training Sequence Classifier Head</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+    <a id="Tutorial - Summarization"></a>
+    <h1 class="post-title-main">Tutorial - Summarization</h1>
+    
+        <div class="px-2">
+    <a href="https://colab.research.google.com/github/muellerzr/adaptnlp/blob/master/nbs/07a_tutorial.summarization.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/adaptnlp/assets/images/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+
+    </div>
+
+
+
+<div class="post-content">
+
+   
+    <div class="summary">Performing document summarization with AdaptNLP</div>
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    
+
+   <!--
+
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: nbs/07a_tutorial.summarization.ipynb
+# command to build the docs after a change: nbdev_build_docs
+
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Summarization is the NLP task of compressing one or many documents but still retain the input's original context and meaning.</p>
+<p>Below, we'll walk through how we can use AdaptNLP's <a href="/adaptnlp/summarization.html#EasySummarizer"><code>EasySummarizer</code></a> module to summarize large amounts of text with state-of-the-art models.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Getting-Started-with-EasySummarizer">Getting Started with <a href="/adaptnlp/summarization.html#EasySummarizer"><code>EasySummarizer</code></a><a class="anchor-link" href="#Getting-Started-with-EasySummarizer"> </a></h2><p>First we'll import our <a href="/adaptnlp/summarization.html#EasySummarizer"><code>EasySummarizer</code></a> class:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasySummarizer</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next we need some example text to use:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;&quot;Einstein’s education was disrupted by his father’s repeated failures at business. In 1894, after his company failed to get an important </span>
+<span class="s2">          contract to electrify the city of Munich, Hermann Einstein moved to Milan to work with a relative. Einstein was left at a boardinghouse in </span>
+<span class="s2">          Munich and expected to finish his education. Alone, miserable, and repelled by the looming prospect of military duty when he turned 16, Einstein </span>
+<span class="s2">          ran away six months later and landed on the doorstep of his surprised parents. His parents realized the enormous problems that he faced as a </span>
+<span class="s2">          school dropout and draft dodger with no employable skills. His prospects did not look promising.</span>
+<span class="s2">          Fortunately, Einstein could apply directly to the Eidgenössische Polytechnische Schule (“Swiss Federal Polytechnic School”; in 1911, </span>
+<span class="s2">          following expansion in 1909 to full university status, it was renamed the Eidgenössische Technische Hochschule, or “Swiss Federal </span>
+<span class="s2">          Institute of Technology”) in Zürich without the equivalent of a high school diploma if he passed its stiff entrance examinations. His marks </span>
+<span class="s2">          showed that he excelled in mathematics and physics, but he failed at French, chemistry, and biology. Because of his exceptional math scores, </span>
+<span class="s2">          he was allowed into the polytechnic on the condition that he first finish his formal schooling. He went to a special high school run by </span>
+<span class="s2">          Jost Winteler in Aarau, Switzerland, and graduated in 1896. He also renounced his German citizenship at that time. (He was stateless until 1901, </span>
+<span class="s2">          when he was granted Swiss citizenship.) He became lifelong friends with the Winteler family, with whom he had been boarding. (Winteler’s </span>
+<span class="s2">          daughter, Marie, was Einstein’s first love; Einstein’s sister, Maja, would eventually marry Winteler’s son Paul; and his close friend Michele </span>
+<span class="s2">          Besso would marry their eldest daughter, Anna.)&quot;&quot;&quot;</span><span class="p">,</span>
+       <span class="sd">&quot;&quot;&quot;Einstein would write that two “wonders” deeply affected his early years. The first was his encounter with a compass at age five. </span>
+<span class="sd">          He was mystified that invisible forces could deflect the needle. This would lead to a lifelong fascination with invisible forces. </span>
+<span class="sd">          The second wonder came at age 12 when he discovered a book of geometry, which he devoured, calling it his &#39;sacred little geometry </span>
+<span class="sd">          book&#39;. Einstein became deeply religious at age 12, even composing several songs in praise of God and chanting religious songs on </span>
+<span class="sd">          the way to school. This began to change, however, after he read science books that contradicted his religious beliefs. This challenge </span>
+<span class="sd">          to established authority left a deep and lasting impression. At the Luitpold Gymnasium, Einstein often felt out of place and victimized </span>
+<span class="sd">          by a Prussian-style educational system that seemed to stifle originality and creativity. One teacher even told him that he would </span>
+<span class="sd">          never amount to anything.&quot;&quot;&quot;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And finally we'll intantiate the summarizer:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">summarizer</span> <span class="o">=</span> <span class="n">EasySummarizer</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Summarizing-with-summarize">Summarizing with <code>summarize</code><a class="anchor-link" href="#Summarizing-with-summarize"> </a></h2><p>Now that we have the summarizer instantiated, we are ready to load in a model and compress the text with the built-in <code>summarize()</code> method.</p>
+<p>This method takes in parameters: <code>text</code>, <code>model_name_or_path</code>, and <code>mini_batch_size</code> as well as optional keyword arguments from the <code>Transformers.PreTrainedModel.generate()</code> method.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Our first example will be with the <code>t5-small</code> model:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">summaries</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;t5-small&quot;</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_beams</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And we can see its output below:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Summaries:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">summaries</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Summaries:
+
+Hermann Einstein was left at a boardinghouse and expected to finish his education . he ran away six months later and landed on the doorstep of his surprised parents . he could apply directly to the Eidgenössische Polytechnische Schule without the equivalent of a high school diploma . 
+
+Einstein was mystified that invisible forces could deflect the needle . the second wonder came at age 12 when he discovered a book of geometry . he became deeply religious at age 12 . 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next we'll use the <code>bart-large-cnn</code> from <code>Facebook</code>. We can either simply pass in <code>facebook/bart-large-cnn</code> to our <code>summarizer</code>, <em>or</em> we can use the <a href="/adaptnlp/model_hub.html#HFModelHub"><code>HFModelHub</code></a> to go and search for it. Let's try that now:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp.model_hub</span> <span class="kn">import</span> <span class="n">HFModelHub</span>
+<span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+<span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;facebook/bart-large&#39;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span> <span class="n">models</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[Model Name: facebook/bart-large-cnn, Tasks: [summarization],
+ Model Name: facebook/bart-large-mnli, Tasks: [zero-shot-classification],
+ Model Name: facebook/bart-large-xsum, Tasks: [summarization],
+ Model Name: facebook/bart-large, Tasks: []]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can see that the first result is our <code>bart-large-cnn</code>, let's use it:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And directly pass it into <code>summarizer.summarize</code>:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">summaries</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_beams</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And finally we can view the results:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Summaries:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">summaries</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Summaries:
+
+Einstein’s education was disrupted by his father’S repeated failures at business. In 1894, after his company failed to get an important contract, Einstein moved to Milan to work with a relative. Einstein was left at a boardinghouse in Munich and expected to finish his education. 
+
+Einstein would write that two ‘wonders’ deeply affected his early years. The first was his encounter with a compass at age five. The second wonder came at age 12 when he discovered a book of geometry. 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+ 
+
+
+
+    <div class="tags">
+        
+    </div>
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                  <p><img src="/adaptnlp/assets/images/company_logo.png" alt="Company logo"/></p>
+               &copy;2021 Novetta. All rights reserved. <br />
+ Site last generated: Apr 20, 2021 <br />
+                </div>
+            </div>
+</footer>
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

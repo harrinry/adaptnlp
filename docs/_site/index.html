@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" fastai">
+<title>Title | adaptnlp</title>
+<link rel="stylesheet" href="/adaptnlp/assets/css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="assets//css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/adaptnlp/assets/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/adaptnlp/assets/css/customstyles.css">
+<link rel="stylesheet" href="/adaptnlp/assets/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/adaptnlp/assets/css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/adaptnlp/assets/js/jquery.navgoco.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement( document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "[%", right: "%]", display: true},
+      {left: "$", right: "$", display: false}
+    ]}
+  );
+});
+</script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="/adaptnlp/assets/js/toc.js"></script>
+<script src="/adaptnlp/assets/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/adaptnlp/assets/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="adaptnlp" href="http://localhost:4000/adaptnlp/feed.xml">
+
+<!-- Twitter cards -->
+
+
+
+<meta name="twitter:description" content="An easy to use Natural Language Processing library and framework for predicting, training, fine-tuning, and serving up state-of-the-art NLP models.">
+
+
+
+<meta name="twitter:card"  content="summary">
+
+
+<!-- end of Twitter cards -->
+
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+            // activate menu items where href is matching to current page
+            $("#mysidebar a[href='" + location.pathname.match(/(\/[^\/]*)$/)[1] + "']")
+                .parents('li').addClass('active')
+                .parents('ul').css('display', 'block');
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="http://localhost:4000/adaptnlp">&nbsp;<span class="projectTitle">adaptnlp</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://github.com/novetta/adaptnlp/tree/master/" target="_blank">github</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                
+                
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a href="#">Getting Started</a>
+      <ul>
+          
+          
+          
+          <li class="active"><a href="/adaptnlp/">Overview</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Models and Model Hubs</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/language_model.html">Language Models</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/model.html">Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/model_hub.html">The Model Hub</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Class API</a>
+      <ul>
+          
+          
+          
+          <li class="active"><a href="/adaptnlp/">Overview</a></li>
+          
+          
+          
+          <li class="subfolders">
+              <a href="#">NLP Tasks</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/embeddings.html">Embeddings</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/question_answering.html">Question Answering</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/sequence_classification.html">Sequence Classification</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/summarization.html">Summarization</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/text_generation.html">Text Generation</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/token_classification.html">Token Tagging and Classification</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/translation.html">Translation</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          <li class="subfolders">
+              <a href="#">Training Framework</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/callback.html">Callbacks</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/training.html">Training</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          <li class="subfolders">
+              <a href="#">Utilities</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/file_utils.html">File Utilities</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/transformers.finetuning.html">Transformers Fine-Tuning</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/transformers.squad_metrics.html">Transformers Squad Metrics</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/transformers.utils_squad_evaluate.html">Transformers Squad Evaluate</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Tutorials - User Guide</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial/index.md">Tutorial- Intro</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.embeddings.html">Embeddings</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.question_answering.html">Question Answering</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.easy_sequence_classifier.html">Sequence Classification</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.summarization.html">Summarization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.easy_text_generator.html">Text Generation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.token_tagging.html">Token Tagging</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.translation.html">Translation</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Tutorials - Advanced</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.fine_tuning_lm.html">Fine-Tuning a Language Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.fine_tuning_manual.html">Fine Tune Transformers Models</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.flair_seq_class_trainer.html">Training Sequence Classifier Head</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+    <a id="Title"></a>
+    <h1 class="post-title-main">Title</h1>
+    
+        <div class="px-2">
+    <a href="https://colab.research.google.com/github/muellerzr/adaptnlp/blob/master/nbs/index.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/adaptnlp/assets/images/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+
+    </div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    
+
+   <!--
+
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: nbs/index.ipynb
+# command to build the docs after a change: nbdev_build_docs
+
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p align="center">
+    <a href="https://github.com/Novetta/adaptnlp"> <img src="https://raw.githubusercontent.com/novetta/adaptnlp/master/docs/img/NovettaAdaptNLPlogo-400px.png" width="400"/></a>
+</p><p align="center">
+<strong> A high level framework and library for running, training, and deploying state-of-the-art Natural Language Processing (NLP) models for end to end tasks.</strong>
+</p>
+<p align="center">
+    <a href="https://circleci.com/gh/Novetta/adaptnlp">
+        <img src="https://img.shields.io/circleci/build/github/Novetta/adaptnlp/master">
+    </a>
+    <a href="https://badge.fury.io/py/adaptnlp">
+        <img src="https://badge.fury.io/py/adaptnlp.svg">
+    </a>
+    <a href="https://github.com/Novetta/adaptnlp/blob/master/LICENSE">
+        <img src="https://img.shields.io/github/license/novetta/adaptnlp">
+    </a>
+</p><p>AdaptNLP allows users ranging from beginner python coders to experienced machine learning engineers to leverage
+state-of-the-art NLP models and training techniques in one easy-to-use python package.</p>
+<p>Built atop Zalando Research's Flair and Hugging Face's Transformers library, AdaptNLP provides Machine
+Learning Researchers and Scientists a modular and <strong>adaptive</strong> approach to a variety of NLP tasks with an
+<strong>Easy</strong> API for training, inference, and deploying NLP-based microservices.</p>
+<p><strong>Key Features</strong></p>
+<ul>
+<li><strong><a href="https://novetta.github.io/adaptnlp">Full Guides and API Documentation</a></strong></li>
+<li><a href="https://github.com/Novetta/adaptnlp/tree/master/tutorials">Tutorial</a> Jupyter/Google Colab Notebooks</li>
+<li>Unified API for NLP Tasks with SOTA Pretrained Models (Adaptable with Flair and Transformer's Models)<ul>
+<li>Token Tagging </li>
+<li>Sequence Classification</li>
+<li>Embeddings</li>
+<li>Question Answering</li>
+<li>Summarization</li>
+<li>Translation</li>
+<li>Text Generation</li>
+<li><em> More in development </em></li>
+</ul>
+</li>
+<li>Training and Fine-tuning Interface<ul>
+<li>Integration with Transformer's Trainer Module for fast and easy transfer learning with custom datasets</li>
+<li>Jeremy's <strong><a href="https://arxiv.org/abs/1801.06146">ULM-FIT</a></strong> approach for transfer learning in NLP</li>
+<li>Fine-tuning Transformer's language models and task-specific predictive heads like Flair's <code>SequenceClassifier</code></li>
+</ul>
+</li>
+<li><a href="https://github.com/Novetta/adaptnlp/tree/master/rest">Rapid NLP Model Deployment</a> with Sebastián's <a href="https://github.com/tiangolo/fastapi">FastAPI</a> Framework<ul>
+<li>Containerized FastAPI app</li>
+<li>Immediately deploy any custom trained Flair or AdaptNLP model</li>
+</ul>
+</li>
+<li><a href="https://hub.docker.com/r/achangnovetta/adaptnlp">Dockerizing AdaptNLP with GPUs</a><ul>
+<li>Easily build and run AdaptNLP containers leveraging NVIDIA GPUs with Docker</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Quick-Start">Quick Start<a class="anchor-link" href="#Quick-Start"> </a></h2><h3 id="Requirements-and-Installation-for-Linux/Mac">Requirements and Installation for Linux/Mac<a class="anchor-link" href="#Requirements-and-Installation-for-Linux/Mac"> </a></h3><p>Note: AdaptNLP will be using the latest stable torch version (v1.7 as of 11/2/20) which requires Python 3.7+. Please downgrade torch&lt;=1.6 if using Python 3.6</p>
+<h4 id="Virtual-Environment">Virtual Environment<a class="anchor-link" href="#Virtual-Environment"> </a></h4><p>To avoid dependency clustering and issues, it would be wise to install AdaptNLP in a virtual environment.
+To create a new python 3.7+ virtual environment, run this command and then activate it however your operating
+system specifies:</p>
+
+<pre><code>python -m venv venv-adaptnlp</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Requirements-and-Installation-for-Windows">Requirements and Installation for Windows<a class="anchor-link" href="#Requirements-and-Installation-for-Windows"> </a></h2><h4 id="PyTorch-Install">PyTorch Install<a class="anchor-link" href="#PyTorch-Install"> </a></h4><p>PyTorch needs to be manually installed on Windows environments. If it's not already installed, proceed to <a href="http://pytorch.org/get-started/locally">http://pytorch.org/get-started/locally</a> to select your preferences and then run the given install command. Note that the current version of PyTorch we use relies on cuda 10.1.</p>
+<h4 id="AdaptNLP-Install">AdaptNLP Install<a class="anchor-link" href="#AdaptNLP-Install"> </a></h4><p>Install using pip:</p>
+
+<pre><code>pip install adaptnlp</code></pre>
+<p>If you want to work on AdaptNLP, <code>pip install adaptnlp[dev]</code> will install its development tools.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Examples-and-General-Use">Examples and General Use<a class="anchor-link" href="#Examples-and-General-Use"> </a></h2><p>Once you have installed AdaptNLP, here are a few examples of what you can run with AdaptNLP modules:</p>
+<h3 id="Named-Entity-Recognition-with-EasyTokenTagger">Named Entity Recognition with <a href="/adaptnlp/token_classification.html#EasyTokenTagger"><code>EasyTokenTagger</code></a><a class="anchor-link" href="#Named-Entity-Recognition-with-EasyTokenTagger"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasyTokenTagger</span>
+
+<span class="c1">## Example Text</span>
+<span class="n">example_text</span> <span class="o">=</span> <span class="s2">&quot;Novetta&#39;s headquarters is located in Mclean, Virginia.&quot;</span>
+
+<span class="c1">## Load the token tagger module and tag text with the NER model </span>
+<span class="n">tagger</span> <span class="o">=</span> <span class="n">EasyTokenTagger</span><span class="p">()</span>
+<span class="n">sentences</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;ner&quot;</span><span class="p">)</span>
+
+<span class="c1">## Output tagged token span results in Flair&#39;s Sentence object model</span>
+<span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">sentence</span><span class="o">.</span><span class="n">get_spans</span><span class="p">(</span><span class="s2">&quot;ner&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+</pre></div>
+<h3 id="English-Sentiment-Classifier-EasySequenceClassifier">English Sentiment Classifier <a href="/adaptnlp/sequence_classification.html#EasySequenceClassifier"><code>EasySequenceClassifier</code></a><a class="anchor-link" href="#English-Sentiment-Classifier-EasySequenceClassifier"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasySequenceClassifier</span> 
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="c1">## Example Text</span>
+<span class="n">example_text</span> <span class="o">=</span> <span class="s2">&quot;This didn&#39;t work at all&quot;</span>
+
+<span class="c1">## Load the sequence classifier module and classify sequence of text with the multi-lingual sentiment model </span>
+<span class="n">classifier</span> <span class="o">=</span> <span class="n">EasySequenceClassifier</span><span class="p">()</span>
+<span class="n">sentences</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span>
+    <span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span>
+    <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;nlptown/bert-base-multilingual-uncased-sentiment&quot;</span><span class="p">,</span>
+    <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1">## Output labeled text results in Flair&#39;s Sentence object model</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tag Score Outputs:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+    <span class="n">pprint</span><span class="p">({</span><span class="n">sentence</span><span class="o">.</span><span class="n">to_original_text</span><span class="p">():</span> <span class="n">sentence</span><span class="o">.</span><span class="n">labels</span><span class="p">})</span>
+</pre></div>
+<h3 id="Span-based-Question-Answering-EasyQuestionAnswering">Span-based Question Answering <a href="/adaptnlp/question_answering.html#EasyQuestionAnswering"><code>EasyQuestionAnswering</code></a><a class="anchor-link" href="#Span-based-Question-Answering-EasyQuestionAnswering"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasyQuestionAnswering</span> 
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="c1">## Example Query and Context </span>
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;What is the meaning of life?&quot;</span>
+<span class="n">context</span> <span class="o">=</span> <span class="s2">&quot;Machine Learning is the meaning of life.&quot;</span>
+<span class="n">top_n</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1">## Load the QA module and run inference on results </span>
+<span class="n">qa</span> <span class="o">=</span> <span class="n">EasyQuestionAnswering</span><span class="p">()</span>
+<span class="n">best_answer</span><span class="p">,</span> <span class="n">best_n_answers</span> <span class="o">=</span> <span class="n">qa</span><span class="o">.</span><span class="n">predict_qa</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">n_best_size</span><span class="o">=</span><span class="n">top_n</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;distilbert-base-uncased-distilled-squad&quot;</span><span class="p">)</span>
+
+<span class="c1">## Output top answer as well as top 5 answers</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">best_answer</span><span class="p">)</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">best_n_answers</span><span class="p">)</span>
+</pre></div>
+<h3 id="Summarization-EasySummarizer">Summarization <a href="/adaptnlp/summarization.html#EasySummarizer"><code>EasySummarizer</code></a><a class="anchor-link" href="#Summarization-EasySummarizer"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasySummarizer</span>
+
+<span class="c1"># Text from encyclopedia Britannica on Einstein</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Einstein would write that two “wonders” deeply affected his early years. The first was his encounter with a compass at age five. </span>
+<span class="s2">          He was mystified that invisible forces could deflect the needle. This would lead to a lifelong fascination with invisible forces. </span>
+<span class="s2">          The second wonder came at age 12 when he discovered a book of geometry, which he devoured, calling it his &#39;sacred little geometry </span>
+<span class="s2">          book&#39;. Einstein became deeply religious at age 12, even composing several songs in praise of God and chanting religious songs on </span>
+<span class="s2">          the way to school. This began to change, however, after he read science books that contradicted his religious beliefs. This challenge </span>
+<span class="s2">          to established authority left a deep and lasting impression. At the Luitpold Gymnasium, Einstein often felt out of place and victimized </span>
+<span class="s2">          by a Prussian-style educational system that seemed to stifle originality and creativity. One teacher even told him that he would </span>
+<span class="s2">          never amount to anything.&quot;&quot;&quot;</span>
+
+<span class="n">summarizer</span> <span class="o">=</span> <span class="n">EasySummarizer</span><span class="p">()</span>
+
+<span class="c1"># Summarize</span>
+<span class="n">summaries</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;t5-small&quot;</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_beams</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Summaries:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">summaries</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+<h3 id="Translation-EasyTranslator">Translation <a href="/adaptnlp/translation.html#EasyTranslator"><code>EasyTranslator</code></a><a class="anchor-link" href="#Translation-EasyTranslator"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasyTranslator</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Machine learning will take over the world very soon.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Machines can speak in many languages.&quot;</span><span class="p">,]</span>
+
+<span class="n">translator</span> <span class="o">=</span> <span class="n">EasyTranslator</span><span class="p">()</span>
+
+<span class="c1"># Translate</span>
+<span class="n">translations</span> <span class="o">=</span> <span class="n">translator</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">,</span> <span class="n">t5_prefix</span><span class="o">=</span><span class="s2">&quot;translate English to German&quot;</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;t5-small&quot;</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Translations:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">translations</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Tutorials">Tutorials<a class="anchor-link" href="#Tutorials"> </a></h2><p>Look in the <a href="tutorials">Tutorials</a> directory for a quick introduction to the library and its very simple
+and straight forward use cases:</p>
+<p><strong>NLP Tasks</strong></p>
+<ol>
+<li><a href="tutorials/1.%20Token%20Classification">Token Classification: NER, POS, Chunk, and Frame Tagging</a><ul>
+<li><a href="https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/tutorials/1.%20Token%20Classification/token_tagging.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></li>
+</ul>
+</li>
+<li><a href="tutorials/2.%20Sequence%20Classification">Sequence Classification: Sentiment</a><ul>
+<li><a href="https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/tutorials/2.%20Sequence%20Classification/Easy%20Sequence%20Classifier.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></li>
+</ul>
+</li>
+<li><a href="tutorials/3.%20Embeddings">Embeddings: Transformer Embeddings e.g. BERT, XLM, GPT2, XLNet, roBERTa, ALBERT</a><ul>
+<li><a href="https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/tutorials/3.%20Embeddings/embeddings.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></li>
+</ul>
+</li>
+<li><a href="tutorials/4.%20Question%20Answering">Question Answering: Span-based Question Answering Model</a><ul>
+<li><a href="https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/tutorials/4.%20Question%20Answering/question_answering.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></li>
+</ul>
+</li>
+<li><a href="tutorials/5.%20Summarization">Summarization: Abstractive and Extractive</a><ul>
+<li><a href="https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/tutorials/5.%20Summarization/summarization.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></li>
+</ul>
+</li>
+<li><a href="tutorials/6.%20Translation">Translation: Seq2Seq</a><ul>
+<li><a href="https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/tutorials/6.%20Translation/translation.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></li>
+</ul>
+</li>
+</ol>
+<p><strong><a href="tutorials/Finetuning%20and%20Training%20(Advanced">Custom Fine-Tuning and Training with Transformer Models</a>)</strong></p>
+<ul>
+<li>Fine-tuning a Transformers Language Model<ul>
+<li><a href="https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/tutorials/Finetuning%20and%20Training%20(Advanced"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>/Fine-tuning%20Language%20Model.ipynb)</li>
+</ul>
+</li>
+</ul>
+<p>Checkout the <a href="https://novetta.github.io/adaptnlp">documentation</a> for more information.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="REST-Service">REST Service<a class="anchor-link" href="#REST-Service"> </a></h2><p>We use FastAPI for standing up endpoints for serving state-of-the-art NLP models with AdaptNLP.</p>
+<p><img src="https://raw.githubusercontent.com/novetta/adaptnlp/master/docs/img/fastapi-docs.png" alt="Swagger Example"></p>
+<p>The <a href="https://github.com/Novetta/adaptnlp/tree/master/rest">REST</a> directory contains more detail on deploying a REST API locally or with docker in a very easy and
+fast way.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Docker">Docker<a class="anchor-link" href="#Docker"> </a></h2><p>AdaptNLP official docker images are up on <a href="https://hub.docker.com/r/achangnovetta/adaptnlp">Docker Hub</a>.</p>
+<p>Images have AdaptNLP installed from source in developer mode with tutorial notebooks available, and will default to launching a jupyter server from where you can start 
+running the tutorial and workshop notebooks.</p>
+<p>Images can build with GPU support if NVIDA-Docker is correctly installed.</p>
+<h3 id="Pull-and-Run-AdaptNLP-Immediately">Pull and Run AdaptNLP Immediately<a class="anchor-link" href="#Pull-and-Run-AdaptNLP-Immediately"> </a></h3><p>Simply run an image with AdaptNLP installed from source in developer mode by running:</p>
+
+<pre><code>docker run -itp 8888:8888 achangnovetta/adaptnlp:latest</code></pre>
+<p>Run an image with AdaptNLP running on GPUs if you have nvidia drivers and nvidia-docker 19.03+ installed:</p>
+
+<pre><code>docker run -itp 8888:8888 --gpus all achangnovetta/adaptnlp:latest</code></pre>
+<p>Check <code>localhost:8888</code> or <code>localhost:8888/lab</code> to access the container notebook servers.</p>
+<h3 id="Build">Build<a class="anchor-link" href="#Build"> </a></h3><p>Refer to the <code>docker/</code> directory and run the following to build and run adaptnlp from the available images.</p>
+<p>Note: A container with GPUs enabled requires Docker version 19.03+ and nvida-docker installed</p>
+
+<pre><code># From the repo directory
+docker build -t achangnovetta/adaptnlp:latest -f docker/runtime/Dockerfile.cuda11.0-runtime-ubuntu18.04-py3.8 .
+docker run -itp 8888:8888 achangnovetta/adaptnlp:latest</code></pre>
+<p>If you want to use CUDA compatible GPUs</p>
+
+<pre><code>docker run -itp 8888:8888 --gpus all achangnovetta/adaptnlp:latest</code></pre>
+<p>Check <code>localhost:8888</code> or <code>localhost:8888/lab</code> to access the container notebook servers.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Contact">Contact<a class="anchor-link" href="#Contact"> </a></h2><p>Please contact the author Zachary Mueller at zmueller@novetta.com with questions or comments regarding AdaptNLP.</p>
+<p>Follow  us on Twitter at <a href="https://twitter.com/TheZachMueller">@TheZachMueller</a> and <a href="https://twitter.com/AdaptNLP">@AdaptNLP</a> for
+updates and NLP dialogue.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="License">License<a class="anchor-link" href="#License"> </a></h2><p>This project is licensed under the terms of the Apache 2.0 license.</p>
+
+</div>
+</div>
+</div>
+</div>
+ 
+
+
+
+    <div class="tags">
+        
+    </div>
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                  <p><img src="/adaptnlp/assets/images/company_logo.png" alt="Company logo"/></p>
+               &copy;2021 Novetta. All rights reserved. <br />
+ Site last generated: Apr 20, 2021 <br />
+                </div>
+            </div>
+</footer>
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
