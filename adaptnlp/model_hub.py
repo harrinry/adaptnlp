@@ -60,11 +60,9 @@ class HFModelResult:
     A very basic class for storing a HuggingFace model returned through an API request
 
     They have 4 properties:
-      - `name`: The `modelId` from the `modelInfo`. This also includes the model author's name.
-                  Example: "IlyaGusev/mbart_ru_sum_gazeta"
+      - `name`: The `modelId` from the `modelInfo`. This also includes the model author's name, such as "IlyaGusev/mbart_ru_sum_gazeta"
       - `tags`: Any tags that were included in `HugginFace` in relation to the model.
       - `tasks`: These are the tasks dictated for the model.
-                 We look inside of `modelInfo.pipeline_tag` as well as the `tags` for if there is any overlap
     """
     def __init__(self, model_info: ModelInfo):
         self.info = model_info
