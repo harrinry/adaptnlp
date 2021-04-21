@@ -1,0 +1,50 @@
+{
+  "Getting Started": {
+      "Overview": "/",
+      "Contributing": "contributing"
+    },
+    "Models and Model Hubs": {
+        "Language Models": "language_model.html",
+        "Model": "model.html",
+        "The Model Hub": "model_hub.html"
+    },
+    "Class API": {
+        "Overview" :"api_intro",
+        "": {
+            "NLP Tasks": {
+                "Embeddings": "embeddings.html",
+                "Question Answering": "question_answering.html",
+                "Sequence Classification": "sequence_classification.html",
+                "Summarization": "summarization.html",
+                "Text Generation": "text_generation.html",
+                "Token Tagging and Classification": "token_classification.html",
+                "Translation": "translation.html"
+            },
+            "Training Framework": {
+                "Callbacks": "callback.html",
+                "Training": "training.html"
+            },
+            "Utilities": {
+                "File Utilities": "file_utils.html",
+                "Transformers Fine-Tuning": "transformers.finetuning.html",
+                "Transformers Squad Metrics": "transformers.squad_metrics.html",
+                "Transformers Squad Evaluate": "transformers.utils_squad_evaluate.html"
+            }
+        }
+    },
+    "Tutorials - User Guide": {
+        "Tutorial- Intro" : "tutorial-intro",
+        "Embeddings" : "tutorial.embeddings.html",
+        "Question Answering": "tutorial.question_answering.html",
+        "Sequence Classification": "tutorial.easy_sequence_classifier.html",
+        "Summarization": "tutorial.summarization.html",
+        "Text Generation": "tutorial.easy_text_generator.html",
+        "Token Tagging": "tutorial.token_tagging.html",
+        "Translation": "tutorial.translation.html"
+    },
+    "Tutorials - Advanced": {
+        "Fine-Tuning a Language Model": "tutorial.fine_tuning_lm.html",
+        "Fine Tune Transformers Models": "tutorial.fine_tuning_manual.html",
+        "Training Sequence Classifier Head": "tutorial.flair_seq_class_trainer.html"
+    }
+}

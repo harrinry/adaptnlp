@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Using the Question Answering API within AdaptNLP">
+<meta name="keywords" content=" fastai">
+<title>Tutorial - Question Answering | adaptnlp</title>
+<link rel="stylesheet" href="/adaptnlp/assets/css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="assets//css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/adaptnlp/assets/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/adaptnlp/assets/css/customstyles.css">
+<link rel="stylesheet" href="/adaptnlp/assets/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/adaptnlp/assets/css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/adaptnlp/assets/js/jquery.navgoco.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement( document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "[%", right: "%]", display: true},
+      {left: "$", right: "$", display: false}
+    ]}
+  );
+});
+</script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="/adaptnlp/assets/js/toc.js"></script>
+<script src="/adaptnlp/assets/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/adaptnlp/assets/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="adaptnlp" href="http://localhost:4000/adaptnlp/feed.xml">
+
+<!-- Twitter cards -->
+
+
+
+<meta name="twitter:description" content="Using the Question Answering API within AdaptNLP">
+
+
+
+<meta name="twitter:card"  content="summary">
+
+
+<!-- end of Twitter cards -->
+
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+            // activate menu items where href is matching to current page
+            $("#mysidebar a[href='" + location.pathname.match(/(\/[^\/]*)$/)[1] + "']")
+                .parents('li').addClass('active')
+                .parents('ul').css('display', 'block');
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="http://localhost:4000/adaptnlp">&nbsp;<span class="projectTitle">adaptnlp</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://github.com/novetta/adaptnlp/tree/master/" target="_blank">github</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                
+                
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a href="#">Getting Started</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/contributing.md">Contributing</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Models and Model Hubs</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/language_model.html">Language Models</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/model.html">Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/model_hub.html">The Model Hub</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Class API</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/api_intro.md">Overview</a></li>
+          
+          
+          
+          <li class="subfolders">
+              <a href="#">NLP Tasks</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/embeddings.html">Embeddings</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/question_answering.html">Question Answering</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/sequence_classification.html">Sequence Classification</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/summarization.html">Summarization</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/text_generation.html">Text Generation</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/token_classification.html">Token Tagging and Classification</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/translation.html">Translation</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          <li class="subfolders">
+              <a href="#">Training Framework</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/callback.html">Callbacks</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/training.html">Training</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          <li class="subfolders">
+              <a href="#">Utilities</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/file_utils.html">File Utilities</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/transformers.finetuning.html">Transformers Fine-Tuning</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/transformers.squad_metrics.html">Transformers Squad Metrics</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/transformers.utils_squad_evaluate.html">Transformers Squad Evaluate</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Tutorials - User Guide</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial-intro.md">Tutorial- Intro</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.embeddings.html">Embeddings</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.question_answering.html">Question Answering</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.easy_sequence_classifier.html">Sequence Classification</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.summarization.html">Summarization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.easy_text_generator.html">Text Generation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.token_tagging.html">Token Tagging</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.translation.html">Translation</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Tutorials - Advanced</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.fine_tuning_lm.html">Fine-Tuning a Language Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.fine_tuning_manual.html">Fine Tune Transformers Models</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.flair_seq_class_trainer.html">Training Sequence Classifier Head</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+    <a id="Tutorial - Question Answering"></a>
+    <h1 class="post-title-main">Tutorial - Question Answering</h1>
+    
+        <div class="px-2">
+    <a href="https://colab.research.google.com/github/muellerzr/adaptnlp/blob/master/nbs/10a_tutorial.question_answering.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/adaptnlp/assets/images/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+
+    </div>
+
+
+
+<div class="post-content">
+
+   
+    <div class="summary">Using the Question Answering API within AdaptNLP</div>
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    
+
+   <!--
+
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: nbs/10a_tutorial.question_answering.ipynb
+# command to build the docs after a change: nbdev_build_docs
+
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Question-Answering">Question Answering<a class="anchor-link" href="#Question-Answering"> </a></h2><p>Question Answering is the NLP task of producing a legible answer from being provided two text inputs: the context and the question in regards to the context.</p>
+<p>Examples of Question Answering models are span-based models that output a start and end index that outline the relevant "answer" from the context provided. With these models, we can extract answers from various questions and queries regarding any unstructured text.</p>
+<p>Below, we'll walk through how we can use AdaptNLP's <a href="/adaptnlpquestion_answering.html#EasyQuestionAnswering"><code>EasyQuestionAnswering</code></a> module to extract span-based text answers from unstructured text using state-of-the-art question answering models.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Getting-Started">Getting Started<a class="anchor-link" href="#Getting-Started"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can use <a href="/adaptnlpquestion_answering.html#EasyQuestionAnswering"><code>EasyQuestionAnswering</code></a> to run span-based question answering models.</p>
+<p>Providing a <code>context</code> and <code>query</code>, we get an output of top <code>n_best_size</code> answer predictions along with token span indices and probability scores.</p>
+<p>First we'll import the EasyQuestionAnswering class from AdaptNLP and instantiate it:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasyQuestionAnswering</span>
+<span class="n">qa_model</span> <span class="o">=</span> <span class="n">EasyQuestionAnswering</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next we'll write some example context to use:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">context</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Amazon.com, Inc.[6] (/ˈæməzɒn/), is an American multinational technology company based in Seattle, </span>
+<span class="s2">Washington that focuses on e-commerce, cloud computing, digital streaming, and artificial intelligence. </span>
+<span class="s2">It is considered one of the Big Four technology companies along with Google, Apple, and Facebook.[7][8][9] </span>
+<span class="s2">Amazon is known for its disruption of well-established industries through technological innovation and mass </span>
+<span class="s2">scale.[10][11][12] It is the world&#39;s largest e-commerce marketplace, AI assistant provider, and cloud computing </span>
+<span class="s2">platform[13] as measured by revenue and market capitalization.[14] Amazon is the largest Internet company by </span>
+<span class="s2">revenue in the world.[15] It is the second largest private employer in the United States[16] and one of the world&#39;s </span>
+<span class="s2">most valuable companies. Amazon is the second largest technology company by revenue. Amazon was founded by Jeff Bezos </span>
+<span class="s2">on July 5, 1994, in Bellevue, Washington. The company initially started as an online marketplace for books but later </span>
+<span class="s2">expanded to sell electronics, software, video games, apparel, furniture, food, toys, and jewelry. In 2015, Amazon </span>
+<span class="s2">surpassed Walmart as the most valuable retailer in the United States by market capitalization.[17] In 2017, Amazon </span>
+<span class="s2">acquired Whole Foods Market for $13.4 billion, which vastly increased Amazon&#39;s presence as a brick-and-mortar </span>
+<span class="s2">retailer.[18] In 2018, Bezos announced that its two-day delivery service, Amazon Prime, had surpassed 100 million </span>
+<span class="s2">subscribers worldwide</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And then finally we'll query the data with the <code>predict_qa</code> method.</p>
+<p>For our example we'll run inference on Transformer's DistilBERT model which was fine-tuned on the SQUAD dataset:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">top_prediction</span><span class="p">,</span> <span class="n">all_nbest_json</span> <span class="o">=</span> <span class="n">qa_model</span><span class="o">.</span><span class="n">predict_qa</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;What does Amazon do?&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">n_best_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;distilbert-base-uncased-distilled-squad&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>convert squad examples to features: 100%|██████████| 1/1 [00:00&lt;00:00, 35.47it/s]
+add example index and unique id: 100%|██████████| 1/1 [00:00&lt;00:00, 4702.13it/s]
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And we can take a peek at the results:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">top_prediction</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>disruption of well-established industries
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_nbest_json</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[OrderedDict([(&#39;text&#39;, &#39;disruption of well-established industries&#39;),
+              (&#39;probability&#39;, 0.6033452454300696),
+              (&#39;start_logit&#39;, 6.112517),
+              (&#39;end_logit&#39;, 4.161786),
+              (&#39;start_index&#39;, 45),
+              (&#39;end_index&#39;, 48)]),
+ OrderedDict([(&#39;text&#39;, &#39;disruption&#39;),
+              (&#39;probability&#39;, 0.2976601300650915),
+              (&#39;start_logit&#39;, 6.112517),
+              (&#39;end_logit&#39;, 3.4552488),
+              (&#39;start_index&#39;, 45),
+              (&#39;end_index&#39;, 45)])]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can also pass in multiple questions to provide even more context:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">questions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;What does Amazon do?&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;What happened July 5, 1994?&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;How much did Amazon acquire Whole Foods for?&quot;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Just make sure to pass in your context multiple times:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">top_prediction</span><span class="p">,</span> <span class="n">all_nbest_json</span> <span class="o">=</span> <span class="n">qa_model</span><span class="o">.</span><span class="n">predict_qa</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">questions</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="p">[</span><span class="n">context</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_best_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;distilbert-base-uncased-distilled-squad&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>convert squad examples to features: 100%|██████████| 3/3 [00:00&lt;00:00, 46.30it/s]
+add example index and unique id: 100%|██████████| 3/3 [00:00&lt;00:00, 15847.50it/s]
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Our new results:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">top_prediction</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>OrderedDict([(&#39;0&#39;, &#39;disruption of well-established industries&#39;), (&#39;1&#39;, &#39;Jeff Bezos&#39;), (&#39;2&#39;, &#39;$13.4 billion&#39;)])
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_nbest_json</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">][:</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[OrderedDict([(&#39;text&#39;, &#39;Jeff Bezos&#39;),
+              (&#39;probability&#39;, 0.5127517857731716),
+              (&#39;start_logit&#39;, 2.8254287),
+              (&#39;end_logit&#39;, 0.6868366),
+              (&#39;start_index&#39;, 119),
+              (&#39;end_index&#39;, 120)]),
+ OrderedDict([(&#39;text&#39;, &#39;Amazon was founded by Jeff Bezos&#39;),
+              (&#39;probability&#39;, 0.47153574087191846),
+              (&#39;start_logit&#39;, 2.7416315),
+              (&#39;end_logit&#39;, 0.6868366),
+              (&#39;start_index&#39;, 115),
+              (&#39;end_index&#39;, 120)])]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+ 
+
+
+
+    <div class="tags">
+        
+    </div>
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                  <p><img src="/adaptnlp/assets/images/company_logo.png" alt="Company logo"/></p>
+               &copy;2021 Novetta. All rights reserved. <br />
+ Site last generated: Apr 20, 2021 <br />
+                </div>
+            </div>
+</footer>
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

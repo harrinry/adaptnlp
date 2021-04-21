@@ -1,0 +1,2230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Using EasyTokenTagger to quickly perform POS tagging">
+<meta name="keywords" content=" fastai">
+<title>Tutorial - Token Tagging with AdaptNLP | adaptnlp</title>
+<link rel="stylesheet" href="/adaptnlp/assets/css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="assets//css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/adaptnlp/assets/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/adaptnlp/assets/css/customstyles.css">
+<link rel="stylesheet" href="/adaptnlp/assets/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/adaptnlp/assets/css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/adaptnlp/assets/js/jquery.navgoco.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement( document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "[%", right: "%]", display: true},
+      {left: "$", right: "$", display: false}
+    ]}
+  );
+});
+</script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="/adaptnlp/assets/js/toc.js"></script>
+<script src="/adaptnlp/assets/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/adaptnlp/assets/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="adaptnlp" href="http://localhost:4000/adaptnlp/feed.xml">
+
+<!-- Twitter cards -->
+
+
+
+<meta name="twitter:description" content="Using EasyTokenTagger to quickly perform POS tagging">
+
+
+
+<meta name="twitter:card"  content="summary">
+
+
+<!-- end of Twitter cards -->
+
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+            // activate menu items where href is matching to current page
+            $("#mysidebar a[href='" + location.pathname.match(/(\/[^\/]*)$/)[1] + "']")
+                .parents('li').addClass('active')
+                .parents('ul').css('display', 'block');
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="http://localhost:4000/adaptnlp">&nbsp;<span class="projectTitle">adaptnlp</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://github.com/novetta/adaptnlp/tree/master/" target="_blank">github</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                
+                
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a href="#">Getting Started</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/contributing.md">Contributing</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Models and Model Hubs</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/language_model.html">Language Models</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/model.html">Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/model_hub.html">The Model Hub</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Class API</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/api_intro.md">Overview</a></li>
+          
+          
+          
+          <li class="subfolders">
+              <a href="#">NLP Tasks</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/embeddings.html">Embeddings</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/question_answering.html">Question Answering</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/sequence_classification.html">Sequence Classification</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/summarization.html">Summarization</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/text_generation.html">Text Generation</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/token_classification.html">Token Tagging and Classification</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/translation.html">Translation</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          <li class="subfolders">
+              <a href="#">Training Framework</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/callback.html">Callbacks</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/training.html">Training</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          <li class="subfolders">
+              <a href="#">Utilities</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/file_utils.html">File Utilities</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/transformers.finetuning.html">Transformers Fine-Tuning</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/transformers.squad_metrics.html">Transformers Squad Metrics</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/transformers.utils_squad_evaluate.html">Transformers Squad Evaluate</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Tutorials - User Guide</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial-intro.md">Tutorial- Intro</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.embeddings.html">Embeddings</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.question_answering.html">Question Answering</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.easy_sequence_classifier.html">Sequence Classification</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.summarization.html">Summarization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.easy_text_generator.html">Text Generation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.token_tagging.html">Token Tagging</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.translation.html">Translation</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Tutorials - Advanced</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.fine_tuning_lm.html">Fine-Tuning a Language Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.fine_tuning_manual.html">Fine Tune Transformers Models</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.flair_seq_class_trainer.html">Training Sequence Classifier Head</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+    <a id="Tutorial - Token Tagging with AdaptNLP"></a>
+    <h1 class="post-title-main">Tutorial - Token Tagging with AdaptNLP</h1>
+    
+        <div class="px-2">
+    <a href="https://colab.research.google.com/github/muellerzr/adaptnlp/blob/master/nbs/05a_tutorial.token_tagging.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/adaptnlp/assets/images/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+
+    </div>
+
+
+
+<div class="post-content">
+
+   
+    <div class="summary">Using EasyTokenTagger to quickly perform POS tagging</div>
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    
+
+   <!--
+
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: nbs/05a_tutorial.token_tagging.ipynb
+# command to build the docs after a change: nbdev_build_docs
+
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We'll import the <code>adaptnlp</code> <a href="/adaptnlptoken_classification.html#EasyTokenTagger"><code>EasyTokenTagger</code></a> class:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasyTokenTagger</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's write some simple example text, and instantiate an <a href="/adaptnlptoken_classification.html#EasyTokenTagger"><code>EasyTokenTagger</code></a>:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">example_text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. </span>
+<span class="s1">The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.&#39;&#39;&#39;</span>
+<span class="n">tagger</span> <span class="o">=</span> <span class="n">EasyTokenTagger</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="With-Transformers">With Transformers<a class="anchor-link" href="#With-Transformers"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First we will use some <code>Transformers</code> models, specifically <code>bert</code>.</p>
+<p>We'll search <code>HuggingFace</code> for the model we want, in this case we want to use <code>sshleifer</code>'s <code>tiny-dbmdz-bert</code> model:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp.model_hub</span> <span class="kn">import</span> <span class="n">HFModelHub</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;sshleifer/tiny-dbmdz-bert&#39;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span> <span class="n">model</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Model Name: sshleifer/tiny-dbmdz-bert-large-cased-finetuned-conll03-english, Tasks: [token-classification]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next we'll use our <code>tagger</code> to generate some sentences:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sentences</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span> <span class="o">=</span> <span class="n">model</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2021-04-20 16:39:49,456 loading file /root/.flair/models/tiny-dbmdz-bert-large-cased-finetuned-conll03-english/1e2c09da4ad5b3257008353a87852a7148389cc8308b91cf837f066b95650a0d.595173de82e795b5e4022dca79d10d885137a50ed2ee3974f15a75d328c0cd0a
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/opt/venv/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:2073: FutureWarning: The `pad_to_max_length` argument is deprecated and will be removed in a future version, use `padding=True` or `padding=&#39;longest&#39;` to pad to the longest sequence in the batch, or use `padding=&#39;max_length&#39;` to pad to a max length. In this case, you can give a specific length with `max_length` (e.g. `max_length=45`) or leave max_length to None to pad to the maximal input size of the model (e.g. 512 for Bert).
+  warnings.warn(
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>adaptnlp.model_hub.HFModelResult</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And then look at some of our results:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;List string outputs of tags:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sen</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="n">sen</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>List string outputs of tags:
+
+[{&#39;entity_group&#39;: &#39;I-LOC&#39;,
+  &#39;offsets&#39;: (-1, 2),
+  &#39;score&#39;: 0.11716679483652115,
+  &#39;word&#39;: &#39;[CLS] Novetta&#39;},
+ {&#39;entity_group&#39;: &#39;B-ORG&#39;,
+  &#39;offsets&#39;: (2, 3),
+  &#39;score&#39;: 0.11758644878864288,
+  &#39;word&#39;: &#39;Solutions&#39;},
+ {&#39;entity_group&#39;: &#39;I-LOC&#39;,
+  &#39;offsets&#39;: (3, 5),
+  &#39;score&#39;: 0.11716679483652115,
+  &#39;word&#39;: &#39;is the&#39;},
+ {&#39;entity_group&#39;: &#39;B-ORG&#39;,
+  &#39;offsets&#39;: (5, 6),
+  &#39;score&#39;: 0.11758644878864288,
+  &#39;word&#39;: &#39;best&#39;},
+ {&#39;entity_group&#39;: &#39;I-LOC&#39;,
+  &#39;offsets&#39;: (6, 13),
+  &#39;score&#39;: 0.11716679483652115,
+  &#39;word&#39;: &#39;. Albert Einstein used to be employed&#39;},
+ {&#39;entity_group&#39;: &#39;B-ORG&#39;,
+  &#39;offsets&#39;: (13, 15),
+  &#39;score&#39;: 0.11758644878864288,
+  &#39;word&#39;: &#39;at Nov&#39;},
+ {&#39;entity_group&#39;: &#39;I-LOC&#39;,
+  &#39;offsets&#39;: (15, 24),
+  &#39;score&#39;: 0.11716679483652115,
+  &#39;word&#39;: &#39;##etta Solutions. The Wright brothers loved to visit&#39;},
+ {&#39;entity_group&#39;: &#39;B-ORG&#39;,
+  &#39;offsets&#39;: (24, 25),
+  &#39;score&#39;: 0.11758644878864288,
+  &#39;word&#39;: &#39;the&#39;},
+ {&#39;entity_group&#39;: &#39;I-LOC&#39;,
+  &#39;offsets&#39;: (25, 27),
+  &#39;score&#39;: 0.11716679483652115,
+  &#39;word&#39;: &#39;JBF&#39;},
+ {&#39;entity_group&#39;: &#39;B-ORG&#39;,
+  &#39;offsets&#39;: (27, 28),
+  &#39;score&#39;: 0.11758644878864288,
+  &#39;word&#39;: &#39;headquarters&#39;},
+ {&#39;entity_group&#39;: &#39;I-LOC&#39;,
+  &#39;offsets&#39;: (28, 31),
+  &#39;score&#39;: 0.11716679483652115,
+  &#39;word&#39;: &#39;, and they&#39;},
+ {&#39;entity_group&#39;: &#39;B-ORG&#39;,
+  &#39;offsets&#39;: (31, 32),
+  &#39;score&#39;: 0.11758644878864288,
+  &#39;word&#39;: &#39;would&#39;},
+ {&#39;entity_group&#39;: &#39;I-LOC&#39;,
+  &#39;offsets&#39;: (32, 39),
+  &#39;score&#39;: 0.11716679483652115,
+  &#39;word&#39;: &#39;have a chat with Albert. [SEP]&#39;}]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="With-Flair">With Flair<a class="anchor-link" href="#With-Flair"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Named-Entity-Recognition-(NER)">Named Entity Recognition (NER)<a class="anchor-link" href="#Named-Entity-Recognition-(NER)"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>With Flair we can follow a similar setup to earlier, searching HuggingFace for valid <code>ner</code> models. In our case we'll use <code>Flair</code>'s <code>ner-english-ontonotes-fast</code> model</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp.model_hub</span> <span class="kn">import</span> <span class="n">FlairModelHub</span>
+<span class="n">hub</span> <span class="o">=</span> <span class="n">FlairModelHub</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;ontonotes-fast&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span> <span class="n">model</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Model Name: flair/ner-english-ontonotes-fast, Tasks: [token-classification], Source: HuggingFace Model Hub</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Then we'll tag the string:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">name</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;flair/ner-english-ontonotes-fast&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tagger</span><span class="o">.</span><span class="n">token_taggers</span><span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>False</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sentences</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span> <span class="o">=</span> <span class="n">model</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2021-04-20 16:39:53,487 loading file /root/.flair/models/ner-english-ontonotes-fast/0d55dd3b912da9cf26e003035a0c269a0e9ab222f0be1e48a3bbba3a58c0fed0.c9907cd5fde3ce84b71a4172e7ca03841cd81ab71d13eb68aa08b259f57c00b6
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And look at our results, either the tagged strings themselves:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;List string outputs of tags:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sen</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sen</span><span class="o">.</span><span class="n">to_tagged_string</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>List string outputs of tags:
+
+Novetta &lt;B-ORG&gt; Solutions &lt;E-ORG&gt; is the best . Albert &lt;B-PERSON&gt; Einstein &lt;E-PERSON&gt; used to be employed at Novetta &lt;B-ORG&gt; Solutions &lt;E-ORG&gt; . The Wright &lt;S-PERSON&gt; brothers loved to visit the JBF &lt;S-ORG&gt; headquarters , and they would have a chat with Albert &lt;S-PERSON&gt; .
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The entities and their spans:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;List entities tagged:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sen</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">sen</span><span class="o">.</span><span class="n">get_spans</span><span class="p">(</span><span class="s2">&quot;ner&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>List entities tagged:
+
+Span [1,2]: &#34;Novetta Solutions&#34;   [− Labels: ORG (0.7751)]
+Span [7,8]: &#34;Albert Einstein&#34;   [− Labels: PERSON (0.9917)]
+Span [14,15]: &#34;Novetta Solutions&#34;   [− Labels: ORG (0.7489)]
+Span [18]: &#34;Wright&#34;   [− Labels: PERSON (0.9993)]
+Span [24]: &#34;JBF&#34;   [− Labels: ORG (0.967)]
+Span [34]: &#34;Albert&#34;   [− Labels: PERSON (0.9979)]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Or all of the raw tagged information:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Get json of tagged information:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sen</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="n">sen</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">tag_type</span><span class="o">=</span><span class="s2">&quot;ner&quot;</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Get json of tagged information:
+
+{&#39;entities&#39;: [{&#39;end_pos&#39;: 17,
+               &#39;labels&#39;: [ORG (0.7751)],
+               &#39;start_pos&#39;: 0,
+               &#39;text&#39;: &#39;Novetta Solutions&#39;},
+              {&#39;end_pos&#39;: 46,
+               &#39;labels&#39;: [PERSON (0.9917)],
+               &#39;start_pos&#39;: 31,
+               &#39;text&#39;: &#39;Albert Einstein&#39;},
+              {&#39;end_pos&#39;: 87,
+               &#39;labels&#39;: [ORG (0.7489)],
+               &#39;start_pos&#39;: 70,
+               &#39;text&#39;: &#39;Novetta Solutions&#39;},
+              {&#39;end_pos&#39;: 100,
+               &#39;labels&#39;: [PERSON (0.9993)],
+               &#39;start_pos&#39;: 94,
+               &#39;text&#39;: &#39;Wright&#39;},
+              {&#39;end_pos&#39;: 132,
+               &#39;labels&#39;: [ORG (0.967)],
+               &#39;start_pos&#39;: 129,
+               &#39;text&#39;: &#39;JBF&#39;},
+              {&#39;end_pos&#39;: 185,
+               &#39;labels&#39;: [PERSON (0.9979)],
+               &#39;start_pos&#39;: 179,
+               &#39;text&#39;: &#39;Albert&#39;}],
+ &#39;labels&#39;: [],
+ &#39;text&#39;: &#39;Novetta Solutions is the best. Albert Einstein used to be employed &#39;
+         &#39;at Novetta Solutions.  The Wright brothers loved to visit the JBF &#39;
+         &#39;headquarters, and they would have a chat with Albert.&#39;}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Parts-of-Speech">Parts of Speech<a class="anchor-link" href="#Parts-of-Speech"> </a></h3><p>Next we'll look at a parts-of-speech tagger.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can simply pass in <code>"pos"</code>, but let's use our search API to find an english POS tagger:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;pos&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[Model Name: flair/pos-english-fast, Tasks: [token-classification], Source: HuggingFace Model Hub,
+ Model Name: flair/pos-english, Tasks: [token-classification], Source: HuggingFace Model Hub,
+ Model Name: flair/upos-english-fast, Tasks: [token-classification], Source: HuggingFace Model Hub,
+ Model Name: flair/upos-english, Tasks: [token-classification], Source: HuggingFace Model Hub,
+ Model Name: flair/upos-multi-fast, Tasks: [token-classification], Source: HuggingFace Model Hub,
+ Model Name: flair/upos-multi, Tasks: [token-classification], Source: HuggingFace Model Hub,
+ Model Name: flair/upos, Tasks: [token-classification], Source: Flair&#39;s Private Model Hub,
+ Model Name: flair/upos-fast, Tasks: [token-classification], Source: Flair&#39;s Private Model Hub,
+ Model Name: flair/pos, Tasks: [token-classification], Source: Flair&#39;s Private Model Hub,
+ Model Name: flair/pos-fast, Tasks: [token-classification], Source: Flair&#39;s Private Model Hub,
+ Model Name: flair/pos-multi, Tasks: [token-classification], Source: Flair&#39;s Private Model Hub,
+ Model Name: flair/multi-pos, Tasks: [token-classification], Source: Flair&#39;s Private Model Hub,
+ Model Name: flair/pos-multi-fast, Tasks: [token-classification], Source: Flair&#39;s Private Model Hub,
+ Model Name: flair/multi-pos-fast, Tasks: [token-classification], Source: Flair&#39;s Private Model Hub,
+ Model Name: flair/da-pos, Tasks: [token-classification], Source: Flair&#39;s Private Model Hub,
+ Model Name: flair/de-pos, Tasks: [token-classification], Source: Flair&#39;s Private Model Hub,
+ Model Name: flair/de-pos-tweets, Tasks: [token-classification], Source: Flair&#39;s Private Model Hub,
+ Model Name: flair/ml-pos, Tasks: [token-classification], Source: Flair&#39;s Private Model Hub,
+ Model Name: flair/ml-upos, Tasks: [token-classification], Source: Flair&#39;s Private Model Hub,
+ Model Name: flair/pt-pos-clinical, Tasks: [token-classification], Source: Flair&#39;s Private Model Hub]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We'll use the <code>pos-english-fast</code> model</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;pos-english-fast&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span> <span class="n">model</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Model Name: flair/pos-english-fast, Tasks: [token-classification], Source: HuggingFace Model Hub</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sentences</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span> <span class="o">=</span> <span class="n">model</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2021-04-20 16:39:58,139 loading file /root/.flair/models/pos-english-fast/36f7923039eed4c66e4275927daaff6cd275997d61d238355fb1fe0338fe10a1.ff87e5b4e47fdb42a0c00237d9506c671db773e0a7932179ace82e584383a1b8
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Then just as before, we can look at our results. Either as a sentence with tags:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;List string outputs of tags:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sen</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sen</span><span class="o">.</span><span class="n">to_tagged_string</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>List string outputs of tags:
+
+Novetta &lt;NNP&gt; Solutions &lt;NNPS&gt; is &lt;VBZ&gt; the &lt;DT&gt; best &lt;JJS&gt; . &lt;.&gt; Albert &lt;NNP&gt; Einstein &lt;NNP&gt; used &lt;VBD&gt; to &lt;TO&gt; be &lt;VB&gt; employed &lt;VBN&gt; at &lt;IN&gt; Novetta &lt;NNP&gt; Solutions &lt;NNP&gt; . &lt;,&gt; The &lt;DT&gt; Wright &lt;NNP&gt; brothers &lt;NNS&gt; loved &lt;VBD&gt; to &lt;TO&gt; visit &lt;VB&gt; the &lt;DT&gt; JBF &lt;NNP&gt; headquarters &lt;NN&gt; , &lt;,&gt; and &lt;CC&gt; they &lt;PRP&gt; would &lt;MD&gt; have &lt;VB&gt; a &lt;DT&gt; chat &lt;NN&gt; with &lt;IN&gt; Albert &lt;NNP&gt; . &lt;.&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>With a list of tagged entities:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;List text/entities tagged:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sen</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">sen</span><span class="o">.</span><span class="n">get_spans</span><span class="p">(</span><span class="s2">&quot;pos&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>List text/entities tagged:
+
+Span [1]: &#34;Novetta&#34;   [− Labels: NNP (0.9991)]
+Span [2]: &#34;Solutions&#34;   [− Labels: NNPS (0.8552)]
+Span [3]: &#34;is&#34;   [− Labels: VBZ (1.0)]
+Span [4]: &#34;the&#34;   [− Labels: DT (1.0)]
+Span [5]: &#34;best&#34;   [− Labels: JJS (0.8458)]
+Span [6]: &#34;.&#34;   [− Labels: . (0.943)]
+Span [7]: &#34;Albert&#34;   [− Labels: NNP (1.0)]
+Span [8]: &#34;Einstein&#34;   [− Labels: NNP (1.0)]
+Span [9]: &#34;used&#34;   [− Labels: VBD (0.9755)]
+Span [10]: &#34;to&#34;   [− Labels: TO (0.9995)]
+Span [11]: &#34;be&#34;   [− Labels: VB (1.0)]
+Span [12]: &#34;employed&#34;   [− Labels: VBN (0.9998)]
+Span [13]: &#34;at&#34;   [− Labels: IN (1.0)]
+Span [14]: &#34;Novetta&#34;   [− Labels: NNP (1.0)]
+Span [15]: &#34;Solutions&#34;   [− Labels: NNP (0.5506)]
+Span [16]: &#34;.&#34;   [− Labels: , (0.5253)]
+Span [17]: &#34;The&#34;   [− Labels: DT (1.0)]
+Span [18]: &#34;Wright&#34;   [− Labels: NNP (0.9982)]
+Span [19]: &#34;brothers&#34;   [− Labels: NNS (0.9998)]
+Span [20]: &#34;loved&#34;   [− Labels: VBD (0.9999)]
+Span [21]: &#34;to&#34;   [− Labels: TO (0.9997)]
+Span [22]: &#34;visit&#34;   [− Labels: VB (1.0)]
+Span [23]: &#34;the&#34;   [− Labels: DT (1.0)]
+Span [24]: &#34;JBF&#34;   [− Labels: NNP (1.0)]
+Span [25]: &#34;headquarters&#34;   [− Labels: NN (0.9047)]
+Span [26]: &#34;,&#34;   [− Labels: , (1.0)]
+Span [27]: &#34;and&#34;   [− Labels: CC (1.0)]
+Span [28]: &#34;they&#34;   [− Labels: PRP (1.0)]
+Span [29]: &#34;would&#34;   [− Labels: MD (1.0)]
+Span [30]: &#34;have&#34;   [− Labels: VB (0.9999)]
+Span [31]: &#34;a&#34;   [− Labels: DT (0.9999)]
+Span [32]: &#34;chat&#34;   [− Labels: NN (0.9985)]
+Span [33]: &#34;with&#34;   [− Labels: IN (1.0)]
+Span [34]: &#34;Albert&#34;   [− Labels: NNP (0.9999)]
+Span [35]: &#34;.&#34;   [− Labels: . (0.9999)]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Or the raw JSON of information:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Get json of tagged information:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sen</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="n">sen</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">tag_type</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Get json of tagged information:
+
+{&#39;entities&#39;: [{&#39;end_pos&#39;: 7,
+               &#39;labels&#39;: [NNP (0.9991)],
+               &#39;start_pos&#39;: 0,
+               &#39;text&#39;: &#39;Novetta&#39;},
+              {&#39;end_pos&#39;: 17,
+               &#39;labels&#39;: [NNPS (0.8552)],
+               &#39;start_pos&#39;: 8,
+               &#39;text&#39;: &#39;Solutions&#39;},
+              {&#39;end_pos&#39;: 20,
+               &#39;labels&#39;: [VBZ (1.0)],
+               &#39;start_pos&#39;: 18,
+               &#39;text&#39;: &#39;is&#39;},
+              {&#39;end_pos&#39;: 24,
+               &#39;labels&#39;: [DT (1.0)],
+               &#39;start_pos&#39;: 21,
+               &#39;text&#39;: &#39;the&#39;},
+              {&#39;end_pos&#39;: 29,
+               &#39;labels&#39;: [JJS (0.8458)],
+               &#39;start_pos&#39;: 25,
+               &#39;text&#39;: &#39;best&#39;},
+              {&#39;end_pos&#39;: 30,
+               &#39;labels&#39;: [. (0.943)],
+               &#39;start_pos&#39;: 29,
+               &#39;text&#39;: &#39;.&#39;},
+              {&#39;end_pos&#39;: 37,
+               &#39;labels&#39;: [NNP (1.0)],
+               &#39;start_pos&#39;: 31,
+               &#39;text&#39;: &#39;Albert&#39;},
+              {&#39;end_pos&#39;: 46,
+               &#39;labels&#39;: [NNP (1.0)],
+               &#39;start_pos&#39;: 38,
+               &#39;text&#39;: &#39;Einstein&#39;},
+              {&#39;end_pos&#39;: 51,
+               &#39;labels&#39;: [VBD (0.9755)],
+               &#39;start_pos&#39;: 47,
+               &#39;text&#39;: &#39;used&#39;},
+              {&#39;end_pos&#39;: 54,
+               &#39;labels&#39;: [TO (0.9995)],
+               &#39;start_pos&#39;: 52,
+               &#39;text&#39;: &#39;to&#39;},
+              {&#39;end_pos&#39;: 57,
+               &#39;labels&#39;: [VB (1.0)],
+               &#39;start_pos&#39;: 55,
+               &#39;text&#39;: &#39;be&#39;},
+              {&#39;end_pos&#39;: 66,
+               &#39;labels&#39;: [VBN (0.9998)],
+               &#39;start_pos&#39;: 58,
+               &#39;text&#39;: &#39;employed&#39;},
+              {&#39;end_pos&#39;: 69,
+               &#39;labels&#39;: [IN (1.0)],
+               &#39;start_pos&#39;: 67,
+               &#39;text&#39;: &#39;at&#39;},
+              {&#39;end_pos&#39;: 77,
+               &#39;labels&#39;: [NNP (1.0)],
+               &#39;start_pos&#39;: 70,
+               &#39;text&#39;: &#39;Novetta&#39;},
+              {&#39;end_pos&#39;: 87,
+               &#39;labels&#39;: [NNP (0.5506)],
+               &#39;start_pos&#39;: 78,
+               &#39;text&#39;: &#39;Solutions&#39;},
+              {&#39;end_pos&#39;: 88,
+               &#39;labels&#39;: [, (0.5253)],
+               &#39;start_pos&#39;: 87,
+               &#39;text&#39;: &#39;.&#39;},
+              {&#39;end_pos&#39;: 93,
+               &#39;labels&#39;: [DT (1.0)],
+               &#39;start_pos&#39;: 90,
+               &#39;text&#39;: &#39;The&#39;},
+              {&#39;end_pos&#39;: 100,
+               &#39;labels&#39;: [NNP (0.9982)],
+               &#39;start_pos&#39;: 94,
+               &#39;text&#39;: &#39;Wright&#39;},
+              {&#39;end_pos&#39;: 109,
+               &#39;labels&#39;: [NNS (0.9998)],
+               &#39;start_pos&#39;: 101,
+               &#39;text&#39;: &#39;brothers&#39;},
+              {&#39;end_pos&#39;: 115,
+               &#39;labels&#39;: [VBD (0.9999)],
+               &#39;start_pos&#39;: 110,
+               &#39;text&#39;: &#39;loved&#39;},
+              {&#39;end_pos&#39;: 118,
+               &#39;labels&#39;: [TO (0.9997)],
+               &#39;start_pos&#39;: 116,
+               &#39;text&#39;: &#39;to&#39;},
+              {&#39;end_pos&#39;: 124,
+               &#39;labels&#39;: [VB (1.0)],
+               &#39;start_pos&#39;: 119,
+               &#39;text&#39;: &#39;visit&#39;},
+              {&#39;end_pos&#39;: 128,
+               &#39;labels&#39;: [DT (1.0)],
+               &#39;start_pos&#39;: 125,
+               &#39;text&#39;: &#39;the&#39;},
+              {&#39;end_pos&#39;: 132,
+               &#39;labels&#39;: [NNP (1.0)],
+               &#39;start_pos&#39;: 129,
+               &#39;text&#39;: &#39;JBF&#39;},
+              {&#39;end_pos&#39;: 145,
+               &#39;labels&#39;: [NN (0.9047)],
+               &#39;start_pos&#39;: 133,
+               &#39;text&#39;: &#39;headquarters&#39;},
+              {&#39;end_pos&#39;: 146,
+               &#39;labels&#39;: [, (1.0)],
+               &#39;start_pos&#39;: 145,
+               &#39;text&#39;: &#39;,&#39;},
+              {&#39;end_pos&#39;: 150,
+               &#39;labels&#39;: [CC (1.0)],
+               &#39;start_pos&#39;: 147,
+               &#39;text&#39;: &#39;and&#39;},
+              {&#39;end_pos&#39;: 155,
+               &#39;labels&#39;: [PRP (1.0)],
+               &#39;start_pos&#39;: 151,
+               &#39;text&#39;: &#39;they&#39;},
+              {&#39;end_pos&#39;: 161,
+               &#39;labels&#39;: [MD (1.0)],
+               &#39;start_pos&#39;: 156,
+               &#39;text&#39;: &#39;would&#39;},
+              {&#39;end_pos&#39;: 166,
+               &#39;labels&#39;: [VB (0.9999)],
+               &#39;start_pos&#39;: 162,
+               &#39;text&#39;: &#39;have&#39;},
+              {&#39;end_pos&#39;: 168,
+               &#39;labels&#39;: [DT (0.9999)],
+               &#39;start_pos&#39;: 167,
+               &#39;text&#39;: &#39;a&#39;},
+              {&#39;end_pos&#39;: 173,
+               &#39;labels&#39;: [NN (0.9985)],
+               &#39;start_pos&#39;: 169,
+               &#39;text&#39;: &#39;chat&#39;},
+              {&#39;end_pos&#39;: 178,
+               &#39;labels&#39;: [IN (1.0)],
+               &#39;start_pos&#39;: 174,
+               &#39;text&#39;: &#39;with&#39;},
+              {&#39;end_pos&#39;: 185,
+               &#39;labels&#39;: [NNP (0.9999)],
+               &#39;start_pos&#39;: 179,
+               &#39;text&#39;: &#39;Albert&#39;},
+              {&#39;end_pos&#39;: 186,
+               &#39;labels&#39;: [. (0.9999)],
+               &#39;start_pos&#39;: 185,
+               &#39;text&#39;: &#39;.&#39;}],
+ &#39;labels&#39;: [],
+ &#39;text&#39;: &#39;Novetta Solutions is the best. Albert Einstein used to be employed &#39;
+         &#39;at Novetta Solutions.  The Wright brothers loved to visit the JBF &#39;
+         &#39;headquarters, and they would have a chat with Albert.&#39;}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Chunk">Chunk<a class="anchor-link" href="#Chunk"> </a></h3><p>As with everything before, <code>chunk</code> tasks operate the same way. You can either pass <code>chunk</code> to get the default <code>en-chunk</code> model, or we can search the model hub:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;chunk&#39;</span><span class="p">);</span> <span class="n">models</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[Model Name: flair/chunk-english-fast, Tasks: [token-classification], Source: HuggingFace Model Hub,
+ Model Name: flair/chunk-english, Tasks: [token-classification], Source: HuggingFace Model Hub,
+ Model Name: flair/chunk, Tasks: [token-classification], Source: Flair&#39;s Private Model Hub,
+ Model Name: flair/chunk-fast, Tasks: [token-classification], Source: Flair&#39;s Private Model Hub]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We'll use the <code>fast</code> model again:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">model</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Model Name: flair/chunk-english-fast, Tasks: [token-classification], Source: HuggingFace Model Hub</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sentences</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span> <span class="o">=</span> <span class="n">model</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2021-04-20 16:39:58,442 loading file /root/.flair/models/chunk-english-fast/be3a207f4993dd6d174d5083341a717d371ec16f721358e7a4d72158ebab28a6.a7f897d05c83e618a8235bbb7ddfca5a79d2daefb8a97c776eb73f97dbaea508
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's view our results.</p>
+<p>Tagged string:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;List string outputs of tags:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sen</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sen</span><span class="o">.</span><span class="n">to_tagged_string</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>List string outputs of tags:
+
+Novetta &lt;B-NP&gt; Solutions &lt;E-NP&gt; is &lt;S-VP&gt; the &lt;B-NP&gt; best &lt;I-NP&gt; . &lt;I-NP&gt; Albert &lt;I-NP&gt; Einstein &lt;E-NP&gt; used &lt;B-VP&gt; to &lt;I-VP&gt; be &lt;I-VP&gt; employed &lt;E-VP&gt; at &lt;S-PP&gt; Novetta &lt;B-NP&gt; Solutions &lt;E-NP&gt; . The &lt;B-NP&gt; Wright &lt;I-NP&gt; brothers &lt;E-NP&gt; loved &lt;B-VP&gt; to &lt;I-VP&gt; visit &lt;E-VP&gt; the &lt;B-NP&gt; JBF &lt;I-NP&gt; headquarters &lt;E-NP&gt; , and they &lt;S-NP&gt; would &lt;B-VP&gt; have &lt;E-VP&gt; a &lt;B-NP&gt; chat &lt;E-NP&gt; with &lt;S-PP&gt; Albert &lt;S-NP&gt; .
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Tagged entities:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;List text/entities tagged:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sen</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">sen</span><span class="o">.</span><span class="n">get_spans</span><span class="p">(</span><span class="s2">&quot;np&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>List text/entities tagged:
+
+Span [1,2]: &#34;Novetta Solutions&#34;   [− Labels: NP (0.9865)]
+Span [3]: &#34;is&#34;   [− Labels: VP (1.0)]
+Span [4,5,6,7,8]: &#34;the best . Albert Einstein&#34;   [− Labels: NP (0.8215)]
+Span [9,10,11,12]: &#34;used to be employed&#34;   [− Labels: VP (0.9314)]
+Span [13]: &#34;at&#34;   [− Labels: PP (1.0)]
+Span [14,15]: &#34;Novetta Solutions&#34;   [− Labels: NP (0.9916)]
+Span [17,18,19]: &#34;The Wright brothers&#34;   [− Labels: NP (0.8962)]
+Span [20,21,22]: &#34;loved to visit&#34;   [− Labels: VP (0.9181)]
+Span [23,24,25]: &#34;the JBF headquarters&#34;   [− Labels: NP (0.986)]
+Span [28]: &#34;they&#34;   [− Labels: NP (1.0)]
+Span [29,30]: &#34;would have&#34;   [− Labels: VP (0.9376)]
+Span [31,32]: &#34;a chat&#34;   [− Labels: NP (0.9899)]
+Span [33]: &#34;with&#34;   [− Labels: PP (1.0)]
+Span [34]: &#34;Albert&#34;   [− Labels: NP (0.9995)]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Frame">Frame<a class="anchor-link" href="#Frame"> </a></h3><p>We can either delegate the <code>"frame"</code> task and use the default <code>en-frame-ontonotes</code> model, or search the API for usable models:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s2">&quot;frame&quot;</span><span class="p">);</span> <span class="n">models</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[Model Name: flair/frame-english-fast, Tasks: [token-classification], Source: HuggingFace Model Hub,
+ Model Name: flair/frame-english, Tasks: [token-classification], Source: HuggingFace Model Hub,
+ Model Name: flair/frame, Tasks: [token-classification], Source: Flair&#39;s Private Model Hub,
+ Model Name: flair/frame-fast, Tasks: [token-classification], Source: Flair&#39;s Private Model Hub]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Again we will use the "fast" model:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">model</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Model Name: flair/frame-english-fast, Tasks: [token-classification], Source: HuggingFace Model Hub</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sentences</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span> <span class="o">=</span> <span class="n">model</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2021-04-20 16:39:58,687 loading file /root/.flair/models/frame-english-fast/b2f10f9bc52898d86d8e6f3bf20369d681cc1e9badcb71650aa274ac696433c7.643ca10453770684aca3f2e886a7243adb2979c67a68de6379e50ccf5dc248da
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And look at our tagged string:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;List string outputs of tags:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sen</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sen</span><span class="o">.</span><span class="n">to_tagged_string</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>List string outputs of tags:
+
+Novetta Solutions is &lt;be.01&gt; the best . Albert Einstein used &lt;use.03&gt; to be &lt;be.03&gt; employed &lt;employ.01&gt; at Novetta Solutions . The Wright brothers loved &lt;love.01&gt; to visit &lt;visit.01&gt; the JBF headquarters , and they would have &lt;have.03&gt; a chat &lt;chat.01&gt; with Albert .
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>Notice:Pay attention to the "fast" versus regular naming. "fast" models are designed to be extremely efficient on the CPU, and are worth checking out</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Tag-Tokens-with-All-Loaded-Models-At-Once">Tag Tokens with All Loaded Models At Once<a class="anchor-link" href="#Tag-Tokens-with-All-Loaded-Models-At-Once"> </a></h3><p>As different taggers are loaded into memory, we can tag with all of them at once, for example we'll make a new <a href="/adaptnlptoken_classification.html#EasyTokenTagger"><code>EasyTokenTagger</code></a> and load in a <code>ner</code> and <code>pos</code> tagger:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tagger</span> <span class="o">=</span> <span class="n">EasyTokenTagger</span><span class="p">()</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;ner-ontonotes&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2021-04-20 16:39:59,530 --------------------------------------------------------------------------------
+2021-04-20 16:39:59,531 The model key &#39;ner-ontonotes&#39; now maps to &#39;https://huggingface.co/flair/ner-english-ontonotes&#39; on the HuggingFace ModelHub
+2021-04-20 16:39:59,531  - The most current version of the model is automatically downloaded from there.
+2021-04-20 16:39:59,532  - (you can alternatively manually download the original model at https://nlp.informatik.hu-berlin.de/resources/models/ner-ontonotes/en-ner-ontonotes-v0.4.pt)
+2021-04-20 16:39:59,532 --------------------------------------------------------------------------------
+2021-04-20 16:39:59,551 loading file /root/.flair/models/ner-english-ontonotes/f46dcd14689a594a7dd2a8c9c001a34fd55b02fded2528410913c7e88dbe43d4.1207747bf5ae24291205b6f3e7417c8bedd5c32cacfb5a439f3eff38afda66f7
+2021-04-20 16:40:04,606 loading file /root/.flair/models/pos-english-fast/36f7923039eed4c66e4275927daaff6cd275997d61d238355fb1fe0338fe10a1.ff87e5b4e47fdb42a0c00237d9506c671db773e0a7932179ace82e584383a1b8
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Before finally using both at once:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sentences</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_all</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2021-04-20 16:40:04,886 loading file /root/.flair/models/pos-english-fast/36f7923039eed4c66e4275927daaff6cd275997d61d238355fb1fe0338fe10a1.ff87e5b4e47fdb42a0c00237d9506c671db773e0a7932179ace82e584383a1b8
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And now we can look at the entities tagged of each kind:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;List entities tagged:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sen</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">sen</span><span class="o">.</span><span class="n">get_spans</span><span class="p">(</span><span class="s2">&quot;ner&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>List entities tagged:
+
+Span [1,2]: &#34;Novetta Solutions&#34;   [− Labels: ORG (0.9644)]
+Span [7,8]: &#34;Albert Einstein&#34;   [− Labels: PERSON (0.9969)]
+Span [14,15]: &#34;Novetta Solutions&#34;   [− Labels: ORG (0.9796)]
+Span [18]: &#34;Wright&#34;   [− Labels: PERSON (0.9995)]
+Span [24]: &#34;JBF&#34;   [− Labels: ORG (0.9898)]
+Span [34]: &#34;Albert&#34;   [− Labels: PERSON (0.9999)]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;List entities tagged:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sen</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">sen</span><span class="o">.</span><span class="n">get_spans</span><span class="p">(</span><span class="s2">&quot;pos&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>List entities tagged:
+
+Span [1]: &#34;Novetta&#34;   [− Labels: NNP (0.9991)]
+Span [2]: &#34;Solutions&#34;   [− Labels: NNPS (0.8552)]
+Span [3]: &#34;is&#34;   [− Labels: VBZ (1.0)]
+Span [4]: &#34;the&#34;   [− Labels: DT (1.0)]
+Span [5]: &#34;best&#34;   [− Labels: JJS (0.8458)]
+Span [6]: &#34;.&#34;   [− Labels: . (0.943)]
+Span [7]: &#34;Albert&#34;   [− Labels: NNP (1.0)]
+Span [8]: &#34;Einstein&#34;   [− Labels: NNP (1.0)]
+Span [9]: &#34;used&#34;   [− Labels: VBD (0.9755)]
+Span [10]: &#34;to&#34;   [− Labels: TO (0.9995)]
+Span [11]: &#34;be&#34;   [− Labels: VB (1.0)]
+Span [12]: &#34;employed&#34;   [− Labels: VBN (0.9998)]
+Span [13]: &#34;at&#34;   [− Labels: IN (1.0)]
+Span [14]: &#34;Novetta&#34;   [− Labels: NNP (1.0)]
+Span [15]: &#34;Solutions&#34;   [− Labels: NNP (0.5506)]
+Span [16]: &#34;.&#34;   [− Labels: , (0.5253)]
+Span [17]: &#34;The&#34;   [− Labels: DT (1.0)]
+Span [18]: &#34;Wright&#34;   [− Labels: NNP (0.9982)]
+Span [19]: &#34;brothers&#34;   [− Labels: NNS (0.9998)]
+Span [20]: &#34;loved&#34;   [− Labels: VBD (0.9999)]
+Span [21]: &#34;to&#34;   [− Labels: TO (0.9997)]
+Span [22]: &#34;visit&#34;   [− Labels: VB (1.0)]
+Span [23]: &#34;the&#34;   [− Labels: DT (1.0)]
+Span [24]: &#34;JBF&#34;   [− Labels: NNP (1.0)]
+Span [25]: &#34;headquarters&#34;   [− Labels: NN (0.9047)]
+Span [26]: &#34;,&#34;   [− Labels: , (1.0)]
+Span [27]: &#34;and&#34;   [− Labels: CC (1.0)]
+Span [28]: &#34;they&#34;   [− Labels: PRP (1.0)]
+Span [29]: &#34;would&#34;   [− Labels: MD (1.0)]
+Span [30]: &#34;have&#34;   [− Labels: VB (0.9999)]
+Span [31]: &#34;a&#34;   [− Labels: DT (0.9999)]
+Span [32]: &#34;chat&#34;   [− Labels: NN (0.9985)]
+Span [33]: &#34;with&#34;   [− Labels: IN (1.0)]
+Span [34]: &#34;Albert&#34;   [− Labels: NNP (0.9999)]
+Span [35]: &#34;.&#34;   [− Labels: . (0.9999)]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+ 
+
+
+
+    <div class="tags">
+        
+    </div>
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                  <p><img src="/adaptnlp/assets/images/company_logo.png" alt="Company logo"/></p>
+               &copy;2021 Novetta. All rights reserved. <br />
+ Site last generated: Apr 20, 2021 <br />
+                </div>
+            </div>
+</footer>
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

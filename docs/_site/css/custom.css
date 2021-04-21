@@ -1,0 +1,22 @@
+div.autodoc-docstring {
+  padding-left: 20px;
+  margin-bottom: 30px;
+  border-left: 5px solid rgba(230, 230, 230);
+}
+
+div.autodoc-members {
+  padding-left: 20px;
+  margin-bottom: 15px;
+}
+
+details summary::-webkit-details-marker {
+  background: red;
+  color: #fff;
+  font-size: 500%;
+}
+
+details {
+  padding: 15px;
+  background-color: #f6f7f8;
+  margin-bottom: 20px;
+}

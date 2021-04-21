@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An interactive API for model lookup within HuggingFace and Flair">
+<meta name="keywords" content=" fastai">
+<title>Interacting with HuggingFace and Flair, Model Zoo | adaptnlp</title>
+<link rel="stylesheet" href="/adaptnlp/assets/css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="assets//css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/adaptnlp/assets/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/adaptnlp/assets/css/customstyles.css">
+<link rel="stylesheet" href="/adaptnlp/assets/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/adaptnlp/assets/css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/adaptnlp/assets/js/jquery.navgoco.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement( document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "[%", right: "%]", display: true},
+      {left: "$", right: "$", display: false}
+    ]}
+  );
+});
+</script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="/adaptnlp/assets/js/toc.js"></script>
+<script src="/adaptnlp/assets/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/adaptnlp/assets/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="adaptnlp" href="http://localhost:4000/adaptnlp/feed.xml">
+
+<!-- Twitter cards -->
+
+
+
+<meta name="twitter:description" content="An interactive API for model lookup within HuggingFace and Flair">
+
+
+
+<meta name="twitter:card"  content="summary">
+
+
+<!-- end of Twitter cards -->
+
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+            // activate menu items where href is matching to current page
+            $("#mysidebar a[href='" + location.pathname.match(/(\/[^\/]*)$/)[1] + "']")
+                .parents('li').addClass('active')
+                .parents('ul').css('display', 'block');
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="http://localhost:4000/adaptnlp">&nbsp;<span class="projectTitle">adaptnlp</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://github.com/novetta/adaptnlp/tree/master/" target="_blank">github</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                
+                
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle"> </li>
+  
+  
+  
+  <li>
+      <a href="#">Getting Started</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/contributing.md">Contributing</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Models and Model Hubs</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/language_model.html">Language Models</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/model.html">Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/model_hub.html">The Model Hub</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Class API</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/api_intro.md">Overview</a></li>
+          
+          
+          
+          <li class="subfolders">
+              <a href="#">NLP Tasks</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/embeddings.html">Embeddings</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/question_answering.html">Question Answering</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/sequence_classification.html">Sequence Classification</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/summarization.html">Summarization</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/text_generation.html">Text Generation</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/token_classification.html">Token Tagging and Classification</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/translation.html">Translation</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          <li class="subfolders">
+              <a href="#">Training Framework</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/callback.html">Callbacks</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/training.html">Training</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          <li class="subfolders">
+              <a href="#">Utilities</a>
+              <ul>
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/file_utils.html">File Utilities</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/transformers.finetuning.html">Transformers Fine-Tuning</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/transformers.squad_metrics.html">Transformers Squad Metrics</a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li><a href="/adaptnlp/transformers.utils_squad_evaluate.html">Transformers Squad Evaluate</a></li>
+                  
+                  
+                  
+              </ul>
+          </li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Tutorials - User Guide</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial-intro.md">Tutorial- Intro</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.embeddings.html">Embeddings</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.question_answering.html">Question Answering</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.easy_sequence_classifier.html">Sequence Classification</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.summarization.html">Summarization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.easy_text_generator.html">Text Generation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.token_tagging.html">Token Tagging</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.translation.html">Translation</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a href="#">Tutorials - Advanced</a>
+      <ul>
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.fine_tuning_lm.html">Fine-Tuning a Language Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.fine_tuning_manual.html">Fine Tune Transformers Models</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/adaptnlp/tutorial.flair_seq_class_trainer.html">Training Sequence Classifier Head</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block:
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+         </p>
+         -->
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+    <a id="Interacting with HuggingFace and Flair, Model Zoo"></a>
+    <h1 class="post-title-main">Interacting with HuggingFace and Flair, Model Zoo</h1>
+    
+        <div class="px-2">
+    <a href="https://colab.research.google.com/github/muellerzr/adaptnlp/blob/master/nbs/02_model_hub.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/adaptnlp/assets/images/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+
+    </div>
+
+
+
+<div class="post-content">
+
+   
+    <div class="summary">An interactive API for model lookup within HuggingFace and Flair</div>
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    
+
+   <!--
+
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: nbs/02_model_hub.ipynb
+# command to build the docs after a change: nbdev_build_docs
+
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For convience the <a href="/adaptnlpmodel_hub.html#HF_TASKS"><code>HF_TASKS</code></a> and <a href="/adaptnlpmodel_hub.html#FLAIR_TASKS"><code>FLAIR_TASKS</code></a> objects can enable tab-completion for searching through the API:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="- FILL_MASK: fill-mask
+- QUESTION_ANSWERING: question-answering
+- SUMMARIZATION: summarization
+- TABLE_QUESTION_ANSWERING: table-question-answering
+- TEXT_CLASSIFICATION: text-classification
+- TEXT_GENERATION: text-generation
+- TEXT2TEXT_GENERATION: text2text-generation
+- TOKEN_CLASSIFICATION: token-classification
+- TRANSLATION: translation
+- ZERO_SHOT_CLASSIFICATION: zero-shot-classification
+- CONVERSATIONAL: conversational
+- TEXT_TO_SPEECH: text-to-speech
+- AUTOMATIC_SPEECH_RECOGNITION: automatic-speech-recognition
+- AUDIO_SOURCE_SEPERATION: audio-source-seperation
+- VOICE_ACTIVITY_DETECTION: voice-activity-detection" class="doc_header"><code>- FILL_MASK: fill-mask
+- QUESTION_ANSWERING: question-answering
+- SUMMARIZATION: summarization
+- TABLE_QUESTION_ANSWERING: table-question-answering
+- TEXT_CLASSIFICATION: text-classification
+- TEXT_GENERATION: text-generation
+- TEXT2TEXT_GENERATION: text2text-generation
+- TOKEN_CLASSIFICATION: token-classification
+- TRANSLATION: translation
+- ZERO_SHOT_CLASSIFICATION: zero-shot-classification
+- CONVERSATIONAL: conversational
+- TEXT_TO_SPEECH: text-to-speech
+- AUTOMATIC_SPEECH_RECOGNITION: automatic-speech-recognition
+- AUDIO_SOURCE_SEPERATION: audio-source-seperation
+- VOICE_ACTIVITY_DETECTION: voice-activity-detection</code><a href="" class="source_link" style="float:right">[source]</a></h4><p>A list of all HuggingFace tasks for valid API lookup</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">HF_TASKS</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>dict_values([&#39;fill-mask&#39;, &#39;question-answering&#39;, &#39;summarization&#39;, &#39;table-question-answering&#39;, &#39;text-classification&#39;, &#39;text-generation&#39;, &#39;text2text-generation&#39;, &#39;token-classification&#39;, &#39;translation&#39;, &#39;zero-shot-classification&#39;, &#39;conversational&#39;, &#39;text-to-speech&#39;, &#39;automatic-speech-recognition&#39;, &#39;audio-source-seperation&#39;, &#39;voice-activity-detection&#39;])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="HFModelResult" class="doc_header"><code>class</code> <code>HFModelResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L37" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>HFModelResult</code>(<strong><code>model_info</code></strong>:<code>ModelInfo</code>)</p>
+</blockquote>
+<p>A very basic class for storing a HuggingFace model returned through an API request</p>
+<p>They have 4 properties:</p>
+<ul>
+<li><code>name</code>: The <code>modelId</code> from the <code>modelInfo</code>. This also includes the model author's name.
+<pre><code>      Example: "IlyaGusev/mbart_ru_sum_gazeta"</code></pre>
+</li>
+<li><code>tags</code>: Any tags that were included in <code>HugginFace</code> in relation to the model.</li>
+<li><code>tasks</code>: These are the tasks dictated for the model.
+<pre><code>     We look inside of `modelInfo.pipeline_tag` as well as the `tags` for if there is any overlap</code></pre>
+</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="HFModelResult.to_dict" class="doc_header"><code>HFModelResult.to_dict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L70" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>HFModelResult.to_dict</code>()</p>
+</blockquote>
+<p>Returns <a href="/adaptnlpmodel_hub.html#HFModelResult"><code>HFModelResult</code></a> as a dictionary with the keys:</p>
+<ul>
+<li><code>model_name</code></li>
+<li><code>tags</code></li>
+<li><code>tasks</code></li>
+<li><code>model_info</code></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="HFModelHub" class="doc_header"><code>class</code> <code>HFModelHub</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L81" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>HFModelHub</code>(<strong><code>username</code></strong>=<em><code>None</code></em>, <strong><code>password</code></strong>=<em><code>None</code></em>)</p>
+</blockquote>
+<p>A class for interacting with the HF model hub API, and searching for models by name or task</p>
+<p>Can optionally include your HuggingFace login for authorized access (but is not required)</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The model search hub creates a friendly end-user API when searching through HuggingFace (and Flair, as we will see later). Usage is extremely simple as well.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="HFModelHub.search_model_by_task" class="doc_header"><code>HFModelHub.search_model_by_task</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L107" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>HFModelHub.search_model_by_task</code>(<strong><code>task</code></strong>:<code>str</code>, <strong><code>as_dict</code></strong>=<em><code>False</code></em>, <strong><code>user_uploaded</code></strong>=<em><code>False</code></em>)</p>
+</blockquote>
+<p>Searches HuggingFace Model API for all pretrained models relating to <code>task</code> and returns a list of HFModelResults</p>
+<p>Optionally can return all models as a <code>dict</code> rather than a list</p>
+<p>If <code>user_uploaded</code> is False, will only return models originating in HuggingFace (such as distilgpt2)</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHubSearch</span><span class="p">()</span>
+    <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;summarization&#39;</span><span class="p">)</span>
+    <span class="c1"># OR #</span>
+    <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="n">HF_TASKS</span><span class="o">.</span><span class="n">SUMMARIZATION</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This will return a list of models available for a particular class. A few usage examples are below:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+<span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;summarization&#39;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">models</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[Model Name: t5-11b, Tasks: [summarization, text2text-generation, translation],
+ Model Name: t5-3b, Tasks: [summarization, text2text-generation, translation],
+ Model Name: t5-base, Tasks: [summarization, text2text-generation, translation],
+ Model Name: t5-large, Tasks: [summarization, text2text-generation, translation],
+ Model Name: t5-small, Tasks: [summarization, text2text-generation, translation]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can also search for any user-uploaded models from the community too:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;summarization&#39;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">models</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[Model Name: t5-11b, Tasks: [summarization, text2text-generation, translation],
+ Model Name: t5-3b, Tasks: [summarization, text2text-generation, translation],
+ Model Name: t5-base, Tasks: [summarization, text2text-generation, translation],
+ Model Name: t5-large, Tasks: [summarization, text2text-generation, translation],
+ Model Name: t5-small, Tasks: [summarization, text2text-generation, translation],
+ Model Name: Callidior/bert2bert-base-arxiv-titlegen, Tasks: [summarization, text2text-generation],
+ Model Name: IlyaGusev/mbart_ru_sum_gazeta, Tasks: [summarization, text2text-generation],
+ Model Name: IlyaGusev/rubert_telegram_headlines, Tasks: [summarization, text2text-generation],
+ Model Name: LeoCordoba/beto2beto-mlsum, Tasks: [summarization, text2text-generation],
+ Model Name: LeoCordoba/mt5-small-mlsum, Tasks: [summarization, text2text-generation]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There are also cases where a <code>dict</code> may be easier to work with (perhaps utilizing a network API, or ease of use for some). We can instead return a dictionary of <a href="/adaptnlpmodel_hub.html#HFModelResult"><code>HFModelResult</code></a> objects too by passing <code>as_dict=True</code> to any search call:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;summarization&#39;</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+<span class="n">models</span><span class="p">[</span><span class="s1">&#39;t5-11b&#39;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;model_name&#39;: &#39;t5-11b&#39;,
+ &#39;tags&#39;: [&#39;pytorch&#39;,
+  &#39;tf&#39;,
+  &#39;t5&#39;,
+  &#39;lm-head&#39;,
+  &#39;seq2seq&#39;,
+  &#39;en&#39;,
+  &#39;fr&#39;,
+  &#39;ro&#39;,
+  &#39;de&#39;,
+  &#39;dataset:c4&#39;,
+  &#39;arxiv:1910.10683&#39;,
+  &#39;summarization&#39;,
+  &#39;translation&#39;,
+  &#39;license:apache-2.0&#39;,
+  &#39;text2text-generation&#39;],
+ &#39;tasks&#39;: [&#39;summarization&#39;, &#39;text2text-generation&#39;, &#39;translation&#39;],
+ &#39;model_info&#39;: &lt;huggingface_hub.hf_api.ModelInfo at 0x7f6308879a00&gt;}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This will return a dictionary of the name, the HuggingFace tags affiliated with the model, the dictated tasks, and an instance of <code>huggingface_hub</code>'s <code>ModelInfo</code>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="HFModelHub.search_model_by_name" class="doc_header"><code>HFModelHub.search_model_by_name</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L131" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>HFModelHub.search_model_by_name</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>as_dict</code></strong>=<em><code>False</code></em>, <strong><code>user_uploaded</code></strong>=<em><code>False</code></em>)</p>
+</blockquote>
+<p>Searches HuggingFace Model API for all pretrained models containing <code>name</code> and returns a list of HFModelResults</p>
+<p>Optionally can return all models as <code>dict</code> rather than a list</p>
+<p>If <code>user_uploaded</code> is False, will only return models originating from HuggingFace (such as distilgpt2)</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHubSearch</span><span class="p">()</span>
+  <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;gpt2&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>With <code>search_model_by_name</code> you're allowed a bit more freedom in what you wish to search for. <code>search_model_by_name</code> downloads the entire list of models from <code>HuggingFace</code> then performs partial string matching. As a result you can search for all models by a particular user by doing:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;Callidior&#39;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[Model Name: Callidior/bert2bert-base-arxiv-titlegen, Tasks: [summarization]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Or (as implied by the function name) any model type itself:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;gpt2&#39;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">5</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[Model Name: 850886470/xxy_gpt2_chinese, Tasks: [],
+ Model Name: Fabby/gpt2-english-light-novel-titles, Tasks: [],
+ Model Name: Ferch423/gpt2-small-portuguese-wikipediabio, Tasks: [text-generation],
+ Model Name: GroNLP/gpt2-medium-dutch-embeddings, Tasks: [text-generation],
+ Model Name: GroNLP/gpt2-medium-italian-embeddings, Tasks: [text-generation]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="- NAMED_ENTITY_RECOGNITION: ner
+- PHRASE_CHUNKING: chunk
+- VERB_DISAMBIGUATION: frame
+- PART_OF_SPEECH_TAGGING: pos
+- UNIVERSAL_PART_OF_SPEECH_TAGGING: upos
+- EMBEDDINGS: embeddings" class="doc_header"><code>- NAMED_ENTITY_RECOGNITION: ner
+- PHRASE_CHUNKING: chunk
+- VERB_DISAMBIGUATION: frame
+- PART_OF_SPEECH_TAGGING: pos
+- UNIVERSAL_PART_OF_SPEECH_TAGGING: upos
+- EMBEDDINGS: embeddings</code><a href="" class="source_link" style="float:right">[source]</a></h4><p>A list of all Flair model tasks for valid API lookup</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Flair has a series of extra models available for use that are not available through HuggingFace such as <code>sentiment</code>, <code>communicative-functions</code>, and more. <a href="/adaptnlpmodel_hub.html#FLAIR_MODELS"><code>FLAIR_MODELS</code></a> is a convience holder for quick lookup of these models (as no such list is easily available currently). When shown as results on the API they will be given the same <code>flair</code> prefix for convience.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="FlairModelResult" class="doc_header"><code>class</code> <code>FlairModelResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L379" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FlairModelResult</code>(<strong><code>model_info</code></strong>:<code>ModelInfo</code>) :: <a href="/adaptnlpmodel_hub.html#HFModelResult"><code>HFModelResult</code></a></p>
+</blockquote>
+<p>A version of <a href="/adaptnlpmodel_hub.html#HFModelResult"><code>HFModelResult</code></a> for Flair specifically.</p>
+<p>Includes which backend the model was found (such as on HuggingFace or Flair's private model list)</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="FlairModelHub" class="doc_header"><code>class</code> <code>FlairModelHub</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L401" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FlairModelHub</code>(<strong><code>username</code></strong>=<em><code>None</code></em>, <strong><code>password</code></strong>=<em><code>None</code></em>)</p>
+</blockquote>
+<p>A class for interacting with the HF model hub API, and searching for Flair models by name or task</p>
+<p>Can optionally include your HuggingFace login for authorized access (but is not required)</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="/adaptnlpmodel_hub.html#FlairModelHub"><code>FlairModelHub</code></a> is extremely similar to <a href="/adaptnlpmodel_hub.html#HFModelHub"><code>HFModelHub</code></a>, with the two differences being that it will <strong>only</strong> return <code>Flair</code> models, and it has access to the <em>other</em> Flair models available that can't be accessed through the HuggingFace model hub</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">FlairModelHub</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="FlairModelHub.search_model_by_name" class="doc_header"><code>FlairModelHub.search_model_by_name</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L428" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FlairModelHub.search_model_by_name</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>as_dict</code></strong>=<em><code>False</code></em>, <strong><code>user_uploaded</code></strong>=<em><code>False</code></em>)</p>
+</blockquote>
+<p>Searches HuggingFace Model API for all flair models containing <code>name</code> and returns a list of <code>HFModelResults</code></p>
+<p>Optionally can return all models as <code>dict</code> rather than a list</p>
+<p>If <code>user_uploaded</code> is False, will only return models originating from Flair (such as flair/chunk-english-fast)</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">FlairModelHubSearch</span><span class="p">()</span>
+  <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;flair/chunk-english-fast&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>seach_model_by_name</code> will also let you search for models without needing the <code>flair</code> prefix, such as:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;sentiment&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[Model Name: flair/sentiment, Tasks: [text-classification], Source: Flair&#39;s Private Model Hub,
+ Model Name: flair/en-sentiment, Tasks: [text-classification], Source: Flair&#39;s Private Model Hub,
+ Model Name: flair/sentiment-fast, Tasks: [text-classification], Source: Flair&#39;s Private Model Hub]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="FlairModelHub.search_model_by_task" class="doc_header"><code>FlairModelHub.search_model_by_task</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L445" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FlairModelHub.search_model_by_task</code>(<strong><code>task</code></strong>:<code>str</code>, <strong><code>as_dict</code></strong>=<em><code>False</code></em>, <strong><code>user_uploaded</code></strong>=<em><code>False</code></em>)</p>
+</blockquote>
+<p>Searches HuggingFace Model API for all flair models for <code>task</code> and returns a list of <code>HFModelResults</code></p>
+<p>Optionally can return all models as <code>dict</code> rather than a list</p>
+<p>If <code>user_uploaded</code> is False, will only return models originating from Flair (such as flair/chunk-english-fast)</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">FlairModelHubSearch</span><span class="p">()</span>
+    <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;ner&#39;</span><span class="p">)</span>
+    <span class="c1"># OR: #</span>
+    <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="n">FLAIR_TASKS</span><span class="o">.</span><span class="n">NAMED_ENTITY_RECOGNITION</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Since we have a <a href="/adaptnlpmodel_hub.html#FLAIR_TASKS"><code>FLAIR_TASKS</code></a> object declared earlier, we can utilize it when searching for models by a task. Similar to <code>search_model_by_name</code> you should not include <code>flair/</code> in your search results, and instead search through the task key such as <code>ner</code> or <a href="/adaptnlpmodel_hub.html#FLAIR_TASKS.NAMED_ENTITY_RECOGNITION"><code>FLAIR_TASKS.NAMED_ENTITY_RECOGNITION</code></a></p>
+
+</div>
+</div>
+</div>
+</div>
+ 
+
+
+
+    <div class="tags">
+        
+    </div>
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                  <p><img src="/adaptnlp/assets/images/company_logo.png" alt="Company logo"/></p>
+               &copy;2021 Novetta. All rights reserved. <br />
+ Site last generated: Apr 20, 2021 <br />
+                </div>
+            </div>
+</footer>
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
