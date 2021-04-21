@@ -60,7 +60,7 @@ class HFModelResult:
         if self.info.pipeline_tag:
             all_tasks = [self.info.pipeline_tag]
             for tag in self.tags:
-                if (tag in HF_TASKS.values()) and (tag not in all_tasks):
+                if (tag in _hf_tasks.values()) and (tag not in all_tasks):
                     all_tasks += [tag]
         else: all_tasks = []
         all_tasks.sort()
@@ -119,7 +119,7 @@ class HFModelHub:
           hub.search_model_by_task(HF_TASKS.SUMMARIZATION)
       ```
         """
-        if task not in HF_TASKS.values():
+        if task not in _hf_tasks.values():
             raise ValueError(f'''`{task}` is not a valid task.
 
             Please choose a valid one available from HuggingFace: (https://huggingface.co/transformers/task_summary.html)
@@ -161,10 +161,6 @@ _flair_tasks = {
     'EMBEDDINGS':'embeddings',
 
 }
-
-# Cell
-mk_class('FLAIR_TASKS', **_flair_tasks,
-        doc="A list of all Flair tasks for valid API lookup as attribtues to get tab-completion and typo-proofing")
 
 # Internal Cell
 # Flair models originating from:
@@ -371,6 +367,10 @@ _flair_models = {
 FLAIR_MODELS = [ModelInfo(f'flairNLP/{key}', pipeline_tag=val[0]) for key,val in _flair_models.items()]
 
 # Cell
+mk_class('FLAIR_TASKS', **_flair_tasks,
+        doc="A list of all Flair tasks for valid API lookup as attribtues to get tab-completion and typo-proofing")
+
+# Cell
 class FlairModelResult(HFModelResult):
     """
     A version of `HFModelResult` for Flair specifically.
@@ -453,7 +453,7 @@ class FlairModelHub:
             hub.search_model_by_task(FLAIR_TASKS.NAMED_ENTITY_RECOGNITION)
         ```
         """
-        if (task not in FLAIR_TASKS.values()) and (task != ''):
+        if (task not in _flair_tasks.values()) and (task != ''):
             raise ValueError(f'''`{task}` is not a valid task.
 
             Please choose a valid one available from Flair: (https://huggingface.co/flair)
