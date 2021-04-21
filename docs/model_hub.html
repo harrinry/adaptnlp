@@ -43,6 +43,13 @@ nb_path: "nbs/02_model_hub.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Tasks">Tasks<a class="anchor-link" href="#Tasks"> </a></h2><p><code>HF_TASKS</code> and <code>FLAIR_TASKS</code> are namespace objects that can enable tab-completion when searching for specific tasks within the <a href="/adaptnlpmodel_hub.html#HFModelHub"><code>HFModelHub</code></a> and <a href="/adaptnlpmodel_hub.html#FlairModelHub"><code>FlairModelHub</code></a></p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -50,13 +57,6 @@ nb_path: "nbs/02_model_hub.ipynb"
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>For convience the <code>HF_TASKS</code> and <code>FLAIR_TASKS</code> objects can enable tab-completion for searching through the API:</p>
-
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -75,7 +75,141 @@ nb_path: "nbs/02_model_hub.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="HFModelResult" class="doc_header"><code>class</code> <code>HFModelResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L36" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>HFModelResult</code>(<strong><code>model_info</code></strong>:<code>ModelInfo</code>)</p>
+<h4 id="HF_TASKS" class="doc_header"><code>class</code> <code>HF_TASKS</code><a href="" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>HF_TASKS</code>(<strong>*<code>args</code></strong>, <strong>**<code>kwargs</code></strong>)</p>
+</blockquote>
+<p>A list of all HuggingFace tasks for valid API lookup as attribtues to get tab-completion and typo-proofing</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Possible tasks:
+* AUDIO_SOURCE_SEPERATION
+* AUTOMATIC_SPEECH_RECOGNITION
+* CONVERSATIONAL
+* FILL_MASK
+* QUESTION_ANSWERING
+* SUMMARIZATION
+* TABLE_QUESTION_ANSWERING
+* TEXT2TEXT_GENERATION
+* TEXT_CLASSIFICATION
+* TEXT_GENERATION
+* TEXT_TO_SPEECH
+* TOKEN_CLASSIFICATION
+* TRANSLATION
+* VOICE_ACTIVITY_DETECTION
+* ZERO_SHOT_CLASSIFICATION
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="FLAIR_TASKS" class="doc_header"><code>class</code> <code>FLAIR_TASKS</code><a href="" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FLAIR_TASKS</code>(<strong>*<code>args</code></strong>, <strong>**<code>kwargs</code></strong>)</p>
+</blockquote>
+<p>A list of all Flair tasks for valid API lookup as attribtues to get tab-completion and typo-proofing</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Possible tasks:
+* EMBEDDINGS
+* NAMED_ENTITY_RECOGNITION
+* PART_OF_SPEECH_TAGGING
+* PHRASE_CHUNKING
+* UNIVERSAL_PART_OF_SPEECH_TAGGING
+* VERB_DISAMBIGUATION
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="HFModelResult" class="doc_header"><code>class</code> <code>HFModelResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L58" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>HFModelResult</code>(<strong><code>model_info</code></strong>:<code>ModelInfo</code>)</p>
 </blockquote>
 <p>A very basic class for storing a HuggingFace model returned through an API request</p>
 <p>They have 4 properties:</p>
@@ -110,7 +244,7 @@ nb_path: "nbs/02_model_hub.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="HFModelResult.to_dict" class="doc_header"><code>HFModelResult.to_dict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L69" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>HFModelResult.to_dict</code>()</p>
+<h4 id="HFModelResult.to_dict" class="doc_header"><code>HFModelResult.to_dict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L91" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>HFModelResult.to_dict</code>()</p>
 </blockquote>
 <p>Returns <a href="/adaptnlpmodel_hub.html#HFModelResult"><code>HFModelResult</code></a> as a dictionary with the keys:</p>
 <ul>
@@ -141,7 +275,7 @@ nb_path: "nbs/02_model_hub.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="HFModelHub" class="doc_header"><code>class</code> <code>HFModelHub</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L80" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>HFModelHub</code>(<strong><code>username</code></strong>=<em><code>None</code></em>, <strong><code>password</code></strong>=<em><code>None</code></em>)</p>
+<h2 id="HFModelHub" class="doc_header"><code>class</code> <code>HFModelHub</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L102" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>HFModelHub</code>(<strong><code>username</code></strong>=<em><code>None</code></em>, <strong><code>password</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>A class for interacting with the HF model hub API, and searching for models by name or task</p>
 <p>Can optionally include your HuggingFace login for authorized access (but is not required)</p>
@@ -181,7 +315,7 @@ nb_path: "nbs/02_model_hub.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="HFModelHub.search_model_by_task" class="doc_header"><code>HFModelHub.search_model_by_task</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L106" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>HFModelHub.search_model_by_task</code>(<strong><code>task</code></strong>:<code>str</code>, <strong><code>as_dict</code></strong>=<em><code>False</code></em>, <strong><code>user_uploaded</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="HFModelHub.search_model_by_task" class="doc_header"><code>HFModelHub.search_model_by_task</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L128" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>HFModelHub.search_model_by_task</code>(<strong><code>task</code></strong>:<code>str</code>, <strong><code>as_dict</code></strong>=<em><code>False</code></em>, <strong><code>user_uploaded</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Searches HuggingFace Model API for all pretrained models relating to <code>task</code> and returns a list of HFModelResults</p>
 <p>Optionally can return all models as a <code>dict</code> rather than a list</p>
@@ -375,7 +509,7 @@ nb_path: "nbs/02_model_hub.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="HFModelHub.search_model_by_name" class="doc_header"><code>HFModelHub.search_model_by_name</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L130" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>HFModelHub.search_model_by_name</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>as_dict</code></strong>=<em><code>False</code></em>, <strong><code>user_uploaded</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="HFModelHub.search_model_by_name" class="doc_header"><code>HFModelHub.search_model_by_name</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L152" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>HFModelHub.search_model_by_name</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>as_dict</code></strong>=<em><code>False</code></em>, <strong><code>user_uploaded</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Searches HuggingFace Model API for all pretrained models containing <code>name</code> and returns a list of HFModelResults</p>
 <p>Optionally can return all models as <code>dict</code> rather than a list</p>
@@ -504,32 +638,7 @@ nb_path: "nbs/02_model_hub.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="FLAIR_TASKS" class="doc_header"><code>class</code> <code>FLAIR_TASKS</code><a href="" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FLAIR_TASKS</code>(<strong>*<code>args</code></strong>, <strong>**<code>kwargs</code></strong>)</p>
-</blockquote>
-<p>A list of all Flair tasks for valid API lookup as attribtues to get tab-completion and typo-proofing</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="FlairModelResult" class="doc_header"><code>class</code> <code>FlairModelResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L374" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FlairModelResult</code>(<strong><code>model_info</code></strong>:<code>ModelInfo</code>) :: <a href="/adaptnlpmodel_hub.html#HFModelResult"><code>HFModelResult</code></a></p>
+<h2 id="FlairModelResult" class="doc_header"><code>class</code> <code>FlairModelResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L381" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FlairModelResult</code>(<strong><code>model_info</code></strong>:<code>ModelInfo</code>) :: <a href="/adaptnlpmodel_hub.html#HFModelResult"><code>HFModelResult</code></a></p>
 </blockquote>
 <p>A version of <a href="/adaptnlpmodel_hub.html#HFModelResult"><code>HFModelResult</code></a> for Flair specifically.</p>
 <p>Includes which backend the model was found (such as on HuggingFace or Flair's private model list)</p>
@@ -569,7 +678,7 @@ nb_path: "nbs/02_model_hub.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="FlairModelHub" class="doc_header"><code>class</code> <code>FlairModelHub</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L396" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FlairModelHub</code>(<strong><code>username</code></strong>=<em><code>None</code></em>, <strong><code>password</code></strong>=<em><code>None</code></em>)</p>
+<h2 id="FlairModelHub" class="doc_header"><code>class</code> <code>FlairModelHub</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L403" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FlairModelHub</code>(<strong><code>username</code></strong>=<em><code>None</code></em>, <strong><code>password</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>A class for interacting with the HF model hub API, and searching for Flair models by name or task</p>
 <p>Can optionally include your HuggingFace login for authorized access (but is not required)</p>
@@ -619,7 +728,7 @@ nb_path: "nbs/02_model_hub.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="FlairModelHub.search_model_by_name" class="doc_header"><code>FlairModelHub.search_model_by_name</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L423" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FlairModelHub.search_model_by_name</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>as_dict</code></strong>=<em><code>False</code></em>, <strong><code>user_uploaded</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="FlairModelHub.search_model_by_name" class="doc_header"><code>FlairModelHub.search_model_by_name</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L430" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FlairModelHub.search_model_by_name</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>as_dict</code></strong>=<em><code>False</code></em>, <strong><code>user_uploaded</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Searches HuggingFace Model API for all flair models containing <code>name</code> and returns a list of <code>HFModelResults</code></p>
 <p>Optionally can return all models as <code>dict</code> rather than a list</p>
@@ -692,7 +801,7 @@ nb_path: "nbs/02_model_hub.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="FlairModelHub.search_model_by_task" class="doc_header"><code>FlairModelHub.search_model_by_task</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L440" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FlairModelHub.search_model_by_task</code>(<strong><code>task</code></strong>:<code>str</code>, <strong><code>as_dict</code></strong>=<em><code>False</code></em>, <strong><code>user_uploaded</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="FlairModelHub.search_model_by_task" class="doc_header"><code>FlairModelHub.search_model_by_task</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/model_hub.py#L447" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FlairModelHub.search_model_by_task</code>(<strong><code>task</code></strong>:<code>str</code>, <strong><code>as_dict</code></strong>=<em><code>False</code></em>, <strong><code>user_uploaded</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Searches HuggingFace Model API for all flair models for <code>task</code> and returns a list of <code>HFModelResults</code></p>
 <p>Optionally can return all models as <code>dict</code> rather than a list</p>
