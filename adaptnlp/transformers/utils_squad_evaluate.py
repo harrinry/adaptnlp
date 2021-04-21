@@ -424,7 +424,8 @@ def main(OPTS):
         print(json.dumps(out_eval, indent=2))
     return out_eval
 
-
+# Cell
+#export
 if __name__ == "__main__":
     OPTS = parse_args()
     if OPTS.out_image_dir:
