@@ -3,7 +3,7 @@
 
 
 <p align="center">
-    <a href="https://github.com/Novetta/adaptnlp"> <img src="https://raw.githubusercontent.com/novetta/adaptnlp/master/docs/img/NovettaAdaptNLPlogo-400px.png" width="400"/></a>
+    <a href="https://github.com/Novetta/adaptnlp"> <img src="https://raw.githubusercontent.com/novetta/adaptnlp/master/docs/assets/images/company_logo.png" width="400"/></a>
 </p>
 
 <p align="center">
@@ -218,7 +218,7 @@ Checkout the [documentation](https://novetta.github.io/adaptnlp) for more inform
 
 We use FastAPI for standing up endpoints for serving state-of-the-art NLP models with AdaptNLP.
 
-![Swagger Example](https://raw.githubusercontent.com/novetta/adaptnlp/master/docs/img/fastapi-docs.png)
+![Swagger Example](https://raw.githubusercontent.com/novetta/adaptnlp/master/docs/assets/images/fastapi-docs.png)
 
 The [REST](https://github.com/Novetta/adaptnlp/tree/master/rest) directory contains more detail on deploying a REST API locally or with docker in a very easy and
 fast way.
