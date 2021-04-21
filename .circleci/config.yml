@@ -1,21 +1,4 @@
 version: 3
-jobs:
-  deploy_doc:
-    docker:
-      - image: circleci/python:3.7
-    working_directory: ~/adaptnlp
-    steps:
-      - checkout
-      - run: git config user.name "ci-build"
-      - add_ssh_keys:
-          fingerprints:
-            - "e6:70:63:b0:cb:2c:f9:75:43:65:e8:91:89:0a:01:ef"
-      - run: pip install .
-      - run: pip install -r docs/requirements.txt
-      - run:
-          name: install mkdocs an deploy to gh-pages
-          command: |
-            python -m mkdocs gh-deploy -m "[skip ci] Deployed {sha} with MkDocs version: {version}"
 workflow_filters: &workflow_filters
   filters:
     branches:
