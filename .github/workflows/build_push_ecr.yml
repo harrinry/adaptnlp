@@ -30,14 +30,24 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: 109004554389.dkr.ecr.us-east-1.amazonaws.com
+        ECR_REGISTRY_PUB: public.ecr.aws/r6j8a8p4
         ECR_REPOSITORY: adaptnlp
         IMAGE_TAG: ${{ github.sha }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
       run: |
         # Build a docker container and push it to ECR
-        echo "$ECR_REGISTRY, $ECR_REPOSITORY, $IMAGE_TAG"
-        sudo apt install git
+        echo "$ECR_REGISTRY, $ECR_REPOSITORY, $IMAGE_TAG, $ECR_REGISTRY_PUB"
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f docker/runtime/Dockerfile.cuda10.2-runtime-ubuntu18.04-py3.8 .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REGISTRY_PUB
+        docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG
+        docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY_PUB/$ECR_REPOSITORY:latest
+        docker push $ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG
+        docker push $ECR_REGISTRY_PUB/$ECR_REPOSITORY:latest
+        echo "Pushed to $DOCKER_PUBLIC_REGISTRY/$APP_NAME:latest"
+        
