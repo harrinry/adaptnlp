@@ -7,7 +7,7 @@ images in order to make it easy to add FastAI libraries while maintaining suppor
 
 AdaptNLP images come in two types.
 
-The [achangnovetta/adaptnlp](https://hub.docker.com/r/achangnovetta/adaptnlp/tags) repo contains the following:
+The [novetta/adaptnlp](https://hub.docker.com/r/novetta/adaptnlp/tags) repo contains the following:
 - `runtime` - extends the `base` image by adding a notebook server and example notebooks.
   - **TIP: Use this image if you want to explore AdaptNLP through notebooks and examples.**
 - `devel` - contains the full AdaptNLP source tree including CUDA development libraries.
@@ -40,7 +40,7 @@ The tag naming scheme for AdaptNLP images incorporates key platform details into
 
 #### Preferred - Docker CE v19+ and `nvidia-container-toolkit`
 ```bash
-$ docker pull achangnovetta/adaptnlp:0.0.1-cuda10.2-runtime-ubuntu18.04-py3.7
+$ docker pull novetta/adaptnlp:0.0.1-cuda10.2-runtime-ubuntu18.04-py3.7
 $ docker run --gpus all --rm -it -p 8888:8888 \
          achangnovetta/adaptnlp:cuda10.2-runtime-ubuntu18.04-py3.7
 ```
