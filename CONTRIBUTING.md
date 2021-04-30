@@ -1,6 +1,6 @@
 # Contributing to AdaptNLP
 
-Contributions are welcome for AdaptNLP via. PRs.
+Contributions are welcome through Pull Requests
 
 Make sure all features, bugs, etc. changes are addressed with an issue number.  If no issue posts regarding the PR
 are found, please create one before submitting the PR with the appropriate labels.  Discussions or questions are very
