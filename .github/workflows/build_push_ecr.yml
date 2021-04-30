@@ -1,9 +1,8 @@
 on:
-  push:
-    branches:
-      - ghactions
+  release:
+    types: [published]
 
-name: Build and Push to ECR
+name: Build and Push Docker Images to ECR
 
 jobs:
   deploy:
