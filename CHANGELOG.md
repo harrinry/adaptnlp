@@ -2,6 +2,9 @@
 
 ## 0.2.3
 
+### Breaking Changes:
+- New versions of AdaptNLP will require a minimum torch version of 1.7, and flair of 0.9 (currently we install via git until 0.9/0.81 is released)
+
 ### New Features
 
 - Complete conversion to the [nbdev](nbdev.fast.ai) library format and actions
