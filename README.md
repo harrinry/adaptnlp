@@ -1,3 +1,4 @@
+
 # Welcome to AdaptNLP
 > A high level framework and library for running, training, and deploying state-of-the-art Natural Language Processing (NLP) models for end to end tasks.
 
@@ -6,17 +7,8 @@
     <a href="https://github.com/Novetta/adaptnlp"> <img src="https://raw.githubusercontent.com/novetta/adaptnlp/master/docs/assets/images/company_logo.png" width="400"/></a>
 </p>
 
-<p align="center">
-    <a href="https://circleci.com/gh/Novetta/adaptnlp">
-        <img src="https://img.shields.io/circleci/build/github/Novetta/adaptnlp/master">
-    </a>
-    <a href="https://badge.fury.io/py/adaptnlp">
-        <img src="https://badge.fury.io/py/adaptnlp.svg">
-    </a>
-    <a href="https://github.com/Novetta/adaptnlp/blob/master/LICENSE">
-        <img src="https://img.shields.io/github/license/novetta/adaptnlp">
-    </a>
-</p>
+![CI](https://github.com/Novetta/adaptnlp/workflows/CI/badge.svg) 
+[![PyPI](https://img.shields.io/pypi/v/adaptnlp?color=blue&label=pypi%20version)](https://pypi.org/project/adaptnlp/#description)
 
 
 AdaptNLP allows users ranging from beginner python coders to experienced machine learning engineers to leverage
@@ -26,10 +18,10 @@ Built atop Zalando Research's Flair and Hugging Face's Transformers library, Ada
 Learning Researchers and Scientists a modular and **adaptive** approach to a variety of NLP tasks with an
 **Easy** API for training, inference, and deploying NLP-based microservices.
 
-**Key Features**
+## Key Features
 
   - **[Full Guides and API Documentation](https://novetta.github.io/adaptnlp)**
-  - [Tutorial](https://github.com/Novetta/adaptnlp/tree/master/tutorials) Jupyter/Google Colab Notebooks
+  - Jupyter Notebook [Tutorials](https://novetta.github.io/adaptnlp/tutorial-intro)
   - Unified API for NLP Tasks with SOTA Pretrained Models (Adaptable with Flair and Transformer's Models)
     - Token Tagging 
     - Sequence Classification
@@ -188,28 +180,25 @@ for t in translations:
 
 ## Tutorials
 
-Look in the [Tutorials](tutorials) directory for a quick introduction to the library and its very simple
-and straight forward use cases:
+### NLP Tasks
 
-**NLP Tasks**
+  1. [Token Classification: NER, POS, Chunk, and Frame Tagging](https://novetta.github.io/adaptnlp/tutorial.token_tagging.html)
+      - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/nbs/05a_tutorial.token_tagging.ipynb)
+  2. [Sequence Classification: Sentiment](https://novetta.github.io/adaptnlp/tutorial.sequence_classification)
+      - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/nbs/06a_tutorial.sequence_classification.ipynb)
+  3. [Embeddings: Transformer Embeddings e.g. BERT, XLM, GPT2, XLNet, roBERTa, ALBERT](https://novetta.github.io/adaptnlp/tutorial.embeddings)
+      - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/nbs/04a_tutorial.embeddings.ipynb)
+  4. [Question Answering: Span-based Question Answering Model](https://novetta.github.io/adaptnlp/tutorial.question_answering)
+      - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/nbs/10a_tutorial.question_answering.ipynb)
+  5. [Summarization: Abstractive and Extractive](https://novetta.github.io/adaptnlp/tutorial.summarization)
+      - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/nbs/07a_tutorial.summarization.ipynb)
+  6. [Translation: Seq2Seq](https://novetta.github.io/adaptnlp/tutorial.translation)
+      - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/nbs/08a_tutorial.translation.ipynb)
 
-  1. [Token Classification: NER, POS, Chunk, and Frame Tagging](tutorials/1.%20Token%20Classification)
-      - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/tutorials/1.%20Token%20Classification/token_tagging.ipynb)
-  2. [Sequence Classification: Sentiment](tutorials/2.%20Sequence%20Classification)
-      - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/tutorials/2.%20Sequence%20Classification/Easy%20Sequence%20Classifier.ipynb)
-  3. [Embeddings: Transformer Embeddings e.g. BERT, XLM, GPT2, XLNet, roBERTa, ALBERT](tutorials/3.%20Embeddings)
-      - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/tutorials/3.%20Embeddings/embeddings.ipynb)
-  4. [Question Answering: Span-based Question Answering Model](tutorials/4.%20Question%20Answering)
-      - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/tutorials/4.%20Question%20Answering/question_answering.ipynb)
-  5. [Summarization: Abstractive and Extractive](tutorials/5.%20Summarization)
-      - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/tutorials/5.%20Summarization/summarization.ipynb)
-  6. [Translation: Seq2Seq](tutorials/6.%20Translation)
-      - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/tutorials/6.%20Translation/translation.ipynb)
-
-**[Custom Fine-Tuning and Training with Transformer Models](tutorials/Finetuning%20and%20Training%20(Advanced))**
+### Custom Fine-Tuning and Training with Transformer Models
 
  - Fine-tuning a Transformers Language Model
-   - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/tutorials/Finetuning%20and%20Training%20(Advanced)/Fine-tuning%20Language%20Model.ipynb)
+   - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/nbs/20a_tutorial.fine_tuning_lm.ipynb)
   
 Checkout the [documentation](https://novetta.github.io/adaptnlp) for more information.
   
@@ -222,7 +211,6 @@ We use FastAPI for standing up endpoints for serving state-of-the-art NLP models
 
 The [REST](https://github.com/Novetta/adaptnlp/tree/master/rest) directory contains more detail on deploying a REST API locally or with docker in a very easy and
 fast way.
-  
 
 ## Docker
 

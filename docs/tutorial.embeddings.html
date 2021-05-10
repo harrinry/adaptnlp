@@ -48,7 +48,7 @@ nb_path: "nbs/04a_tutorial.embeddings.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Finding-Available-Models-with-Hubs">Finding Available Models with Hubs<a class="anchor-link" href="#Finding-Available-Models-with-Hubs"> </a></h2><p>We can search for available models to utilize with Embeddings with the <a href="/adaptnlpmodel_hub.html#HFModelHub"><code>HFModelHub</code></a> and <a href="/adaptnlpmodel_hub.html#FlairModelHub"><code>FlairModelHub</code></a>. We'll see an example below:</p>
+<h2 id="Finding-Available-Models-with-Hubs">Finding Available Models with Hubs<a class="anchor-link" href="#Finding-Available-Models-with-Hubs"> </a></h2><p>We can search for available models to utilize with Embeddings with the <a href="/adaptnlp/model_hub.html#HFModelHub"><code>HFModelHub</code></a> and <a href="/adaptnlp/model_hub.html#FlairModelHub"><code>FlairModelHub</code></a>. We'll see an example below:</p>
 
 </div>
 </div>
@@ -151,7 +151,7 @@ nb_path: "nbs/04a_tutorial.embeddings.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Producing-Embeddings-using-EasyWordEmbeddings">Producing Embeddings using <a href="/adaptnlpembeddings.html#EasyWordEmbeddings"><code>EasyWordEmbeddings</code></a><a class="anchor-link" href="#Producing-Embeddings-using-EasyWordEmbeddings"> </a></h2>
+<h2 id="Producing-Embeddings-using-EasyWordEmbeddings">Producing Embeddings using <a href="/adaptnlp/embeddings.html#EasyWordEmbeddings"><code>EasyWordEmbeddings</code></a><a class="anchor-link" href="#Producing-Embeddings-using-EasyWordEmbeddings"> </a></h2>
 </div>
 </div>
 </div>
@@ -289,7 +289,7 @@ Embedding: tensor([-3.9810, -0.5063, -2.2954, -1.3400,  0.1948, -0.7453,  1.4224
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Using different models is extremely easy to do. Let's try using BERT embeddings with the <code>bert-base-cased</code> model instead.</p>
-<p>Rather than passing in a <a href="/adaptnlpmodel_hub.html#HFModelResult"><code>HFModelResult</code></a> or <a href="/adaptnlpmodel_hub.html#FlairModelResult"><code>FlairModelResult</code></a>, we can also just pass in the raw string name of the model as well:</p>
+<p>Rather than passing in a <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a> or <a href="/adaptnlp/model_hub.html#FlairModelResult"><code>FlairModelResult</code></a>, we can also just pass in the raw string name of the model as well:</p>
 
 </div>
 </div>
@@ -425,14 +425,14 @@ Embedding: tensor([ 0.1772,  0.0369, -0.0483,  0.2290, -0.4860,  0.3483,  0.2176
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Producing-Stacked-Embeddings-with-EasyStackedEmbeddings">Producing Stacked Embeddings with <a href="/adaptnlpembeddings.html#EasyStackedEmbeddings"><code>EasyStackedEmbeddings</code></a><a class="anchor-link" href="#Producing-Stacked-Embeddings-with-EasyStackedEmbeddings"> </a></h2>
+<h2 id="Producing-Stacked-Embeddings-with-EasyStackedEmbeddings">Producing Stacked Embeddings with <a href="/adaptnlp/embeddings.html#EasyStackedEmbeddings"><code>EasyStackedEmbeddings</code></a><a class="anchor-link" href="#Producing-Stacked-Embeddings-with-EasyStackedEmbeddings"> </a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="/adaptnlpembeddings.html#EasyStackedEmbeddings"><code>EasyStackedEmbeddings</code></a> allows you to use a variable number of language models to produce our embeddings shown above. For our example we'll combine the <code>bert-base-cased</code> and <code>distilbert-base-cased</code> models.</p>
-<p>First we'll instantiate our <a href="/adaptnlpembeddings.html#EasyStackedEmbeddings"><code>EasyStackedEmbeddings</code></a>:</p>
+<p><a href="/adaptnlp/embeddings.html#EasyStackedEmbeddings"><code>EasyStackedEmbeddings</code></a> allows you to use a variable number of language models to produce our embeddings shown above. For our example we'll combine the <code>bert-base-cased</code> and <code>distilbert-base-cased</code> models.</p>
+<p>First we'll instantiate our <a href="/adaptnlp/embeddings.html#EasyStackedEmbeddings"><code>EasyStackedEmbeddings</code></a>:</p>
 
 </div>
 </div>
@@ -538,7 +538,7 @@ Embedding: tensor([-0.0846, -0.2399,  0.2524, -0.4409, -0.2508, -0.6320, -0.1890
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Document-Embeddings-with-EasyDocumentEmbeddings">Document Embeddings with <a href="/adaptnlpembeddings.html#EasyDocumentEmbeddings"><code>EasyDocumentEmbeddings</code></a><a class="anchor-link" href="#Document-Embeddings-with-EasyDocumentEmbeddings"> </a></h2><p>Similar to the <a href="/adaptnlpembeddings.html#EasyStackedEmbeddings"><code>EasyStackedEmbeddings</code></a>, <a href="/adaptnlpembeddings.html#EasyDocumentEmbeddings"><code>EasyDocumentEmbeddings</code></a> allows you to pool the embeddings from multiple models together with <code>embed_pool</code> and <code>embed_rnn</code>.</p>
+<h2 id="Document-Embeddings-with-EasyDocumentEmbeddings">Document Embeddings with <a href="/adaptnlp/embeddings.html#EasyDocumentEmbeddings"><code>EasyDocumentEmbeddings</code></a><a class="anchor-link" href="#Document-Embeddings-with-EasyDocumentEmbeddings"> </a></h2><p>Similar to the <a href="/adaptnlp/embeddings.html#EasyStackedEmbeddings"><code>EasyStackedEmbeddings</code></a>, <a href="/adaptnlp/embeddings.html#EasyDocumentEmbeddings"><code>EasyDocumentEmbeddings</code></a> allows you to pool the embeddings from multiple models together with <code>embed_pool</code> and <code>embed_rnn</code>.</p>
 <p>We'll use our <code>bert-base-cased</code> and <code>distilbert-base-cased</code> models again:</p>
 
 </div>

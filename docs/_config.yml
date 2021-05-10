@@ -1,4 +1,4 @@
-repository: muellerzr/adaptnlp
+repository: novetta/adaptnlp
 output: web
 topnav_title: adaptnlp
 default_badges: {colab: true}
