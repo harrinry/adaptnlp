@@ -78,7 +78,8 @@ index = {"logger": "13b_transformers.finetuning.ipynb",
          "make_precision_recall_eval": "13c_transformers.utils_squad_evaluate.ipynb",
          "run_precision_recall_analysis": "13c_transformers.utils_squad_evaluate.ipynb",
          "histogram_na_prob": "13c_transformers.utils_squad_evaluate.ipynb",
-         "main": "13c_transformers.utils_squad_evaluate.ipynb"}
+         "main": "13c_transformers.utils_squad_evaluate.ipynb",
+         "TextResult": "14_results.ipynb"}
 
 modules = ["file_utils.py",
            "callback.py",
@@ -95,9 +96,10 @@ modules = ["file_utils.py",
            "training.py",
            "transformers/squad_metrics.py",
            "transformers/finetuning.py",
-           "transformers/utils_squad_evaluate.py"]
+           "transformers/utils_squad_evaluate.py",
+           "results.py"]
 
-doc_url = "https://nbdev.github.io/adaptnlp/adaptnlp"
+doc_url = "https://novetta.github.io/adaptnlp"
 
 git_url = "https://github.com/novetta/adaptnlp/tree/master/"
 
