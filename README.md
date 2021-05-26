@@ -1,4 +1,3 @@
-
 # Welcome to AdaptNLP
 > A high level framework and library for running, training, and deploying state-of-the-art Natural Language Processing (NLP) models for end to end tasks.
 
