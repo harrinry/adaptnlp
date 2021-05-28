@@ -103,9 +103,9 @@ class EmbeddingResult:
     @property
     def sentence(self) -> str:
         """
-        The original sentence
+        The original tokenized sentence
         """
-        return self._sentence.to_plain_string()
+        return self._sentence.to_tokenized_string()
 
     def to_dict(self, detail_level:DetailLevel=DetailLevel.Low):
         o = OrderedDict()
@@ -141,13 +141,8 @@ def _format_results(embeds:list, detail_level:DetailLevel=None):
     """
     Generates either a list of `EmbeddingResult`s or a single based upon `detail_level` and their length
     """
-    if len(embeds) > 1:
-        res = [EmbeddingResult(embed) for embed in embeds]
-        if detail_level: return [o.to_dict(detail_level) for o in res]
-    else:
-        res = EmbeddingResult(embeds[0])
-        if detail_level: return res.to_dict(detail_level)
-    return res
+    res = [EmbeddingResult(embed) for embed in embeds]
+    return [o.to_dict(detail_level) for o in res] if detail_level is not None else res
 
 # Cell
 class EasyWordEmbeddings:
@@ -169,7 +164,7 @@ class EasyWordEmbeddings:
         text: Union[List[Sentence], Sentence, List[str], str],
         model_name_or_path: Union[str, HFModelResult, FlairModelResult] = "bert-base-cased",
         detail_level:DetailLevel = None,
-        raw = False
+        raw:bool = False
     ) -> List[EmbeddingResult]:
         """Produces embeddings for text
 
@@ -190,20 +185,22 @@ class EasyWordEmbeddings:
         embedding = self.models[model_name_or_path]
         embeds = embedding.embed(sentences)
 
-        return embeds if raw else _format_results(embeds, detail_level)
+        return _format_results(embeds, detail_level, raw)
 
     def embed_all(
         self,
         text: Union[List[Sentence], Sentence, List[str], str],
-        detail_level:DetailLevel,
-        *model_names_or_paths: str,
+        model_names_or_paths:List[str] = [],
+        detail_level:DetailLevel=DetailLevel.Low,
+        raw:bool = False,
     ) -> List[EmbeddingResult]:
         """Embeds text with all embedding models loaded
 
         **Parameters**:
         * `text` - Text input, it can be a string or any of Flair's `Sentence` input formats
+        * `model_names_or_paths` -  A list of model names
         * `detail_level` - A level of detail to return. By default is None, which returns a EmbeddingResult, otherwise will return a dict
-        * `model_names_or_paths` -  A variable input of model names or paths to embed
+        * `raw` - A boolean of whether to skip generating an EmbeddingResult or dictionary. Mostly for dev, default is False
 
         **Return**:
         * A list of either EmbeddingResult's or dictionaries with information
@@ -221,7 +218,7 @@ class EasyWordEmbeddings:
                 sentences = self.embed_text(
                     sentences, model_name_or_path=embedding_name, raw=True
                 )
-        return _format_results(sentences, detail_level)
+        return _format_results(sentences, detail_level, raw)
 
 # Cell
 class EasyStackedEmbeddings:
@@ -252,13 +249,15 @@ class EasyStackedEmbeddings:
     def embed_text(
         self,
         text: Union[List[Sentence], Sentence, List[str], str],
-        detail_level:DetailLevel = None,
+        detail_level:DetailLevel = DetailLevel.Low,
+        raw:bool = False
     ) -> List[EmbeddingResult]:
         """Stacked embeddings
 
         **Parameters**:
         * `text` - Text input, it can be a string or any of Flair's `Sentence` input formats
         * `detail_level` - A level of detail to return. By default is None, which returns a EmbeddingResult, otherwise will return a dict
+        * `raw` - A boolean of whether to skip generating an EmbeddingResult or dictionary. Mostly for dev, default is False
 
         **Return**:
         * A list of either EmbeddingResult's or dictionaries with information
@@ -269,7 +268,7 @@ class EasyStackedEmbeddings:
         # Unlike flair embeddings modules, stacked embeddings do not return a list of sentences
         self.stacked_embeddings.embed(sentences)
 
-        return _format_results(sentences, detail_level)
+        return _format_results(sentences, detail_level, raw)
 
 # Cell
 class EasyDocumentEmbeddings:
@@ -356,7 +355,7 @@ class EasyDocumentEmbeddings:
     def embed_pool(
         self,
         text: Union[List[Sentence], Sentence, List[str], str],
-        detail_level:DetailLevel = None,
+        detail_level:DetailLevel = DetailLevel.Low,
     ) -> List[EmbeddingResult]:
         """Generate stacked embeddings with `DocumentPoolEmbeddings`
 
@@ -374,7 +373,7 @@ class EasyDocumentEmbeddings:
     def embed_rnn(
         self,
         text: Union[List[Sentence], Sentence, List[str], str],
-        detail_level:DetailLevel = None
+        detail_level:DetailLevel = DetailLevel.Low,
     ) -> List[Sentence]:
         """Generate stacked embeddings with `DocumentRNNEmbeddings`
 

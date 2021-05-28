@@ -2,22 +2,15 @@ import pkg_resources
 from pathlib import Path
 
 # Easy Modules
-from .embeddings import (
-    EasyWordEmbeddings,
-    EasyStackedEmbeddings,
-    EasyDocumentEmbeddings,
-)
-from .token_classification import EasyTokenTagger
-from .sequence_classification import (
-    EasySequenceClassifier,
-    TransformersSequenceClassifier,
-    FlairSequenceClassifier,
-)
-from .question_answering import EasyQuestionAnswering, TransformersQuestionAnswering
-from .summarization import EasySummarizer, TransformersSummarizer
-from .translation import EasyTranslator, TransformersTranslator
-from .text_generation import EasyTextGenerator, TransformersTextGenerator
-from .language_model import LMFineTuner
+from .embeddings import *
+from .token_classification import *
+from .sequence_classification import *
+from .question_answering import *
+from .summarization import *
+from .translation import *
+from .text_generation import *
+from .language_model import *
+from .model_hub import *
 
 # Training and Fine-tuning Modules
 # TODO: Deprecating in 0.3.0+
@@ -30,7 +23,6 @@ cache_root = Path.home()/".adaptnlp"
 __version__ = "0.2.3"
 
 __all__ = [
-    "__version__",
     "EasyWordEmbeddings",
     "EasyStackedEmbeddings",
     "EasyDocumentEmbeddings",

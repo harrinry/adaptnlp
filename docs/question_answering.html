@@ -26,21 +26,6 @@ nb_path: "nbs/10_question_answering.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/mnt/d/lib/python3.7/site-packages/torch/cuda/__init__.py:52: UserWarning: CUDA initialization: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx (Triggered internally at  /pytorch/c10/cuda/CUDAFunctions.cpp:100.)
-  return torch._C._cuda_getDeviceCount() &gt; 0
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -69,7 +54,7 @@ nb_path: "nbs/10_question_answering.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="QACallback" class="doc_header"><code>class</code> <code>QACallback</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/question_answering.py#L44" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>QACallback</code>(<strong><code>xmodel_instances</code></strong>, <strong><code>features</code></strong>) :: <code>Callback</code></p>
+<h2 id="QACallback" class="doc_header"><code>class</code> <code>QACallback</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/question_answering.py#L45" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>QACallback</code>(<strong><code>xmodel_instances</code></strong>, <strong><code>features</code></strong>) :: <code>Callback</code></p>
 </blockquote>
 <p>Basic Question Answering Data Callback</p>
 
@@ -101,7 +86,39 @@ nb_path: "nbs/10_question_answering.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="TransformersQuestionAnswering" class="doc_header"><code>class</code> <code>TransformersQuestionAnswering</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/question_answering.py#L100" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersQuestionAnswering</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
+<h2 id="QAResult" class="doc_header"><code>class</code> <code>QAResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/question_answering.py#L103" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>QAResult</code>(<strong><code>examples</code></strong>:<code>List</code>[<code>SquadExample</code>], <strong><code>top_predictions</code></strong>:<code>Union</code>[<code>str</code>, <code>OrderedDict</code>], <strong><code>all_nbest_json</code></strong>:<code>List</code>[<code>OrderedDict</code>])</p>
+</blockquote>
+<p>A result class designed for Question Answering models</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="TransformersQuestionAnswering" class="doc_header"><code>class</code> <code>TransformersQuestionAnswering</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/question_answering.py#L172" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersQuestionAnswering</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlpmodel.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
 </blockquote>
 <p>Adaptive Model for Transformers Question Answering Model</p>
 <p><strong>Parameters</strong></p>
@@ -138,7 +155,7 @@ nb_path: "nbs/10_question_answering.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="EasyQuestionAnswering" class="doc_header"><code>class</code> <code>EasyQuestionAnswering</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/question_answering.py#L272" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyQuestionAnswering</code>()</p>
+<h2 id="EasyQuestionAnswering" class="doc_header"><code>class</code> <code>EasyQuestionAnswering</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/question_answering.py#L344" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyQuestionAnswering</code>()</p>
 </blockquote>
 <p>Question Answering Module</p>
 <p>Usage:</p>
