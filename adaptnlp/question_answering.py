@@ -127,7 +127,7 @@ class QAResult:
             return [e.context_text for e in self._examples]
 
     @property
-    def probs(self) -> List[List[float]]:
+    def probs(self) -> List[List[tensor]]:
         """
         The probabilities returned for each question
         """
@@ -149,7 +149,7 @@ class QAResult:
 
     def to_dict(self, detail_level:DetailLevel=DetailLevel.Low):
         """
-        Return details about `self` in various detail levels
+        Return details about `self` at various detail levels
         """
         o = {
                 'queries':self.queries,
@@ -163,7 +163,7 @@ class QAResult:
             o['context'] = self.contexts
         if detail_level == 'high':
             # Add SquadExamples, and n_best_json
-            o['squad_example'] = self._example
+            o['squad_example'] = self._examples
             o['n_best_json'] = self._all_nbest_json
 
         return o
