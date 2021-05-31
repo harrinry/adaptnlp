@@ -185,7 +185,7 @@ class EasyWordEmbeddings:
         embedding = self.models[model_name_or_path]
         embeds = embedding.embed(sentences)
 
-        return _format_results(embeds, detail_level, raw)
+        return _format_results(embeds, detail_level) if not raw else embeds
 
     def embed_all(
         self,
@@ -218,7 +218,7 @@ class EasyWordEmbeddings:
                 sentences = self.embed_text(
                     sentences, model_name_or_path=embedding_name, raw=True
                 )
-        return _format_results(sentences, detail_level, raw)
+        return _format_results(sentences, detail_level) if not raw else embeds
 
 # Cell
 class EasyStackedEmbeddings:
@@ -268,7 +268,7 @@ class EasyStackedEmbeddings:
         # Unlike flair embeddings modules, stacked embeddings do not return a list of sentences
         self.stacked_embeddings.embed(sentences)
 
-        return _format_results(sentences, detail_level, raw)
+        return _format_results(sentences, detail_level) if not raw else embeds
 
 # Cell
 class EasyDocumentEmbeddings:
