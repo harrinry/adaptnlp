@@ -8,6 +8,7 @@ from typing import List, Dict, Union
 from collections import defaultdict, OrderedDict
 
 from fastcore.basics import mk_class
+from fastcore.xtras import dict2obj
 from fastcore.dispatch import typedispatch
 from flair.data import Sentence
 from flair.embeddings import (
@@ -101,24 +102,34 @@ class EmbeddingResult:
         return torch.stack([tok.get_embedding() for tok in self._sentence], dim=0)
 
     @property
-    def sentence(self) -> str:
+    def tokenized_inputs(self) -> str:
         """
-        The original tokenized sentence
+        The original tokenized inputs
         """
         return self._sentence.to_tokenized_string()
 
+    @property
+    def inputs(self) -> str:
+        """
+        The original input
+        """
+        return self._sentence.to_original_text()
+
     def to_dict(self, detail_level:DetailLevel=DetailLevel.Low):
         o = OrderedDict()
-        o.update({'sentence':self.sentence,
+        o.update({'inputs':self.inputs,
                   'sentence_embeddings':self.sentence_embeddings,
                  'token_embeddings':self.token_embeddings})
-        if detail_level == 'medium':
-            # Return embeddings/word pairs and indicies
+        if detail_level == 'medium' or detail_level == 'high':
+            # Return embeddings/word pairs and indicies, and the tokenized input
             o.update({
                 tok.text:{
                     'embeddings':tok.get_embedding(),
                     'word_idx':tok.idx
                 } for tok in self._sentence
+            })
+            o.update({
+                'tokenized_inputs':self.tokenized_inputs
             })
         if detail_level == 'high':
             # Return embeddings/word pairs, indicies, and the original Sentence object
@@ -131,7 +142,7 @@ class EmbeddingResult:
 
     def __repr__(self):
         s = f"{self.__class__.__name__}:" + " {"
-        s += f'\n\tSentence: {self.sentence}'
+        s += f'\n\tInputs: {self.inputs}'
         if self.token_embeddings is not None: s += f'\n\tToken Embeddings Shape: {self.token_embeddings.shape}'
         if self.sentence_embeddings is not None: s += f'\n\tSentence Embeddings Shape: {self.sentence_embeddings.shape}'
         return s + '\n}'
@@ -163,7 +174,7 @@ class EasyWordEmbeddings:
         self,
         text: Union[List[Sentence], Sentence, List[str], str],
         model_name_or_path: Union[str, HFModelResult, FlairModelResult] = "bert-base-cased",
-        detail_level:DetailLevel = None,
+        detail_level:DetailLevel = DetailLevel.Low,
         raw:bool = False
     ) -> List[EmbeddingResult]:
         """Produces embeddings for text
