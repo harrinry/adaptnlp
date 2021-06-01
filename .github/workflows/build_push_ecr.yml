@@ -1,6 +1,7 @@
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - master
 
 name: Build and Push Docker Images to ECR
 
@@ -42,11 +43,12 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        echo "Pushed to $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
         aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REGISTRY_PUB
         docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG
         docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY_PUB/$ECR_REPOSITORY:latest
         docker push $ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG
         docker push $ECR_REGISTRY_PUB/$ECR_REPOSITORY:latest
-        echo "Pushed to $DOCKER_PUBLIC_REGISTRY/$APP_NAME:latest"
+        echo "Pushed to $ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG"
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
         
