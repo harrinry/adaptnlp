@@ -1,0 +1,91 @@
+# Based on https://github.com/fastai/docker-containers/blob/master/.github/workflows/fastai.yaml
+name: Build and Push Docker Images to ECR
+
+on:
+  schedule:
+    - cron: '0 18 * * 5' # Builds every Friday at 6pm
+  workflow_dispatch: # Allow action to be triggered manually
+  push:
+    branches:
+      - master
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: ecr_push_env
+    strategy:
+      matrix:
+        build_type: [prod, dev]
+    steps:
+    
+    
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+        architecture: 'x64'
+        
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+        
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+        
+    - name: Get version from settings.ini and create image name
+      id: get_variables
+      run: |
+        from configparser import ConfigParser
+        import os
+        from pathlib import Path
+        config = ConfigParser()
+        settings = Path('settings.ini')
+        assert settings.exists(), 'Not able to read settings.ini file.'
+        config.read(settings)
+        cfg = config['DEFAULT']
+        print(f"::set-output name =version::{cfg['version']}")
+        btype = os.getenv('BUILD_TYPE')
+        
+        assert btype in ['prod', 'dev'], "BUILD_TYPE must either be prod or dev"
+        if btype != 'prod':
+          image_name = f'novetta/adaptnlp-{btype}'
+        else:
+          image_name = f'novetta/adaptnlp'
+        
+        print(f"::set-output name=image_name::{image_name}}")
+      
+      shell: python
+      env:
+        BUILD_TYPE: ${{ matrix.build_type }}
+    
+    - name: Build and Tag Container
+      run: |
+        export DOCKER_BUILDKIT=1
+        docker pull ${IMAGE_NAME}:latest || true
+        docker build --cache-from ${IMAGE_NAME}:latest --build-arg BUILD=${BUILD_TYPE} \
+          -t ${IMAGE_NAME}:latest \
+          -t ${IMAGE_NAME}:${VERSION} \
+          -t ${IMAGE_NAME}:$(date +%F} \
+          -f docker/Dockerfile adaptnlp
+          
+      env:
+        VERSION: ${{ steps.get_variables.outputs.version }}
+        IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
+        BUILD_TYPE: ${{ matrix.build_type }}
+        
+    - name: Push Images to ECR        
+      env:
+        ECR_REGISTRY: 109004554389.dkr.ecr.us-east-1.amazonaws.com
+        ECR_REGISTRY_PUB: public.ecr.aws/r6j8a8p4
+        IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
+        
+      run: |
+        aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ECR_REGISTRY_PUB}
+        docker push $ECR_REGISTRY/${IMAGE_NAME}
+        
