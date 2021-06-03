@@ -70,7 +70,7 @@ jobs:
         docker build --build-arg BUILD=${BUILD_TYPE} \
           -t ${IMAGE_NAME}:latest \
           -t ${IMAGE_NAME}:${VERSION} \
-          -t ${IMAGE_NAME}:$(date +%F} \
+          -t ${IMAGE_NAME}:$(date +%F) \
           -f docker/Dockerfile adaptnlp
           
       env:
