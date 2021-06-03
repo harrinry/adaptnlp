@@ -49,7 +49,7 @@ jobs:
         assert settings.exists(), 'Not able to read settings.ini file.'
         config.read(settings)
         cfg = config['DEFAULT']
-        print(f"::set-output name =version::{cfg['version']}")
+        print(f"::set-output name=version::{cfg['version']}")
         btype = os.getenv('BUILD_TYPE')
         
         assert btype in ['prod', 'dev'], "BUILD_TYPE must either be prod or dev"
