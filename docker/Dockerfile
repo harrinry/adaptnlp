@@ -6,7 +6,7 @@ FROM pytorch/pytorch:1.8.1-cuda11.1-cudnn8-runtime
 ARG BUILD=dev
 
 # Clone adaptnlp
-RUN git clone https://github.com/novetta/adaptnlp --depth 1
+RUN git clone https://github.com/novetta/adaptnlp.git --depth 1
 
 # Build environment based on type
 RUN /bin/bash -c "if [[ $BUILD == 'prod' ]] ; then echo \"Production Build\" && cd adaptnlp && pip install .; fi"
