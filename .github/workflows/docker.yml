@@ -80,6 +80,7 @@ jobs:
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
         BUILD_TYPE: ${{ matrix.build_type }}
         ECR_REGISTRY: 109004554389.dkr.ecr.us-east-1.amazonaws.com
+        ECR_REGISTRY_HUB: public.ecr.aws/r6j8a8p4
         
     - name: Push Images to ECR        
       env:
