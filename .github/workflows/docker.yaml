@@ -3,8 +3,11 @@ name: Build and Push Docker Images to ECR
 
 on:
   schedule:
-    - chron: '0 18 * * 5' # Builds every Friday at 6pm
+    - cron: '0 18 * * 5' # Builds every Friday at 6pm
   workflow_dispatch: # Allow action to be triggered manually
+  push:
+    branches:
+      - master
   
 jobs:
   build:
