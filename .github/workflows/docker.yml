@@ -64,39 +64,26 @@ jobs:
       env:
         BUILD_TYPE: ${{ matrix.build_type }}
     
-    - name: Build and Tag Container
+    - name: Build, Tag, and Push Container
       run: |
         export DOCKER_BUILDKIT=1
-        docker build --build-arg BUILD=${BUILD_TYPE} \
-          -t ${ECR_REGISTRY}/${IMAGE_NAME}:latest \
-          -t ${ECR_REGISTRY_PUB}/${IMAGE_NAME}:latest \
-          -t ${ECR_REGISTRY}/${IMAGE_NAME}:${VERSION} \
-          -t ${ECR_REGISTRY_PUB}/${IMAGE_NAME}:${VERSION} \
-          -f docker/Dockerfile adaptnlp
-#          -t ${ECR_REGISTRY}/${IMAGE_NAME}:${VERSION} \
-#          -t ${ECR_REGISTRY}/${IMAGE_NAME}:$(date +%F) \
+        docker build --build-arg BUILD=${BUILD_TYPE} -t $ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG -f docker/Dockerfile adaptnlp
+        docker push $ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG
+        docker tag $ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        docker push $ECR_REGISTRY/$IMAGE_NAME:latest
+        echo "Pushed to $ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG"
+        aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REGISTRY_PUB
+        docker tag $ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG $ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG
+        docker tag $ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG $ECR_REGISTRY_PUB/$ECR_REPOSITORY:latest
+        docker push $ECR_REGISTRY_PUB/$IMAGE_NAME:$IMAGE_TAG
+        docker push $ECR_REGISTRY_PUB/$IMAGE_NAME:latest
+        echo "Pushed to $ECR_REGISTRY_PUB/$IMAGE_NAME:$IMAGE_TAG"
+        echo "::set-output name=image::$ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG"
+        
       env:
         VERSION: ${{ steps.get_variables.outputs.version }}
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
         BUILD_TYPE: ${{ matrix.build_type }}
         ECR_REGISTRY: 109004554389.dkr.ecr.us-east-1.amazonaws.com
         ECR_REGISTRY_HUB: public.ecr.aws/r6j8a8p4
-        
-    - name: Push Images to ECR        
-      env:
-        ECR_REGISTRY_PUB: public.ecr.aws/r6j8a8p4
-        IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
-        VERSION: ${{ steps.get_variables.outputs.version }}
-        
-      run: |
-        docker push $ECR_REGISTRY/$IMAGE_NAME:latest
-        docker push $ECR_REGISTRY/$IMAGE_NAME:${VERSION}
-        echo "Pushed to $ECR_REGISTRY/$IMAGE_NAME:${VERSION}"
-        aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REGISTRY_PUB
-        docker push $ECR_REGISTRY_PUB/$IMAGE_NAME:latest
-        docker push $ECR_REGISTRY_PUB/$IMAGE_NAME:${VERSION}
-        echo "Pushed to $ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG"
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-#        docker push $ECR_REGISTRY_PUB/$ECR_REPOSITORY/$IMAGE_NAME:$VERSION
-#        docker push $ECR_REGISTRY_PUB/$ECR_REPOSITORY/$IMAGE_NAME:$(date +%F)
-        
+        IMAGE_TAG: ${{ github.sha }}
