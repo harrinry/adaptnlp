@@ -5,6 +5,9 @@ FROM pytorch/pytorch:1.8.1-cuda11.1-cudnn8-runtime
 
 ARG BUILD=dev
 
+# Install git
+RUN apt-get update && apt-get install -y git
+
 # Clone adaptnlp
 RUN git clone https://github.com/novetta/adaptnlp.git --depth 1
 
