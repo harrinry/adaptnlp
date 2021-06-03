@@ -69,9 +69,9 @@ jobs:
         export DOCKER_BUILDKIT=1
         docker build --build-arg BUILD=${BUILD_TYPE} \
           -t ${ECR_REGISTRY}/${IMAGE_NAME}:latest \
-          -t ${ECR_REGISTRY_PUB}/${IMAGE_NAME}:latest\
-          -t ${ECR_REGISTRY}/${IMAGE_NAME}:${VERSION}\
-          -t ${ECR_REGISTRY_PUB}/${IMAGE_NAME}:${VERSION}\
+          -t ${ECR_REGISTRY_PUB}/${IMAGE_NAME}:latest \
+          -t ${ECR_REGISTRY}/${IMAGE_NAME}:${VERSION} \
+          -t ${ECR_REGISTRY_PUB}/${IMAGE_NAME}:${VERSION} \
           -f docker/Dockerfile adaptnlp
 #          -t ${ECR_REGISTRY}/${IMAGE_NAME}:${VERSION} \
 #          -t ${ECR_REGISTRY}/${IMAGE_NAME}:$(date +%F) \
