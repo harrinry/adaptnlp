@@ -78,7 +78,6 @@ jobs:
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
         BUILD_TYPE: ${{ matrix.build_type }}
         ECR_REGISTRY: 109004554389.dkr.ecr.us-east-1.amazonaws.com
-        ECR_REPOSITORY: adaptnlp
         
     - name: Push Images to ECR        
       env:
@@ -88,7 +87,7 @@ jobs:
         
       run: |
         aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REGISTRY_PUB
-        docker push $ECR_REGISTRY_PUB/$ECR_REPOSITORY/$IMAGE_NAME:latest
+        docker push $ECR_REGISTRY_PUB/$IMAGE_NAME:latest
 #        docker push $ECR_REGISTRY_PUB/$ECR_REPOSITORY/$IMAGE_NAME:$VERSION
 #        docker push $ECR_REGISTRY_PUB/$ECR_REPOSITORY/$IMAGE_NAME:$(date +%F)
         
