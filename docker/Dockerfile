@@ -4,8 +4,36 @@ FROM nvcr.io/nvidia/cuda:10.2-runtime-ubuntu18.04
 
 ARG BUILD=dev
 
+# Set python env vars
+ENV PYTHONUNBUFFERED=1 \
+    # prevents python creating .pyc files
+    PYTHONDONTWRITEBYTECODE=1 \
+    # pip
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100
+
+# Install python
+# Add deadsnakes ppa for python version >= 3.8.2
+RUN apt-get update && \
+    apt-get install -y software-properties-common
+RUN add-apt-repository ppa:deadsnakes/ppa
+RUN apt-get install -y --no-install-recommends \
+    build-essential \
+    python3.8 \
+    python3.8-dev \
+    python3.8-venv\
+    python3-pip \
+    curl \
+    git
+    
+# Setup venv
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3.8 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+RUN pip install pip -U
+
 # Install git and Jupyter
-RUN apt-get update && apt-get install -y git
 RUN pip install jupyter
 
 # Clone adaptnlp
