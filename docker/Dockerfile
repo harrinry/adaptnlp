@@ -17,4 +17,5 @@ RUN /bin/bash -c "if [[ $BUILD == 'prod' ]] ; then echo \"Production Build\" && 
 RUN /bin/bash -c "if [[ $BUILD == 'dev' ]] ; then echo \"Development Build\" && cd adaptnlp && pip install -e \".[dev]\" ; fi"
 
 # Start server
-RUN jupyter notebook --ip=0.0.0 --no-browser --allow-root --port=8888 --NotebookApp.token="" --NotebookApp.password="" --NotebookApp.allow_origin="*"
+RUN echo '#!/bin/bash\njupyter notebook --ip=0.0.0.0 --port=8888 --allow-root --no-browser --NotebookApp.token='' --NotebookApp.password='' --NotebookApp.allow_origin='*'' >> run_jupyter.sh
+RUN chmod u+x run_jupyter.sh
