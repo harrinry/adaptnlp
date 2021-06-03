@@ -88,5 +88,7 @@ jobs:
         
       run: |
         aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ECR_REGISTRY_PUB}
-        docker push $ECR_REGISTRY/${IMAGE_NAME}
+        docker push ${ECR_REGISTRY_PUB}/${ECR_REPOSITORY}/${IMAGE_NAME}:latest
+        docker push ${ECR_REGISTRY_PUB}/${ECR_REPOSITORY}/${IMAGE_NAME}:${VERSION}
+        docker push ${ECR_REGISTRY_PUB}/${ECR_REPOSITORY}/${IMAGE_NAME}:$(date +%F)
         
