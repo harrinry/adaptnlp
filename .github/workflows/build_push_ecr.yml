@@ -39,7 +39,7 @@ jobs:
       run: |
         # Build a docker container and push it to ECR
         echo "$ECR_REGISTRY, $ECR_REPOSITORY, $IMAGE_TAG, $ECR_REGISTRY_PUB"
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f docker/runtime/Dockerfile.cuda10.2-runtime-ubuntu18.04-py3.8 .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f docker/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
