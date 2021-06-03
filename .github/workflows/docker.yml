@@ -1,5 +1,5 @@
 # Based on https://github.com/fastai/docker-containers/blob/master/.github/workflows/fastai.yaml
-name: Build and Push Docker Images to ECR
+name: Build and Push Docker Images to ECR (Testing)
 
 on:
   schedule:
@@ -58,7 +58,7 @@ jobs:
         else:
           image_name = f'novetta/adaptnlp'
         
-        print(f"::set-output name=image_name::{image_name}}")
+        print(f"::set-output name=image_name::{image_name}")
       
       shell: python
       env:
