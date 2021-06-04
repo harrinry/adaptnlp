@@ -114,19 +114,20 @@ jobs:
     - name: Build and Tag Container
       run: |
         export DOCKER_BUILDKIT=1
-        docker build --build-arg BUILD=prod \
-          -t novetta/${IMAGE_NAME}:latest \
-          -t novetta/${IMAGE_NAME}:${VERSION} \
-          -f docker/Dockerfile .
+        docker build --build-arg BUILD=prod -t ${IMAGE_NAME} -f docker/Dockerfile .
+        docker tag ${IMAGE_NAME} novetta/${IMAGE_NAME}
+#        docker build --build-arg BUILD=prod \
+#          -t novetta/${IMAGE_NAME}:latest \
+#          -t novetta/${IMAGE_NAME}:${VERSION} \
+#          -f docker/Dockerfile .
       env:
         VERSION: ${{ steps.get_variables.outputs.version }}
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
         
     - name: Push Images
       run: |
-        docker logout
         echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
-        docker push novetta/${IMAGE_NAME} --all-tags
+        docker push novetta/${IMAGE_NAME}
       env:
         USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
