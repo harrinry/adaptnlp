@@ -124,6 +124,7 @@ jobs:
         
     - name: Push Images
       run: |
+        docker logout
         echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
         docker push novetta/${IMAGE_NAME} --all-tags
       env:
