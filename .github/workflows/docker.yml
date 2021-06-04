@@ -70,7 +70,7 @@ jobs:
       run: |
         export DOCKER_BUILDKIT=1
         docker build --build-arg BUILD=dev \
-          -t novetta/${IMAGE_NAME}:$(date +%F) \
+          -t muellerzr/novetta/${IMAGE_NAME}:$(date +%F) \
           -f docker/Dockerfile .
       env:
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
@@ -115,8 +115,8 @@ jobs:
       run: |
         export DOCKER_BUILDKIT=1
         docker build --build-arg BUILD=prod \
-          -t novetta/${IMAGE_NAME}:latest \
-          -t novetta/${IMAGE_NAME}:${VERSION} \
+          -t muellerzr/novetta/${IMAGE_NAME}:latest \
+          -t muellerzr/novetta/${IMAGE_NAME}:${VERSION} \
           -f docker/Dockerfile .
       env:
         VERSION: ${{ steps.get_variables.outputs.version }}
