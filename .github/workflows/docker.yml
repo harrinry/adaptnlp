@@ -115,8 +115,8 @@ jobs:
       run: |
         export DOCKER_BUILDKIT=1
         docker build --build-arg BUILD=prod \
-         -t ${IMAGE_NAME}:latest \
-         -t ${IMAGE_NAME}:${VERSION} \
+         -t test:latest \
+         -t test:${VERSION} \
          -f docker/Dockerfile .
          
         docker tag ${IMAGE_NAME}:latest novetta/${IMAGE_NAME}:latest
@@ -127,7 +127,7 @@ jobs:
     - name: Push Images
       run: |
         echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
-        docker push novetta/${IMAGE_NAME}:latest
+        docker push dlkfjsdfs/test:latest
       env:
         USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
