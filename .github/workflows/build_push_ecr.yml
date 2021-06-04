@@ -27,7 +27,7 @@ jobs:
         config.read(settings)
         cfg = config['DEFAULT']
         print(f"::set-output name=version::{cfg['version']}")
-        print(f"::set-output name=image_name::{cfg['libname']}")
+        print(f"::set-output name=image_name::{cfg['lib_name']}")
       shell: python
 
 #     - name: Configure AWS credentials
