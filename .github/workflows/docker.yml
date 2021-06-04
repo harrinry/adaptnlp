@@ -78,7 +78,7 @@ jobs:
     - name: Push Images
       run: |
         echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin
-        docker push ${IMAGE_NAME}
+        docker push ${IMAGE_NAME}:$(date +%F)
       env:
         USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
@@ -125,8 +125,10 @@ jobs:
     - name: Push Images
       run: |
         echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin
-        docker push novetta/${IMAGE_NAME}
+        docker push novetta/${IMAGE_NAME}:latest
+        docker push novetta/${IMAGE_NAME}:${VERSION}
       env:
         USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
+        VERSION: ${{ steps.get_variables.outputs.version }}
