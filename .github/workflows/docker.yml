@@ -115,8 +115,8 @@ jobs:
       run: |
         export DOCKER_BUILDKIT=1
         docker build --build-arg BUILD=prod \
-         -t novetta/${IMAGE_NAME}:latest \
-         -t novetta/${IMAGE_NAME}:${VERSION} \
+         -t ${IMAGE_NAME}:latest \
+         -t ${IMAGE_NAME}:${VERSION} \
          -f docker/Dockerfile .
          
         docker tag ${IMAGE_NAME}:latest novetta/${IMAGE_NAME}:latest
