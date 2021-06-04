@@ -125,7 +125,7 @@ jobs:
     - name: Push Images
       run: |
         echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin
-        docker push ${IMAGE_NAME}
+        docker push novetta/${IMAGE_NAME}
       env:
         USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
