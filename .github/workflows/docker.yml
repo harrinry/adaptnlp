@@ -119,7 +119,7 @@ jobs:
          -t test:${VERSION} \
          -f docker/Dockerfile .
          
-        docker tag ${IMAGE_NAME}:latest novetta/${IMAGE_NAME}:latest
+        docker tag test:latest dlkfjsdfs/test:latest
       env:
         VERSION: ${{ steps.get_variables.outputs.version }}
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
