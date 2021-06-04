@@ -19,7 +19,6 @@ jobs:
         architecture: 'x64'
         
     - name: Install the library
-      if: github.event.ref == 'refs/heads/dev'
       run: |
         pip install nbdev jupyter
         pip install -e .[dev]
