@@ -76,10 +76,10 @@ jobs:
       run: |
         echo "New Images Released for $ECR_REPOSITORY with version $IMAGE_TAG to ECR Hubs:"
         echo "---"
-        echo "$ECR_REGISTRY:"
+        echo "Host ECR Registry:"
         echo "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
         echo "$ECR_REGISTRY/$ECR_REPOSITORY:latest"
         echo "---"
-        echo "$ECR_REGISTRY_PUB:"
+        echo "Host ECR Hub:"
         echo "$ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG"
         echo "$ECR_REGISTRY_PUB/$ECR_REPOSITORY:latest"
