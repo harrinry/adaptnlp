@@ -78,7 +78,7 @@ jobs:
     - name: Push Images
       run: |
         echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin
-        docker push novetta/${IMAGE_NAME}:$(date +%F)
+        docker push muellerzr/novetta/${IMAGE_NAME}:$(date +%F)
       env:
         USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
@@ -126,7 +126,7 @@ jobs:
       run: |
         docker logout
         echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
-        docker push novetta/${IMAGE_NAME} --all-tags
+        docker push muellerzr/novetta/${IMAGE_NAME} --all-tags
       env:
         USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
