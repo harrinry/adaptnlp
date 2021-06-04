@@ -118,6 +118,8 @@ jobs:
          -t novetta/${IMAGE_NAME}:latest \
          -t novetta/${IMAGE_NAME}:${VERSION} \
          -f docker/Dockerfile .
+         
+        docker tag ${IMAGE_NAME}:latest novetta/${IMAGE_NAME}:latest
       env:
         VERSION: ${{ steps.get_variables.outputs.version }}
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
@@ -125,7 +127,7 @@ jobs:
     - name: Push Images
       run: |
         echo ${PASSWORD} | docker login -u $USERNAME --password-stdin novetta/adaptnlp
-        docker push novetta/${IMAGE_NAME} --all-tags
+        docker push novetta/${IMAGE_NAME}:latest
       env:
         USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
