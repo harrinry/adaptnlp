@@ -1,0 +1,27 @@
+# Release Weekly Insider Builds to Docker and Releases
+name: Build and release AdaptNLP DockerHub Images
+
+on: 
+#   schedule:
+#     - cron: '0 18 * * 5'
+  workflow_dispatch: # Allow manual trigger
+#   release:
+#     types: [published]
+    
+jobs:
+  deploy-release:
+    runs-on: ubuntu-latest
+    name: Deploy new image
+    steps:
+      - uses: actions/checkout@master
+      - name: Wait on tests
+        uses: lewagon/wait-on-check-action@v0.2
+        with:
+          ref: dev
+          check-name: CI
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-inerval: 20 # seconds
+          
+      - name: Verified it checked and passed
+        run: |
+          echo "We verified"
