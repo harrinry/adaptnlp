@@ -70,7 +70,7 @@ jobs:
       run: |
         export DOCKER_BUILDKIT=1
         docker build --build-arg BUILD=dev \
-          -t ${IMAGE_NAME}:$(date +%F) \
+          -t novetta/${IMAGE_NAME}:$(date +%F) \
           -f docker/Dockerfile .
       env:
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
@@ -78,7 +78,7 @@ jobs:
     - name: Push Images
       run: |
         echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin
-        docker push ${IMAGE_NAME}:$(date +%F)
+        docker push ${IMAGE_NAME}
       env:
         USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
@@ -115,8 +115,8 @@ jobs:
       run: |
         export DOCKER_BUILDKIT=1
         docker build --build-arg BUILD=prod \
-          -t ${IMAGE_NAME}:latest \
-          -t ${IMAGE_NAME}:${VERSION} \
+          -t novetta/${IMAGE_NAME}:latest \
+          -t novetta/${IMAGE_NAME}:${VERSION} \
           -f docker/Dockerfile .
       env:
         VERSION: ${{ steps.get_variables.outputs.version }}
@@ -125,8 +125,7 @@ jobs:
     - name: Push Images
       run: |
         echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin
-        docker push novetta/${IMAGE_NAME}:latest
-        docker push novetta/${IMAGE_NAME}:${VERSION}
+        docker push novetta/${IMAGE_NAME}
       env:
         USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
