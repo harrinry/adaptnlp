@@ -69,7 +69,7 @@ jobs:
         
     - name: New Image Names and URLs
       env:
-        IMAGE_TAG: ${{ version }}
+        IMAGE_TAG: ${{ steps.get_variables.outputs.version }}
         ECR_REPOSITORY: ${{ steps.get_variables.outputs.image_name }}
         ECR_REGISTRY_PUB: public.ecr.aws/r6j8a8p4
       run: |
