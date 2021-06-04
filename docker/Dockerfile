@@ -40,7 +40,7 @@ RUN pip install jupyter
 RUN git clone https://github.com/novetta/adaptnlp.git --depth 1
 
 # Build environment based on type
-RUN /bin/bash -c "echo \"Production Build\" && cd adaptnlp && pip install .;"
+RUN /bin/bash -c "if [[ $BUILD == 'prod' ]] ; then echo \"Production Build\" && cd adaptnlp && pip install .; fi"
 RUN /bin/bash -c "if [[ $BUILD == 'dev' ]] ; then echo \"Development Build\" && cd adaptnlp && pip install -e \".[dev]\" ; fi"
 
 # Start server
