@@ -4,7 +4,7 @@ name: Test, Build, and Release AdaptNLP DockerHub Images
 on: 
   schedule:
 #     - cron: '0 18 * * 5'
-    - cron: '12 15 * * *'
+    - cron: '20 15 * * *'
   workflow_dispatch: # Allow manual trigger
 #   release:
 #     types: [published]
