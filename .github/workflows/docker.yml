@@ -70,18 +70,15 @@ jobs:
       run: |
         export DOCKER_BUILDKIT=1
         docker build --build-arg BUILD=dev \
-          -t ${IMAGE_NAME}:$(date +%F) \
+          -t novetta/${IMAGE_NAME}:$(date +%F) \
           -f docker/Dockerfile .
-          
-        docker tag ${IMAGE_NAME}:$(date +%F) docker.io/novetta/adaptnlp
       env:
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
         
     - name: Push Images
       run: |
         echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin
-        echo ${PASSWORD} | docker login dockerio -u ${USERNAME} --password-stdin
-        docker push docker.io/novetta/${IMAGE_NAME}:$(date +%F)
+        docker push novetta/${IMAGE_NAME}:$(date +%F)
       env:
         USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
@@ -121,18 +118,15 @@ jobs:
           -t novetta/${IMAGE_NAME}:latest \
           -t novetta/${IMAGE_NAME}:${VERSION} \
           -f docker/Dockerfile .
-          
-        docker tag ${IMAGE_NAME}:latest docker.io/novetta/adaptnlp
-        docker tag ${IMAGE_NAME}:${VERSION} docker.io/novetta/adaptnlp
       env:
         VERSION: ${{ steps.get_variables.outputs.version }}
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
         
     - name: Push Images
       run: |
-        echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin
-        echo ${PASSWORD} | docker login dockerio -u ${USERNAME} --password-stdin
-        docker push docker.io/novetta/${IMAGE_NAME} --all-tags
+        docker logout
+        echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
+        docker push novetta/${IMAGE_NAME} --all-tags
       env:
         USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
