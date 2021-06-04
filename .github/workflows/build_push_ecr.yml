@@ -67,11 +67,12 @@ jobs:
 #         echo "Pushed to $ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG"
 #         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
         
-    - name: New Image Names and URLs
+    - name: Summary of New Image Names and URLs
       env:
         IMAGE_TAG: ${{ steps.get_variables.outputs.version }}
         ECR_REPOSITORY: ${{ steps.get_variables.outputs.image_name }}
         ECR_REGISTRY_PUB: public.ecr.aws/r6j8a8p4
+        ECR_REGISTRY: 109004554389.dkr.ecr.us-east-1.amazonaws.com
       run: |
         echo "New Images Released for $ECR_REPOSITORY with version $IMAGE_TAG to ECR Hubs:"
         echo "---"
