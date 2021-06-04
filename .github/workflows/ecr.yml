@@ -1,6 +1,7 @@
 on:
   release:
     types: [published]
+  workflow_dispatch: # Trigger manually
 
 name: Build and Push Docker Images to ECR
 
@@ -13,6 +14,21 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+      
+    - name: Get version and image name
+      id: get_variables
+      run: |
+        from configparser import ConfigParser
+        import os
+        from pathlib import Path
+        config = ConfigParser()
+        settings = Path('settings.ini')
+        assert settings.exists(), 'Not able to read or download settings.ini file'
+        config.read(settings)
+        cfg = config['DEFAULT']
+        print(f"::set-output name=version::{cfg['version']}")
+        print(f"::set-output name=image_name::{cfg['lib_name']}")
+      shell: python
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -26,27 +42,43 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Build, tag, and push image to Amazon ECR
-      id: build-image
       env:
         ECR_REGISTRY: 109004554389.dkr.ecr.us-east-1.amazonaws.com
         ECR_REGISTRY_PUB: public.ecr.aws/r6j8a8p4
-        ECR_REPOSITORY: adaptnlp
-        IMAGE_TAG: ${{ github.sha }}
+        ECR_REPOSITORY: ${{ steps.get_variables.outputs.image_name }}
+        IMAGE_TAG: ${{ steps.get_variables.outputs.version }}
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
       run: |
         # Build a docker container and push it to ECR
         echo "$ECR_REGISTRY, $ECR_REPOSITORY, $IMAGE_TAG, $ECR_REGISTRY_PUB"
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f docker/runtime/Dockerfile.cuda10.2-runtime-ubuntu18.04-py3.8 .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f docker/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        echo "Pushed to $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
         aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REGISTRY_PUB
         docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG
         docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY_PUB/$ECR_REPOSITORY:latest
         docker push $ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG
         docker push $ECR_REGISTRY_PUB/$ECR_REPOSITORY:latest
-        echo "Pushed to $DOCKER_PUBLIC_REGISTRY/$APP_NAME:latest"
+        echo "Pushed to $ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG"
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
         
+    - name: Summary of New Image Names and URLs
+      env:
+        IMAGE_TAG: ${{ steps.get_variables.outputs.version }}
+        ECR_REPOSITORY: ${{ steps.get_variables.outputs.image_name }}
+        ECR_REGISTRY_PUB: public.ecr.aws/r6j8a8p4
+        ECR_REGISTRY: 109004554389.dkr.ecr.us-east-1.amazonaws.com
+      run: |
+        echo "New Images Released for $ECR_REPOSITORY with version $IMAGE_TAG to ECR Hubs:"
+        echo "---"
+        echo "ECR Registry:"
+        echo "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        echo "$ECR_REGISTRY/$ECR_REPOSITORY:latest"
+        echo "---"
+        echo "ECR Hub:"
+        echo "$ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG"
+        echo "$ECR_REGISTRY_PUB/$ECR_REPOSITORY:latest"
