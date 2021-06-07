@@ -86,7 +86,7 @@ jobs:
   
   release-version:
     runs-on: ubuntu-latest
-#     needs: [test]
+    needs: [test]
     if: github.event.ref == 'refs/heads/master'
     steps:
     - uses: actions/checkout@v2
