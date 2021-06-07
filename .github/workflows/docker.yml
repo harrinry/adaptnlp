@@ -127,7 +127,7 @@ jobs:
     - name: Push Images
       run: |
         echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
-        docker push novetta/adaptnlp --all-tags
+        docker push --all-tags novetta/adaptnlp
       env:
         USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
