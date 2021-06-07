@@ -69,8 +69,9 @@ jobs:
     - name: Build and Tag Container
       run: |
         export DOCKER_BUILDKIT=1
-        docker build --build-arg BUILD=dev \
-          -t novetta/${IMAGE_NAME}:$(date +%F) \
+        docker pull ${IMAGE_NAME}:latest || true
+        docker build --cache-from ${IMAGE_NAME}:latest --build-arg BUILD=dev \
+          -t novetta/${IMAGE_NAME}:dev-$(date +%F) \
           -f docker/Dockerfile .
       env:
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
@@ -78,7 +79,7 @@ jobs:
     - name: Push Images
       run: |
         echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin
-        docker push novetta/${IMAGE_NAME}:$(date +%F)
+        docker push novetta/${IMAGE_NAME}
       env:
         USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
@@ -114,12 +115,11 @@ jobs:
     - name: Build and Tag Container
       run: |
         export DOCKER_BUILDKIT=1
-        docker build --build-arg BUILD=prod \
-         -t adaptnlp:latest \
-         -t adaptnlp:${VERSION} \
+        docker pull ${IMAGE_NAME}:latest || true
+        docker build --cache-from ${IMAGE_NAME}:latest --build-arg BUILD=prod \
+         -t novetta/adaptnlp:latest \
+         -t novetta/adaptnlp:${VERSION} \
          -f docker/Dockerfile .
-         
-        docker tag adaptnlp:latest novetta/adaptnlp:latest
       env:
         VERSION: ${{ steps.get_variables.outputs.version }}
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
@@ -127,7 +127,7 @@ jobs:
     - name: Push Images
       run: |
         echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
-        docker push novetta/adaptnlp:latest
+        docker push novetta/adaptnlp
       env:
         USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
