@@ -127,7 +127,7 @@ jobs:
     - name: Build and Tag REST API Containers
       run: |
         export DOCKER_BUILDKIT=1
-        declare -a API_TYPES=("question-answering","sequence-classification","summarization","text-generation","token-tagging","translation")
+        declare -a API_TYPES=("question-answering" "sequence-classification" "summarization" "text-generation" "token-tagging" "translation")
         
         # Iterate and Push
         for type in ${API_TYPES[@]}; do
