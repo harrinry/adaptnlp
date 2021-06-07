@@ -80,11 +80,11 @@ jobs:
         for type in ${API_TYPES[@]}; do
           docker build \
            -t $ECR_REGISTRY_PUB/$ECR_REPOSITORY:latest-api-$type \
-           -t $ECR_REGISTRY_PUB/$ECR_REPOSITORY:${VERSION}-api-$type \
+           -t $ECR_REGISTRY_PUB/$ECR_REPOSITORY:${IMAGE_TAG}-api-$type \
            -f rest/$type/Dockerfile rest/$type
            
-          docker push novetta/adaptnlp:latest-api-$type
-          docker push novetta/adaptnlp:${VERSION}-api-$type
+          docker push $ECR_REGISTRY_PUB/$ECR_REPOSITORY:latest-api-$type
+          docker push $ECR_REGISTRY_PUB/$ECR_REPOSITORY:${IMAGE_TAG}-api-$type
         done
       env:
         ECR_REGISTRY: 109004554389.dkr.ecr.us-east-1.amazonaws.com
