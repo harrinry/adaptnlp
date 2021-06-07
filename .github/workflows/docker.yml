@@ -112,7 +112,7 @@ jobs:
         print(f"::set-output name=image_name::{cfg['lib_name']}")
       shell: python
       
-    - name: Build and Tag Container
+    - name: Build and Tag Base Container
       run: |
         export DOCKER_BUILDKIT=1
         docker pull ${IMAGE_NAME}:latest || true
@@ -120,6 +120,51 @@ jobs:
          -t novetta/adaptnlp:latest \
          -t novetta/adaptnlp:${VERSION} \
          -f docker/Dockerfile .
+      env:
+        VERSION: ${{ steps.get_variables.outputs.version }}
+        IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
+        
+    - name: Build and Tag REST API Containers
+      run: |
+        export DOCKER_BUILDKIT=1
+        
+        echo "Building Question Answering..."         
+        docker build \
+         -t novetta/adaptnlp:latest-api-question-answering \
+         -t novetta/adaptnlp:${VERSION}-api-question-answering \
+         -f rest/question-answering/Dockerfile rest/question-answering
+         
+        echo "Building Sequence Classification..."
+        docker build \
+         -t novetta/adaptnlp:latest-api-sequence-classification \
+         -t novetta/adaptnlp:${VERSION}-api-sequence-classification \
+         -f rest/sequence-classification/Dockerfile rest/sequence-classification
+         
+        echo "Building Summarization..."
+        docker build \
+         -t novetta/adaptnlp:latest-api-summarization \
+         -t novetta/adaptnlp:${VERSION}-api-summarization \
+         -f rest/summarization/Dockerfile rest/summarization
+         
+         
+        echo "Building Text Generation..."
+        docker build \
+         -t novetta/adaptnlp:latest-api-text-generation \
+         -t novetta/adaptnlp:${VERSION}-api-text-generation \
+         -f rest/text-generation/Dockerfile rest/text-generation
+        
+        echo "Building Token Tagging..."
+        docker build \
+         -t novetta/adaptnlp:latest-api-token-tagging \
+         -t novetta/adaptnlp:${VERSION}-api-token-tagging \
+         -f rest/token-tagging/Dockerfile rest/token-tagging
+         
+        echo "Building Translation..."
+        docker build \
+         -t novetta/adaptnlp:latest-api-translation \
+         -t novetta/adaptnlp:${VERSION}-api-translation \
+         -f rest/translation/Dockerfile rest/translation
+
       env:
         VERSION: ${{ steps.get_variables.outputs.version }}
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
