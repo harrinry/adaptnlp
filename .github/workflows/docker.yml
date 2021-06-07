@@ -146,7 +146,7 @@ jobs:
         echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
         docker push novetta/adaptnlp
         
-        declare -a API_TYPES=("question-answering","sequence-classification","summarization","text-generation","token-tagging","translation")
+        declare -a API_TYPES=("question-answering" "sequence-classification" "summarization" "text-generation" "token-tagging" "translation")
         for type in ${API_TYPES[@]}; do
           docker push novetta/adaptnlp:latest-api-$type
           docker push novetta/adaptnlp:${VERSION}-api-$type
