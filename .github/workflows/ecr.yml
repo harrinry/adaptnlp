@@ -48,7 +48,7 @@ jobs:
         
         docker build \
           -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
-          -t $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          -t $ECR_REGISTRY/$ECR_REPOSITORY:latest \
           -f docker/Dockerfile .
           
         docker push $ECR_REGISTRY/$ECR_REPOSITORY
@@ -69,7 +69,7 @@ jobs:
         
         docker build \
           -t $ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG \
-          -t $ECR_REGISTRY_PUB/$ECR_REPOSITORY:latest
+          -t $ECR_REGISTRY_PUB/$ECR_REPOSITORY:latest \
           -f docker/Dockerfile .
           
         docker push $ECR_REGISTRY_PUB/$ECR_REPOSITORY
