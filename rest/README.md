@@ -3,24 +3,24 @@
 ## Quick Start
 
 ### Docker Hub
-The docker image of AdaptNLP is built with the `achangnovetta/adaptnlp:latest` image.
+The docker image of AdaptNLP is built with the `novetta/adaptnlp:latest` image.
 
-The docker image of AdaptNLP's NLP task rest services are hosted on Docker Hub as well [here](https://hub.docker.com/r/achangnovetta).
+The docker image of AdaptNLP's NLP task rest services are hosted on Docker Hub as well, identified by `adaptnlp:{VERSION_NUMBER}-api-{TASK}` naming convention
 
 Every image can be pulled and run by running the following:
 
 - Token Tagging
-  - `docker run -itp 5000:5000 -e TOKEN_TAGGING_MODE=ner -e TOKEN_TAGGING_MODEe=ner-ontonotes-fast achangnovetta/token-tagging:latest bash`
+  - `docker run -itp 5000:5000 -e TOKEN_TAGGING_MODE=ner -e TOKEN_TAGGING_MODE=ner-ontonotes-fast novetta/adaptnlp:latest-api-token-tagging bash`
 - Sequence Classification
-  - `docker run -itp 5000:5000 -e SEQUENCE_CLASSIFICATION_MODEL=nlptown/bert-base-multilingual-uncased-sentiment achangnovetta/sequence-classification:latest bash`
+  - `docker run -itp 5000:5000 -e SEQUENCE_CLASSIFICATION_MODEL=nlptown/bert-base-multilingual-uncased-sentiment novetta/adaptnlp:latest-api-sequence-classification bash`
 - Question Answering
-  - `docker run -itp 5000:5000 -e QUESTION_ANSWERING_MODEL=distilbert-base-uncased-distilled-squad achangnovetta/question-answering:latest bash`
+  - `docker run -itp 5000:5000 -e QUESTION_ANSWERING_MODEL=distilbert-base-uncased-distilled-squad novetta/adaptnlp:latest-api-question-answering bash`
 - Translation 
-  - `docker run -itp 5000:5000 -e TRANSLATION_MODEL=Helsinki-NLP/opus-mt-ar-e achangnovetta/translation:latest bash`
+  - `docker run -itp 5000:5000 -e TRANSLATION_MODEL=Helsinki-NLP/opus-mt-ar-e novetta/adaptnlp:translation-api-latest bash`
 - Summarization 
-  - `docker run -itp 5000:5000 -e SUMMARIZATION_MODEL=facebook/bart-large-cnn achangnovetta/summarization:latest bash`
+  - `docker run -itp 5000:5000 -e SUMMARIZATION_MODEL=facebook/bart-large-cnn novetta/adaptnlp:summarization-api-latest bash`
 - Text Generation 
-  - `docker run -itp 5000:5000 -e TEXT_GENERATION_MODEL=gpt2 achangnovetta/text-generation:latest bash`
+  - `docker run -itp 5000:5000 -e TEXT_GENERATION_MODEL=gpt2 novetta/adaptnlp:text-generation-api-latest bash`
 
 Note: Add the `--gpus` arg parameter if you'd like the images and endpoints to run with GPUs. You need to have NVIDIA Docker installed with a CUDA-compatible GPU.
 
