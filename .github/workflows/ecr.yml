@@ -40,8 +40,19 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
-
-    - name: Build, tag, and push image to Amazon ECR
+      
+    - name: Build, Tag, and Push Public Images to Amazon ECR
+      run: |
+        # Build Docker Container and Push to ECR
+        export DOCKER_BUILDKIT=1
+        
+        docker build \
+          -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
+          -t $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          -f docker/Dockerfile .
+          
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY
+      
       env:
         ECR_REGISTRY: 109004554389.dkr.ecr.us-east-1.amazonaws.com
         ECR_REGISTRY_PUB: public.ecr.aws/r6j8a8p4
@@ -50,35 +61,36 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+
+    - name: Build, Tag, and Push Private Images to Amazon ECR
       run: |
         # Build a docker container and push it to ECR
-        echo "$ECR_REGISTRY, $ECR_REPOSITORY, $IMAGE_TAG, $ECR_REGISTRY_PUB"
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f docker/Dockerfile .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-        echo "Pushed to $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
         aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REGISTRY_PUB
-        docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG
-        docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY_PUB/$ECR_REPOSITORY:latest
-        docker push $ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG
-        docker push $ECR_REGISTRY_PUB/$ECR_REPOSITORY:latest
-        echo "Pushed to $ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG"
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
         
-    - name: Summary of New Image Names and URLs
+        docker build \
+          -t $ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG \
+          -t $ECR_REGISTRY_PUB/$ECR_REPOSITORY:latest
+          -f docker/Dockerfile .
+          
+        docker push $ECR_REGISTRY_PUB/$ECR_REPOSITORY
+        
+        declare -a API_TYPES=("question-answering" "sequence-classification" "summarization" "text-generation" "token-tagging" "translation")
+        
+        # Iterate and Push
+        for type in ${API_TYPES[@]}; do
+          docker build \
+           -t $ECR_REGISTRY_PUB/$ECR_REPOSITORY:latest-api-$type \
+           -t $ECR_REGISTRY_PUB/$ECR_REPOSITORY:${VERSION}-api-$type \
+           -f rest/$type/Dockerfile rest/$type
+           
+          docker push novetta/adaptnlp:latest-api-$type
+          docker push novetta/adaptnlp:${VERSION}-api-$type
+        done
       env:
-        IMAGE_TAG: ${{ steps.get_variables.outputs.version }}
-        ECR_REPOSITORY: ${{ steps.get_variables.outputs.image_name }}
-        ECR_REGISTRY_PUB: public.ecr.aws/r6j8a8p4
         ECR_REGISTRY: 109004554389.dkr.ecr.us-east-1.amazonaws.com
-      run: |
-        echo "New Images Released for $ECR_REPOSITORY with version $IMAGE_TAG to ECR Hubs:"
-        echo "---"
-        echo "ECR Registry:"
-        echo "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-        echo "$ECR_REGISTRY/$ECR_REPOSITORY:latest"
-        echo "---"
-        echo "ECR Hub:"
-        echo "$ECR_REGISTRY_PUB/$ECR_REPOSITORY:$IMAGE_TAG"
-        echo "$ECR_REGISTRY_PUB/$ECR_REPOSITORY:latest"
+        ECR_REGISTRY_PUB: public.ecr.aws/r6j8a8p4
+        ECR_REPOSITORY: ${{ steps.get_variables.outputs.image_name }}
+        IMAGE_TAG: ${{ steps.get_variables.outputs.version }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
