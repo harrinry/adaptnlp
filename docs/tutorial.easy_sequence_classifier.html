@@ -266,7 +266,7 @@ nb_path: "nbs/06a_tutorial.easy_sequence_classifier.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2021-04-20 19:15:43,548 loading file nlptown/bert-base-multilingual-uncased-sentiment
+<pre>2021-05-31 16:09:42,794 loading file nlptown/bert-base-multilingual-uncased-sentiment
 </pre>
 </div>
 </div>
@@ -274,7 +274,7 @@ nb_path: "nbs/06a_tutorial.easy_sequence_classifier.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>/opt/venv/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:2073: FutureWarning: The `pad_to_max_length` argument is deprecated and will be removed in a future version, use `padding=True` or `padding=&#39;longest&#39;` to pad to the longest sequence in the batch, or use `padding=&#39;max_length&#39;` to pad to a max length. In this case, you can give a specific length with `max_length` (e.g. `max_length=45`) or leave max_length to None to pad to the maximal input size of the model (e.g. 512 for Bert).
+<pre>/opt/venv/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:2104: FutureWarning: The `pad_to_max_length` argument is deprecated and will be removed in a future version, use `padding=True` or `padding=&#39;longest&#39;` to pad to the longest sequence in the batch, or use `padding=&#39;max_length&#39;` to pad to a max length. In this case, you can give a specific length with `max_length` (e.g. `max_length=45`) or leave max_length to None to pad to the maximal input size of the model (e.g. 512 for Bert).
   warnings.warn(
 </pre>
 </div>
@@ -305,18 +305,6 @@ nb_path: "nbs/06a_tutorial.easy_sequence_classifier.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tag Score Outputs:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
-    <span class="n">pprint</span><span class="p">({</span><span class="n">sentence</span><span class="o">.</span><span class="n">to_original_text</span><span class="p">():</span> <span class="n">sentence</span><span class="o">.</span><span class="n">labels</span><span class="p">})</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -326,11 +314,12 @@ nb_path: "nbs/06a_tutorial.easy_sequence_classifier.ipynb"
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Tag Score Outputs:
 
-{&#34;This didn&#39;t work at all&#34;: [1 star (0.8421),
-                             2 stars (0.1379),
-                             3 stars (0.018),
-                             4 stars (0.0012),
-                             5 stars (0.0007)]}
+Sentences: [&#34;This did n&#39;t work at all&#34;]
+
+Classes: [&#39;1 star&#39;]
+
+Probabilities: 
+	tensor([[8.4212e-01, 1.3793e-01, 1.8024e-02, 1.2419e-03, 6.8153e-04]])
 </pre>
 </div>
 </div>
@@ -421,18 +410,6 @@ nb_path: "nbs/06a_tutorial.easy_sequence_classifier.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tag Score Outputs:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
-    <span class="n">pprint</span><span class="p">({</span><span class="n">sentence</span><span class="o">.</span><span class="n">to_original_text</span><span class="p">():</span> <span class="n">sentence</span><span class="o">.</span><span class="n">labels</span><span class="p">})</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -442,26 +419,15 @@ nb_path: "nbs/06a_tutorial.easy_sequence_classifier.ipynb"
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Tag Score Outputs:
 
-{&#34;This didn&#39;t work well at all.&#34;: [1 star (0.622),
-                                   2 stars (0.3356),
-                                   3 stars (0.0403),
-                                   4 stars (0.0016),
-                                   5 stars (0.0005)]}
-{&#39;I really liked it.&#39;: [1 star (0.0032),
-                        2 stars (0.0048),
-                        3 stars (0.054),
-                        4 stars (0.4813),
-                        5 stars (0.4567)]}
-{&#39;It was really useful.&#39;: [1 star (0.006),
-                           2 stars (0.0093),
-                           3 stars (0.0701),
-                           4 stars (0.4136),
-                           5 stars (0.501)]}
-{&#39;It broke after I bought it.&#39;: [1 star (0.4489),
-                                 2 stars (0.3935),
-                                 3 stars (0.1416),
-                                 4 stars (0.0121),
-                                 5 stars (0.0039)]}
+Sentences: [&#34;This did n&#39;t work well at all .&#34;, &#39;I really liked it .&#39;, &#39;It was really useful .&#39;, &#39;It broke after I bought it .&#39;]
+
+Classes: [&#39;1 star&#39;, &#39;4 stars&#39;, &#39;5 stars&#39;, &#39;1 star&#39;]
+
+Probabilities: 
+	tensor([[6.2198e-01, 3.3563e-01, 4.0320e-02, 1.5827e-03, 4.8790e-04],
+        [3.2305e-03, 4.7872e-03, 5.4017e-02, 4.8129e-01, 4.5668e-01],
+        [5.9679e-03, 9.2630e-03, 7.0121e-02, 4.1363e-01, 5.0102e-01],
+        [4.4894e-01, 3.9348e-01, 1.4158e-01, 1.2110e-02, 3.8937e-03]])
 </pre>
 </div>
 </div>
@@ -574,18 +540,6 @@ nb_path: "nbs/06a_tutorial.easy_sequence_classifier.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tag Score Outputs:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
-    <span class="n">pprint</span><span class="p">({</span><span class="n">sentence</span><span class="o">.</span><span class="n">to_original_text</span><span class="p">():</span> <span class="n">sentence</span><span class="o">.</span><span class="n">labels</span><span class="p">})</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -595,18 +549,15 @@ nb_path: "nbs/06a_tutorial.easy_sequence_classifier.ipynb"
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Tag Score Outputs:
 
-{&#39;Das hat überhaupt nicht gut funktioniert.&#39;: [positive (0.0008),
-                                               negative (0.9991),
-                                               neutral (0.0)]}
-{&#39;Ich mochte es wirklich.&#39;: [positive (0.7023),
-                             negative (0.2029),
-                             neutral (0.0947)]}
-{&#39;Es war wirklich nützlich.&#39;: [positive (0.9813),
-                               negative (0.0184),
-                               neutral (0.0002)]}
-{&#39;Es ist kaputt gegangen, nachdem ich es gekauft habe.&#39;: [positive (0.0042),
-                                                          negative (0.9957),
-                                                          neutral (0.0001)]}
+Sentences: [&#39;Das hat überhaupt nicht gut funktioniert .&#39;, &#39;Ich mochte es wirklich .&#39;, &#39;Es war wirklich nützlich .&#39;, &#39;Es ist kaputt gegangen , nachdem ich es gekauft habe .&#39;]
+
+Classes: [&#39;negative&#39;, &#39;positive&#39;, &#39;positive&#39;, &#39;negative&#39;]
+
+Probabilities: 
+	tensor([[8.2706e-04, 9.9915e-01, 2.7373e-05],
+        [7.0231e-01, 2.0294e-01, 9.4746e-02],
+        [9.8132e-01, 1.8442e-02, 2.3914e-04],
+        [4.2462e-03, 9.9566e-01, 9.4817e-05]])
 </pre>
 </div>
 </div>
@@ -1119,9 +1070,10 @@ nb_path: "nbs/06a_tutorial.easy_sequence_classifier.ipynb"
     <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span>
 <span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tag Score Outputs:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
-    <span class="n">pprint</span><span class="p">({</span><span class="n">sentence</span><span class="o">.</span><span class="n">to_original_text</span><span class="p">():</span> <span class="n">sentence</span><span class="o">.</span><span class="n">labels</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tag Score Outputs:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Sentences: </span><span class="si">{</span><span class="n">sentences</span><span class="p">[</span><span class="s2">&quot;sentences&quot;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Classes: </span><span class="si">{</span><span class="n">sentences</span><span class="p">[</span><span class="s2">&quot;classes&quot;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Probabilities: </span><span class="se">\n\t</span><span class="si">{</span><span class="n">sentences</span><span class="p">[</span><span class="s1">&#39;probs&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>

@@ -141,7 +141,7 @@ nb_path: "nbs/10a_tutorial.question_answering.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">top_prediction</span><span class="p">,</span> <span class="n">all_nbest_json</span> <span class="o">=</span> <span class="n">qa_model</span><span class="o">.</span><span class="n">predict_qa</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;What does Amazon do?&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">n_best_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;distilbert-base-uncased-distilled-squad&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">qa_model</span><span class="o">.</span><span class="n">predict_qa</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;What does Amazon do?&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">n_best_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;distilbert-base-uncased-distilled-squad&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -154,8 +154,8 @@ nb_path: "nbs/10a_tutorial.question_answering.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>convert squad examples to features: 100%|██████████| 1/1 [00:00&lt;00:00, 35.47it/s]
-add example index and unique id: 100%|██████████| 1/1 [00:00&lt;00:00, 4702.13it/s]
+<pre>convert squad examples to features: 100%|██████████| 1/1 [00:00&lt;00:00, 45.86it/s]
+add example index and unique id: 100%|██████████| 1/1 [00:00&lt;00:00, 6574.14it/s]
 </pre>
 </div>
 </div>
@@ -189,7 +189,7 @@ add example index and unique id: 100%|██████████| 1/1 [00:00
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">top_prediction</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span>
 </pre></div>
 
     </div>
@@ -201,10 +201,13 @@ add example index and unique id: 100%|██████████| 1/1 [00:00
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>disruption of well-established industries
-</pre>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;queries&#39;: [&#39;What does Amazon do?&#39;],
+ &#39;best_answers&#39;: [&#39;disruption of well-established industries&#39;]}</pre>
 </div>
+
 </div>
 
 </div>
@@ -220,7 +223,7 @@ add example index and unique id: 100%|██████████| 1/1 [00:00
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_nbest_json</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;best_answers&#39;</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -235,18 +238,7 @@ add example index and unique id: 100%|██████████| 1/1 [00:00
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[OrderedDict([(&#39;text&#39;, &#39;disruption of well-established industries&#39;),
-              (&#39;probability&#39;, 0.6033452454300696),
-              (&#39;start_logit&#39;, 6.112517),
-              (&#39;end_logit&#39;, 4.161786),
-              (&#39;start_index&#39;, 45),
-              (&#39;end_index&#39;, 48)]),
- OrderedDict([(&#39;text&#39;, &#39;disruption&#39;),
-              (&#39;probability&#39;, 0.2976601300650915),
-              (&#39;start_logit&#39;, 6.112517),
-              (&#39;end_logit&#39;, 3.4552488),
-              (&#39;start_index&#39;, 45),
-              (&#39;end_index&#39;, 45)])]</pre>
+<pre>[&#39;disruption of well-established industries&#39;]</pre>
 </div>
 
 </div>
@@ -297,7 +289,7 @@ add example index and unique id: 100%|██████████| 1/1 [00:00
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">top_prediction</span><span class="p">,</span> <span class="n">all_nbest_json</span> <span class="o">=</span> <span class="n">qa_model</span><span class="o">.</span><span class="n">predict_qa</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">questions</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="p">[</span><span class="n">context</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_best_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;distilbert-base-uncased-distilled-squad&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">qa_model</span><span class="o">.</span><span class="n">predict_qa</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">questions</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="p">[</span><span class="n">context</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_best_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;distilbert-base-uncased-distilled-squad&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -310,8 +302,8 @@ add example index and unique id: 100%|██████████| 1/1 [00:00
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>convert squad examples to features: 100%|██████████| 3/3 [00:00&lt;00:00, 46.30it/s]
-add example index and unique id: 100%|██████████| 3/3 [00:00&lt;00:00, 15847.50it/s]
+<pre>convert squad examples to features: 100%|██████████| 3/3 [00:00&lt;00:00, 44.46it/s]
+add example index and unique id: 100%|██████████| 3/3 [00:00&lt;00:00, 15051.33it/s]
 </pre>
 </div>
 </div>
@@ -345,7 +337,7 @@ add example index and unique id: 100%|██████████| 3/3 [00:00
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">top_prediction</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;best_answers&#39;</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -357,10 +349,83 @@ add example index and unique id: 100%|██████████| 3/3 [00:00
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>OrderedDict([(&#39;0&#39;, &#39;disruption of well-established industries&#39;), (&#39;1&#39;, &#39;Jeff Bezos&#39;), (&#39;2&#39;, &#39;$13.4 billion&#39;)])
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;disruption of well-established industries&#39;, &#39;Jeff Bezos&#39;, &#39;$13.4 billion&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If we want more information, we can pass in a <code>DetailLevel</code> to ask for (you can also just use the strings <code>low</code>, <code>medium</code>, and <code>high</code>).</p>
+<p>This will instead return a dictionary of various items to look at. By default our results earlier were with the <code>DetailLevel.Low</code></p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp.question_answering</span> <span class="kn">import</span> <span class="n">DetailLevel</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">qa_model</span><span class="o">.</span><span class="n">predict_qa</span><span class="p">(</span>
+    <span class="n">query</span><span class="o">=</span><span class="s2">&quot;What does Amazon do?&quot;</span><span class="p">,</span>
+    <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+    <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;distilbert-base-uncased-distilled-squad&quot;</span><span class="p">,</span>
+    <span class="n">detail_level</span><span class="o">=</span><span class="n">DetailLevel</span><span class="o">.</span><span class="n">Medium</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>convert squad examples to features: 100%|██████████| 1/1 [00:00&lt;00:00, 46.65it/s]
+add example index and unique id: 100%|██████████| 1/1 [00:00&lt;00:00, 4681.14it/s]
 </pre>
 </div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+</div>
+
 </div>
 
 </div>
@@ -376,7 +441,7 @@ add example index and unique id: 100%|██████████| 3/3 [00:00
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_nbest_json</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">][:</span><span class="mi">2</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span>
 </pre></div>
 
     </div>
@@ -391,18 +456,16 @@ add example index and unique id: 100%|██████████| 3/3 [00:00
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[OrderedDict([(&#39;text&#39;, &#39;Jeff Bezos&#39;),
-              (&#39;probability&#39;, 0.5127517857731716),
-              (&#39;start_logit&#39;, 2.8254287),
-              (&#39;end_logit&#39;, 0.6868366),
-              (&#39;start_index&#39;, 119),
-              (&#39;end_index&#39;, 120)]),
- OrderedDict([(&#39;text&#39;, &#39;Amazon was founded by Jeff Bezos&#39;),
-              (&#39;probability&#39;, 0.47153574087191846),
-              (&#39;start_logit&#39;, 2.7416315),
-              (&#39;end_logit&#39;, 0.6868366),
-              (&#39;start_index&#39;, 115),
-              (&#39;end_index&#39;, 120)])]</pre>
+<pre>{&#39;queries&#39;: [&#39;What does Amazon do?&#39;],
+ &#39;best_answers&#39;: [&#39;disruption of well-established industries&#39;],
+ &#39;pairings&#39;: OrderedDict([(&#39;What does Amazon do?&#39;,
+               ((&#39;disruption of well-established industries&#39;,
+                 &#39;disruption&#39;,
+                 &#39;its disruption of well-established industries&#39;,
+                 &#39;its disruption&#39;,
+                 &#39;Amazon is known for its disruption&#39;),
+                tensor([0.6033, 0.2977, 0.0585, 0.0289, 0.0116])))]),
+ &#39;context&#39;: &#34;Amazon.com, Inc.[6] (/ˈæməzɒn/), is an American multinational technology company based in Seattle, \nWashington that focuses on e-commerce, cloud computing, digital streaming, and artificial intelligence. \nIt is considered one of the Big Four technology companies along with Google, Apple, and Facebook.[7][8][9] \nAmazon is known for its disruption of well-established industries through technological innovation and mass \nscale.[10][11][12] It is the world&#39;s largest e-commerce marketplace, AI assistant provider, and cloud computing \nplatform[13] as measured by revenue and market capitalization.[14] Amazon is the largest Internet company by \nrevenue in the world.[15] It is the second largest private employer in the United States[16] and one of the world&#39;s \nmost valuable companies. Amazon is the second largest technology company by revenue. Amazon was founded by Jeff Bezos \non July 5, 1994, in Bellevue, Washington. The company initially started as an online marketplace for books but later \nexpanded to sell electronics, software, video games, apparel, furniture, food, toys, and jewelry. In 2015, Amazon \nsurpassed Walmart as the most valuable retailer in the United States by market capitalization.[17] In 2017, Amazon \nacquired Whole Foods Market for $13.4 billion, which vastly increased Amazon&#39;s presence as a brick-and-mortar \nretailer.[18] In 2018, Bezos announced that its two-day delivery service, Amazon Prime, had surpassed 100 million \nsubscribers worldwide\n&#34;}</pre>
 </div>
 
 </div>
@@ -413,6 +476,150 @@ add example index and unique id: 100%|██████████| 3/3 [00:00
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we can see, the <code>medium</code> detail level will return not only our queries and answers, but also a <code>pairing</code> with the question, its top answers, and their softmax'd probabilities.</p>
+<p>Along with this it will return the context passed into the question.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And now let's look at the highest detail level:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">qa_model</span><span class="o">.</span><span class="n">predict_qa</span><span class="p">(</span>
+    <span class="n">query</span><span class="o">=</span><span class="s2">&quot;What does Amazon do?&quot;</span><span class="p">,</span>
+    <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+    <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;distilbert-base-uncased-distilled-squad&quot;</span><span class="p">,</span>
+    <span class="n">detail_level</span><span class="o">=</span><span class="s1">&#39;high&#39;</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>convert squad examples to features: 100%|██████████| 1/1 [00:00&lt;00:00, 48.58it/s]
+add example index and unique id: 100%|██████████| 1/1 [00:00&lt;00:00, 6260.16it/s]
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;queries&#39;: [&#39;What does Amazon do?&#39;],
+ &#39;best_answers&#39;: [&#39;disruption of well-established industries&#39;],
+ &#39;pairings&#39;: OrderedDict([(&#39;What does Amazon do?&#39;,
+               ((&#39;disruption of well-established industries&#39;,
+                 &#39;disruption&#39;,
+                 &#39;its disruption of well-established industries&#39;,
+                 &#39;its disruption&#39;,
+                 &#39;Amazon is known for its disruption&#39;),
+                tensor([0.6033, 0.2977, 0.0585, 0.0289, 0.0116])))]),
+ &#39;context&#39;: &#34;Amazon.com, Inc.[6] (/ˈæməzɒn/), is an American multinational technology company based in Seattle, \nWashington that focuses on e-commerce, cloud computing, digital streaming, and artificial intelligence. \nIt is considered one of the Big Four technology companies along with Google, Apple, and Facebook.[7][8][9] \nAmazon is known for its disruption of well-established industries through technological innovation and mass \nscale.[10][11][12] It is the world&#39;s largest e-commerce marketplace, AI assistant provider, and cloud computing \nplatform[13] as measured by revenue and market capitalization.[14] Amazon is the largest Internet company by \nrevenue in the world.[15] It is the second largest private employer in the United States[16] and one of the world&#39;s \nmost valuable companies. Amazon is the second largest technology company by revenue. Amazon was founded by Jeff Bezos \non July 5, 1994, in Bellevue, Washington. The company initially started as an online marketplace for books but later \nexpanded to sell electronics, software, video games, apparel, furniture, food, toys, and jewelry. In 2015, Amazon \nsurpassed Walmart as the most valuable retailer in the United States by market capitalization.[17] In 2017, Amazon \nacquired Whole Foods Market for $13.4 billion, which vastly increased Amazon&#39;s presence as a brick-and-mortar \nretailer.[18] In 2018, Bezos announced that its two-day delivery service, Amazon Prime, had surpassed 100 million \nsubscribers worldwide\n&#34;,
+ &#39;squad_example&#39;: [&lt;transformers.data.processors.squad.SquadExample at 0x7fa3636553a0&gt;],
+ &#39;n_best_json&#39;: OrderedDict([(&#39;0&#39;,
+               [OrderedDict([(&#39;text&#39;,
+                              &#39;disruption of well-established industries&#39;),
+                             (&#39;probability&#39;, 0.6033452454300696),
+                             (&#39;start_logit&#39;, 6.112517),
+                             (&#39;end_logit&#39;, 4.161786),
+                             (&#39;start_index&#39;, 45),
+                             (&#39;end_index&#39;, 48)]),
+                OrderedDict([(&#39;text&#39;, &#39;disruption&#39;),
+                             (&#39;probability&#39;, 0.2976601300650915),
+                             (&#39;start_logit&#39;, 6.112517),
+                             (&#39;end_logit&#39;, 3.4552488),
+                             (&#39;start_index&#39;, 45),
+                             (&#39;end_index&#39;, 45)]),
+                OrderedDict([(&#39;text&#39;,
+                              &#39;its disruption of well-established industries&#39;),
+                             (&#39;probability&#39;, 0.058525787061892556),
+                             (&#39;start_logit&#39;, 3.7794955),
+                             (&#39;end_logit&#39;, 4.161786),
+                             (&#39;start_index&#39;, 44),
+                             (&#39;end_index&#39;, 48)]),
+                OrderedDict([(&#39;text&#39;, &#39;its disruption&#39;),
+                             (&#39;probability&#39;, 0.028873673109973873),
+                             (&#39;start_logit&#39;, 3.7794955),
+                             (&#39;end_logit&#39;, 3.4552488),
+                             (&#39;start_index&#39;, 44),
+                             (&#39;end_index&#39;, 45)]),
+                OrderedDict([(&#39;text&#39;, &#39;Amazon is known for its disruption&#39;),
+                             (&#39;probability&#39;, 0.01159516433297233),
+                             (&#39;start_logit&#39;, 2.8671532),
+                             (&#39;end_logit&#39;, 3.4552488),
+                             (&#39;start_index&#39;, 40),
+                             (&#39;end_index&#39;, 45)])])])}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <code>DetailLevel.High</code> option will also return the <code>squad_example</code> result, as well as the original <code>n_best_json</code> with detailed information about each predicted option</p>
+
+</div>
+</div>
+</div>
 </div>
  
 
