@@ -522,7 +522,10 @@ class EasySequenceClassifier:
         self,
         model_name_or_path: str,
     ) -> None:
-        """Unload model from classifier and empty cuda mem cache (may leave residual cache per pytorch documentation on torch.cuda.empty_cache())
+        """
+        Unload `model_name_or_path` from classifier and empty cuda memory cache
+
+        May leave residual cache per pytorch documentation on torch.cuda.empty_cache()
 
         * **model_name_or_path** - The model name or key path that you want to unload and release memory from
         """
@@ -535,9 +538,12 @@ class EasySequenceClassifier:
         self,
         model_name_or_path: str = 'bert-base-uncased',
     ) -> Dict[str, float]:
-        """Evaluates model specified
+        """
+        Evalate `model_name_or_path`
 
         * **model_name_or_path** - The model name key or model path
+
+        Model does not need to be loaded into memory before calling `.evaluate(model_name)`
         """
 
         # Dynamically load sequence classifier

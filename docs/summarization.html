@@ -26,21 +26,6 @@ nb_path: "nbs/07_summarization.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/mnt/d/lib/python3.7/site-packages/torch/cuda/__init__.py:52: UserWarning: CUDA initialization: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx (Triggered internally at  /pytorch/c10/cuda/CUDAFunctions.cpp:100.)
-  return torch._C._cuda_getDeviceCount() &gt; 0
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -64,20 +49,12 @@ nb_path: "nbs/07_summarization.ipynb"
 
 <div class="output_wrapper">
 <div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>The history saving thread hit an unexpected error (OperationalError(&#39;disk I/O error&#39;)).History will not be written to the database.
-</pre>
-</div>
-</div>
 
 <div class="output_area">
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="TransformersSummarizer" class="doc_header"><code>class</code> <code>TransformersSummarizer</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/summarization.py#L36" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersSummarizer</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
+<h2 id="TransformersSummarizer" class="doc_header"><code>class</code> <code>TransformersSummarizer</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/summarization.py#L36" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersSummarizer</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlpmodel.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
 </blockquote>
 <p>Adaptive model for Transformer's Conditional Generation or Language Models (Transformer's T5 and Bart
 conditiional generation models have a language modeling head)</p>
