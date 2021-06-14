@@ -43,5 +43,7 @@ RUN git clone https://github.com/novetta/adaptnlp.git --depth 1
 RUN /bin/bash -c "if [[ $BUILD == 'prod' ]] ; then echo \"Production Build\" && cd adaptnlp && pip install .; fi"
 RUN /bin/bash -c "if [[ $BUILD == 'dev' ]] ; then echo \"Development Build\" && cd adaptnlp && pip install -e \".[dev]\" ; fi"
 
+RUN pip install jupyterlab==3.0.16 jupyter_server==1.6.4 xeus-python
+
 # Start server
 CMD ["sh","-c", "jupyter notebook --ip=0.0.0.0 --no-browser --allow-root --port=8888 --NotebookApp.token='' --NotebookApp.password='' --NotebookApp.allow_origin='*' --NotebookApp.base_url=${NB_PREFIX}"]
