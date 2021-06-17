@@ -3,6 +3,27 @@
 __all__ = ['logger', 'EmbeddingResult', 'EasyWordEmbeddings', 'EasyStackedEmbeddings', 'EasyDocumentEmbeddings']
 
 # Cell
+import logging, torch
+from typing import List, Dict, Union
+from collections import defaultdict, OrderedDict
+
+from fastcore.basics import mk_class
+from fastcore.xtras import dict2obj
+from fastcore.dispatch import typedispatch
+from flair.data import Sentence
+from flair.embeddings import (
+    Embeddings,
+    WordEmbeddings,
+    StackedEmbeddings,
+    FlairEmbeddings,
+    DocumentPoolEmbeddings,
+    DocumentRNNEmbeddings,
+    TransformerWordEmbeddings,
+)
+
+from .model_hub import FlairModelHub, HFModelHub, FlairModelResult, HFModelResult
+
+# Cell
 _flair_hub = FlairModelHub()
 _hf_hub = HFModelHub()
 
