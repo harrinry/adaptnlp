@@ -3,25 +3,6 @@
 __all__ = ['logger', 'EmbeddingResult', 'EasyWordEmbeddings', 'EasyStackedEmbeddings', 'EasyDocumentEmbeddings']
 
 # Cell
-import logging
-from typing import List, Dict, Union
-from collections import defaultdict
-
-from fastcore.dispatch import typedispatch
-from flair.data import Sentence
-from flair.embeddings import (
-    Embeddings,
-    WordEmbeddings,
-    StackedEmbeddings,
-    FlairEmbeddings,
-    DocumentPoolEmbeddings,
-    DocumentRNNEmbeddings,
-    TransformerWordEmbeddings,
-)
-
-from .model_hub import FlairModelHub, HFModelHub, FlairModelResult, HFModelResult
-
-# Cell
 _flair_hub = FlairModelHub()
 _hf_hub = HFModelHub()
 
@@ -79,6 +60,7 @@ def _get_embedding_model(model_name_or_path:str) -> Union[TransformerWordEmbeddi
             return FlairEmbeddings(nm.strip('flairNLP/'))
 
 # Cell
+from fastcore.basics import mk_class
 mk_class('DetailLevel', **{o:o.lower() for o in 'High,Medium,Low'.split(',')},
          doc="All possible naming conventions for DetailLevel with typo-proofing")
 
