@@ -198,7 +198,8 @@ class EasyWordEmbeddings:
         sentences = _make_sentences(text)
 
         # Load correct Embeddings module
-        self.models[model_name_or_path] = _get_embedding_model(model_name_or_path)
+        if model_name_or_path not in self.models.keys():
+            self.models[model_name_or_path] = _get_embedding_model(model_name_or_path)
         embedding = self.models[model_name_or_path]
         embeds = embedding.embed(sentences)
 
