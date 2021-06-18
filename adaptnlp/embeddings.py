@@ -5,6 +5,7 @@ __all__ = ['logger', 'EmbeddingResult', 'EasyWordEmbeddings', 'EasyStackedEmbedd
 # Cell
 import logging, torch
 from typing import List, Dict, Union
+from fastcore.basics import listify
 from collections import defaultdict, OrderedDict
 
 from fastcore.basics import mk_class
@@ -22,6 +23,7 @@ from flair.embeddings import (
 )
 
 from .model_hub import FlairModelHub, HFModelHub, FlairModelResult, HFModelResult
+from .result import SentenceResult, DetailLevel
 
 # Cell
 _flair_hub = FlairModelHub()
@@ -81,45 +83,25 @@ def _get_embedding_model(model_name_or_path:str) -> Union[TransformerWordEmbeddi
             return FlairEmbeddings(nm.strip('flairNLP/'))
 
 # Cell
-from fastcore.basics import mk_class
-mk_class('DetailLevel', **{o:o.lower() for o in 'High,Medium,Low'.split(',')},
-         doc="All possible naming conventions for DetailLevel with typo-proofing")
-
-# Cell
-class EmbeddingResult:
+class EmbeddingResult(SentenceResult):
     """
     A result class designed for Embedding models
     """
-    def __init__(self, sentence:Sentence):
-        self._sentence = sentence
+    def __init__(self, sentences:List[Sentence]): super().__init__(sentences)
 
     @property
-    def sentence_embeddings(self) -> torch.tensor:
+    def sentence_embeddings(self) -> List[torch.tensor]:
         """
-        All embeddings in `sentence` (if available)
+        All embeddings in `sentences` (if available)
         """
-        return self._sentence.get_embedding()
+        return [s.get_embedding() for s in self._sentences]
 
     @property
-    def token_embeddings(self) -> torch.tensor:
+    def token_embeddings(self) -> List[torch.tensor]:
         """
         All embeddings from the individual tokens in `sentence` with original order in shape (n, embed_dim)
         """
-        return torch.stack([tok.get_embedding() for tok in self._sentence], dim=0)
-
-    @property
-    def tokenized_inputs(self) -> str:
-        """
-        The original tokenized inputs
-        """
-        return self._sentence.to_tokenized_string()
-
-    @property
-    def inputs(self) -> str:
-        """
-        The original input
-        """
-        return self._sentence.to_original_text()
+        return [torch.stack([tok.get_embedding() for tok in s], dim=0) for s in self._sentences]
 
     def to_dict(self, detail_level:DetailLevel=DetailLevel.Low):
         o = OrderedDict()
@@ -128,29 +110,31 @@ class EmbeddingResult:
                  'token_embeddings':self.token_embeddings})
         if detail_level == 'medium' or detail_level == 'high':
             # Return embeddings/word pairs and indicies, and the tokenized input
-            o.update({
-                tok.text:{
-                    'embeddings':tok.get_embedding(),
-                    'word_idx':tok.idx
-                } for tok in self._sentence
-            })
+            for s in self._sentences:
+                o.update({
+                    tok.text:{
+                        'embeddings':tok.get_embedding(),
+                        'word_idx':tok.idx
+                    } for tok in s
+                })
             o.update({
                 'tokenized_inputs':self.tokenized_inputs
             })
         if detail_level == 'high':
-            # Return embeddings/word pairs, indicies, and the original Sentence object
-            o.update({tok.text:{
-                'embeddings':tok.get_embedding(),
-                'word_idx':tok.idx
-                } for tok in self._sentence})
-            o.update({'sentence':self._sentence})
+            # Return embeddings/word pairs, indicies, and the original Sentences objects
+            for s in self._sentences:
+                o.update({tok.text:{
+                    'embeddings':tok.get_embedding(),
+                    'word_idx':tok.idx
+                    } for tok in s})
+            o.update({'sentences':self._sentences})
         return o
 
     def __repr__(self):
         s = f"{self.__class__.__name__}:" + " {"
         s += f'\n\tInputs: {self.inputs}'
-        if self.token_embeddings is not None: s += f'\n\tToken Embeddings Shape: {self.token_embeddings.shape}'
-        if self.sentence_embeddings is not None: s += f'\n\tSentence Embeddings Shape: {self.sentence_embeddings.shape}'
+        if self.token_embeddings is not None: s += f'\n\tToken Embeddings Shapes: {[f.shape for f in self.token_embeddings]}'
+        if self.sentence_embeddings is not None: s += f'\n\tSentence Embeddings Shapes: {[f.shape for f in self.sentence_embeddings]}'
         return s + '\n}'
 
 # Internal Cell
@@ -158,8 +142,8 @@ def _format_results(embeds:list, detail_level:DetailLevel=None):
     """
     Generates either a list of `EmbeddingResult`s or a single based upon `detail_level` and their length
     """
-    res = [EmbeddingResult(embed) for embed in embeds]
-    return [o.to_dict(detail_level) for o in res] if detail_level is not None else res
+    res = EmbeddingResult(embeds)
+    return o.to_dict(detail_level) if detail_level is not None else res
 
 # Cell
 class EasyWordEmbeddings:
@@ -181,7 +165,7 @@ class EasyWordEmbeddings:
         text: Union[List[Sentence], Sentence, List[str], str],
         model_name_or_path: Union[str, HFModelResult, FlairModelResult] = "bert-base-cased",
         detail_level:DetailLevel = DetailLevel.Low,
-        raw:bool = False
+        raw:bool=False
     ) -> List[EmbeddingResult]:
         """Produces embeddings for text
 
@@ -189,7 +173,7 @@ class EasyWordEmbeddings:
         * `text` - Text input, it can be a string or any of Flair's `Sentence` input formats
         * `model_name_or_path` - The hosted model name key, model path, or an instance of either `HFModelResult` or `FlairModelResult`
         * `detail_level` - A level of detail to return. By default is None, which returns a EmbeddingResult, otherwise will return a dict
-        * `raw` - A boolean of whether to skip generating an EmbeddingResult or dictionary. Mostly for dev, default is False
+        * `Raw` - Whether to return the raw outputs
 
         **Return**:
         * A list of either EmbeddingResult's or dictionaries with information

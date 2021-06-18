@@ -35,14 +35,17 @@ index = {"logger": "13b_transformers.finetuning.ipynb",
          "EasyWordEmbeddings": "04_embeddings.ipynb",
          "EasyStackedEmbeddings": "04_embeddings.ipynb",
          "EasyDocumentEmbeddings": "04_embeddings.ipynb",
+         "TokenClassificationResult": "05_token_classification.ipynb",
          "TransformersTokenTagger": "05_token_classification.ipynb",
          "FlairTokenTagger": "05_token_classification.ipynb",
          "EasyTokenTagger": "05_token_classification.ipynb",
+         "SequenceResult": "06_sequence_classification.ipynb",
          "TransformersSequenceClassifier": "06_sequence_classification.ipynb",
          "FlairSequenceClassifier": "06_sequence_classification.ipynb",
          "EasySequenceClassifier": "06_sequence_classification.ipynb",
          "TransformersSummarizer": "07_summarization.ipynb",
          "EasySummarizer": "07_summarization.ipynb",
+         "TranslationResult": "08_translation.ipynb",
          "TransformersTranslator": "08_translation.ipynb",
          "EasyTranslator": "08_translation.ipynb",
          "TransformersTextGenerator": "09_text_generation.ipynb",
@@ -80,7 +83,8 @@ index = {"logger": "13b_transformers.finetuning.ipynb",
          "make_precision_recall_eval": "13c_transformers.utils_squad_evaluate.ipynb",
          "run_precision_recall_analysis": "13c_transformers.utils_squad_evaluate.ipynb",
          "histogram_na_prob": "13c_transformers.utils_squad_evaluate.ipynb",
-         "main": "13c_transformers.utils_squad_evaluate.ipynb"}
+         "main": "13c_transformers.utils_squad_evaluate.ipynb",
+         "SentenceResult": "14_Result.ipynb"}
 
 modules = ["file_utils.py",
            "callback.py",
@@ -97,7 +101,8 @@ modules = ["file_utils.py",
            "training.py",
            "transformers/squad_metrics.py",
            "transformers/finetuning.py",
-           "transformers/utils_squad_evaluate.py"]
+           "transformers/utils_squad_evaluate.py",
+           "result.py"]
 
 doc_url = "https://novetta.github.io/adaptnlp"
 

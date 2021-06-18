@@ -125,7 +125,7 @@ class TransformersSummarizer(AdaptiveModel):
                 ].pop()
             )
 
-        return summaries
+        return {'summaries':summaries}
 
     def _tokenize(self, text: Union[List[str], str]) -> TensorDataset:
         """ Batch tokenizes text and produces a `TensorDataset` with text """

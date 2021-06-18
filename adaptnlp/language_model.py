@@ -16,7 +16,9 @@ import torch
 from torch.utils.data import Dataset
 from transformers import (
     AutoTokenizer,
-    AutoModelWithLMHead,
+    AutoModelForCausalLM,
+    AutoModelForMaskedLM,
+    AutoModelForSeq2SeqLM,
     TrainingArguments,
     Trainer,
     TextDataset,
@@ -28,8 +30,15 @@ from transformers import (
 
 from .model_hub import HFModelResult
 
+from fastcore.basics import mk_class
+
 # Cell
 logger = logging.getLogger(__name__)
+
+# Cell
+_types = {'Causal':'causal-lm', 'Masked':'masked-lm', 'Seq2Seq':'seq2seq'}
+mk_class('LMClass', **_types,
+        doc="All possible Language Model types as attributes to get tab-completion and typo-proofing")
 
 # Cell
 class LMFineTuner:
@@ -46,11 +55,19 @@ class LMFineTuner:
     **Parameters:**
 
     * **model_name_or_path** - The model checkpoint for weights initialization. Leave None if you want to train a model from scratch.
+    * **language_model_class** - The type of language model you are trying to train, such as "causal" or "seq2seq"
     """
+
+    def _get_automodel_func(self, tags):
+        if 'causal-lm' in tags: return AutoModelForCausalLM, 'causal-lm'
+        elif 'masked-lm' in tags: return AutoModelForMaskedLM, 'masked-lm'
+        elif 'seq2seq' in tags: return AutoModelForSeq2SeqLM, 'seq2seq'
+        else: raise ValueError(f'Not a valid Language Model type: {tags[0]}')
 
     def __init__(
         self,
         model_name_or_path:Union[str, HFModelResult]="bert-base-cased",
+        language_model_class:Union[str, LMClass] = 'causal-lm',
     ):
 
         logger.info(
@@ -58,11 +75,22 @@ class LMFineTuner:
         )
         # Load model and tokenizer
         name = getattr(model_name_or_path, 'name', model_name_or_path)
+        if not isinstance(model_name_or_path, HFModelResult) and language_model_class is None:
+            raise ValueError("""
+            No `language_model_class` was passed in with a model string.
+            Please specify the type of language model it is (Either causal, masked, or seq2seq).
+
+            To find the proper type, search your model on the HuggingFaceHub and you will see its tag near the top,
+              such as "causal-lm" or "seq2seq"
+            """)
+
+        tags = getattr('tags', model_name_or_path, [language_model_class])
+        model_constructor, self.lm_class = self._get_automodel_func(tags)
+        self.model = model_constructor.from_pretrained(name)
+
         self.tokenizer = AutoTokenizer.from_pretrained(
             name, use_fast=True
         )
-        # TODO: AutoModelWithLMHead deprecated, update to causal, mask, or seq2seq
-        self.model = AutoModelWithLMHead.from_pretrained(name)
         self.trainer = None
 
         # Setup cuda and automatic allocation of model
@@ -126,9 +154,9 @@ class LMFineTuner:
 
         # Check block size for Dataset
         if block_size <= 0:
-            block_size = self.tokenizer.max_len
+            block_size = self.tokenizer.model_max_length
         else:
-            block_size = min(block_size, self.tokenizer.max_len)
+            block_size = min(block_size, self.tokenizer.model_max_length)
 
         # Get datasets
         train_dataset = self._get_dataset(
