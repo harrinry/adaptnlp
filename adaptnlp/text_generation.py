@@ -116,7 +116,7 @@ class TransformersTextGenerator(AdaptiveModel):
                 )
                 results += generated_text
 
-        return results
+        return {"generated_text":results}
 
     def _tokenize(self, text: Union[List[str], str]) -> TensorDataset:
         """ Batch tokenizes text and produces a `TensorDataset` with text """

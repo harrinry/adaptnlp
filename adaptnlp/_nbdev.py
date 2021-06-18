@@ -84,7 +84,7 @@ index = {"logger": "13b_transformers.finetuning.ipynb",
          "run_precision_recall_analysis": "13c_transformers.utils_squad_evaluate.ipynb",
          "histogram_na_prob": "13c_transformers.utils_squad_evaluate.ipynb",
          "main": "13c_transformers.utils_squad_evaluate.ipynb",
-         "SentenceResult": "14_Result.ipynb"}
+         "SentenceResult": "14_result.ipynb"}
 
 modules = ["file_utils.py",
            "callback.py",

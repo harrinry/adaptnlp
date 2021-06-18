@@ -378,7 +378,7 @@ class EasyTokenTagger:
         text: Union[List[Sentence], Sentence, List[str], str],
         model_name_or_path: Union[str, FlairModelResult, HFModelResult] = "ner-ontonotes",
         mini_batch_size: int = 32,
-        detail_level:DetailLevel = DetailLevel.Low
+        detail_level:DetailLevel = DetailLevel.Low,
         **kwargs,
     ) -> List[Sentence]:
         """Tags tokens with labels the token classification models have been trained on

@@ -108,6 +108,7 @@ class EmbeddingResult(SentenceResult):
         o.update({'inputs':self.inputs,
                   'sentence_embeddings':self.sentence_embeddings,
                  'token_embeddings':self.token_embeddings})
+        if detail_level == "low": return o
         if detail_level == 'medium' or detail_level == 'high':
             # Return embeddings/word pairs and indicies, and the tokenized input
             for s in self._sentences:
@@ -136,14 +137,6 @@ class EmbeddingResult(SentenceResult):
         if self.token_embeddings is not None: s += f'\n\tToken Embeddings Shapes: {[f.shape for f in self.token_embeddings]}'
         if self.sentence_embeddings is not None: s += f'\n\tSentence Embeddings Shapes: {[f.shape for f in self.sentence_embeddings]}'
         return s + '\n}'
-
-# Internal Cell
-def _format_results(embeds:list, detail_level:DetailLevel=None):
-    """
-    Generates either a list of `EmbeddingResult`s or a single based upon `detail_level` and their length
-    """
-    res = EmbeddingResult(embeds)
-    return o.to_dict(detail_level) if detail_level is not None else res
 
 # Cell
 class EasyWordEmbeddings:
@@ -187,14 +180,17 @@ class EasyWordEmbeddings:
         embedding = self.models[model_name_or_path]
         embeds = embedding.embed(sentences)
 
-        return _format_results(embeds, detail_level) if not raw else embeds
+        if not raw:
+            res = EmbeddingResult(listify(embeds))
+            return res.to_dict(detail_level) if detail_level is not None else res
+        else:
+            return listify(embeds)
 
     def embed_all(
         self,
         text: Union[List[Sentence], Sentence, List[str], str],
         model_names_or_paths:List[str] = [],
         detail_level:DetailLevel=DetailLevel.Low,
-        raw:bool = False,
     ) -> List[EmbeddingResult]:
         """Embeds text with all embedding models loaded
 
@@ -202,7 +198,6 @@ class EasyWordEmbeddings:
         * `text` - Text input, it can be a string or any of Flair's `Sentence` input formats
         * `model_names_or_paths` -  A list of model names
         * `detail_level` - A level of detail to return. By default is None, which returns a EmbeddingResult, otherwise will return a dict
-        * `raw` - A boolean of whether to skip generating an EmbeddingResult or dictionary. Mostly for dev, default is False
 
         **Return**:
         * A list of either EmbeddingResult's or dictionaries with information
@@ -220,7 +215,8 @@ class EasyWordEmbeddings:
                 sentences = self.embed_text(
                     sentences, model_name_or_path=embedding_name, raw=True
                 )
-        return _format_results(sentences, detail_level) if not raw else embeds
+        res = EmbeddingResult(listify(sentences))
+        return res.to_dict(detail_level) if detail_level is not None else res
 
 # Cell
 class EasyStackedEmbeddings:
@@ -251,15 +247,13 @@ class EasyStackedEmbeddings:
     def embed_text(
         self,
         text: Union[List[Sentence], Sentence, List[str], str],
-        detail_level:DetailLevel = DetailLevel.Low,
-        raw:bool = False
+        detail_level:DetailLevel = DetailLevel.Low
     ) -> List[EmbeddingResult]:
         """Stacked embeddings
 
         **Parameters**:
         * `text` - Text input, it can be a string or any of Flair's `Sentence` input formats
         * `detail_level` - A level of detail to return. By default is None, which returns a EmbeddingResult, otherwise will return a dict
-        * `raw` - A boolean of whether to skip generating an EmbeddingResult or dictionary. Mostly for dev, default is False
 
         **Return**:
         * A list of either EmbeddingResult's or dictionaries with information
@@ -270,7 +264,8 @@ class EasyStackedEmbeddings:
         # Unlike flair embeddings modules, stacked embeddings do not return a list of sentences
         self.stacked_embeddings.embed(sentences)
 
-        return _format_results(sentences, detail_level) if not raw else embeds
+        res = EmbeddingResult(listify(sentences))
+        return res.to_dict(detail_level) if detail_level is not None else res
 
 # Cell
 class EasyDocumentEmbeddings:
@@ -370,7 +365,8 @@ class EasyDocumentEmbeddings:
         """
         sentences = _make_sentences(text, as_list=True)
         self.pool_embeddings.embed(sentences)
-        return _format_results(sentences, detail_level)
+        res = EmbeddingResult(listify(sentences))
+        return res.to_dict(detail_level) if detail_level is not None else res
 
     def embed_rnn(
         self,
@@ -388,4 +384,5 @@ class EasyDocumentEmbeddings:
         """
         sentences = _make_sentences(text, as_list=True)
         self.rnn_embeddings.embed(sentences)
-        return _format_results(sentences, detail_level)
+        res = EmbeddingResult(listify(sentences))
+        return res.to_dict(detail_level) if detail_level is not None else res
