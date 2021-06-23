@@ -8,6 +8,9 @@ from transformers import AutoTokenizer
 from fastcore.foundation import mask2idxs, L
 from fastcore.meta import delegates
 from fastcore.xtras import Path, range_of
+from fastai.data.core import DataLoaders
+
+from torch.utils.data import DataLoader
 
 import pandas as pd
 from typing import Union
@@ -112,10 +115,7 @@ class TaskDatasets:
         elif tokenize and self.tokenizer is None:
             print("Tried to tokenize a dataset without a tokenizer. Please set a tokenizer with `set_tokenizer` and call `_tokenize()`")
 
-    def __getitem__(self, idx):
-        item = self.items[idx]
-        if len(item) == 2: item[0]['labels'] = item[1]
-        return item[0]
+    def __getitem__(self, idx): return self.items[idx]
 
     @property
     def train(self): return self.items[self.train_idxs]
@@ -126,7 +126,12 @@ class TaskDatasets:
     def _tokenize(self):
         "Tokenize dataset in `self.items`"
         if not self.tokenizer: raise ValueError("Tried to tokenize a dataset without a tokenizer. Please add a tokenizer with `set_tokenizer(tokenizer_name` and try again")
-        def _inner(item): return (self.tokenizer(item[0], padding=True, truncation=True), item[1])
+        def _inner(item):
+            if len(item) > 1:
+                data = self.tokenizer(item[0], padding=True, truncation=True)
+                data['labels'] = item[1]
+                return data
+            else: return self.tokenizer(item[0], padding=True, truncation=True)
         self.items = self.items.map(_inner)
 
     @delegates(AutoTokenizer.from_pretrained)
@@ -146,6 +151,21 @@ class TaskDatasets:
             self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name, **kwargs)
         except:
             raise ValueError(f'{tokenizer_name} is not a valid pretrained model on the HuggingFace Hub or a local model')
+
+    @delegates(DataLoaders)
+    def dataloaders(
+        self,
+        batch_size=8, # A batch size
+        shuffle_train=True, # Whether to shuffle the training dataset
+        collate_fn = None, # A custom collation function
+        **kwargs): # Torch DataLoader kwargs
+        "Creates `DataLoaders` from the dataset"
+        if collate_fn is None:
+            from transformers import DataCollatorWithPadding
+            collate_fn = DataCollatorWithPadding(self.tokenizer)
+        train_dl = DataLoader(self.train, shuffle=shuffle_train, collate_fn=collate_fn, batch_size=batch_size, **kwargs)
+        valid_dl = DataLoader(self.valid, shuffle=False, collate_fn=collate_fn, batch_size=batch_size, **kwargs)
+        return DataLoaders(train_dl, valid_dl)
 
 # Cell
 class SequenceClassificationDatasets(TaskDatasets):
@@ -188,3 +208,14 @@ class SequenceClassificationDatasets(TaskDatasets):
         get_y = ColReader(label_col)
         if splits is None: splits = RandomSplitter(0.2)(range_of(df))
         return cls(df, get_x, get_y, splits, tokenizer_name, tokenize, **kwargs)
+
+    @delegates(DataLoaders)
+    def dataloaders(
+        self,
+        batch_size=8, # A batch size
+        shuffle_train=True, # Whether to shuffle the training dataset
+        collate_fn = None, # A custom collation function
+        **kwargs): # Torch DataLoader kwargs
+        dls = super().dataloaders(batch_size, shuffle_train, collate_fn, **kwargs)
+        dls[0].categorize = self.categorize
+        return dls
