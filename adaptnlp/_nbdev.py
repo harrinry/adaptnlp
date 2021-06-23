@@ -84,7 +84,12 @@ index = {"logger": "13b_transformers.finetuning.ipynb",
          "run_precision_recall_analysis": "13c_transformers.utils_squad_evaluate.ipynb",
          "histogram_na_prob": "13c_transformers.utils_squad_evaluate.ipynb",
          "main": "13c_transformers.utils_squad_evaluate.ipynb",
-         "SentenceResult": "14_result.ipynb"}
+         "SentenceResult": "14_result.ipynb",
+         "ColReader": "15_training.core.data.ipynb",
+         "Categorize": "15_training.core.data.ipynb",
+         "RandomSplitter": "15_training.core.data.ipynb",
+         "TaskDatasets": "15_training.core.data.ipynb",
+         "SequenceClassificationDatasets": "15_training.core.data.ipynb"}
 
 modules = ["file_utils.py",
            "callback.py",
@@ -102,7 +107,8 @@ modules = ["file_utils.py",
            "transformers/squad_metrics.py",
            "transformers/finetuning.py",
            "transformers/utils_squad_evaluate.py",
-           "result.py"]
+           "result.py",
+           "training/core/data.py"]
 
 doc_url = "https://novetta.github.io/adaptnlp"
 
