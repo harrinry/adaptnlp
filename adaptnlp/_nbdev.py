@@ -76,8 +76,10 @@ index = {"logger": "13a_transformers.squad_metrics.ipynb",
          "RandomSplitter": "15_training.data.ipynb",
          "TaskDatasets": "15_training.data.ipynb",
          "SequenceClassificationDatasets": "15_training.data.ipynb",
+         "LanguageModelDatasets": "15_training.data.ipynb",
          "AdaptiveTuner": "16_training.tuner.ipynb",
-         "SequenceClassificationTuner": "16_training.tuner.ipynb"}
+         "SequenceClassificationTuner": "16_training.tuner.ipynb",
+         "LanguageModelTuner": "16_training.tuner.ipynb"}
 
 modules = ["file_utils.py",
            "callback.py",
