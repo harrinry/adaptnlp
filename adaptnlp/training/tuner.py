@@ -72,7 +72,7 @@ class AdaptiveTuner:
 
     ):
         "Fine tune `self.model` for `epochs` with an `lr` and `strategy`"
-        func = getattr(self, strategy, f'_{strategy}')
+        func = getattr(self, strategy, getattr(self._tuner, strategy, None))
         for attr in 'epochs,lr,cbs'.split():
             if attr in kwargs.keys(): kwargs.pop(attr)
         func(epochs, lr, cbs=callbacks, **kwargs)
@@ -179,7 +179,10 @@ class SequenceClassificationTuner(AdaptiveTuner):
         **kwargs # Learner kwargs
     ):
         "Convience method to build a `SequenceClassificationTuner` from a Pandas Dataframe"
-        splits = split_func(range_of(df))
+        try:
+            splits = split_func(df)
+        except:
+            splits = split_func(range_of(df))
         dls = SequenceClassificationDatasets.from_df(
             df,
             text_col,
@@ -293,4 +296,4 @@ class LanguageModelTuner(AdaptiveTuner):
             tokenizer_name=model_name
         ).dataloaders(batch_size, collate_fn)
 
-        return cls(dls, model_name, loss_func, metrics, opt_func, additional_cbs, expose_fastai_api)
+        return cls(dls, model_name, language_model_type, loss_func, metrics, opt_func, additional_cbs, expose_fastai_api)

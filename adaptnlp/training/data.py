@@ -124,8 +124,8 @@ class TaskDatasets:
         "Tokenize dataset in `self.items`"
         if not self.tokenizer: raise ValueError("Tried to tokenize a dataset without a tokenizer. Please add a tokenizer with `set_tokenizer(tokenizer_name` and try again")
         def _inner(item):return self.tokenizer(item['text'], padding=True, truncation=True)
-        self.train = self.train.map(_inner,batched=True,remove_columns = self.train.column_names)
-        self.valid = self.valid.map(_inner,batched=True,remove_columns = self.valid.column_names)
+        self.train = self.train.map(_inner,batched=True,remove_columns = ['text'])
+        self.valid = self.valid.map(_inner,batched=True,remove_columns = ['text'])
 
     @delegates(AutoTokenizer.from_pretrained)
     def set_tokenizer(
@@ -181,12 +181,12 @@ class SequenceClassificationDatasets(TaskDatasets):
 
         train_dset = Dataset.from_dict({
             'text':train_xs,
-            'label':train_ys
+            'labels':train_ys
         })
 
         valid_dset = Dataset.from_dict({
             'text':valid_xs,
-            'label':valid_ys
+            'labels':valid_ys
         })
 
         super().__init__(train_dset, valid_dset, tokenizer_name, tokenize, **kwargs)
