@@ -11,6 +11,8 @@ from fastai.losses import *
 from fastai.optimizer import *
 # NOTE: Placeholder imports, remove once we are ready for release
 
+from transformers import default_data_collator
+
 from .data import *
 
 # Cell
@@ -134,7 +136,7 @@ class SequenceClassificationTuner(AdaptiveTuner):
     def __init__(
         self,
         dls:DataLoaders, # A set of DataLoaders
-        model, # A HuggingFace model
+        model_name, # A HuggingFace model
         loss_func = CrossEntropyLossFlat(), # A loss function
         metrics = [accuracy, F1Score()], # Metrics to monitor the training with
         opt_func = Adam, # A fastai or torch Optimizer
@@ -145,7 +147,7 @@ class SequenceClassificationTuner(AdaptiveTuner):
         additional_cbs = listify(additional_cbs)
         for arg in 'dls,model,loss_func,metrics,opt_func,cbs,expose_fastai'.split(','):
             if arg in kwargs.keys(): kwargs.pop(arg) # Pop all existing kwargs
-        model = AutoModelForSequenceClassification.from_pretrained(model, num_labels=len(dls[0].categorize.classes))
+        model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=len(dls[0].categorize.classes))
 
         super().__init__(
             expose_fastai_api,
@@ -170,7 +172,7 @@ class SequenceClassificationTuner(AdaptiveTuner):
         loss_func = CrossEntropyLossFlat(), # A loss function
         metrics = [accuracy, F1Score()], # Metrics to monitor the training with
         batch_size=8, # A batch size
-        collate_fn=None, # An optional custom collate function
+        collate_fn=default_data_collator, # An optional custom collate function
         opt_func = Adam, # A fastai or torch Optimizer
         additional_cbs = None, # Additional Callbacks to have always tied to the Tuner,
         expose_fastai_api = False, # Whether to expose the fastai API
@@ -221,7 +223,7 @@ class LanguageModelTuner(AdaptiveTuner):
     def __init__(
         self,
         dls:DataLoaders, # A set of DataLoaders
-        model, # A HuggingFace model
+        model_name, # A HuggingFace model
         language_model_type:LMType = LMType.Causal, # The type of language model to use
         loss_func = CrossEntropyLossFlat(), # A loss function
         metrics = [accuracy, Perplexity()], # Metrics to monitor the training with
@@ -245,10 +247,10 @@ class LanguageModelTuner(AdaptiveTuner):
                 """
             )
         try:
-            model = _constructors[language_model_type](model)
+            model = _constructors[language_model_type](model_name)
         except Exception as e:
             message = e.args[0]
-            m = f"Was not able to create a {language_model_type} instance of {model}. Please use a valid model for your task:"
+            m = f"Was not able to create a {language_model_type} instance of {model_name}. Please use a valid model for your task:"
             m += message
             e.args = [m]
             raise e
@@ -263,3 +265,32 @@ class LanguageModelTuner(AdaptiveTuner):
             cbs=additional_cbs,
             **kwargs
         )
+
+    @delegates(Learner.__init__)
+    @classmethod
+    def from_df(
+        cls,
+        df:pd.DataFrame, # A Pandas Dataframe or Path to a DataFrame
+        text_col:str = 'text', # Name of the column the text is stored
+        model_name:str = None, # The string name of a huggingFace model
+        language_model_type:LMType = LMType.Causal, # The type of language model to use
+        split_func:callable = RandomSplitter(), # A function which splits the data
+        loss_func = CrossEntropyLossFlat(), # A loss function
+        metrics = [accuracy, Perplexity()], # Metrics to monitor the training with
+        batch_size=8, # A batch size
+        collate_fn=default_collate, # An optional custom collate function
+        opt_func = Adam, # A fastai or torch Optimizer
+        additional_cbs = None, # Additional Callbacks to have always tied to the Tuner,
+        expose_fastai_api = False, # Whether to expose the fastai API
+        **kwargs # Learner kwargs
+    ):
+        "Convience method to build a `SequenceClassificationTuner` from a Pandas Dataframe"
+        splits = split_func(range_of(df))
+        dls = LanguageModelDatasets.from_df(
+            df,
+            text_col,
+            splits,
+            tokenizer_name=model_name
+        ).dataloaders(batch_size, collate_fn)
+
+        return cls(dls, model_name, loss_func, metrics, opt_func, additional_cbs, expose_fastai_api)
