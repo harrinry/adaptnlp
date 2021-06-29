@@ -4,7 +4,7 @@ __all__ = ['ColReader', 'Categorize', 'RandomSplitter', 'TaskDatasets', 'Sequenc
            'LanguageModelDatasets']
 
 # Cell
-from transformers import AutoTokenizer, default_data_collator
+from transformers import AutoTokenizer, default_data_collator, DataCollatorForLanguageModeling
 
 from fastcore.foundation import mask2idxs, L
 from fastcore.meta import delegates
@@ -108,11 +108,13 @@ class TaskDatasets:
         valid_dset, # A validation `Dataset` object
         tokenizer_name:str = None, # The string name of a `HuggingFace` tokenizer or model. If `None`, will not tokenize the dataset.
         tokenize:bool = True, # Whether to tokenize the dataset immediatly
+        tokenize_kwargs:dict = {}, # Some kwargs for when we call the tokenizer
         **kwargs, # kwargs to go to `AutoTokenizer.from_pretrained`
     ):
         self.train = train_dset
         self.valid = valid_dset
         self.tokenizer = None
+        self.tokenize_kwargs = tokenize_kwargs
         if tokenizer_name is not None: self.set_tokenizer(tokenizer_name, **kwargs)
         if tokenize and self.tokenizer is not None: self._tokenize()
         elif tokenize and self.tokenizer is None:
@@ -123,7 +125,7 @@ class TaskDatasets:
     def _tokenize(self):
         "Tokenize dataset in `self.items`"
         if not self.tokenizer: raise ValueError("Tried to tokenize a dataset without a tokenizer. Please add a tokenizer with `set_tokenizer(tokenizer_name` and try again")
-        def _inner(item):return self.tokenizer(item['text'], padding=True, truncation=True)
+        def _inner(item):return self.tokenizer(item['text'], **self.tokenize_kwargs)
         self.train = self.train.map(_inner,batched=True,remove_columns = ['text'])
         self.valid = self.valid.map(_inner,batched=True,remove_columns = ['text'])
 
@@ -150,9 +152,10 @@ class TaskDatasets:
         self,
         batch_size=8, # A batch size
         shuffle_train=True, # Whether to shuffle the training dataset
-        collate_fn = default_data_collator, # A custom collation function
+        collate_fn = None, # A custom collation function
         **kwargs): # Torch DataLoader kwargs
         "Creates `DataLoaders` from the dataset"
+        if collate_fn is None: collate_fn = DataCollatorForLanguageModeling(tokenizer=self.tokenizer, mlm_probability=0.0)
         train_dl = DataLoader(self.train, shuffle=shuffle_train, collate_fn=collate_fn, batch_size=batch_size, **kwargs)
         valid_dl = DataLoader(self.valid, shuffle=False, collate_fn=collate_fn, batch_size=batch_size, **kwargs)
         return DataLoaders(train_dl, valid_dl)
@@ -170,6 +173,7 @@ class SequenceClassificationDatasets(TaskDatasets):
         splits = None, # Indexs to split the data from
         tokenizer_name:str = None, # The string name of a HuggingFace tokenizer or model. If `None`, will not tokenize immediatly
         tokenize:bool=True, # Whether to tokenize the dataset immediatly
+        tokenize_kwargs:dict = {}, # Some kwargs for when we call the tokenizer
         **kwargs # kwargs to go to `AutoTokenizer.from_pretrained`
     ):
         xs = L(L(items).map(get_x)[0].values, use_list=True)
@@ -189,7 +193,7 @@ class SequenceClassificationDatasets(TaskDatasets):
             'labels':valid_ys
         })
 
-        super().__init__(train_dset, valid_dset, tokenizer_name, tokenize, **kwargs)
+        super().__init__(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, **kwargs)
 
 
     @delegates(AutoTokenizer.from_pretrained)
@@ -202,20 +206,21 @@ class SequenceClassificationDatasets(TaskDatasets):
         splits = None, # Indexes to split the data with
         tokenizer_name:str = None, # The string name of a huggingFace tokenizer or model. If `None`, will not tokenize the dataset
         tokenize:bool = True, # Whether to tokenize the dataset immediatly
+        tokenize_kwargs:dict = {}, # Some kwargs for when we call the tokenizer
         **kwargs
     ):
         "Builds `SequenceClassificationDatasets` from a `DataFrame` or file path"
         get_x = ColReader(text_col)
         get_y = ColReader(label_col)
         if splits is None: splits = RandomSplitter(0.2)(range_of(df))
-        return cls(df, get_x, get_y, splits, tokenizer_name, tokenize, **kwargs)
+        return cls(df, get_x, get_y, splits, tokenizer_name, tokenize, tokenize_kwargs, **kwargs)
 
     @delegates(DataLoaders)
     def dataloaders(
         self,
         batch_size=8, # A batch size
         shuffle_train=True, # Whether to shuffle the training dataset
-        collate_fn = default_data_collator, # A custom collation function
+        collate_fn = None, # A custom collation function
         **kwargs): # Torch DataLoader kwargs
         dls = super().dataloaders(batch_size, shuffle_train, collate_fn, **kwargs)
         dls[0].categorize = self.categorize
@@ -250,6 +255,7 @@ class LanguageModelDatasets(TaskDatasets):
         splits = None, # Indexs to split the data from
         tokenizer_name:str = None, # The string name of a HuggingFace tokenizer or model. If `None`, will not tokenize immediatly
         tokenize:bool=True, # Whether to tokenize the dataset immediatly
+        masked_lm:bool=False, # Whether this is a Masked Language MOdel
         **kwargs # kwargs to go to `AutoTokenizer.from_pretrained`
     ):
         xs = L(L(items).map(get_x)[0].values, use_list=True)
@@ -265,6 +271,7 @@ class LanguageModelDatasets(TaskDatasets):
         })
 
         super().__init__(train_dset, valid_dset, tokenizer_name, tokenize, **kwargs)
+        self.masked_lm = masked_lm
         self.block_size = block_size
         f = partial(_group_texts, block_size=self.block_size)
         self.train = self.train.map(f, batched=True)
@@ -286,3 +293,14 @@ class LanguageModelDatasets(TaskDatasets):
         get_x = ColReader(text_col)
         if splits is None: splits = RandomSplitter(0.2)(range_of(df))
         return cls(df, get_x, block_size, splits, tokenizer_name, tokenize, **kwargs)
+
+    @delegates(DataLoaders)
+    def dataloaders(
+        self,
+        batch_size=8, # A batch size
+        shuffle_train=True, # Whether to shuffle the training dataset
+        collate_fn = default_data_collator, # A custom collation function
+        mlm_probability:float = 0.15, # Token masking probablity for Masked Language Models
+        **kwargs): # Torch DataLoader kwargs
+        if self.masked_lm: collate_fn = DataCollatorForLanguageModeling(tokenizer=self.tokenizer, mlm_probability=mlm_probability)
+        return super().dataloaders(batch_size, shuffle_train, collate_fn, **kwargs)

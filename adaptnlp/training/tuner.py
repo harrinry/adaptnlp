@@ -285,6 +285,8 @@ class LanguageModelTuner(AdaptiveTuner):
         opt_func = Adam, # A fastai or torch Optimizer
         additional_cbs = None, # Additional Callbacks to have always tied to the Tuner,
         expose_fastai_api = False, # Whether to expose the fastai API
+        dataset_kwargs = {}, # Kwargs for LanguageModelDatasets.from_df
+        tokenize_kwargs = {}, # kwargs for the tokenize function
         **kwargs # Learner kwargs
     ):
         "Convience method to build a `SequenceClassificationTuner` from a Pandas Dataframe"
@@ -293,7 +295,9 @@ class LanguageModelTuner(AdaptiveTuner):
             df,
             text_col,
             splits,
-            tokenizer_name=model_name
+            tokenizer_name=model_name,
+            tokenize_kwargs=tokenize_kwargs,
+            **dataset_kwargs
         ).dataloaders(batch_size, collate_fn)
 
         return cls(dls, model_name, language_model_type, loss_func, metrics, opt_func, additional_cbs, expose_fastai_api)
