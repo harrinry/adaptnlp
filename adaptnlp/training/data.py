@@ -101,7 +101,6 @@ class TaskDatasets:
     Note: This is the base API, `items` should be a set of regular text and model-ready labels,
           including label or one-hot encoding being applied.
     """
-    @delegates(AutoTokenizer.from_pretrained)
     def __init__(
         self,
         train_dset, # A train `Dataset` object
@@ -109,23 +108,32 @@ class TaskDatasets:
         tokenizer_name:str = None, # The string name of a `HuggingFace` tokenizer or model. If `None`, will not tokenize the dataset.
         tokenize:bool = True, # Whether to tokenize the dataset immediatly
         tokenize_kwargs:dict = {}, # Some kwargs for when we call the tokenizer
-        **kwargs, # kwargs to go to `AutoTokenizer.from_pretrained`
+        auto_kwargs:dict = {}, # Some kwargs when calling `AutoTokenizer.from_pretrained`
     ):
         self.train = train_dset
         self.valid = valid_dset
         self.tokenizer = None
-        self.tokenize_kwargs = tokenize_kwargs
-        if tokenizer_name is not None: self.set_tokenizer(tokenizer_name, **kwargs)
-        if tokenize and self.tokenizer is not None: self._tokenize()
+        if tokenizer_name is not None: self.set_tokenizer(tokenizer_name, **auto_kwargs)
+        if self.tokenizer:
+            if 'max_length' in tokenize_kwargs.keys() and self.tokenizer.model_max_length >= tokenize_kwargs['max_length']: pass
+            elif 'max_length' in tokenize_kwargs.keys() and self.tokenizer.model_max_length < tokenize_kwargs['max_length']:
+                print("Warning: `max_length` is larger than the pretrained model")
+            elif 'max_length' not in tokenize_kwargs.keys():
+                print("No value for `max_length` set, automatically adjusting to the size of the model and including truncation")
+                tokenize_kwargs['max_length'] = self.tokenizer.model_max_length
+                tokenize_kwargs['truncation'] = True
+                print(f"Sequence length set to: {tokenize_kwargs['max_length']}")
+        if tokenize and self.tokenizer is not None: self._tokenize(**tokenize_kwargs)
         elif tokenize and self.tokenizer is None:
             print("Tried to tokenize a dataset without a tokenizer. Please set a tokenizer with `set_tokenizer` and call `_tokenize()`")
 
+
     def __getitem__(self, idx): return self.train[idx]
 
-    def _tokenize(self):
-        "Tokenize dataset in `self.items`"
+    def _tokenize(self, **kwargs):
+        "Tokenize dataset in `self.items` with `kwargs` for `tokenize()`"
         if not self.tokenizer: raise ValueError("Tried to tokenize a dataset without a tokenizer. Please add a tokenizer with `set_tokenizer(tokenizer_name` and try again")
-        def _inner(item):return self.tokenizer(item['text'], **self.tokenize_kwargs)
+        def _inner(item):return self.tokenizer(item['text'], **kwargs)
         self.train = self.train.map(_inner,batched=True,remove_columns = ['text'])
         self.valid = self.valid.map(_inner,batched=True,remove_columns = ['text'])
 
@@ -155,7 +163,7 @@ class TaskDatasets:
         collate_fn = None, # A custom collation function
         **kwargs): # Torch DataLoader kwargs
         "Creates `DataLoaders` from the dataset"
-        if collate_fn is None: collate_fn = DataCollatorForLanguageModeling(tokenizer=self.tokenizer, mlm_probability=0.0)
+        if collate_fn is None: collate_fn = default_data_collator
         train_dl = DataLoader(self.train, shuffle=shuffle_train, collate_fn=collate_fn, batch_size=batch_size, **kwargs)
         valid_dl = DataLoader(self.valid, shuffle=False, collate_fn=collate_fn, batch_size=batch_size, **kwargs)
         return DataLoaders(train_dl, valid_dl)
@@ -171,10 +179,10 @@ class SequenceClassificationDatasets(TaskDatasets):
         get_x = ColReader('text'), # A function taking in one item and extracting the text
         get_y = ColReader('label'), # A function taking in one item and extracting the label(s)
         splits = None, # Indexs to split the data from
-        tokenizer_name:str = None, # The string name of a HuggingFace tokenizer or model. If `None`, will not tokenize immediatly
-        tokenize:bool=True, # Whether to tokenize the dataset immediatly
-        tokenize_kwargs:dict = {}, # Some kwargs for when we call the tokenizer
-        **kwargs # kwargs to go to `AutoTokenizer.from_pretrained`
+        tokenizer_name:str = None, # The string name of a `HuggingFace` tokenizer or model. If `None`, will not tokenize the dataset.
+        tokenize:bool = True, # Whether to tokenize the dataset immediatly
+        tokenize_kwargs:dict = {'padding':True}, # Some kwargs for when we call the tokenizer
+        auto_kwargs:dict = {}, # Some kwargs when calling `AutoTokenizer.from_pretrained`
     ):
         xs = L(L(items).map(get_x)[0].values, use_list=True)
         ys = L(L(items).map(get_y)[0].values, use_list=True)
@@ -193,10 +201,9 @@ class SequenceClassificationDatasets(TaskDatasets):
             'labels':valid_ys
         })
 
-        super().__init__(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, **kwargs)
+        super().__init__(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs)
 
 
-    @delegates(AutoTokenizer.from_pretrained)
     @classmethod
     def from_df(
         cls,
@@ -204,16 +211,16 @@ class SequenceClassificationDatasets(TaskDatasets):
         text_col:str = 'text', # Name of the column the text is stored
         label_col:str = 'labels', # Name of the column the label(s) are stored
         splits = None, # Indexes to split the data with
-        tokenizer_name:str = None, # The string name of a huggingFace tokenizer or model. If `None`, will not tokenize the dataset
+        tokenizer_name:str = None, # The string name of a `HuggingFace` tokenizer or model. If `None`, will not tokenize the dataset.
         tokenize:bool = True, # Whether to tokenize the dataset immediatly
-        tokenize_kwargs:dict = {}, # Some kwargs for when we call the tokenizer
-        **kwargs
+        tokenize_kwargs:dict = {'padding':True}, # Some kwargs for when we call the tokenizer
+        auto_kwargs:dict = {}, # Some kwargs when calling `AutoTokenizer.from_pretrained`
     ):
         "Builds `SequenceClassificationDatasets` from a `DataFrame` or file path"
         get_x = ColReader(text_col)
         get_y = ColReader(label_col)
         if splits is None: splits = RandomSplitter(0.2)(range_of(df))
-        return cls(df, get_x, get_y, splits, tokenizer_name, tokenize, tokenize_kwargs, **kwargs)
+        return cls(df, get_x, get_y, splits, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs)
 
     @delegates(DataLoaders)
     def dataloaders(
@@ -251,12 +258,13 @@ class LanguageModelDatasets(TaskDatasets):
         self,
         items, # Some items we can pull x's and y's from
         get_x = ColReader('text'), # A function taking in one item and extracting the text
-        block_size:int = 512, # A block size to split up the data with
+        block_size:int = 512, # A block size to split up the data with. Note: this is different than `max_len`
+        masked_lm:bool=False, # Whether this is a Masked Language Model
         splits = None, # Indexs to split the data from
-        tokenizer_name:str = None, # The string name of a HuggingFace tokenizer or model. If `None`, will not tokenize immediatly
-        tokenize:bool=True, # Whether to tokenize the dataset immediatly
-        masked_lm:bool=False, # Whether this is a Masked Language MOdel
-        **kwargs # kwargs to go to `AutoTokenizer.from_pretrained`
+        tokenizer_name:str = None, # The string name of a `HuggingFace` tokenizer or model. If `None`, will not tokenize the dataset.
+        tokenize:bool = True, # Whether to tokenize the dataset immediatly
+        tokenize_kwargs:dict = {}, # Some kwargs for when we call the tokenizer
+        auto_kwargs:dict = {}, # Some kwargs when calling `AutoTokenizer.from_pretrained`
     ):
         xs = L(L(items).map(get_x)[0].values, use_list=True)
         train_xs = xs[splits[0]]
@@ -270,29 +278,30 @@ class LanguageModelDatasets(TaskDatasets):
             'text':valid_xs.items
         })
 
-        super().__init__(train_dset, valid_dset, tokenizer_name, tokenize, **kwargs)
+        super().__init__(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs)
         self.masked_lm = masked_lm
         self.block_size = block_size
         f = partial(_group_texts, block_size=self.block_size)
         self.train = self.train.map(f, batched=True)
         self.valid = self.valid.map(f, batched=True)
 
-    @delegates(AutoTokenizer.from_pretrained)
     @classmethod
     def from_df(
         cls,
         df:pd.DataFrame, # A Pandas Dataframe or Path to a DataFrame
         text_col:str = 'text', # Name of the column the text is stored
         splits = None, # Indexes to split the data with
-        block_size:int = 512, # A block size to split up the data with
-        tokenizer_name:str = None, # The string name of a huggingFace tokenizer or model. If `None`, will not tokenize the dataset
+        block_size:int = 512, # A block size to split up the data with. Note: this is different than `max_len`
+        masked_lm:bool=False, # Whether this is a Masked Language Model
+        tokenizer_name:str = None, # The string name of a `HuggingFace` tokenizer or model. If `None`, will not tokenize the dataset.
         tokenize:bool = True, # Whether to tokenize the dataset immediatly
-        **kwargs
+        tokenize_kwargs:dict = {}, # Some kwargs for when we call the tokenizer
+        auto_kwargs:dict = {}, # Some kwargs when calling `AutoTokenizer.from_pretrained`
     ):
         "Builds `SequenceClassificationDatasets` from a `DataFrame` or file path"
         get_x = ColReader(text_col)
         if splits is None: splits = RandomSplitter(0.2)(range_of(df))
-        return cls(df, get_x, block_size, splits, tokenizer_name, tokenize, **kwargs)
+        return cls(df, get_x, block_size, masked_lm, splits, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs)
 
     @delegates(DataLoaders)
     def dataloaders(

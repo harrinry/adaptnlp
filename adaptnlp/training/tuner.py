@@ -176,6 +176,8 @@ class SequenceClassificationTuner(AdaptiveTuner):
         opt_func = Adam, # A fastai or torch Optimizer
         additional_cbs = None, # Additional Callbacks to have always tied to the Tuner,
         expose_fastai_api = False, # Whether to expose the fastai API
+        tokenize_kwargs:dict = {'padding':True}, # Some kwargs for when we call the tokenizer
+        auto_kwargs:dict = {}, # Some kwargs when calling `AutoTokenizer.from_pretrained`
         **kwargs # Learner kwargs
     ):
         "Convience method to build a `SequenceClassificationTuner` from a Pandas Dataframe"
@@ -188,7 +190,9 @@ class SequenceClassificationTuner(AdaptiveTuner):
             text_col,
             label_col,
             splits,
-            tokenizer_name=model_name
+            tokenizer_name=model_name,
+            tokenize_kwargs=tokenize_kwargs,
+            auto_kwargs=auto_kwargs
         ).dataloaders(batch_size, collate_fn)
 
         return cls(dls, model_name, loss_func, metrics, opt_func, additional_cbs, expose_fastai_api)
@@ -229,7 +233,7 @@ class LanguageModelTuner(AdaptiveTuner):
         model_name, # A HuggingFace model
         language_model_type:LMType = LMType.Causal, # The type of language model to use
         loss_func = CrossEntropyLossFlat(), # A loss function
-        metrics = [accuracy, Perplexity()], # Metrics to monitor the training with
+        metrics = [Perplexity()], # Metrics to monitor the training with
         opt_func = Adam, # A fastai or torch Optimizer
         additional_cbs = None, # Additional Callbacks to have always tied to the Tuner,
         expose_fastai_api = False, # Whether to expose the fastai API
@@ -279,17 +283,18 @@ class LanguageModelTuner(AdaptiveTuner):
         language_model_type:LMType = LMType.Causal, # The type of language model to use
         split_func:callable = RandomSplitter(), # A function which splits the data
         loss_func = CrossEntropyLossFlat(), # A loss function
-        metrics = [accuracy, Perplexity()], # Metrics to monitor the training with
+        metrics = [Perplexity()], # Metrics to monitor the training with
         batch_size=8, # A batch size
         collate_fn=default_collate, # An optional custom collate function
         opt_func = Adam, # A fastai or torch Optimizer
         additional_cbs = None, # Additional Callbacks to have always tied to the Tuner,
         expose_fastai_api = False, # Whether to expose the fastai API
-        dataset_kwargs = {}, # Kwargs for LanguageModelDatasets.from_df
-        tokenize_kwargs = {}, # kwargs for the tokenize function
+        dataset_kwargs:dict = {}, # Kwargs for LanguageModelDatasets.from_df
+        tokenize_kwargs:dict = {}, # kwargs for the tokenize function
+        auto_kwargs:dict = {}, # Some kwargs when calling `AutoTokenizer.from_pretrained`
         **kwargs # Learner kwargs
     ):
-        "Convience method to build a `SequenceClassificationTuner` from a Pandas Dataframe"
+        "Convience method to build a `LanguageModelTuner` from a Pandas Dataframe"
         splits = split_func(range_of(df))
         dls = LanguageModelDatasets.from_df(
             df,
@@ -297,7 +302,18 @@ class LanguageModelTuner(AdaptiveTuner):
             splits,
             tokenizer_name=model_name,
             tokenize_kwargs=tokenize_kwargs,
+            auto_kwargs=auto_kwargs,
             **dataset_kwargs
         ).dataloaders(batch_size, collate_fn)
 
-        return cls(dls, model_name, language_model_type, loss_func, metrics, opt_func, additional_cbs, expose_fastai_api)
+        return cls(
+            dls,
+            model_name,
+            language_model_type,
+            loss_func,
+            metrics,
+            opt_func,
+            additional_cbs,
+            expose_fastai_api,
+            **kwargs
+        )
