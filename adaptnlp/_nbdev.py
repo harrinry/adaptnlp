@@ -71,16 +71,15 @@ index = {"logger": "13a_transformers.squad_metrics.ipynb",
          "compute_predictions_logits": "13a_transformers.squad_metrics.ipynb",
          "compute_predictions_log_probs": "13a_transformers.squad_metrics.ipynb",
          "SentenceResult": "14_result.ipynb",
-         "ParentLabeller": "15_training.data.ipynb",
-         "ColReader": "15_training.data.ipynb",
-         "Categorize": "15_training.data.ipynb",
-         "RandomSplitter": "15_training.data.ipynb",
-         "TaskDatasets": "15_training.data.ipynb",
-         "SequenceClassificationDatasets": "15_training.data.ipynb",
-         "LanguageModelDatasets": "15_training.data.ipynb",
-         "AdaptiveTuner": "16_training.tuner.ipynb",
-         "SequenceClassificationTuner": "16_training.tuner.ipynb",
-         "LanguageModelTuner": "16_training.tuner.ipynb"}
+         "ParentLabeller": "14_training.core.ipynb",
+         "ColReader": "14_training.core.ipynb",
+         "Categorize": "14_training.core.ipynb",
+         "RandomSplitter": "14_training.core.ipynb",
+         "TaskDatasets": "14_training.core.ipynb",
+         "AdaptiveTuner": "14_training.core.ipynb",
+         "SequenceClassificationDatasets": "15_training.sequence_classification.ipynb",
+         "SequenceClassificationTuner": "15_training.sequence_classification.ipynb",
+         "LanguageModelDatasets": "16_training.language_model.ipynb"}
 
 modules = ["file_utils.py",
            "callback.py",
@@ -95,8 +94,9 @@ modules = ["file_utils.py",
            "question_answering.py",
            "transformers/squad_metrics.py",
            "result.py",
-           "training/data.py",
-           "training/tuner.py"]
+           "training/core.py",
+           "training/sequence_classification.py",
+           "training/language_model.py"]
 
 doc_url = "https://novetta.github.io/adaptnlp"
 
