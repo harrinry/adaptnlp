@@ -9,6 +9,10 @@ from .core import *
 
 from fastai.data.core import DataLoaders
 
+from fastcore.basics import mk_class
+
+from fastai.basics import *
+
 import pandas as pd
 from fastcore.meta import delegates
 
