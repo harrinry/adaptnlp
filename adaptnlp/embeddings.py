@@ -155,18 +155,12 @@ class EasyWordEmbeddings:
 
     def embed_text(
         self,
-        text: Union[List[Sentence], Sentence, List[str], str],
-        model_name_or_path: Union[str, HFModelResult, FlairModelResult] = "bert-base-cased",
-        detail_level:DetailLevel = DetailLevel.Low,
-        raw:bool=False
+        text: Union[List[Sentence], Sentence, List[str], str], # Text input, it can be a string or any of Flair's `Sentence` input formats
+        model_name_or_path: Union[str, HFModelResult, FlairModelResult] = "bert-base-cased", # The hosted model name key, model path, or an instance of either `HFModelResult` or `FlairModelResult`
+        detail_level:DetailLevel = DetailLevel.Low, # A level of detail to return. By default is None, which returns a EmbeddingResult, otherwise will return a dict
+        raw:bool=False # Whether to return the raw outputs
     ) -> List[EmbeddingResult]:
         """Produces embeddings for text
-
-        **Parameters**:
-        * `text` - Text input, it can be a string or any of Flair's `Sentence` input formats
-        * `model_name_or_path` - The hosted model name key, model path, or an instance of either `HFModelResult` or `FlairModelResult`
-        * `detail_level` - A level of detail to return. By default is None, which returns a EmbeddingResult, otherwise will return a dict
-        * `Raw` - Whether to return the raw outputs
 
         **Return**:
         * A list of either EmbeddingResult's or dictionaries with information
@@ -188,16 +182,11 @@ class EasyWordEmbeddings:
 
     def embed_all(
         self,
-        text: Union[List[Sentence], Sentence, List[str], str],
-        model_names_or_paths:List[str] = [],
-        detail_level:DetailLevel=DetailLevel.Low,
+        text: Union[List[Sentence], Sentence, List[str], str], # Text input, it can be a string or any of Flair's `Sentence` input formats
+        model_names_or_paths:List[str] = [], # A list of model names
+        detail_level:DetailLevel=DetailLevel.Low, # A level of detail to return. By default is None, which returns a EmbeddingResult, otherwise will return a dict
     ) -> List[EmbeddingResult]:
         """Embeds text with all embedding models loaded
-
-        **Parameters**:
-        * `text` - Text input, it can be a string or any of Flair's `Sentence` input formats
-        * `model_names_or_paths` -  A list of model names
-        * `detail_level` - A level of detail to return. By default is None, which returns a EmbeddingResult, otherwise will return a dict
 
         **Return**:
         * A list of either EmbeddingResult's or dictionaries with information
@@ -246,14 +235,10 @@ class EasyStackedEmbeddings:
 
     def embed_text(
         self,
-        text: Union[List[Sentence], Sentence, List[str], str],
-        detail_level:DetailLevel = DetailLevel.Low
+        text: Union[List[Sentence], Sentence, List[str], str], # Text input, it can be a string or any of Flair's `Sentence` input formats
+        detail_level:DetailLevel = DetailLevel.Low # A level of detail to return. By default is None, which returns a EmbeddingResult, otherwise will return a dict
     ) -> List[EmbeddingResult]:
         """Stacked embeddings
-
-        **Parameters**:
-        * `text` - Text input, it can be a string or any of Flair's `Sentence` input formats
-        * `detail_level` - A level of detail to return. By default is None, which returns a EmbeddingResult, otherwise will return a dict
 
         **Return**:
         * A list of either EmbeddingResult's or dictionaries with information

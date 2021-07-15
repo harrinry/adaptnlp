@@ -133,10 +133,12 @@ class TaskDatasets:
         tokenize:bool = True, # Whether to tokenize the dataset immediatly
         tokenize_kwargs:dict = {}, # Some kwargs for when we call the tokenizer
         auto_kwargs:dict = {}, # Some kwargs when calling `AutoTokenizer.from_pretrained`
+        remove_cols:str = None, # What columns to remove
     ):
         self.train = train_dset
         self.valid = valid_dset
         self.tokenizer = None
+        self.remove_cols = remove_cols
         if tokenizer_name is not None: self.set_tokenizer(tokenizer_name, **auto_kwargs)
         if self.tokenizer:
             if 'max_length' in tokenize_kwargs.keys() and self.tokenizer.model_max_length >= tokenize_kwargs['max_length']: pass
@@ -157,9 +159,9 @@ class TaskDatasets:
     def _tokenize(self, **kwargs):
         "Tokenize dataset in `self.items` with `kwargs` for `tokenize()`"
         if not self.tokenizer: raise ValueError("Tried to tokenize a dataset without a tokenizer. Please add a tokenizer with `set_tokenizer(tokenizer_name` and try again")
-        def _inner(item):return self.tokenizer(item['text'], **kwargs)
-        self.train = self.train.map(_inner,batched=True,remove_columns = ['text'])
-        self.valid = self.valid.map(_inner,batched=True,remove_columns = ['text'])
+        def _inner(item):return self.tokenizer(item, **kwargs)
+        self.train = self.train.map(_inner,batched=True,remove_columns = self.remove_cols)
+        self.valid = self.valid.map(_inner,batched=True,remove_columns = self.remove_cols)
 
     @delegates(AutoTokenizer.from_pretrained)
     def set_tokenizer(
@@ -257,7 +259,7 @@ class AdaptiveTuner:
     def lr_find(self, **kwargs): return self._tuner.lr_find(**kwargs)
 
     def save(self, file:Union[Path,str], with_opt=True, pickle_protocol=2):
-        file = join_path_file(kwargs['file'], self.path/self.model_dir, ext='.pth')
+        file = join_path_file(file, Path('models/'), ext='.pth')
         if rank_distrib(): return # Don't save if child proc
         opt = getattr(self, 'opt', None)
         if opt is None: with_opt = False
@@ -271,6 +273,7 @@ class AdaptiveTuner:
     def load(self, file:Union[Path,str], device=None, with_opt=True, strict=True):
         if device is None and hasattr(self.dls, 'device'): device = self.dls.device
         if self.opt is None: self.create_opt()
+
         file = join_path_file(file, self.path/self.model_dir, ext='.pth')
         distrib_barrier()
         if isinstance(device, int): device = torch.device('cuda', device)

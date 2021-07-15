@@ -100,18 +100,21 @@ class SequenceClassificationTuner(AdaptiveTuner):
     def __init__(
         self,
         dls:DataLoaders, # A set of DataLoaders
-        model_name, # A HuggingFace model
+        model_name:str, # A HuggingFace model
         loss_func = CrossEntropyLossFlat(), # A loss function
         metrics = [accuracy, F1Score()], # Metrics to monitor the training with
         opt_func = Adam, # A fastai or torch Optimizer
         additional_cbs = None, # Additional Callbacks to have always tied to the Tuner,
         expose_fastai_api = False, # Whether to expose the fastai API
+        num_classes:int=None, # The number of classes
         **kwargs, # kwargs for `Learner.__init__`
     ):
         additional_cbs = listify(additional_cbs)
         for arg in 'dls,model,loss_func,metrics,opt_func,cbs,expose_fastai'.split(','):
             if arg in kwargs.keys(): kwargs.pop(arg) # Pop all existing kwargs
-        model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=len(dls[0].categorize.classes))
+        if hasattr(dls[0], 'categorize'): num_classes = getattr(dls[0].categorize, 'classes', None)
+        if num_classes is None: raise ValueError("Could not extrapolate number of classes, please pass it in as a param")
+        model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=num_classes)
 
         super().__init__(
             expose_fastai_api,
