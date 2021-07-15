@@ -136,7 +136,7 @@ nb_path: "nbs/10_question_answering.ipynb"
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/10_question_answering.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 qa_model = EasyQuestionAnswering()
 text = """Amazon.com, Inc.[6] (/ˈæməzɒn/), is an American multinational technology company based in Seattle, 
@@ -164,7 +164,7 @@ models = hub.search_model_by_task('question-answering')
 model = models[-1]
 top_prediction, all_nbest_json = qa_model.predict_qa(query="What does Amazon do?", context=text, n_best_size=10, mini_batch_size=1, model_name_or_path=model)
 test_eq(top_prediction, 'disruption of well-established industries')
-```
+</code>
 </details>
 </div>
 

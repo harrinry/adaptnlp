@@ -109,7 +109,7 @@ conditional generation models have a language modeling head)</p>
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/08_translation.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 text = ["Machine learning will take over the world very soon.",
         "Machines can speak in many languages.",]
@@ -124,13 +124,13 @@ model = hub.search_model_by_task("translation")[-1]
 translations = translator.translate(text = text, t5_prefix="translate English to German", model_name_or_path=model, mini_batch_size=1, min_length=0, max_length=100, early_stopping=True)
 test_eq(translations, ['Das Maschinenlernen wird die Welt in Kürze übernehmen.',
  'Maschinen können in vielen Sprachen sprechen.'])
-```
+</code>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/08a_tutorial.translation.ipynb>Source</a></b>
 
-```python
+<code>
 translator = EasyTranslator()
 translations = translator.translate(text = text, t5_prefix="translate English to German", model_name_or_path="t5-small", mini_batch_size=1, min_length=0, max_length=100, early_stopping=True)
-```
+</code>
 </details>
 </div>
 

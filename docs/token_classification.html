@@ -72,7 +72,7 @@ nb_path: "nbs/05_token_classification.ipynb"
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 tagger = TransformersTokenTagger.load("dbmdz/bert-large-cased-finetuned-conll03-english")
 pred = tagger.predict(text='Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.', mini_batch_size=32)
@@ -103,7 +103,7 @@ for base, p in zip(baseline, pred):
         test_close(base_items['score'], p_items['score'], 1e-3)
         test_eq(base_items['word'], p_items['word'])
         test_eq(base_items['offsets'], p_items['offsets'])
-```
+</code>
 </details>
 </div>
 
@@ -146,7 +146,7 @@ for base, p in zip(baseline, pred):
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 tagger = TransformersTokenTagger.load("dbmdz/bert-large-cased-finetuned-conll03-english")
 pred = tagger.predict(text='Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.', mini_batch_size=32)
@@ -177,7 +177,7 @@ for base, p in zip(baseline, pred):
         test_close(base_items['score'], p_items['score'], 1e-3)
         test_eq(base_items['word'], p_items['word'])
         test_eq(base_items['offsets'], p_items['offsets'])
-```
+</code>
 </details>
 </div>
 
@@ -216,7 +216,7 @@ Returns a list of lists of tagged entities.</p>
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 tagger = TransformersTokenTagger.load("dbmdz/bert-large-cased-finetuned-conll03-english")
 pred = tagger.predict(text='Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.', mini_batch_size=32)
@@ -247,7 +247,7 @@ for base, p in zip(baseline, pred):
         test_close(base_items['score'], p_items['score'], 1e-3)
         test_eq(base_items['word'], p_items['word'])
         test_eq(base_items['offsets'], p_items['offsets'])
-```
+</code>
 </details>
 </div>
 
@@ -288,13 +288,13 @@ for base, p in zip(baseline, pred):
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 tagger = FlairTokenTagger.load("flair/chunk-english-fast")
 preds = tagger.predict(text="Example text", mini_batch_size=32)[0]
 test_eq(preds.tokens[0].text, 'Example')
 test_eq(preds.tokens[1].text, 'text')
-```
+</code>
 </details>
 </div>
 
@@ -337,13 +337,13 @@ test_eq(preds.tokens[1].text, 'text')
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 tagger = FlairTokenTagger.load("flair/chunk-english-fast")
 preds = tagger.predict(text="Example text", mini_batch_size=32)[0]
 test_eq(preds.tokens[0].text, 'Example')
 test_eq(preds.tokens[1].text, 'text')
-```
+</code>
 </details>
 </div>
 
@@ -380,13 +380,13 @@ test_eq(preds.tokens[1].text, 'text')
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 tagger = FlairTokenTagger.load("flair/chunk-english-fast")
 preds = tagger.predict(text="Example text", mini_batch_size=32)[0]
 test_eq(preds.tokens[0].text, 'Example')
 test_eq(preds.tokens[1].text, 'text')
-```
+</code>
 </details>
 </div>
 
@@ -422,22 +422,22 @@ test_eq(preds.tokens[1].text, 'text')
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
 
-```python
+<code>
+example_text = '''Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. 
+The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.'''
+tagger = EasyTokenTagger()
+</code>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
+
+<code>
 tagger = EasyTokenTagger()
 _ = tagger.tag_text(text=example_text, model_name_or_path="ner-ontonotes")
 _ = tagger.tag_text(text=example_text, model_name_or_path="pos")
 sentences = tagger.tag_all(text=example_text)
-```
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
-
-```python
-example_text = '''Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. 
-The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.'''
-tagger = EasyTokenTagger()
-```
+</code>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 tagger = EasyTokenTagger()
 example_text = '''Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. 
@@ -453,7 +453,7 @@ for sentence, lbls in zip(tags, _types):
     spans = sentence.get_spans()
     for span, lbl in zip(spans, lbls):
         test_eq(span.tag, lbl)
-```
+</code>
 </details>
 </div>
 
@@ -497,16 +497,9 @@ for sentence, lbls in zip(tags, _types):
 <details class="description">
 <summary data-open="Hide Examples" data-close="Show Examples"></summary>
 <summary></summary>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
-
-```python
-tagger = EasyTokenTagger()
-_ = tagger.tag_text(text=example_text, model_name_or_path="ner-ontonotes")
-_ = tagger.tag_text(text=example_text, model_name_or_path="pos")
-```
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 tagger = EasyTokenTagger()
 example_text = '''Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. 
@@ -514,7 +507,14 @@ The Wright brothers loved to visit the JBF headquarters, and they would have a c
 sentences = ["Jack walked through the park on a Sunday.", "Sunday was a nice and breezy afternoon.", "Jack was going to meet Jill for dinner."]
 text = tagger.tag_text(text=example_text, model_name_or_path="ner-ontonotes")
 text = tagger.tag_text(text=example_text, model_name_or_path="pos")
-```
+</code>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
+
+<code>
+tagger = EasyTokenTagger()
+_ = tagger.tag_text(text=example_text, model_name_or_path="ner-ontonotes")
+_ = tagger.tag_text(text=example_text, model_name_or_path="pos")
+</code>
 </details>
 </div>
 
@@ -550,17 +550,9 @@ text = tagger.tag_text(text=example_text, model_name_or_path="pos")
 <details class="description">
 <summary data-open="Hide Examples" data-close="Show Examples"></summary>
 <summary></summary>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
-
-```python
-tagger = EasyTokenTagger()
-_ = tagger.tag_text(text=example_text, model_name_or_path="ner-ontonotes")
-_ = tagger.tag_text(text=example_text, model_name_or_path="pos")
-sentences = tagger.tag_all(text=example_text)
-```
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 tagger = EasyTokenTagger()
 example_text = '''Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. 
@@ -576,7 +568,15 @@ for sentence, lbls in zip(tags, _types):
     spans = sentence.get_spans()
     for span, lbl in zip(spans, lbls):
         test_eq(span.tag, lbl)
-```
+</code>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
+
+<code>
+tagger = EasyTokenTagger()
+_ = tagger.tag_text(text=example_text, model_name_or_path="ner-ontonotes")
+_ = tagger.tag_text(text=example_text, model_name_or_path="pos")
+sentences = tagger.tag_all(text=example_text)
+</code>
 </details>
 </div>
 

@@ -74,10 +74,10 @@ nb_path: "nbs/04_embeddings.ipynb"
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b>
 
-```python
+<code>
 embeddings = EasyWordEmbeddings()
 sentences = embeddings.embed_text(example_text, model_name_or_path=model)
-```
+</code>
 </details>
 </div>
 
@@ -125,10 +125,10 @@ sentences = embeddings.embed_text(example_text, model_name_or_path=model)
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b>
 
-```python
+<code>
 embeddings = EasyWordEmbeddings()
 sentences = embeddings.embed_text(example_text, model_name_or_path=model)
-```
+</code>
 </details>
 </div>
 
@@ -201,18 +201,18 @@ sentences = embeddings.embed_text(example_text, model_name_or_path=model)
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b>
 
-```python
+<code>
 embeddings = EasyStackedEmbeddings("bert-base-cased", "distilbert-base-cased")
 And then generate our stacked word embeddings through our `embed_text` function:
-```
+</code>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 embeddings = EasyStackedEmbeddings("bert-base-cased", "xlnet-base-cased")
 sentences = embeddings.embed_text("This is Albert.  My last name is Einstein.  I like physics and atoms.")
 test_eq(sentences[0][0].get_embedding().shape, torch.Size([1536]))
-```
+</code>
 </details>
 </div>
 
@@ -259,12 +259,12 @@ test_eq(sentences[0][0].get_embedding().shape, torch.Size([1536]))
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 embeddings = EasyStackedEmbeddings("bert-base-cased", "xlnet-base-cased")
 sentences = embeddings.embed_text("This is Albert.  My last name is Einstein.  I like physics and atoms.")
 test_eq(sentences[0][0].get_embedding().shape, torch.Size([1536]))
-```
+</code>
 </details>
 </div>
 
@@ -318,7 +318,7 @@ test_eq(sentences[0][0].get_embedding().shape, torch.Size([1536]))
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 embeddings = EasyDocumentEmbeddings("bert-base-cased", "xlnet-base-cased")
 text = embeddings.embed_pool("This is Albert.  My last name is Einstein.  I like physics and atoms.")
@@ -326,10 +326,10 @@ test_eq(text[0].get_embedding().shape, torch.Size([1536]))
 #hide
 text = embeddings.embed_rnn("This is Albert.  My last name is Einstein.  I like physics and atoms.")
 test_eq(text[0].get_embedding().shape, torch.Size([512]))
-```
+</code>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/20c_tutorial.flair_seq_class_trainer.ipynb>Source</a></b>
 
-```python
+<code>
 corpus = TREC_6() # Or path to directory of train.csv, test.csv, dev.csv files at "Path/to/data/directory" 
 OUTPUT_DIR = "Path/to/model/output/directory"
 FINETUNED_MODEL_DIR = "Path/to/finetuned/model/directory"
@@ -342,13 +342,13 @@ sc_configs = {
               "predictive_head": "flair",
              }
 sc_trainer = SequenceClassifierTrainer(**sc_configs)
-```
+</code>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b>
 
-```python
+<code>
 embeddings = EasyDocumentEmbeddings("bert-base-cased", "distilbert-base-cased")
 This time we will use the `embed_pool` method to generate `DocumentPoolEmbeddings`. These do an average over all the word embeddings in a sentence:
-```
+</code>
 </details>
 </div>
 
@@ -395,12 +395,12 @@ This time we will use the `embed_pool` method to generate `DocumentPoolEmbedding
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 embeddings = EasyDocumentEmbeddings("bert-base-cased", "xlnet-base-cased")
 text = embeddings.embed_pool("This is Albert.  My last name is Einstein.  I like physics and atoms.")
 test_eq(text[0].get_embedding().shape, torch.Size([1536]))
-```
+</code>
 </details>
 </div>
 
@@ -440,7 +440,7 @@ test_eq(text[0].get_embedding().shape, torch.Size([1536]))
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 embeddings = EasyDocumentEmbeddings("bert-base-cased", "xlnet-base-cased")
 text = embeddings.embed_pool("This is Albert.  My last name is Einstein.  I like physics and atoms.")
@@ -448,7 +448,7 @@ test_eq(text[0].get_embedding().shape, torch.Size([1536]))
 #hide
 text = embeddings.embed_rnn("This is Albert.  My last name is Einstein.  I like physics and atoms.")
 test_eq(text[0].get_embedding().shape, torch.Size([512]))
-```
+</code>
 </details>
 </div>
 

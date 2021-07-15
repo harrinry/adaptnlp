@@ -72,7 +72,7 @@ nb_path: "nbs/06_sequence_classification.ipynb"
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 example_text = "This didn't work at all"
 
@@ -80,7 +80,7 @@ classifier = TransformersSequenceClassifier.load("nlptown/bert-base-multilingual
 
 sentences = classifier.predict(text=example_text,mini_batch_size=1,
 )
-```
+</code>
 </details>
 </div>
 
@@ -122,7 +122,7 @@ sentences = classifier.predict(text=example_text,mini_batch_size=1,
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 example_text = "This didn't work at all"
 
@@ -130,7 +130,7 @@ classifier = TransformersSequenceClassifier.load("nlptown/bert-base-multilingual
 
 sentences = classifier.predict(text=example_text,mini_batch_size=1,
 )
-```
+</code>
 </details>
 </div>
 
@@ -167,7 +167,7 @@ sentences = classifier.predict(text=example_text,mini_batch_size=1,
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 example_text = "This didn't work at all"
 
@@ -175,7 +175,7 @@ classifier = TransformersSequenceClassifier.load("nlptown/bert-base-multilingual
 
 sentences = classifier.predict(text=example_text,mini_batch_size=1,
 )
-```
+</code>
 </details>
 </div>
 
@@ -215,7 +215,7 @@ sentences = classifier.predict(text=example_text,mini_batch_size=1,
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 example_text = "This didn't work at all"
 
@@ -229,7 +229,7 @@ pred = sentences[0].get_labels()[0]
 
 test_eq(pred.value, 'NEGATIVE')
 test_close(pred.score, 0.999, 1e-3)
-```
+</code>
 </details>
 </div>
 
@@ -271,7 +271,7 @@ test_close(pred.score, 0.999, 1e-3)
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 example_text = "This didn't work at all"
 
@@ -285,7 +285,7 @@ pred = sentences[0].get_labels()[0]
 
 test_eq(pred.value, 'NEGATIVE')
 test_close(pred.score, 0.999, 1e-3)
-```
+</code>
 </details>
 </div>
 
@@ -322,7 +322,7 @@ test_close(pred.score, 0.999, 1e-3)
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 example_text = "This didn't work at all"
 
@@ -336,7 +336,7 @@ pred = sentences[0].get_labels()[0]
 
 test_eq(pred.value, 'NEGATIVE')
 test_close(pred.score, 0.999, 1e-3)
-```
+</code>
 </details>
 </div>
 
@@ -379,7 +379,7 @@ test_close(pred.score, 0.999, 1e-3)
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 hub = HFModelHub()
 model = hub.search_model_by_name("nlptown/bert-base", user_uploaded=True)[0]
@@ -390,12 +390,12 @@ sentences = classifier.tag_text(text=example_text,
 for pred, truth in zip(preds, truth_lbls):
     test_eq(pred.value, truth.value)
     test_close(pred.score, truth.score, 1e-4)
-```
+</code>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06a_tutorial.easy_sequence_classifier.ipynb>Source</a></b>
 
-```python
+<code>
 We'll first need a "custom" dataset to start training our model. Our `EasySequenceClassifier.train()` method can run with either `datasets.Dataset` objects or CSV data file paths. Since the datasets library makes it so easy, we'll use the `datasets.load_dataset()` method to load in the IMDB Sentiment dataset. We'll show an example with a CSV later. 
-```
+</code>
 </details>
 </div>
 
@@ -441,7 +441,7 @@ We'll first need a "custom" dataset to start training our model. Our `EasySequen
 <summary></summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
 
-```python
+<code>
 #hide
 hub = HFModelHub()
 model = hub.search_model_by_name("nlptown/bert-base", user_uploaded=True)[0]
@@ -452,7 +452,7 @@ sentences = classifier.tag_text(text=example_text,
 for pred, truth in zip(preds, truth_lbls):
     test_eq(pred.value, truth.value)
     test_close(pred.score, truth.score, 1e-4)
-```
+</code>
 </details>
 </div>
 
