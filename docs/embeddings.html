@@ -69,7 +69,7 @@ nb_path: "nbs/04_embeddings.ipynb"
 <span class="o">&gt;&gt;&gt;</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_text</span><span class="p">(</span><span class="s2">&quot;text you want embeddings for&quot;</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">)</span>
 </pre></div>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b>
 
@@ -119,7 +119,7 @@ sentences = embeddings.embed_text(example_text, model_name_or_path=model)
 <li>A list of Flair's <code>Sentence</code>s</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b>
 
@@ -194,15 +194,8 @@ sentences = embeddings.embed_text(example_text, model_name_or_path=model)
 <li><code>&amp;ast;embeddings</code> - Non-keyword variable number of strings specifying the embeddings you want to stack</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b>
-
-```python
-embeddings = EasyStackedEmbeddings("bert-base-cased", "distilbert-base-cased")
-And then generate our stacked word embeddings through our `embed_text` function:
-```
-</details>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b>
 
 ```python
@@ -210,6 +203,13 @@ And then generate our stacked word embeddings through our `embed_text` function:
 embeddings = EasyStackedEmbeddings("bert-base-cased", "xlnet-base-cased")
 sentences = embeddings.embed_text("This is Albert.  My last name is Einstein.  I like physics and atoms.")
 test_eq(sentences[0][0].get_embedding().shape, torch.Size([1536]))
+```
+</details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b>
+
+```python
+embeddings = EasyStackedEmbeddings("bert-base-cased", "distilbert-base-cased")
+And then generate our stacked word embeddings through our `embed_text` function:
 ```
 </details>
 </div>
@@ -252,7 +252,7 @@ test_eq(sentences[0][0].get_embedding().shape, torch.Size([1536]))
 <li>A list of Flair's <code>Sentence</code>s</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b>
 
@@ -310,27 +310,14 @@ test_eq(sentences[0][0].get_embedding().shape, torch.Size([1536]))
 </li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b>
-
-```python
-#hide
-embeddings = EasyDocumentEmbeddings("bert-base-cased", "xlnet-base-cased")
-text = embeddings.embed_pool("This is Albert.  My last name is Einstein.  I like physics and atoms.")
-test_eq(text[0].get_embedding().shape, torch.Size([1536]))
-#hide
-text = embeddings.embed_rnn("This is Albert.  My last name is Einstein.  I like physics and atoms.")
-test_eq(text[0].get_embedding().shape, torch.Size([512]))
-```
-</details>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/20c_tutorial.flair_seq_class_trainer.ipynb>Source</a></b>
 
 ```python
 corpus = TREC_6() # Or path to directory of train.csv, test.csv, dev.csv files at "Path/to/data/directory" 
-OUTPUT_DIR = "Path/to/model/output/directory"
-FINETUNED_MODEL_DIR = "Path/to/finetuned/model/directory"
-doc_embeddings = EasyDocumentEmbeddings(FINETUNED_MODEL_DIR, methods = ["rnn"])
+OUTPUT_DIR = "Path/to/model/output/directory" 
+doc_embeddings = EasyDocumentEmbeddings("bert-base-cased", methods = ["rnn"])
 sc_configs = {
               "corpus": corpus,
               "encoder": doc_embeddings,
@@ -346,6 +333,18 @@ sc_trainer = SequenceClassifierTrainer(**sc_configs)
 ```python
 embeddings = EasyDocumentEmbeddings("bert-base-cased", "distilbert-base-cased")
 This time we will use the `embed_pool` method to generate `DocumentPoolEmbeddings`. These do an average over all the word embeddings in a sentence:
+```
+</details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b>
+
+```python
+#hide
+embeddings = EasyDocumentEmbeddings("bert-base-cased", "xlnet-base-cased")
+text = embeddings.embed_pool("This is Albert.  My last name is Einstein.  I like physics and atoms.")
+test_eq(text[0].get_embedding().shape, torch.Size([1536]))
+#hide
+text = embeddings.embed_rnn("This is Albert.  My last name is Einstein.  I like physics and atoms.")
+test_eq(text[0].get_embedding().shape, torch.Size([512]))
 ```
 </details>
 </div>
@@ -388,7 +387,7 @@ This time we will use the `embed_pool` method to generate `DocumentPoolEmbedding
 <li>A list of Flair's <code>Sentence</code>s</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b>
 
@@ -432,7 +431,7 @@ test_eq(text[0].get_embedding().shape, torch.Size([1536]))
 <li>A list of Flair's <code>Sentence</code>s</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b>
 

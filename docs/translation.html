@@ -104,15 +104,8 @@ conditional generation models have a language modeling head)</p>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">translator</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;translate this text&quot;</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;t5-small&quot;</span><span class="p">)</span>
 </pre></div>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/08a_tutorial.translation.ipynb>Source</a></b>
-
-```python
-translator = EasyTranslator()
-translations = translator.translate(text = text, t5_prefix="translate English to German", model_name_or_path="t5-small", mini_batch_size=1, min_length=0, max_length=100, early_stopping=True)
-```
-</details>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/08_translation.ipynb>Source</a></b>
 
 ```python
@@ -130,6 +123,13 @@ model = hub.search_model_by_task("translation")[-1]
 translations = translator.translate(text = text, t5_prefix="translate English to German", model_name_or_path=model, mini_batch_size=1, min_length=0, max_length=100, early_stopping=True)
 test_eq(translations, ['Das Maschinenlernen wird die Welt in Kürze übernehmen.',
  'Maschinen können in vielen Sprachen sprechen.'])
+```
+</details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/08a_tutorial.translation.ipynb>Source</a></b>
+
+```python
+translator = EasyTranslator()
+translations = translator.translate(text = text, t5_prefix="translate English to German", model_name_or_path="t5-small", mini_batch_size=1, min_length=0, max_length=100, early_stopping=True)
 ```
 </details>
 </div>

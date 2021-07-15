@@ -79,21 +79,21 @@ nb_path: "nbs/02_model_hub.ipynb"
 </blockquote>
 <p>A list of all HuggingFace tasks for valid API lookup as attribtues to get tab-completion and typo-proofing</p>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
 
 ```python
 #export
-mk_class('HF_TASKS', **_hf_tasks,
-        doc="A list of all HuggingFace tasks for valid API lookup as attribtues to get tab-completion and typo-proofing")
+_all_ = ['HF_TASKS']
 ```
 </details>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
 
 ```python
 #export
-_all_ = ['HF_TASKS']
+mk_class('HF_TASKS', **_hf_tasks,
+        doc="A list of all HuggingFace tasks for valid API lookup as attribtues to get tab-completion and typo-proofing")
 ```
 </details>
 </div>
@@ -171,21 +171,21 @@ _all_ = ['HF_TASKS']
 </blockquote>
 <p>A list of all Flair tasks for valid API lookup as attribtues to get tab-completion and typo-proofing</p>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
-
-```python
-#export
-_all_ = ['FLAIR_TASKS']
-```
-</details>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
 
 ```python
 #export
 mk_class('FLAIR_TASKS', **_flair_tasks,
         doc="A list of all Flair tasks for valid API lookup as attribtues to get tab-completion and typo-proofing")
+```
+</details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
+
+```python
+#export
+_all_ = ['FLAIR_TASKS']
 ```
 </details>
 </div>
@@ -317,35 +317,37 @@ mk_class('FLAIR_TASKS', **_flair_tasks,
 <p>A class for interacting with the HF model hub API, and searching for models by name or task</p>
 <p>Can optionally include your HuggingFace login for authorized access (but is not required)</p>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/09a_tutorial.easy_text_generator.ipynb>Source</a></b>
-
-```python
-hub = HFModelHub()
-models = hub.search_model_by_task('text-generation'); models
-```
-</details>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b>
-
-```python
-hub = HFModelHub()
-models = hub.search_model_by_name('gpt2'); models
-```
-</details>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
 
 ```python
 #hide
 hub = HFModelHub()
-model = hub.search_model_by_name("nlptown/bert-base", user_uploaded=True)[0]
-classifier = EasySequenceClassifier()
-sentences = classifier.tag_text(text=example_text, 
-                               model_name_or_path=model,
-                               mini_batch_size=1)
-for pred, truth in zip(preds, truth_lbls):
-    test_eq(pred.value, truth.value)
-    test_close(pred.score, truth.score, 1e-4)
+models = hub.search_model_by_task('summarization', user_uploaded=False, as_dict=False)
+models
+#hide
+models = hub.search_model_by_task('summarization', user_uploaded=True)
+models[:10]
+```
+</details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b>
+
+```python
+#export
+_flair_hub = FlairModelHub()
+_hf_hub = HFModelHub()
+```
+</details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/08_translation.ipynb>Source</a></b>
+
+```python
+#hide
+hub = HFModelHub()
+model = hub.search_model_by_task("translation")[-1]
+translations = translator.translate(text = text, t5_prefix="translate English to German", model_name_or_path=model, mini_batch_size=1, min_length=0, max_length=100, early_stopping=True)
+test_eq(translations, ['Das Maschinenlernen wird die Welt in Kürze übernehmen.',
+ 'Maschinen können in vielen Sprachen sprechen.'])
 ```
 </details>
 </div>
@@ -395,7 +397,7 @@ for pred, truth in zip(preds, truth_lbls):
     <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="n">HF_TASKS</span><span class="o">.</span><span class="n">SUMMARIZATION</span><span class="p">)</span>
 </pre></div>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/09a_tutorial.easy_text_generator.ipynb>Source</a></b>
 
@@ -531,20 +533,13 @@ test_eq(translations, ['Das Maschinenlernen wird die Welt in Kürze übernehmen.
   <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;gpt2&#39;</span><span class="p">)</span>
 </pre></div>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b>
 
 ```python
 hub = HFModelHub()
 models = hub.search_model_by_name('gpt2'); models
-```
-</details>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
-
-```python
-hub = HFModelHub()
-model = hub.search_model_by_name('sshleifer/tiny-dbmdz-bert', user_uploaded=True)[0]; model
 ```
 </details>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
@@ -560,6 +555,13 @@ sentences = classifier.tag_text(text=example_text,
 for pred, truth in zip(preds, truth_lbls):
     test_eq(pred.value, truth.value)
     test_close(pred.score, truth.score, 1e-4)
+```
+</details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
+
+```python
+hub = HFModelHub()
+model = hub.search_model_by_name('sshleifer/tiny-dbmdz-bert', user_uploaded=True)[0]; model
 ```
 </details>
 </div>
@@ -726,21 +728,21 @@ for pred, truth in zip(preds, truth_lbls):
 <p>A class for interacting with the HF model hub API, and searching for Flair models by name or task</p>
 <p>Can optionally include your HuggingFace login for authorized access (but is not required)</p>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
-
-```python
-hub = FlairModelHub()
-hub.search_model_by_name('sentiment')
-```
-</details>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b>
 
 ```python
 #export
 _flair_hub = FlairModelHub()
 _hf_hub = HFModelHub()
+```
+</details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
+
+```python
+hub = FlairModelHub()
+hub.search_model_by_name('sentiment')
 ```
 </details>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
@@ -809,7 +811,7 @@ test_eq(len(models), 15)
   <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;flair/chunk-english-fast&#39;</span><span class="p">)</span>
 </pre></div>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
 
@@ -893,7 +895,7 @@ hub.search_model_by_name('sentiment')
     <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="n">FLAIR_TASKS</span><span class="o">.</span><span class="n">NAMED_ENTITY_RECOGNITION</span><span class="p">)</span>
 </pre></div>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
 

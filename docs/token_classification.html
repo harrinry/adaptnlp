@@ -67,7 +67,7 @@ nb_path: "nbs/05_token_classification.ipynb"
 <li><strong>model</strong> - A transformers token tagger model</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
 
@@ -140,7 +140,7 @@ for base, p in zip(baseline, pred):
 </ul>
 <p>Note: To search for valid models, you should use the AdaptNLP <a href="/adaptnlp/model_hub.html"><code>model_hub</code></a> API</p>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
 
@@ -209,7 +209,7 @@ Returns a list of lists of tagged entities.</p>
 <li><strong>&ast;&ast;kwargs</strong>(Optional) - Optional arguments for the Transformers tagger</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
 
@@ -280,7 +280,7 @@ for base, p in zip(baseline, pred):
 </ul>
 <p>To find a list of available models, see <a href="https://huggingface.co/models?filter=flair">here</a></p>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
 
@@ -328,7 +328,7 @@ test_eq(preds.tokens[1].text, 'text')
 </ul>
 <p>To find a list of available models, see <a href="https://huggingface.co/models?filter=flair">here</a></p>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
 
@@ -370,7 +370,7 @@ test_eq(preds.tokens[1].text, 'text')
 <li><strong>&ast;&ast;kwargs</strong>(Optional) - Optional arguments for the Flair tagger</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
 
@@ -411,7 +411,7 @@ test_eq(preds.tokens[1].text, 'text')
 <span class="o">&gt;&gt;&gt;</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;text you want to tag&quot;</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;ner-ontonotes&quot;</span><span class="p">)</span>
 </pre></div>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
 
@@ -489,7 +489,7 @@ tagger = EasyTokenTagger()
 <strong>return</strong> - A list of Flair's <code>Sentence</code>'s</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
 
@@ -542,7 +542,7 @@ _ = tagger.tag_text(text=example_text, model_name_or_path="pos")
 <strong>return</strong> A list of Flair's <code>Sentence</code>'s</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<details>
+<details class="description">
 <summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
 
