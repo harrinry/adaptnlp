@@ -68,7 +68,7 @@ nb_path: "nbs/06_sequence_classification.ipynb"
 </ul>
 <p><strong>Usage Examples:</strong></p>
 <details>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
+<summary markdown="span">Click Me to Show Code Examples</summary><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
 ```python
 #hide
 example_text = "This didn't work at all"
@@ -115,7 +115,7 @@ sentences = classifier.predict(text=example_text,mini_batch_size=1,
 </ul>
 <p><strong>Usage Examples:</strong></p>
 <details>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
+<summary markdown="span">Click Me to Show Code Examples</summary><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
 ```python
 #hide
 example_text = "This didn't work at all"
@@ -157,7 +157,7 @@ sentences = classifier.predict(text=example_text,mini_batch_size=1,
 </ul>
 <p><strong>Usage Examples:</strong></p>
 <details>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
+<summary markdown="span">Click Me to Show Code Examples</summary><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
 ```python
 #hide
 example_text = "This didn't work at all"
@@ -202,7 +202,7 @@ sentences = classifier.predict(text=example_text,mini_batch_size=1,
 </ul>
 <p><strong>Usage Examples:</strong></p>
 <details>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
+<summary markdown="span">Click Me to Show Code Examples</summary><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
 ```python
 #hide
 example_text = "This didn't work at all"
@@ -255,7 +255,7 @@ test_close(pred.score, 0.999, 1e-3)
 </ul>
 <p><strong>Usage Examples:</strong></p>
 <details>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
+<summary markdown="span">Click Me to Show Code Examples</summary><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
 ```python
 #hide
 example_text = "This didn't work at all"
@@ -303,7 +303,7 @@ test_close(pred.score, 0.999, 1e-3)
 </ul>
 <p><strong>Usage Examples:</strong></p>
 <details>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
+<summary markdown="span">Click Me to Show Code Examples</summary><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
 ```python
 #hide
 example_text = "This didn't work at all"
@@ -357,12 +357,7 @@ test_close(pred.score, 0.999, 1e-3)
 </pre></div>
 <p><strong>Usage Examples:</strong></p>
 <details>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06a_tutorial.easy_sequence_classifier.ipynb>Source</a></b>
-```python
-We'll first need a "custom" dataset to start training our model. Our `EasySequenceClassifier.train()` method can run with either `datasets.Dataset` objects or CSV data file paths. Since the datasets library makes it so easy, we'll use the `datasets.load_dataset()` method to load in the IMDB Sentiment dataset. We'll show an example with a CSV later. 
-```
-</details>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
+<summary markdown="span">Click Me to Show Code Examples</summary><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
 ```python
 #hide
 hub = HFModelHub()
@@ -374,6 +369,11 @@ sentences = classifier.tag_text(text=example_text,
 for pred, truth in zip(preds, truth_lbls):
     test_eq(pred.value, truth.value)
     test_close(pred.score, truth.score, 1e-4)
+```
+</details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06a_tutorial.easy_sequence_classifier.ipynb>Source</a></b>
+```python
+We'll first need a "custom" dataset to start training our model. Our `EasySequenceClassifier.train()` method can run with either `datasets.Dataset` objects or CSV data file paths. Since the datasets library makes it so easy, we'll use the `datasets.load_dataset()` method to load in the IMDB Sentiment dataset. We'll show an example with a CSV later. 
 ```
 </details>
 </div>
@@ -416,7 +416,7 @@ for pred, truth in zip(preds, truth_lbls):
 </ul>
 <p><strong>Usage Examples:</strong></p>
 <details>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
+<summary markdown="span">Click Me to Show Code Examples</summary><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
 ```python
 #hide
 hub = HFModelHub()
