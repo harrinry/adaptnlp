@@ -64,7 +64,33 @@ nb_path: "nbs/12_training.ipynb"
 </ul>
 <p><strong>Usage Examples:</strong></p>
 <details>
-<summary markdown="span">Click Me to Show Code Examples</summary><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/20c_tutorial.flair_seq_class_trainer.ipynb>Source</a></b>
+<summary markdown="span">Click Me to Show Code Examples</summary>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/20c_tutorial.flair_seq_class_trainer.ipynb>Source</a></b>
+
+```python
+sc_configs = {
+              "corpus": corpus,
+              "encoder": doc_embeddings,
+              "column_name_map": {0: "text", 1: "label"},
+              "corpus_in_memory": True,
+              "predictive_head": "flair",
+             }
+sc_trainer = SequenceClassifierTrainer(**sc_configs)
+sc_lr_configs = {
+        "output_dir": OUTPUT_DIR,
+        "start_learning_rate": 1e-8,
+        "end_learning_rate": 10,
+        "iterations": 100,
+        "mini_batch_size": 32,
+        "stop_early": True,
+        "smoothing_factor": 0.8,
+        "plot_learning_rate": True,
+}
+learning_rate = sc_trainer.find_learning_rate(**sc_lr_configs)
+```
+</details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/20c_tutorial.flair_seq_class_trainer.ipynb>Source</a></b>
+
 ```python
 sc_configs = {
               "corpus": corpus,
@@ -82,29 +108,6 @@ sc_lr_configs = {
         "iterations": 100,
         "mini_batch_size": 32,
         "lr_diff": 16,
-        "stop_early": True,
-        "smoothing_factor": 0.8,
-        "plot_learning_rate": True,
-}
-learning_rate = sc_trainer.find_learning_rate(**sc_lr_configs)
-```
-</details>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/20c_tutorial.flair_seq_class_trainer.ipynb>Source</a></b>
-```python
-sc_configs = {
-              "corpus": corpus,
-              "encoder": doc_embeddings,
-              "column_name_map": {0: "text", 1: "label"},
-              "corpus_in_memory": True,
-              "predictive_head": "flair",
-             }
-sc_trainer = SequenceClassifierTrainer(**sc_configs)
-sc_lr_configs = {
-        "output_dir": OUTPUT_DIR,
-        "start_learning_rate": 1e-8,
-        "end_learning_rate": 10,
-        "iterations": 100,
-        "mini_batch_size": 32,
         "stop_early": True,
         "smoothing_factor": 0.8,
         "plot_learning_rate": True,

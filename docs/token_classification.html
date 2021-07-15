@@ -68,7 +68,9 @@ nb_path: "nbs/05_token_classification.ipynb"
 </ul>
 <p><strong>Usage Examples:</strong></p>
 <details>
-<summary markdown="span">Click Me to Show Code Examples</summary><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+<summary markdown="span">Click Me to Show Code Examples</summary>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+
 ```python
 #hide
 tagger = TransformersTokenTagger.load("dbmdz/bert-large-cased-finetuned-conll03-english")
@@ -139,7 +141,9 @@ for base, p in zip(baseline, pred):
 <p>Note: To search for valid models, you should use the AdaptNLP <a href="/adaptnlp/model_hub.html"><code>model_hub</code></a> API</p>
 <p><strong>Usage Examples:</strong></p>
 <details>
-<summary markdown="span">Click Me to Show Code Examples</summary><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+<summary markdown="span">Click Me to Show Code Examples</summary>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+
 ```python
 #hide
 tagger = TransformersTokenTagger.load("dbmdz/bert-large-cased-finetuned-conll03-english")
@@ -206,7 +210,9 @@ Returns a list of lists of tagged entities.</p>
 </ul>
 <p><strong>Usage Examples:</strong></p>
 <details>
-<summary markdown="span">Click Me to Show Code Examples</summary><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+<summary markdown="span">Click Me to Show Code Examples</summary>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+
 ```python
 #hide
 tagger = TransformersTokenTagger.load("dbmdz/bert-large-cased-finetuned-conll03-english")
@@ -275,7 +281,9 @@ for base, p in zip(baseline, pred):
 <p>To find a list of available models, see <a href="https://huggingface.co/models?filter=flair">here</a></p>
 <p><strong>Usage Examples:</strong></p>
 <details>
-<summary markdown="span">Click Me to Show Code Examples</summary><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+<summary markdown="span">Click Me to Show Code Examples</summary>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+
 ```python
 #hide
 tagger = FlairTokenTagger.load("flair/chunk-english-fast")
@@ -321,7 +329,9 @@ test_eq(preds.tokens[1].text, 'text')
 <p>To find a list of available models, see <a href="https://huggingface.co/models?filter=flair">here</a></p>
 <p><strong>Usage Examples:</strong></p>
 <details>
-<summary markdown="span">Click Me to Show Code Examples</summary><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+<summary markdown="span">Click Me to Show Code Examples</summary>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+
 ```python
 #hide
 tagger = FlairTokenTagger.load("flair/chunk-english-fast")
@@ -361,7 +371,9 @@ test_eq(preds.tokens[1].text, 'text')
 </ul>
 <p><strong>Usage Examples:</strong></p>
 <details>
-<summary markdown="span">Click Me to Show Code Examples</summary><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+<summary markdown="span">Click Me to Show Code Examples</summary>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+
 ```python
 #hide
 tagger = FlairTokenTagger.load("flair/chunk-english-fast")
@@ -400,14 +412,9 @@ test_eq(preds.tokens[1].text, 'text')
 </pre></div>
 <p><strong>Usage Examples:</strong></p>
 <details>
-<summary markdown="span">Click Me to Show Code Examples</summary><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
-```python
-example_text = '''Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. 
-The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.'''
-tagger = EasyTokenTagger()
-```
-</details>
+<summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
+
 ```python
 tagger = EasyTokenTagger()
 _ = tagger.tag_text(text=example_text, model_name_or_path="ner-ontonotes")
@@ -416,6 +423,7 @@ sentences = tagger.tag_all(text=example_text)
 ```
 </details>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+
 ```python
 #hide
 tagger = EasyTokenTagger()
@@ -432,6 +440,14 @@ for sentence, lbls in zip(tags, _types):
     spans = sentence.get_spans()
     for span, lbl in zip(spans, lbls):
         test_eq(span.tag, lbl)
+```
+</details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
+
+```python
+example_text = '''Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. 
+The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.'''
+tagger = EasyTokenTagger()
 ```
 </details>
 </div>
@@ -474,14 +490,9 @@ for sentence, lbls in zip(tags, _types):
 </ul>
 <p><strong>Usage Examples:</strong></p>
 <details>
-<summary markdown="span">Click Me to Show Code Examples</summary><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
-```python
-tagger = EasyTokenTagger()
-_ = tagger.tag_text(text=example_text, model_name_or_path="ner-ontonotes")
-_ = tagger.tag_text(text=example_text, model_name_or_path="pos")
-```
-</details>
+<summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+
 ```python
 #hide
 tagger = EasyTokenTagger()
@@ -490,6 +501,14 @@ The Wright brothers loved to visit the JBF headquarters, and they would have a c
 sentences = ["Jack walked through the park on a Sunday.", "Sunday was a nice and breezy afternoon.", "Jack was going to meet Jill for dinner."]
 text = tagger.tag_text(text=example_text, model_name_or_path="ner-ontonotes")
 text = tagger.tag_text(text=example_text, model_name_or_path="pos")
+```
+</details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
+
+```python
+tagger = EasyTokenTagger()
+_ = tagger.tag_text(text=example_text, model_name_or_path="ner-ontonotes")
+_ = tagger.tag_text(text=example_text, model_name_or_path="pos")
 ```
 </details>
 </div>
@@ -524,15 +543,9 @@ text = tagger.tag_text(text=example_text, model_name_or_path="pos")
 </ul>
 <p><strong>Usage Examples:</strong></p>
 <details>
-<summary markdown="span">Click Me to Show Code Examples</summary><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
-```python
-tagger = EasyTokenTagger()
-_ = tagger.tag_text(text=example_text, model_name_or_path="ner-ontonotes")
-_ = tagger.tag_text(text=example_text, model_name_or_path="pos")
-sentences = tagger.tag_all(text=example_text)
-```
-</details>
+<summary markdown="span">Click Me to Show Code Examples</summary>
 <b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+
 ```python
 #hide
 tagger = EasyTokenTagger()
@@ -549,6 +562,15 @@ for sentence, lbls in zip(tags, _types):
     spans = sentence.get_spans()
     for span, lbl in zip(spans, lbls):
         test_eq(span.tag, lbl)
+```
+</details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
+
+```python
+tagger = EasyTokenTagger()
+_ = tagger.tag_text(text=example_text, model_name_or_path="ner-ontonotes")
+_ = tagger.tag_text(text=example_text, model_name_or_path="pos")
+sentences = tagger.tag_all(text=example_text)
 ```
 </details>
 </div>
