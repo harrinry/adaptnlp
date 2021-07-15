@@ -79,23 +79,16 @@ nb_path: "nbs/02_model_hub.ipynb"
 </blockquote>
 <p>A list of all HuggingFace tasks for valid API lookup as attribtues to get tab-completion and typo-proofing</p>
 <p><strong>Usage Examples:</strong></p>
-<details class="description">
-<summary data-open="Hide Examples" data-close="Show Examples"></summary>
-<summary></summary>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="c1">#export</span>
+<span class="n">_all_</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;HF_TASKS&#39;</span><span class="p">]</span>
+</pre></div>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="c1">#export</span>
+<span class="n">mk_class</span><span class="p">(</span><span class="s1">&#39;HF_TASKS&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">_hf_tasks</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;A list of all HuggingFace tasks for valid API lookup as attribtues to get tab-completion and typo-proofing&quot;</span><span class="p">)</span>
+</pre></div>
 
-<code>
-#export
-_all_ = ['HF_TASKS']
-</code>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
-
-<code>
-#export
-mk_class('HF_TASKS', **_hf_tasks,
-        doc="A list of all HuggingFace tasks for valid API lookup as attribtues to get tab-completion and typo-proofing")
-</code>
-</details>
 </div>
 
 </div>
@@ -171,23 +164,16 @@ mk_class('HF_TASKS', **_hf_tasks,
 </blockquote>
 <p>A list of all Flair tasks for valid API lookup as attribtues to get tab-completion and typo-proofing</p>
 <p><strong>Usage Examples:</strong></p>
-<details class="description">
-<summary data-open="Hide Examples" data-close="Show Examples"></summary>
-<summary></summary>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="c1">#export</span>
+<span class="n">mk_class</span><span class="p">(</span><span class="s1">&#39;FLAIR_TASKS&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">_flair_tasks</span><span class="p">,</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;A list of all Flair tasks for valid API lookup as attribtues to get tab-completion and typo-proofing&quot;</span><span class="p">)</span>
+</pre></div>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="c1">#export</span>
+<span class="n">_all_</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;FLAIR_TASKS&#39;</span><span class="p">]</span>
+</pre></div>
 
-<code>
-#export
-_all_ = ['FLAIR_TASKS']
-</code>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
-
-<code>
-#export
-mk_class('FLAIR_TASKS', **_flair_tasks,
-        doc="A list of all Flair tasks for valid API lookup as attribtues to get tab-completion and typo-proofing")
-</code>
-</details>
 </div>
 
 </div>
@@ -317,41 +303,28 @@ mk_class('FLAIR_TASKS', **_flair_tasks,
 <p>A class for interacting with the HF model hub API, and searching for models by name or task</p>
 <p>Can optionally include your HuggingFace login for authorized access (but is not required)</p>
 <p><strong>Usage Examples:</strong></p>
-<details class="description">
-<summary data-open="Hide Examples" data-close="Show Examples"></summary>
-<summary></summary>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="c1">#export</span>
+<span class="n">_flair_hub</span> <span class="o">=</span> <span class="n">FlairModelHub</span><span class="p">()</span>
+<span class="n">_hf_hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+</pre></div>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="c1">#hide</span>
+<span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s2">&quot;nlptown/bert-base&quot;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">classifier</span> <span class="o">=</span> <span class="n">EasySequenceClassifier</span><span class="p">()</span>
+<span class="n">sentences</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> 
+                               <span class="n">model_name_or_path</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+                               <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">pred</span><span class="p">,</span> <span class="n">truth</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">truth_lbls</span><span class="p">):</span>
+    <span class="n">test_eq</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">truth</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">test_close</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="n">truth</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">)</span>
+</pre></div>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/09a_tutorial.easy_text_generator.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+<span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;text-generation&#39;</span><span class="p">);</span> <span class="n">models</span>
+</pre></div>
 
-<code>
-#hide
-hub = HFModelHub()
-model = hub.search_model_by_name("nlptown/bert-base", user_uploaded=True)[0]
-classifier = EasySequenceClassifier()
-sentences = classifier.tag_text(text=example_text, 
-                               model_name_or_path=model,
-                               mini_batch_size=1)
-for pred, truth in zip(preds, truth_lbls):
-    test_eq(pred.value, truth.value)
-    test_close(pred.score, truth.score, 1e-4)
-</code>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/09a_tutorial.easy_text_generator.ipynb>Source</a></b>
-
-<code>
-hub = HFModelHub()
-models = hub.search_model_by_task('text-generation'); models
-</code>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
-
-<code>
-#hide
-hub = HFModelHub()
-models = hub.search_model_by_task('summarization', user_uploaded=False, as_dict=False)
-models
-#hide
-models = hub.search_model_by_task('summarization', user_uploaded=True)
-models[:10]
-</code>
-</details>
 </div>
 
 </div>
@@ -399,37 +372,28 @@ models[:10]
     <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="n">HF_TASKS</span><span class="o">.</span><span class="n">SUMMARIZATION</span><span class="p">)</span>
 </pre></div>
 <p><strong>Usage Examples:</strong></p>
-<details class="description">
-<summary data-open="Hide Examples" data-close="Show Examples"></summary>
-<summary></summary>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/09a_tutorial.easy_text_generator.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+<span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;text-generation&#39;</span><span class="p">);</span> <span class="n">models</span>
+</pre></div>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/08_translation.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="c1">#hide</span>
+<span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s2">&quot;translation&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">translations</span> <span class="o">=</span> <span class="n">translator</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">,</span> <span class="n">t5_prefix</span><span class="o">=</span><span class="s2">&quot;translate English to German&quot;</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">translations</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Das Maschinenlernen wird die Welt in Kürze übernehmen.&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Maschinen können in vielen Sprachen sprechen.&#39;</span><span class="p">])</span>
+</pre></div>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="c1">#hide</span>
+<span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+<span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;summarization&#39;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">models</span>
+<span class="c1">#hide</span>
+<span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;summarization&#39;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">models</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
 
-<code>
-#hide
-hub = HFModelHub()
-models = hub.search_model_by_task('summarization', user_uploaded=False, as_dict=False)
-models
-#hide
-models = hub.search_model_by_task('summarization', user_uploaded=True)
-models[:10]
-</code>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/08_translation.ipynb>Source</a></b>
-
-<code>
-#hide
-hub = HFModelHub()
-model = hub.search_model_by_task("translation")[-1]
-translations = translator.translate(text = text, t5_prefix="translate English to German", model_name_or_path=model, mini_batch_size=1, min_length=0, max_length=100, early_stopping=True)
-test_eq(translations, ['Das Maschinenlernen wird die Welt in Kürze übernehmen.',
- 'Maschinen können in vielen Sprachen sprechen.'])
-</code>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/09a_tutorial.easy_text_generator.ipynb>Source</a></b>
-
-<code>
-hub = HFModelHub()
-models = hub.search_model_by_task('text-generation'); models
-</code>
-</details>
 </div>
 
 </div>
@@ -534,36 +498,27 @@ models = hub.search_model_by_task('text-generation'); models
   <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;gpt2&#39;</span><span class="p">)</span>
 </pre></div>
 <p><strong>Usage Examples:</strong></p>
-<details class="description">
-<summary data-open="Hide Examples" data-close="Show Examples"></summary>
-<summary></summary>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="c1">#hide</span>
+<span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s2">&quot;nlptown/bert-base&quot;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">classifier</span> <span class="o">=</span> <span class="n">EasySequenceClassifier</span><span class="p">()</span>
+<span class="n">sentences</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> 
+                               <span class="n">model_name_or_path</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+                               <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">pred</span><span class="p">,</span> <span class="n">truth</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">truth_lbls</span><span class="p">):</span>
+    <span class="n">test_eq</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">truth</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">test_close</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="n">truth</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">)</span>
+</pre></div>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+<span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;gpt2&#39;</span><span class="p">);</span> <span class="n">models</span>
+</pre></div>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;sshleifer/tiny-dbmdz-bert&#39;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span> <span class="n">model</span>
+</pre></div>
 
-<code>
-#hide
-hub = HFModelHub()
-model = hub.search_model_by_name("nlptown/bert-base", user_uploaded=True)[0]
-classifier = EasySequenceClassifier()
-sentences = classifier.tag_text(text=example_text, 
-                               model_name_or_path=model,
-                               mini_batch_size=1)
-for pred, truth in zip(preds, truth_lbls):
-    test_eq(pred.value, truth.value)
-    test_close(pred.score, truth.score, 1e-4)
-</code>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b>
-
-<code>
-hub = HFModelHub()
-models = hub.search_model_by_name('gpt2'); models
-</code>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
-
-<code>
-hub = HFModelHub()
-model = hub.search_model_by_name('sshleifer/tiny-dbmdz-bert', user_uploaded=True)[0]; model
-</code>
-</details>
 </div>
 
 </div>
@@ -728,33 +683,24 @@ model = hub.search_model_by_name('sshleifer/tiny-dbmdz-bert', user_uploaded=True
 <p>A class for interacting with the HF model hub API, and searching for Flair models by name or task</p>
 <p>Can optionally include your HuggingFace login for authorized access (but is not required)</p>
 <p><strong>Usage Examples:</strong></p>
-<details class="description">
-<summary data-open="Hide Examples" data-close="Show Examples"></summary>
-<summary></summary>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="c1">#export</span>
+<span class="n">_flair_hub</span> <span class="o">=</span> <span class="n">FlairModelHub</span><span class="p">()</span>
+<span class="n">_hf_hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+</pre></div>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="c1">#hide</span>
+<span class="n">hub</span> <span class="o">=</span> <span class="n">FlairModelHub</span><span class="p">()</span>
+<span class="c1">#hide</span>
+<span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;ner&#39;</span><span class="p">)</span>
+<span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">models</span> <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="s2">&quot;Flair&#39;s Private Model Hub&quot;</span><span class="p">]</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">models</span><span class="p">),</span> <span class="mi">15</span><span class="p">)</span>
+</pre></div>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">FlairModelHub</span><span class="p">()</span>
+<span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;sentiment&#39;</span><span class="p">)</span>
+</pre></div>
 
-<code>
-#hide
-hub = FlairModelHub()
-#hide
-models = hub.search_model_by_task('ner')
-models = [m for m in models if m.source == "Flair's Private Model Hub"]
-test_eq(len(models), 15)
-</code>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
-
-<code>
-hub = FlairModelHub()
-hub.search_model_by_name('sentiment')
-</code>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b>
-
-<code>
-#export
-_flair_hub = FlairModelHub()
-_hf_hub = HFModelHub()
-</code>
-</details>
 </div>
 
 </div>
@@ -810,16 +756,11 @@ _hf_hub = HFModelHub()
   <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;flair/chunk-english-fast&#39;</span><span class="p">)</span>
 </pre></div>
 <p><strong>Usage Examples:</strong></p>
-<details class="description">
-<summary data-open="Hide Examples" data-close="Show Examples"></summary>
-<summary></summary>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">FlairModelHub</span><span class="p">()</span>
+<span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;sentiment&#39;</span><span class="p">)</span>
+</pre></div>
 
-<code>
-hub = FlairModelHub()
-hub.search_model_by_name('sentiment')
-</code>
-</details>
 </div>
 
 </div>
@@ -895,20 +836,15 @@ hub.search_model_by_name('sentiment')
     <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="n">FLAIR_TASKS</span><span class="o">.</span><span class="n">NAMED_ENTITY_RECOGNITION</span><span class="p">)</span>
 </pre></div>
 <p><strong>Usage Examples:</strong></p>
-<details class="description">
-<summary data-open="Hide Examples" data-close="Show Examples"></summary>
-<summary></summary>
-<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="c1">#hide</span>
+<span class="n">hub</span> <span class="o">=</span> <span class="n">FlairModelHub</span><span class="p">()</span>
+<span class="c1">#hide</span>
+<span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;ner&#39;</span><span class="p">)</span>
+<span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">models</span> <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="s2">&quot;Flair&#39;s Private Model Hub&quot;</span><span class="p">]</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">models</span><span class="p">),</span> <span class="mi">15</span><span class="p">)</span>
+</pre></div>
 
-<code>
-#hide
-hub = FlairModelHub()
-#hide
-models = hub.search_model_by_task('ner')
-models = [m for m in models if m.source == "Flair's Private Model Hub"]
-test_eq(len(models), 15)
-</code>
-</details>
 </div>
 
 </div>
