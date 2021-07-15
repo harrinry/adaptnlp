@@ -66,43 +66,45 @@ nb_path: "nbs/11_language_model.ipynb"
 <li><strong>model_name_or_path</strong> - The model checkpoint for weights initialization. Leave None if you want to train a model from scratch.</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/20b_tutorial.fine_tuning_manual.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="n">ft_configs</span> <span class="o">=</span> <span class="p">{</span>
-              <span class="s2">&quot;train_data_file&quot;</span><span class="p">:</span> <span class="n">train_data_file</span><span class="p">,</span>
-              <span class="s2">&quot;eval_data_file&quot;</span><span class="p">:</span> <span class="n">eval_data_file</span><span class="p">,</span>
-              <span class="s2">&quot;model_type&quot;</span><span class="p">:</span> <span class="s2">&quot;bert&quot;</span><span class="p">,</span>
-              <span class="s2">&quot;model_name_or_path&quot;</span><span class="p">:</span> <span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span>
-              <span class="s2">&quot;mlm&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-              <span class="s2">&quot;mlm_probability&quot;</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">,</span>
-              <span class="s2">&quot;config_name&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-              <span class="s2">&quot;tokenizer_name&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-              <span class="s2">&quot;cache_dir&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-              <span class="s2">&quot;block_size&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-              <span class="s2">&quot;no_cuda&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-              <span class="s2">&quot;overwrite_cache&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-              <span class="s2">&quot;seed&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
-              <span class="s2">&quot;fp16&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-              <span class="s2">&quot;fp16_opt_level&quot;</span><span class="p">:</span> <span class="s2">&quot;O1&quot;</span><span class="p">,</span>
-              <span class="s2">&quot;local_rank&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-             <span class="p">}</span>
-<span class="n">finetuner</span> <span class="o">=</span> <span class="n">LMFineTuner</span><span class="p">(</span><span class="o">**</span><span class="n">ft_configs</span><span class="p">)</span>
-<span class="n">finetuner</span><span class="o">.</span><span class="n">freeze</span><span class="p">()</span>
-<span class="n">learning_rate_finder_configs</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;output_dir&quot;</span><span class="p">:</span> <span class="n">OUTPUT_DIR</span><span class="p">,</span>
-    <span class="s2">&quot;file_name&quot;</span><span class="p">:</span> <span class="s2">&quot;learning_rate.tsv&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;start_learning_rate&quot;</span><span class="p">:</span> <span class="mf">1e-7</span><span class="p">,</span>
-    <span class="s2">&quot;end_learning_rate&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-    <span class="s2">&quot;iterations&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-    <span class="s2">&quot;mini_batch_size&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-    <span class="s2">&quot;stop_early&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="s2">&quot;smoothing_factor&quot;</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">,</span>
-    <span class="s2">&quot;adam_epsilon&quot;</span><span class="p">:</span> <span class="mf">1e-8</span><span class="p">,</span>
-    <span class="s2">&quot;weight_decay&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
-<span class="p">}</span>
-<span class="n">learning_rate</span> <span class="o">=</span> <span class="n">finetuner</span><span class="o">.</span><span class="n">find_learning_rate</span><span class="p">(</span><span class="o">**</span><span class="n">learning_rate_finder_configs</span><span class="p">)</span>
-<span class="n">finetuner</span><span class="o">.</span><span class="n">freeze</span><span class="p">()</span>
-</pre></div>
-
+<details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/20b_tutorial.fine_tuning_manual.ipynb>Source</a></b>
+```python
+ft_configs = {
+              "train_data_file": train_data_file,
+              "eval_data_file": eval_data_file,
+              "model_type": "bert",
+              "model_name_or_path": "bert-base-cased",
+              "mlm": True,
+              "mlm_probability": 0.15,
+              "config_name": None,
+              "tokenizer_name": None,
+              "cache_dir": None,
+              "block_size": -1,
+              "no_cuda": False,
+              "overwrite_cache": False,
+              "seed": 42,
+              "fp16": False,
+              "fp16_opt_level": "O1",
+              "local_rank": -1,
+             }
+finetuner = LMFineTuner(**ft_configs)
+finetuner.freeze()
+learning_rate_finder_configs = {
+    "output_dir": OUTPUT_DIR,
+    "file_name": "learning_rate.tsv",
+    "start_learning_rate": 1e-7,
+    "end_learning_rate": 10,
+    "iterations": 100,
+    "mini_batch_size": 8,
+    "stop_early": True,
+    "smoothing_factor": 0.7,
+    "adam_epsilon": 1e-8,
+    "weight_decay": 0.0,
+}
+learning_rate = finetuner.find_learning_rate(**learning_rate_finder_configs)
+finetuner.freeze()
+```
+</details>
 </div>
 
 </div>

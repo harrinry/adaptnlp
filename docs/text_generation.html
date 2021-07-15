@@ -103,13 +103,15 @@ nb_path: "nbs/09_text_generation.ipynb"
 <span class="o">&gt;&gt;&gt;</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;generate from this text&quot;</span><span class="p">,</span> <span class="n">num_tokens_to_produce</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 </pre></div>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/09a_tutorial.easy_text_generator.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="n">generator</span> <span class="o">=</span> <span class="n">EasyTextGenerator</span><span class="p">()</span>
-<span class="n">generated_text</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;gpt2&quot;</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">num_tokens_to_produce</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/09a_tutorial.easy_text_generator.ipynb>Source</a></b>
+```python
+generator = EasyTextGenerator()
+generated_text = generator.generate(text, model_name_or_path="gpt2", mini_batch_size=2, num_tokens_to_produce=50)
 
-<span class="nb">print</span><span class="p">(</span><span class="n">generated_text</span><span class="p">)</span>
-</pre></div>
-
+print(generated_text)
+```
+</details>
 </div>
 
 </div>

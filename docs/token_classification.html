@@ -67,39 +67,41 @@ nb_path: "nbs/05_token_classification.ipynb"
 <li><strong>model</strong> - A transformers token tagger model</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">tagger</span> <span class="o">=</span> <span class="n">TransformersTokenTagger</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;dbmdz/bert-large-cased-finetuned-conll03-english&quot;</span><span class="p">)</span>
-<span class="n">pred</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.&#39;</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
-<span class="n">baseline</span> <span class="o">=</span> <span class="p">[[{</span><span class="s1">&#39;entity_group&#39;</span><span class="p">:</span> <span class="s1">&#39;I-ORG&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.998292068640391</span><span class="p">,</span>
-   <span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;Novetta Solutions&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;offsets&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)},</span>
-  <span class="p">{</span><span class="s1">&#39;entity_group&#39;</span><span class="p">:</span> <span class="s1">&#39;I-PER&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9985582232475281</span><span class="p">,</span>
-   <span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;Albert Einstein&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;offsets&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">)},</span>
-  <span class="p">{</span><span class="s1">&#39;entity_group&#39;</span><span class="p">:</span> <span class="s1">&#39;I-ORG&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9970489343007406</span><span class="p">,</span>
-   <span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;Novetta Solutions&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;offsets&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">17</span><span class="p">)},</span>
-  <span class="p">{</span><span class="s1">&#39;entity_group&#39;</span><span class="p">:</span> <span class="s1">&#39;I-PER&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9961656928062439</span><span class="p">,</span>
-   <span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;Wright&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;offsets&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">)},</span>
-  <span class="p">{</span><span class="s1">&#39;entity_group&#39;</span><span class="p">:</span> <span class="s1">&#39;I-ORG&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9933501183986664</span><span class="p">,</span>
-   <span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;JBF&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;offsets&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">27</span><span class="p">)}]]</span>
+<details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+```python
+#hide
+tagger = TransformersTokenTagger.load("dbmdz/bert-large-cased-finetuned-conll03-english")
+pred = tagger.predict(text='Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.', mini_batch_size=32)
+baseline = [[{'entity_group': 'I-ORG',
+   'score': 0.998292068640391,
+   'word': 'Novetta Solutions',
+   'offsets': (0, 3)},
+  {'entity_group': 'I-PER',
+   'score': 0.9985582232475281,
+   'word': 'Albert Einstein',
+   'offsets': (7, 9)},
+  {'entity_group': 'I-ORG',
+   'score': 0.9970489343007406,
+   'word': 'Novetta Solutions',
+   'offsets': (14, 17)},
+  {'entity_group': 'I-PER',
+   'score': 0.9961656928062439,
+   'word': 'Wright',
+   'offsets': (19, 20)},
+  {'entity_group': 'I-ORG',
+   'score': 0.9933501183986664,
+   'word': 'JBF',
+   'offsets': (25, 27)}]]
 
-<span class="k">for</span> <span class="n">base</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">baseline</span><span class="p">,</span> <span class="n">pred</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">base_items</span><span class="p">,</span> <span class="n">p_items</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-        <span class="n">test_eq</span><span class="p">(</span><span class="n">base_items</span><span class="p">[</span><span class="s1">&#39;entity_group&#39;</span><span class="p">],</span> <span class="n">p_items</span><span class="p">[</span><span class="s1">&#39;entity_group&#39;</span><span class="p">])</span>
-        <span class="n">test_close</span><span class="p">(</span><span class="n">base_items</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">p_items</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="mf">1e-3</span><span class="p">)</span>
-        <span class="n">test_eq</span><span class="p">(</span><span class="n">base_items</span><span class="p">[</span><span class="s1">&#39;word&#39;</span><span class="p">],</span> <span class="n">p_items</span><span class="p">[</span><span class="s1">&#39;word&#39;</span><span class="p">])</span>
-        <span class="n">test_eq</span><span class="p">(</span><span class="n">base_items</span><span class="p">[</span><span class="s1">&#39;offsets&#39;</span><span class="p">],</span> <span class="n">p_items</span><span class="p">[</span><span class="s1">&#39;offsets&#39;</span><span class="p">])</span>
-</pre></div>
-
+for base, p in zip(baseline, pred):
+    for base_items, p_items in zip(base, p):
+        test_eq(base_items['entity_group'], p_items['entity_group'])
+        test_close(base_items['score'], p_items['score'], 1e-3)
+        test_eq(base_items['word'], p_items['word'])
+        test_eq(base_items['offsets'], p_items['offsets'])
+```
+</details>
 </div>
 
 </div>
@@ -136,39 +138,41 @@ nb_path: "nbs/05_token_classification.ipynb"
 </ul>
 <p>Note: To search for valid models, you should use the AdaptNLP <a href="/adaptnlp/model_hub.html"><code>model_hub</code></a> API</p>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">tagger</span> <span class="o">=</span> <span class="n">TransformersTokenTagger</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;dbmdz/bert-large-cased-finetuned-conll03-english&quot;</span><span class="p">)</span>
-<span class="n">pred</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.&#39;</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
-<span class="n">baseline</span> <span class="o">=</span> <span class="p">[[{</span><span class="s1">&#39;entity_group&#39;</span><span class="p">:</span> <span class="s1">&#39;I-ORG&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.998292068640391</span><span class="p">,</span>
-   <span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;Novetta Solutions&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;offsets&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)},</span>
-  <span class="p">{</span><span class="s1">&#39;entity_group&#39;</span><span class="p">:</span> <span class="s1">&#39;I-PER&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9985582232475281</span><span class="p">,</span>
-   <span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;Albert Einstein&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;offsets&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">)},</span>
-  <span class="p">{</span><span class="s1">&#39;entity_group&#39;</span><span class="p">:</span> <span class="s1">&#39;I-ORG&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9970489343007406</span><span class="p">,</span>
-   <span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;Novetta Solutions&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;offsets&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">17</span><span class="p">)},</span>
-  <span class="p">{</span><span class="s1">&#39;entity_group&#39;</span><span class="p">:</span> <span class="s1">&#39;I-PER&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9961656928062439</span><span class="p">,</span>
-   <span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;Wright&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;offsets&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">)},</span>
-  <span class="p">{</span><span class="s1">&#39;entity_group&#39;</span><span class="p">:</span> <span class="s1">&#39;I-ORG&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9933501183986664</span><span class="p">,</span>
-   <span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;JBF&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;offsets&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">27</span><span class="p">)}]]</span>
+<details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+```python
+#hide
+tagger = TransformersTokenTagger.load("dbmdz/bert-large-cased-finetuned-conll03-english")
+pred = tagger.predict(text='Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.', mini_batch_size=32)
+baseline = [[{'entity_group': 'I-ORG',
+   'score': 0.998292068640391,
+   'word': 'Novetta Solutions',
+   'offsets': (0, 3)},
+  {'entity_group': 'I-PER',
+   'score': 0.9985582232475281,
+   'word': 'Albert Einstein',
+   'offsets': (7, 9)},
+  {'entity_group': 'I-ORG',
+   'score': 0.9970489343007406,
+   'word': 'Novetta Solutions',
+   'offsets': (14, 17)},
+  {'entity_group': 'I-PER',
+   'score': 0.9961656928062439,
+   'word': 'Wright',
+   'offsets': (19, 20)},
+  {'entity_group': 'I-ORG',
+   'score': 0.9933501183986664,
+   'word': 'JBF',
+   'offsets': (25, 27)}]]
 
-<span class="k">for</span> <span class="n">base</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">baseline</span><span class="p">,</span> <span class="n">pred</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">base_items</span><span class="p">,</span> <span class="n">p_items</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-        <span class="n">test_eq</span><span class="p">(</span><span class="n">base_items</span><span class="p">[</span><span class="s1">&#39;entity_group&#39;</span><span class="p">],</span> <span class="n">p_items</span><span class="p">[</span><span class="s1">&#39;entity_group&#39;</span><span class="p">])</span>
-        <span class="n">test_close</span><span class="p">(</span><span class="n">base_items</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">p_items</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="mf">1e-3</span><span class="p">)</span>
-        <span class="n">test_eq</span><span class="p">(</span><span class="n">base_items</span><span class="p">[</span><span class="s1">&#39;word&#39;</span><span class="p">],</span> <span class="n">p_items</span><span class="p">[</span><span class="s1">&#39;word&#39;</span><span class="p">])</span>
-        <span class="n">test_eq</span><span class="p">(</span><span class="n">base_items</span><span class="p">[</span><span class="s1">&#39;offsets&#39;</span><span class="p">],</span> <span class="n">p_items</span><span class="p">[</span><span class="s1">&#39;offsets&#39;</span><span class="p">])</span>
-</pre></div>
-
+for base, p in zip(baseline, pred):
+    for base_items, p_items in zip(base, p):
+        test_eq(base_items['entity_group'], p_items['entity_group'])
+        test_close(base_items['score'], p_items['score'], 1e-3)
+        test_eq(base_items['word'], p_items['word'])
+        test_eq(base_items['offsets'], p_items['offsets'])
+```
+</details>
 </div>
 
 </div>
@@ -201,39 +205,41 @@ Returns a list of lists of tagged entities.</p>
 <li><strong>&ast;&ast;kwargs</strong>(Optional) - Optional arguments for the Transformers tagger</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">tagger</span> <span class="o">=</span> <span class="n">TransformersTokenTagger</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;dbmdz/bert-large-cased-finetuned-conll03-english&quot;</span><span class="p">)</span>
-<span class="n">pred</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.&#39;</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
-<span class="n">baseline</span> <span class="o">=</span> <span class="p">[[{</span><span class="s1">&#39;entity_group&#39;</span><span class="p">:</span> <span class="s1">&#39;I-ORG&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.998292068640391</span><span class="p">,</span>
-   <span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;Novetta Solutions&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;offsets&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)},</span>
-  <span class="p">{</span><span class="s1">&#39;entity_group&#39;</span><span class="p">:</span> <span class="s1">&#39;I-PER&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9985582232475281</span><span class="p">,</span>
-   <span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;Albert Einstein&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;offsets&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">)},</span>
-  <span class="p">{</span><span class="s1">&#39;entity_group&#39;</span><span class="p">:</span> <span class="s1">&#39;I-ORG&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9970489343007406</span><span class="p">,</span>
-   <span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;Novetta Solutions&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;offsets&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">17</span><span class="p">)},</span>
-  <span class="p">{</span><span class="s1">&#39;entity_group&#39;</span><span class="p">:</span> <span class="s1">&#39;I-PER&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9961656928062439</span><span class="p">,</span>
-   <span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;Wright&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;offsets&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">)},</span>
-  <span class="p">{</span><span class="s1">&#39;entity_group&#39;</span><span class="p">:</span> <span class="s1">&#39;I-ORG&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.9933501183986664</span><span class="p">,</span>
-   <span class="s1">&#39;word&#39;</span><span class="p">:</span> <span class="s1">&#39;JBF&#39;</span><span class="p">,</span>
-   <span class="s1">&#39;offsets&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">27</span><span class="p">)}]]</span>
+<details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+```python
+#hide
+tagger = TransformersTokenTagger.load("dbmdz/bert-large-cased-finetuned-conll03-english")
+pred = tagger.predict(text='Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.', mini_batch_size=32)
+baseline = [[{'entity_group': 'I-ORG',
+   'score': 0.998292068640391,
+   'word': 'Novetta Solutions',
+   'offsets': (0, 3)},
+  {'entity_group': 'I-PER',
+   'score': 0.9985582232475281,
+   'word': 'Albert Einstein',
+   'offsets': (7, 9)},
+  {'entity_group': 'I-ORG',
+   'score': 0.9970489343007406,
+   'word': 'Novetta Solutions',
+   'offsets': (14, 17)},
+  {'entity_group': 'I-PER',
+   'score': 0.9961656928062439,
+   'word': 'Wright',
+   'offsets': (19, 20)},
+  {'entity_group': 'I-ORG',
+   'score': 0.9933501183986664,
+   'word': 'JBF',
+   'offsets': (25, 27)}]]
 
-<span class="k">for</span> <span class="n">base</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">baseline</span><span class="p">,</span> <span class="n">pred</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">base_items</span><span class="p">,</span> <span class="n">p_items</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-        <span class="n">test_eq</span><span class="p">(</span><span class="n">base_items</span><span class="p">[</span><span class="s1">&#39;entity_group&#39;</span><span class="p">],</span> <span class="n">p_items</span><span class="p">[</span><span class="s1">&#39;entity_group&#39;</span><span class="p">])</span>
-        <span class="n">test_close</span><span class="p">(</span><span class="n">base_items</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">p_items</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="mf">1e-3</span><span class="p">)</span>
-        <span class="n">test_eq</span><span class="p">(</span><span class="n">base_items</span><span class="p">[</span><span class="s1">&#39;word&#39;</span><span class="p">],</span> <span class="n">p_items</span><span class="p">[</span><span class="s1">&#39;word&#39;</span><span class="p">])</span>
-        <span class="n">test_eq</span><span class="p">(</span><span class="n">base_items</span><span class="p">[</span><span class="s1">&#39;offsets&#39;</span><span class="p">],</span> <span class="n">p_items</span><span class="p">[</span><span class="s1">&#39;offsets&#39;</span><span class="p">])</span>
-</pre></div>
-
+for base, p in zip(baseline, pred):
+    for base_items, p_items in zip(base, p):
+        test_eq(base_items['entity_group'], p_items['entity_group'])
+        test_close(base_items['score'], p_items['score'], 1e-3)
+        test_eq(base_items['word'], p_items['word'])
+        test_eq(base_items['offsets'], p_items['offsets'])
+```
+</details>
 </div>
 
 </div>
@@ -268,14 +274,16 @@ Returns a list of lists of tagged entities.</p>
 </ul>
 <p>To find a list of available models, see <a href="https://huggingface.co/models?filter=flair">here</a></p>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">tagger</span> <span class="o">=</span> <span class="n">FlairTokenTagger</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;flair/chunk-english-fast&quot;</span><span class="p">)</span>
-<span class="n">preds</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Example text&quot;</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">preds</span><span class="o">.</span><span class="n">tokens</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;Example&#39;</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">preds</span><span class="o">.</span><span class="n">tokens</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">)</span>
-</pre></div>
-
+<details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+```python
+#hide
+tagger = FlairTokenTagger.load("flair/chunk-english-fast")
+preds = tagger.predict(text="Example text", mini_batch_size=32)[0]
+test_eq(preds.tokens[0].text, 'Example')
+test_eq(preds.tokens[1].text, 'text')
+```
+</details>
 </div>
 
 </div>
@@ -312,14 +320,16 @@ Returns a list of lists of tagged entities.</p>
 </ul>
 <p>To find a list of available models, see <a href="https://huggingface.co/models?filter=flair">here</a></p>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">tagger</span> <span class="o">=</span> <span class="n">FlairTokenTagger</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;flair/chunk-english-fast&quot;</span><span class="p">)</span>
-<span class="n">preds</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Example text&quot;</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">preds</span><span class="o">.</span><span class="n">tokens</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;Example&#39;</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">preds</span><span class="o">.</span><span class="n">tokens</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">)</span>
-</pre></div>
-
+<details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+```python
+#hide
+tagger = FlairTokenTagger.load("flair/chunk-english-fast")
+preds = tagger.predict(text="Example text", mini_batch_size=32)[0]
+test_eq(preds.tokens[0].text, 'Example')
+test_eq(preds.tokens[1].text, 'text')
+```
+</details>
 </div>
 
 </div>
@@ -350,14 +360,16 @@ Returns a list of lists of tagged entities.</p>
 <li><strong>&ast;&ast;kwargs</strong>(Optional) - Optional arguments for the Flair tagger</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">tagger</span> <span class="o">=</span> <span class="n">FlairTokenTagger</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;flair/chunk-english-fast&quot;</span><span class="p">)</span>
-<span class="n">preds</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Example text&quot;</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">preds</span><span class="o">.</span><span class="n">tokens</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;Example&#39;</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">preds</span><span class="o">.</span><span class="n">tokens</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">)</span>
-</pre></div>
-
+<details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+```python
+#hide
+tagger = FlairTokenTagger.load("flair/chunk-english-fast")
+preds = tagger.predict(text="Example text", mini_batch_size=32)[0]
+test_eq(preds.tokens[0].text, 'Example')
+test_eq(preds.tokens[1].text, 'text')
+```
+</details>
 </div>
 
 </div>
@@ -387,35 +399,41 @@ Returns a list of lists of tagged entities.</p>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;text you want to tag&quot;</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;ner-ontonotes&quot;</span><span class="p">)</span>
 </pre></div>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="n">example_text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. </span>
-<span class="s1">The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.&#39;&#39;&#39;</span>
-<span class="n">tagger</span> <span class="o">=</span> <span class="n">EasyTokenTagger</span><span class="p">()</span>
-</pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="n">tagger</span> <span class="o">=</span> <span class="n">EasyTokenTagger</span><span class="p">()</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;ner-ontonotes&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)</span>
-<span class="n">sentences</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_all</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">)</span>
-</pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">tagger</span> <span class="o">=</span> <span class="n">EasyTokenTagger</span><span class="p">()</span>
-<span class="n">example_text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. </span>
-<span class="s1">The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.&#39;&#39;&#39;</span>
-<span class="n">sentences</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Jack walked through the park on a Sunday.&quot;</span><span class="p">,</span> <span class="s2">&quot;Sunday was a nice and breezy afternoon.&quot;</span><span class="p">,</span> <span class="s2">&quot;Jack was going to meet Jill for dinner.&quot;</span><span class="p">]</span>
-<span class="n">text</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;ner-ontonotes&quot;</span><span class="p">)</span>
-<span class="n">text</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)</span>
-<span class="c1">#hide</span>
-<span class="n">tags</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_all</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span>
-<span class="n">_types</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;PERSON&quot;</span><span class="p">,</span> <span class="s2">&quot;DATE&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;DATE&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;PERSON&quot;</span><span class="p">,</span> <span class="s2">&quot;PERSON&quot;</span><span class="p">]]</span>
+<details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
+```python
+example_text = '''Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. 
+The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.'''
+tagger = EasyTokenTagger()
+```
+</details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+```python
+#hide
+tagger = EasyTokenTagger()
+example_text = '''Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. 
+The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.'''
+sentences = ["Jack walked through the park on a Sunday.", "Sunday was a nice and breezy afternoon.", "Jack was going to meet Jill for dinner."]
+text = tagger.tag_text(text=example_text, model_name_or_path="ner-ontonotes")
+text = tagger.tag_text(text=example_text, model_name_or_path="pos")
+#hide
+tags = tagger.tag_all(sentences)
+_types = [["PERSON", "DATE"], ["DATE"], ["PERSON", "PERSON"]]
 
-<span class="k">for</span> <span class="n">sentence</span><span class="p">,</span> <span class="n">lbls</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">tags</span><span class="p">,</span> <span class="n">_types</span><span class="p">):</span>
-    <span class="n">spans</span> <span class="o">=</span> <span class="n">sentence</span><span class="o">.</span><span class="n">get_spans</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">span</span><span class="p">,</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">spans</span><span class="p">,</span> <span class="n">lbls</span><span class="p">):</span>
-        <span class="n">test_eq</span><span class="p">(</span><span class="n">span</span><span class="o">.</span><span class="n">tag</span><span class="p">,</span> <span class="n">lbl</span><span class="p">)</span>
-</pre></div>
-
+for sentence, lbls in zip(tags, _types):
+    spans = sentence.get_spans()
+    for span, lbl in zip(spans, lbls):
+        test_eq(span.tag, lbl)
+```
+</details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
+```python
+tagger = EasyTokenTagger()
+_ = tagger.tag_text(text=example_text, model_name_or_path="ner-ontonotes")
+_ = tagger.tag_text(text=example_text, model_name_or_path="pos")
+sentences = tagger.tag_all(text=example_text)
+```
+</details>
 </div>
 
 </div>
@@ -455,21 +473,25 @@ Returns a list of lists of tagged entities.</p>
 <strong>return</strong> - A list of Flair's <code>Sentence</code>'s</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="n">tagger</span> <span class="o">=</span> <span class="n">EasyTokenTagger</span><span class="p">()</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;ner-ontonotes&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)</span>
-</pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">tagger</span> <span class="o">=</span> <span class="n">EasyTokenTagger</span><span class="p">()</span>
-<span class="n">example_text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. </span>
-<span class="s1">The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.&#39;&#39;&#39;</span>
-<span class="n">sentences</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Jack walked through the park on a Sunday.&quot;</span><span class="p">,</span> <span class="s2">&quot;Sunday was a nice and breezy afternoon.&quot;</span><span class="p">,</span> <span class="s2">&quot;Jack was going to meet Jill for dinner.&quot;</span><span class="p">]</span>
-<span class="n">text</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;ner-ontonotes&quot;</span><span class="p">)</span>
-<span class="n">text</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)</span>
-</pre></div>
-
+<details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
+```python
+tagger = EasyTokenTagger()
+_ = tagger.tag_text(text=example_text, model_name_or_path="ner-ontonotes")
+_ = tagger.tag_text(text=example_text, model_name_or_path="pos")
+```
+</details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+```python
+#hide
+tagger = EasyTokenTagger()
+example_text = '''Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. 
+The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.'''
+sentences = ["Jack walked through the park on a Sunday.", "Sunday was a nice and breezy afternoon.", "Jack was going to meet Jill for dinner."]
+text = tagger.tag_text(text=example_text, model_name_or_path="ner-ontonotes")
+text = tagger.tag_text(text=example_text, model_name_or_path="pos")
+```
+</details>
 </div>
 
 </div>
@@ -501,30 +523,34 @@ Returns a list of lists of tagged entities.</p>
 <strong>return</strong> A list of Flair's <code>Sentence</code>'s</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">tagger</span> <span class="o">=</span> <span class="n">EasyTokenTagger</span><span class="p">()</span>
-<span class="n">example_text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. </span>
-<span class="s1">The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.&#39;&#39;&#39;</span>
-<span class="n">sentences</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Jack walked through the park on a Sunday.&quot;</span><span class="p">,</span> <span class="s2">&quot;Sunday was a nice and breezy afternoon.&quot;</span><span class="p">,</span> <span class="s2">&quot;Jack was going to meet Jill for dinner.&quot;</span><span class="p">]</span>
-<span class="n">text</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;ner-ontonotes&quot;</span><span class="p">)</span>
-<span class="n">text</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)</span>
-<span class="c1">#hide</span>
-<span class="n">tags</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_all</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span>
-<span class="n">_types</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;PERSON&quot;</span><span class="p">,</span> <span class="s2">&quot;DATE&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;DATE&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;PERSON&quot;</span><span class="p">,</span> <span class="s2">&quot;PERSON&quot;</span><span class="p">]]</span>
+<details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b>
+```python
+#hide
+tagger = EasyTokenTagger()
+example_text = '''Novetta Solutions is the best. Albert Einstein used to be employed at Novetta Solutions. 
+The Wright brothers loved to visit the JBF headquarters, and they would have a chat with Albert.'''
+sentences = ["Jack walked through the park on a Sunday.", "Sunday was a nice and breezy afternoon.", "Jack was going to meet Jill for dinner."]
+text = tagger.tag_text(text=example_text, model_name_or_path="ner-ontonotes")
+text = tagger.tag_text(text=example_text, model_name_or_path="pos")
+#hide
+tags = tagger.tag_all(sentences)
+_types = [["PERSON", "DATE"], ["DATE"], ["PERSON", "PERSON"]]
 
-<span class="k">for</span> <span class="n">sentence</span><span class="p">,</span> <span class="n">lbls</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">tags</span><span class="p">,</span> <span class="n">_types</span><span class="p">):</span>
-    <span class="n">spans</span> <span class="o">=</span> <span class="n">sentence</span><span class="o">.</span><span class="n">get_spans</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">span</span><span class="p">,</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">spans</span><span class="p">,</span> <span class="n">lbls</span><span class="p">):</span>
-        <span class="n">test_eq</span><span class="p">(</span><span class="n">span</span><span class="o">.</span><span class="n">tag</span><span class="p">,</span> <span class="n">lbl</span><span class="p">)</span>
-</pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="n">tagger</span> <span class="o">=</span> <span class="n">EasyTokenTagger</span><span class="p">()</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;ner-ontonotes&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)</span>
-<span class="n">sentences</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_all</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">)</span>
-</pre></div>
-
+for sentence, lbls in zip(tags, _types):
+    spans = sentence.get_spans()
+    for span, lbl in zip(spans, lbls):
+        test_eq(span.tag, lbl)
+```
+</details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b>
+```python
+tagger = EasyTokenTagger()
+_ = tagger.tag_text(text=example_text, model_name_or_path="ner-ontonotes")
+_ = tagger.tag_text(text=example_text, model_name_or_path="pos")
+sentences = tagger.tag_all(text=example_text)
+```
+</details>
 </div>
 
 </div>

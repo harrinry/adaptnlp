@@ -63,51 +63,55 @@ nb_path: "nbs/12_training.ipynb"
 <li><strong>&ast;&ast;kwargs</strong> - Keyword arguments for Flair's <code>TextClassifier</code> model class</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/20c_tutorial.flair_seq_class_trainer.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="n">sc_configs</span> <span class="o">=</span> <span class="p">{</span>
-              <span class="s2">&quot;corpus&quot;</span><span class="p">:</span> <span class="n">corpus</span><span class="p">,</span>
-              <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="n">doc_embeddings</span><span class="p">,</span>
-              <span class="s2">&quot;column_name_map&quot;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">},</span>
-              <span class="s2">&quot;corpus_in_memory&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-              <span class="s2">&quot;predictive_head&quot;</span><span class="p">:</span> <span class="s2">&quot;flair&quot;</span><span class="p">,</span>
-             <span class="p">}</span>
-<span class="n">sc_trainer</span> <span class="o">=</span> <span class="n">SequenceClassifierTrainer</span><span class="p">(</span><span class="o">**</span><span class="n">sc_configs</span><span class="p">)</span>
-<span class="n">sc_lr_configs</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;output_dir&quot;</span><span class="p">:</span> <span class="n">OUTPUT_DIR</span><span class="p">,</span>
-        <span class="s2">&quot;file_name&quot;</span><span class="p">:</span> <span class="s2">&quot;learning_rate.tsv&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;start_learning_rate&quot;</span><span class="p">:</span> <span class="mf">1e-8</span><span class="p">,</span>
-        <span class="s2">&quot;end_learning_rate&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-        <span class="s2">&quot;iterations&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-        <span class="s2">&quot;mini_batch_size&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
-        <span class="s2">&quot;lr_diff&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
-        <span class="s2">&quot;stop_early&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="s2">&quot;smoothing_factor&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
-        <span class="s2">&quot;plot_learning_rate&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-<span class="p">}</span>
-<span class="n">learning_rate</span> <span class="o">=</span> <span class="n">sc_trainer</span><span class="o">.</span><span class="n">find_learning_rate</span><span class="p">(</span><span class="o">**</span><span class="n">sc_lr_configs</span><span class="p">)</span>
-</pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/20c_tutorial.flair_seq_class_trainer.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="n">sc_configs</span> <span class="o">=</span> <span class="p">{</span>
-              <span class="s2">&quot;corpus&quot;</span><span class="p">:</span> <span class="n">corpus</span><span class="p">,</span>
-              <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="n">doc_embeddings</span><span class="p">,</span>
-              <span class="s2">&quot;column_name_map&quot;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">},</span>
-              <span class="s2">&quot;corpus_in_memory&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-              <span class="s2">&quot;predictive_head&quot;</span><span class="p">:</span> <span class="s2">&quot;flair&quot;</span><span class="p">,</span>
-             <span class="p">}</span>
-<span class="n">sc_trainer</span> <span class="o">=</span> <span class="n">SequenceClassifierTrainer</span><span class="p">(</span><span class="o">**</span><span class="n">sc_configs</span><span class="p">)</span>
-<span class="n">sc_lr_configs</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;output_dir&quot;</span><span class="p">:</span> <span class="n">OUTPUT_DIR</span><span class="p">,</span>
-        <span class="s2">&quot;start_learning_rate&quot;</span><span class="p">:</span> <span class="mf">1e-8</span><span class="p">,</span>
-        <span class="s2">&quot;end_learning_rate&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-        <span class="s2">&quot;iterations&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-        <span class="s2">&quot;mini_batch_size&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
-        <span class="s2">&quot;stop_early&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="s2">&quot;smoothing_factor&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
-        <span class="s2">&quot;plot_learning_rate&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-<span class="p">}</span>
-<span class="n">learning_rate</span> <span class="o">=</span> <span class="n">sc_trainer</span><span class="o">.</span><span class="n">find_learning_rate</span><span class="p">(</span><span class="o">**</span><span class="n">sc_lr_configs</span><span class="p">)</span>
-</pre></div>
-
+<details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/20c_tutorial.flair_seq_class_trainer.ipynb>Source</a></b>
+```python
+sc_configs = {
+              "corpus": corpus,
+              "encoder": doc_embeddings,
+              "column_name_map": {0: "text", 1: "label"},
+              "corpus_in_memory": True,
+              "predictive_head": "flair",
+             }
+sc_trainer = SequenceClassifierTrainer(**sc_configs)
+sc_lr_configs = {
+        "output_dir": OUTPUT_DIR,
+        "start_learning_rate": 1e-8,
+        "end_learning_rate": 10,
+        "iterations": 100,
+        "mini_batch_size": 32,
+        "stop_early": True,
+        "smoothing_factor": 0.8,
+        "plot_learning_rate": True,
+}
+learning_rate = sc_trainer.find_learning_rate(**sc_lr_configs)
+```
+</details>
+<b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/20c_tutorial.flair_seq_class_trainer.ipynb>Source</a></b>
+```python
+sc_configs = {
+              "corpus": corpus,
+              "encoder": doc_embeddings,
+              "column_name_map": {0: "text", 1: "label"},
+              "corpus_in_memory": True,
+              "predictive_head": "flair",
+             }
+sc_trainer = SequenceClassifierTrainer(**sc_configs)
+sc_lr_configs = {
+        "output_dir": OUTPUT_DIR,
+        "file_name": "learning_rate.tsv",
+        "start_learning_rate": 1e-8,
+        "end_learning_rate": 10,
+        "iterations": 100,
+        "mini_batch_size": 32,
+        "lr_diff": 16,
+        "stop_early": True,
+        "smoothing_factor": 0.8,
+        "plot_learning_rate": True,
+}
+learning_rate = sc_trainer.find_learning_rate(**sc_lr_configs)
+```
+</details>
 </div>
 
 </div>
