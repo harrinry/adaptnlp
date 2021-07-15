@@ -130,6 +130,36 @@ nb_path: "nbs/10_question_answering.ipynb"
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">qa</span> <span class="o">=</span> <span class="n">adaptnlp</span><span class="o">.</span><span class="n">EasyQuestionAnswering</span><span class="p">()</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">qa</span><span class="o">.</span><span class="n">predict_qa</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s1">&#39;What is life?&#39;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;Life is NLP.&#39;</span><span class="p">,</span> <span class="n">n_best_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
+<p><strong>Usage Examples:</strong></p>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/10_question_answering.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="c1">#hide</span>
+<span class="n">qa_model</span> <span class="o">=</span> <span class="n">EasyQuestionAnswering</span><span class="p">()</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Amazon.com, Inc.[6] (/ˈæməzɒn/), is an American multinational technology company based in Seattle, </span>
+<span class="s2">Washington that focuses on e-commerce, cloud computing, digital streaming, and artificial intelligence. </span>
+<span class="s2">It is considered one of the Big Four technology companies along with Google, Apple, and Facebook.[7][8][9] </span>
+<span class="s2">Amazon is known for its disruption of well-established industries through technological innovation and mass </span>
+<span class="s2">scale.[10][11][12] It is the world&#39;s largest e-commerce marketplace, AI assistant provider, and cloud computing </span>
+<span class="s2">platform[13] as measured by revenue and market capitalization.[14] Amazon is the largest Internet company by </span>
+<span class="s2">revenue in the world.[15] It is the second largest private employer in the United States[16] and one of the world&#39;s </span>
+<span class="s2">most valuable companies. Amazon is the second largest technology company by revenue. Amazon was founded by Jeff Bezos </span>
+<span class="s2">on July 5, 1994, in Bellevue, Washington. The company initially started as an online marketplace for books but later </span>
+<span class="s2">expanded to sell electronics, software, video games, apparel, furniture, food, toys, and jewelry. In 2015, Amazon </span>
+<span class="s2">surpassed Walmart as the most valuable retailer in the United States by market capitalization.[17] In 2017, Amazon </span>
+<span class="s2">acquired Whole Foods Market for $13.4 billion, which vastly increased Amazon&#39;s presence as a brick-and-mortar </span>
+<span class="s2">retailer.[18] In 2018, Bezos announced that its two-day delivery service, Amazon Prime, had surpassed 100 million </span>
+<span class="s2">subscribers worldwide</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">top_prediction</span><span class="p">,</span> <span class="n">all_nbest_json</span> <span class="o">=</span> <span class="n">qa_model</span><span class="o">.</span><span class="n">predict_qa</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;What does Amazon do?&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">n_best_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;distilbert-base-uncased-distilled-squad&quot;</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">top_prediction</span><span class="p">,</span> <span class="s1">&#39;disruption of well-established industries&#39;</span><span class="p">)</span>
+<span class="c1">#hide</span>
+<span class="kn">from</span> <span class="nn">adaptnlp.model_hub</span> <span class="kn">import</span> <span class="n">HFModelHub</span>
+<span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+<span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;question-answering&#39;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">top_prediction</span><span class="p">,</span> <span class="n">all_nbest_json</span> <span class="o">=</span> <span class="n">qa_model</span><span class="o">.</span><span class="n">predict_qa</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;What does Amazon do?&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">n_best_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">top_prediction</span><span class="p">,</span> <span class="s1">&#39;disruption of well-established industries&#39;</span><span class="p">)</span>
+</pre></div>
 
 </div>
 
