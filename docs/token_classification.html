@@ -54,7 +54,7 @@ nb_path: "nbs/05_token_classification.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="TransformersTokenTagger" class="doc_header"><code>class</code> <code>TransformersTokenTagger</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/token_classification.py#L39" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersTokenTagger</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlpmodel.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
+<h2 id="TransformersTokenTagger" class="doc_header"><code>class</code> <code>TransformersTokenTagger</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/token_classification.py#L39" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersTokenTagger</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
 </blockquote>
 <p>Adaptive model for Transformer's Token Tagger Model</p>
 <p>Usage:</p>
@@ -132,9 +132,9 @@ nb_path: "nbs/05_token_classification.ipynb"
 </blockquote>
 <p>Class method for loading and constructing this tagger</p>
 <ul>
-<li><strong>model_name_or_path</strong> - A key string of one of Transformer's pre-trained Token Tagger Model or a <a href="/adaptnlpmodel_hub.html#HFModelResult"><code>HFModelResult</code></a></li>
+<li><strong>model_name_or_path</strong> - A key string of one of Transformer's pre-trained Token Tagger Model or a <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a></li>
 </ul>
-<p>Note: To search for valid models, you should use the AdaptNLP <a href="/adaptnlpmodel_hub.html"><code>model_hub</code></a> API</p>
+<p>Note: To search for valid models, you should use the AdaptNLP <a href="/adaptnlp/model_hub.html"><code>model_hub</code></a> API</p>
 <p><strong>Usage Examples:</strong></p>
 <p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b></p>
 <div class="highlight"><pre><span></span><span class="c1">#hide</span>
@@ -255,7 +255,7 @@ Returns a list of lists of tagged entities.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="FlairTokenTagger" class="doc_header"><code>class</code> <code>FlairTokenTagger</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/token_classification.py#L258" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FlairTokenTagger</code>(<strong><code>model_name_or_path</code></strong>:<code>str</code>) :: <a href="/adaptnlpmodel.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
+<h2 id="FlairTokenTagger" class="doc_header"><code>class</code> <code>FlairTokenTagger</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/token_classification.py#L258" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FlairTokenTagger</code>(<strong><code>model_name_or_path</code></strong>:<code>str</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
 </blockquote>
 <p>Adaptive Model for Flair's Token Tagger...very basic</p>
 <p>Usage:</p>
@@ -444,7 +444,7 @@ Returns a list of lists of tagged entities.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="EasyTokenTagger.tag_text" class="doc_header"><code>EasyTokenTagger.tag_text</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/token_classification.py#L338" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyTokenTagger.tag_text</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>model_name_or_path</code></strong>:<code>Union</code>[<code>str</code>, <a href="/adaptnlpmodel_hub.html#FlairModelResult"><code>FlairModelResult</code></a>, <a href="/adaptnlpmodel_hub.html#HFModelResult"><code>HFModelResult</code></a>]=<em><code>'ner-ontonotes'</code></em>, <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="EasyTokenTagger.tag_text" class="doc_header"><code>EasyTokenTagger.tag_text</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/token_classification.py#L338" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyTokenTagger.tag_text</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>model_name_or_path</code></strong>:<code>Union</code>[<code>str</code>, <a href="/adaptnlp/model_hub.html#FlairModelResult"><code>FlairModelResult</code></a>, <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a>]=<em><code>'ner-ontonotes'</code></em>, <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Tags tokens with labels the token classification models have been trained on</p>
 <ul>
@@ -501,12 +501,6 @@ Returns a list of lists of tagged entities.</p>
 <strong>return</strong> A list of Flair's <code>Sentence</code>'s</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="n">tagger</span> <span class="o">=</span> <span class="n">EasyTokenTagger</span><span class="p">()</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;ner-ontonotes&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)</span>
-<span class="n">sentences</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_all</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">)</span>
-</pre></div>
 <p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05_token_classification.ipynb>Source</a></b></p>
 <div class="highlight"><pre><span></span><span class="c1">#hide</span>
 <span class="n">tagger</span> <span class="o">=</span> <span class="n">EasyTokenTagger</span><span class="p">()</span>
@@ -523,6 +517,12 @@ Returns a list of lists of tagged entities.</p>
     <span class="n">spans</span> <span class="o">=</span> <span class="n">sentence</span><span class="o">.</span><span class="n">get_spans</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">span</span><span class="p">,</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">spans</span><span class="p">,</span> <span class="n">lbls</span><span class="p">):</span>
         <span class="n">test_eq</span><span class="p">(</span><span class="n">span</span><span class="o">.</span><span class="n">tag</span><span class="p">,</span> <span class="n">lbl</span><span class="p">)</span>
+</pre></div>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="n">tagger</span> <span class="o">=</span> <span class="n">EasyTokenTagger</span><span class="p">()</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;ner-ontonotes&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)</span>
+<span class="n">sentences</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_all</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">)</span>
 </pre></div>
 
 </div>

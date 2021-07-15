@@ -100,7 +100,7 @@ system specifies:</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Examples-and-General-Use">Examples and General Use<a class="anchor-link" href="#Examples-and-General-Use"> </a></h2><p>Once you have installed AdaptNLP, here are a few examples of what you can run with AdaptNLP modules:</p>
-<h3 id="Named-Entity-Recognition-with-EasyTokenTagger">Named Entity Recognition with <a href="/adaptnlptoken_classification.html#EasyTokenTagger"><code>EasyTokenTagger</code></a><a class="anchor-link" href="#Named-Entity-Recognition-with-EasyTokenTagger"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasyTokenTagger</span>
+<h3 id="Named-Entity-Recognition-with-EasyTokenTagger">Named Entity Recognition with <a href="/adaptnlp/token_classification.html#EasyTokenTagger"><code>EasyTokenTagger</code></a><a class="anchor-link" href="#Named-Entity-Recognition-with-EasyTokenTagger"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasyTokenTagger</span>
 
 <span class="c1">## Example Text</span>
 <span class="n">example_text</span> <span class="o">=</span> <span class="s2">&quot;Novetta&#39;s headquarters is located in Mclean, Virginia.&quot;</span>
@@ -114,7 +114,7 @@ system specifies:</p>
     <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">sentence</span><span class="o">.</span><span class="n">get_spans</span><span class="p">(</span><span class="s2">&quot;ner&quot;</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
 </pre></div>
-<h3 id="English-Sentiment-Classifier-EasySequenceClassifier">English Sentiment Classifier <a href="/adaptnlpsequence_classification.html#EasySequenceClassifier"><code>EasySequenceClassifier</code></a><a class="anchor-link" href="#English-Sentiment-Classifier-EasySequenceClassifier"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasySequenceClassifier</span> 
+<h3 id="English-Sentiment-Classifier-EasySequenceClassifier">English Sentiment Classifier <a href="/adaptnlp/sequence_classification.html#EasySequenceClassifier"><code>EasySequenceClassifier</code></a><a class="anchor-link" href="#English-Sentiment-Classifier-EasySequenceClassifier"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasySequenceClassifier</span> 
 <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 
 <span class="c1">## Example Text</span>
@@ -133,7 +133,7 @@ system specifies:</p>
 <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
     <span class="n">pprint</span><span class="p">({</span><span class="n">sentence</span><span class="o">.</span><span class="n">to_original_text</span><span class="p">():</span> <span class="n">sentence</span><span class="o">.</span><span class="n">labels</span><span class="p">})</span>
 </pre></div>
-<h3 id="Span-based-Question-Answering-EasyQuestionAnswering">Span-based Question Answering <a href="/adaptnlpquestion_answering.html#EasyQuestionAnswering"><code>EasyQuestionAnswering</code></a><a class="anchor-link" href="#Span-based-Question-Answering-EasyQuestionAnswering"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasyQuestionAnswering</span> 
+<h3 id="Span-based-Question-Answering-EasyQuestionAnswering">Span-based Question Answering <a href="/adaptnlp/question_answering.html#EasyQuestionAnswering"><code>EasyQuestionAnswering</code></a><a class="anchor-link" href="#Span-based-Question-Answering-EasyQuestionAnswering"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasyQuestionAnswering</span> 
 <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 
 <span class="c1">## Example Query and Context </span>
@@ -149,7 +149,7 @@ system specifies:</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">best_answer</span><span class="p">)</span>
 <span class="n">pprint</span><span class="p">(</span><span class="n">best_n_answers</span><span class="p">)</span>
 </pre></div>
-<h3 id="Summarization-EasySummarizer">Summarization <a href="/adaptnlpsummarization.html#EasySummarizer"><code>EasySummarizer</code></a><a class="anchor-link" href="#Summarization-EasySummarizer"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasySummarizer</span>
+<h3 id="Summarization-EasySummarizer">Summarization <a href="/adaptnlp/summarization.html#EasySummarizer"><code>EasySummarizer</code></a><a class="anchor-link" href="#Summarization-EasySummarizer"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasySummarizer</span>
 
 <span class="c1"># Text from encyclopedia Britannica on Einstein</span>
 <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Einstein would write that two “wonders” deeply affected his early years. The first was his encounter with a compass at age five. </span>
@@ -170,7 +170,7 @@ system specifies:</p>
 <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">summaries</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
-<h3 id="Translation-EasyTranslator">Translation <a href="/adaptnlptranslation.html#EasyTranslator"><code>EasyTranslator</code></a><a class="anchor-link" href="#Translation-EasyTranslator"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasyTranslator</span>
+<h3 id="Translation-EasyTranslator">Translation <a href="/adaptnlp/translation.html#EasyTranslator"><code>EasyTranslator</code></a><a class="anchor-link" href="#Translation-EasyTranslator"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasyTranslator</span>
 
 <span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Machine learning will take over the world very soon.&quot;</span><span class="p">,</span>
         <span class="s2">&quot;Machines can speak in many languages.&quot;</span><span class="p">,]</span>

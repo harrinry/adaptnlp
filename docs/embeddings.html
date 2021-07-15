@@ -102,13 +102,13 @@ nb_path: "nbs/04_embeddings.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="EasyWordEmbeddings.embed_text" class="doc_header"><code>EasyWordEmbeddings.embed_text</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/embeddings.py#L91" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyWordEmbeddings.embed_text</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>model_name_or_path</code></strong>:<code>Union</code>[<code>str</code>, <a href="/adaptnlpmodel_hub.html#HFModelResult"><code>HFModelResult</code></a>, <a href="/adaptnlpmodel_hub.html#FlairModelResult"><code>FlairModelResult</code></a>]=<em><code>'bert-base-cased'</code></em>)</p>
+<h4 id="EasyWordEmbeddings.embed_text" class="doc_header"><code>EasyWordEmbeddings.embed_text</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/embeddings.py#L91" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyWordEmbeddings.embed_text</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>model_name_or_path</code></strong>:<code>Union</code>[<code>str</code>, <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a>, <a href="/adaptnlp/model_hub.html#FlairModelResult"><code>FlairModelResult</code></a>]=<em><code>'bert-base-cased'</code></em>)</p>
 </blockquote>
 <p>Produces embeddings for text</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
 <li><code>text</code> - Text input, it can be a string or any of Flair's <code>Sentence</code> input formats</li>
-<li><code>model_name_or_path</code> - The hosted model name key, model path, or an instance of either <a href="/adaptnlpmodel_hub.html#HFModelResult"><code>HFModelResult</code></a> or <a href="/adaptnlpmodel_hub.html#FlairModelResult"><code>FlairModelResult</code></a></li>
+<li><code>model_name_or_path</code> - The hosted model name key, model path, or an instance of either <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a> or <a href="/adaptnlp/model_hub.html#FlairModelResult"><code>FlairModelResult</code></a></li>
 </ul>
 <p><strong>Return</strong>:</p>
 <ul>
@@ -186,15 +186,15 @@ nb_path: "nbs/04_embeddings.ipynb"
 <li><code>&amp;ast;embeddings</code> - Non-keyword variable number of strings specifying the embeddings you want to stack</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyStackedEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;distilbert-base-cased&quot;</span><span class="p">)</span>
+<span class="n">And</span> <span class="n">then</span> <span class="n">generate</span> <span class="n">our</span> <span class="n">stacked</span> <span class="n">word</span> <span class="n">embeddings</span> <span class="n">through</span> <span class="n">our</span> <span class="err">`</span><span class="n">embed_text</span><span class="err">`</span> <span class="n">function</span><span class="p">:</span>
+</pre></div>
 <p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b></p>
 <div class="highlight"><pre><span></span><span class="c1">#hide</span>
 <span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyStackedEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;xlnet-base-cased&quot;</span><span class="p">)</span>
 <span class="n">sentences</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_text</span><span class="p">(</span><span class="s2">&quot;This is Albert.  My last name is Einstein.  I like physics and atoms.&quot;</span><span class="p">)</span>
 <span class="n">test_eq</span><span class="p">(</span><span class="n">sentences</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_embedding</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">1536</span><span class="p">]))</span>
-</pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyStackedEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;distilbert-base-cased&quot;</span><span class="p">)</span>
-<span class="n">And</span> <span class="n">then</span> <span class="n">generate</span> <span class="n">our</span> <span class="n">stacked</span> <span class="n">word</span> <span class="n">embeddings</span> <span class="n">through</span> <span class="n">our</span> <span class="err">`</span><span class="n">embed_text</span><span class="err">`</span> <span class="n">function</span><span class="p">:</span>
 </pre></div>
 
 </div>
@@ -291,10 +291,6 @@ nb_path: "nbs/04_embeddings.ipynb"
 </li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyDocumentEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;distilbert-base-cased&quot;</span><span class="p">)</span>
-<span class="n">This</span> <span class="n">time</span> <span class="n">we</span> <span class="n">will</span> <span class="n">use</span> <span class="n">the</span> <span class="err">`</span><span class="n">embed_pool</span><span class="err">`</span> <span class="n">method</span> <span class="n">to</span> <span class="n">generate</span> <span class="err">`</span><span class="n">DocumentPoolEmbeddings</span><span class="err">`</span><span class="o">.</span> <span class="n">These</span> <span class="n">do</span> <span class="n">an</span> <span class="n">average</span> <span class="n">over</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">word</span> <span class="n">embeddings</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">sentence</span><span class="p">:</span>
-</pre></div>
 <p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b></p>
 <div class="highlight"><pre><span></span><span class="c1">#hide</span>
 <span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyDocumentEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;xlnet-base-cased&quot;</span><span class="p">)</span>
@@ -309,6 +305,19 @@ nb_path: "nbs/04_embeddings.ipynb"
 <span class="n">OUTPUT_DIR</span> <span class="o">=</span> <span class="s2">&quot;Path/to/model/output/directory&quot;</span>
 <span class="n">FINETUNED_MODEL_DIR</span> <span class="o">=</span> <span class="s2">&quot;Path/to/finetuned/model/directory&quot;</span>
 <span class="n">doc_embeddings</span> <span class="o">=</span> <span class="n">EasyDocumentEmbeddings</span><span class="p">(</span><span class="n">FINETUNED_MODEL_DIR</span><span class="p">,</span> <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;rnn&quot;</span><span class="p">])</span>
+<span class="n">sc_configs</span> <span class="o">=</span> <span class="p">{</span>
+              <span class="s2">&quot;corpus&quot;</span><span class="p">:</span> <span class="n">corpus</span><span class="p">,</span>
+              <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="n">doc_embeddings</span><span class="p">,</span>
+              <span class="s2">&quot;column_name_map&quot;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">},</span>
+              <span class="s2">&quot;corpus_in_memory&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+              <span class="s2">&quot;predictive_head&quot;</span><span class="p">:</span> <span class="s2">&quot;flair&quot;</span><span class="p">,</span>
+             <span class="p">}</span>
+<span class="n">sc_trainer</span> <span class="o">=</span> <span class="n">SequenceClassifierTrainer</span><span class="p">(</span><span class="o">**</span><span class="n">sc_configs</span><span class="p">)</span>
+</pre></div>
+<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/20c_tutorial.flair_seq_class_trainer.ipynb>Source</a></b></p>
+<div class="highlight"><pre><span></span><span class="n">corpus</span> <span class="o">=</span> <span class="n">TREC_6</span><span class="p">()</span> <span class="c1"># Or path to directory of train.csv, test.csv, dev.csv files at &quot;Path/to/data/directory&quot; </span>
+<span class="n">OUTPUT_DIR</span> <span class="o">=</span> <span class="s2">&quot;Path/to/model/output/directory&quot;</span> 
+<span class="n">doc_embeddings</span> <span class="o">=</span> <span class="n">EasyDocumentEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;rnn&quot;</span><span class="p">])</span>
 <span class="n">sc_configs</span> <span class="o">=</span> <span class="p">{</span>
               <span class="s2">&quot;corpus&quot;</span><span class="p">:</span> <span class="n">corpus</span><span class="p">,</span>
               <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="n">doc_embeddings</span><span class="p">,</span>

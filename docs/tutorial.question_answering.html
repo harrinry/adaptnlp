@@ -50,7 +50,7 @@ nb_path: "nbs/10a_tutorial.question_answering.ipynb"
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Question-Answering">Question Answering<a class="anchor-link" href="#Question-Answering"> </a></h2><p>Question Answering is the NLP task of producing a legible answer from being provided two text inputs: the context and the question in regards to the context.</p>
 <p>Examples of Question Answering models are span-based models that output a start and end index that outline the relevant "answer" from the context provided. With these models, we can extract answers from various questions and queries regarding any unstructured text.</p>
-<p>Below, we'll walk through how we can use AdaptNLP's <a href="/adaptnlpquestion_answering.html#EasyQuestionAnswering"><code>EasyQuestionAnswering</code></a> module to extract span-based text answers from unstructured text using state-of-the-art question answering models.</p>
+<p>Below, we'll walk through how we can use AdaptNLP's <a href="/adaptnlp/question_answering.html#EasyQuestionAnswering"><code>EasyQuestionAnswering</code></a> module to extract span-based text answers from unstructured text using state-of-the-art question answering models.</p>
 
 </div>
 </div>
@@ -63,7 +63,7 @@ nb_path: "nbs/10a_tutorial.question_answering.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>You can use <a href="/adaptnlpquestion_answering.html#EasyQuestionAnswering"><code>EasyQuestionAnswering</code></a> to run span-based question answering models.</p>
+<p>You can use <a href="/adaptnlp/question_answering.html#EasyQuestionAnswering"><code>EasyQuestionAnswering</code></a> to run span-based question answering models.</p>
 <p>Providing a <code>context</code> and <code>query</code>, we get an output of top <code>n_best_size</code> answer predictions along with token span indices and probability scores.</p>
 <p>First we'll import the EasyQuestionAnswering class from AdaptNLP and instantiate it:</p>
 
