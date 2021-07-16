@@ -37,21 +37,12 @@ logger = logging.getLogger(__name__)
 
 # Cell
 class TransformersTokenTagger(AdaptiveModel):
-    """Adaptive model for Transformer's Token Tagger Model
-
-    Usage:
-    ```python
-    >>> tagger = TransformersTokenTagger.load("dbmdz/bert-large-cased-finetuned-conll03-english")
-    >>> tagger.predict(text="Example text", mini_batch_size=32)
-    ```
-
-    **Parameters:**
-
-    * **tokenizer** - A tokenizer object from Huggingface's transformers (TODO) and tokenizers
-    * **model** - A transformers token tagger model
-    """
-
-    def __init__(self, tokenizer: PreTrainedTokenizer, model: PreTrainedModel):
+    "Adaptive model for Transformer's Token Tagger Model"
+    def __init__(
+        self,
+        tokenizer: PreTrainedTokenizer, # A tokenizer object from Huggingface's transformers (TODO) and tokenizers
+        model: PreTrainedModel # A transformers token tagger model
+    ):
         # Load up model and tokenizer
         self.tokenizer = tokenizer
         super().__init__()
@@ -60,13 +51,11 @@ class TransformersTokenTagger(AdaptiveModel):
         self.set_model(model)
 
     @classmethod
-    def load(cls, model_name_or_path: str) -> AdaptiveModel:
-        """Class method for loading and constructing this tagger
-
-        * **model_name_or_path** - A key string of one of Transformer's pre-trained Token Tagger Model or a `HFModelResult`
-
-        Note: To search for valid models, you should use the AdaptNLP `model_hub` API
-        """
+    def load(
+        cls,
+        model_name_or_path: str # A key string of one of Transformer's pre-trained Token Tagger Model or a `HFModelResult`
+    ) -> AdaptiveModel:
+        "Class method for loading and constructing this tagger"
         if isinstance(model_name_or_path, HFModelResult): model_name_or_path = model_name_or_path.name
         tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
         model = AutoModelForTokenClassification.from_pretrained(model_name_or_path)
@@ -75,18 +64,15 @@ class TransformersTokenTagger(AdaptiveModel):
 
     def predict(
         self,
-        text: Union[List[str], str],
-        mini_batch_size: int = 32,
-        grouped_entities: bool = True,
-        **kwargs,
+        text: Union[List[str], str], # String, list of strings, sentences, or list of sentences to run inference on
+        mini_batch_size: int = 32, # Mini batch size
+        grouped_entities: bool = True, # Set True to get whole entity span strings (Default True)
+        **kwargs, # Optional arguments for the Transformers tagger
     ) -> List[List[Dict]]:
         """Predict method for running inference using the pre-trained token tagger model.
-        Returns a list of lists of tagged entities.
 
-        * **text** - String, list of strings, sentences, or list of sentences to run inference on
-        * **mini_batch_size** - Mini batch size
-        * **grouped_entities** - Set True to get whole entity span strings (Default True)
-        * **&ast;&ast;kwargs**(Optional) - Optional arguments for the Transformers tagger
+        **Returns**:
+        A list of lists of tagged entities.
         """
         if isinstance(text, str):
             text = [text]
@@ -256,47 +242,33 @@ class TransformersTokenTagger(AdaptiveModel):
 
 # Cell
 class FlairTokenTagger(AdaptiveModel):
-    """Adaptive Model for Flair's Token Tagger...very basic
-
-    Usage:
-    ```python
-    >>> tagger = FlairTokenTagger.load("flair/chunk-english-fast")
-    >>> tagger.predict(text="Example text", mini_batch_size=32)
-    ```
-
-    **Parameters:**
-
-    * **model_name_or_path** - A key string of one of Flair's pre-trained Token tagger Model
+    """Adaptive Model for Flair's Token Tagger
 
     To find a list of available models, see [here](https://huggingface.co/models?filter=flair)
     """
 
-    def __init__(self, model_name_or_path: str):
+    def __init__(
+        self,
+        model_name_or_path: str # A key string of one of Flair's pre-trained Token tagger Model
+    ):
         self.tagger = SequenceTagger.load(model_name_or_path)
 
     @classmethod
-    def load(cls, model_name_or_path: str) -> AdaptiveModel:
-        """Class method for loading a constructing this tagger
-
-        * **model_name_or_path** - A key string of one of Flair's pre-trained Token tagger Model
-
-        To find a list of available models, see [here](https://huggingface.co/models?filter=flair)
-        """
+    def load(
+        cls,
+        model_name_or_path: str # A key string of one of Flair's pre-trained Token tagger Model
+    ) -> AdaptiveModel:
+        "Class method for loading a constructing this tagger"
         tagger = cls(model_name_or_path)
         return tagger
 
     def predict(
         self,
-        text: Union[List[Sentence], Sentence, List[str], str],
-        mini_batch_size: int = 32,
-        **kwargs,
+        text: Union[List[Sentence], Sentence, List[str], str], # String, list of strings, sentences, or list of sentences to run inference on
+        mini_batch_size: int = 32, # Mini batch size
+        **kwargs, # Optional arguments for the Flair tagger
     ) -> List[Sentence]:
-        """Predict method for running inference using the pre-trained token tagger model
-
-        * **text** - String, list of strings, sentences, or list of sentences to run inference on
-        * **mini_batch_size** - Mini batch size
-        * **&ast;&ast;kwargs**(Optional) - Optional arguments for the Flair tagger
-        """
+        "Predict method for running inference using the pre-trained token tagger model"
 
         if isinstance(text, (Sentence, str)):
             text = [text]
@@ -322,33 +294,21 @@ class FlairTokenTagger(AdaptiveModel):
 
 # Cell
 class EasyTokenTagger:
-    """Token level classification models
-
-    Usage:
-
-    ```python
-    >>> tagger = adaptnlp.EasyTokenTagger()
-    >>> tagger.tag_text(text="text you want to tag", model_name_or_path="ner-ontonotes")
-    ```
-    """
+    "Token level classification models"
 
     def __init__(self):
         self.token_taggers: Dict[AdaptiveModel] = defaultdict(bool)
 
     def tag_text(
         self,
-        text: Union[List[Sentence], Sentence, List[str], str],
-        model_name_or_path: Union[str, FlairModelResult, HFModelResult] = "ner-ontonotes",
-        mini_batch_size: int = 32,
-        **kwargs,
+        text: Union[List[Sentence], Sentence, List[str], str], # Text input, it can be a string or any of Flair's `Sentence` input formats
+        model_name_or_path: Union[str, FlairModelResult, HFModelResult] = "ner-ontonotes", # The hosted model name key or model path
+        mini_batch_size: int = 32, # The mini batch size for running inference
+        **kwargs, # Keyword arguments for Flair's `SequenceTagger.predict()` method
     ) -> List[Sentence]:
         """Tags tokens with labels the token classification models have been trained on
 
-        * **text** - Text input, it can be a string or any of Flair's `Sentence` input formats
-        * **model_name_or_path** - The hosted model name key or model path
-        * **mini_batch_size** - The mini batch size for running inference
-        * **&ast;&ast;kwargs** - Keyword arguments for Flair's `SequenceTagger.predict()` method
-        **return** - A list of Flair's `Sentence`'s
+        **Returns**: A list of Flair's `Sentence`'s
         """
         # Load Sequence Tagger Model and Pytorch Module into tagger dict
         name = getattr(model_name_or_path, 'name', model_name_or_path)
@@ -397,16 +357,13 @@ class EasyTokenTagger:
 
     def tag_all(
         self,
-        text: Union[List[Sentence], Sentence, List[str], str],
-        mini_batch_size: int = 32,
-        **kwargs,
+        text: Union[List[Sentence], Sentence, List[str], str], # Text input, it can be a string or any of Flair's `Sentence` input formats
+        mini_batch_size: int = 32, # The mini batch size for running inference
+        **kwargs, # Keyword arguments for Flair's `SequenceTagger.predict()` method
     ) -> List[Sentence]:
         """Tags tokens with all labels from all token classification models
 
-        * **text** - Text input, it can be a string or any of Flair's `Sentence` input formats
-        * **mini_batch_size** - The mini batch size for running inference
-        * **&ast;&ast;kwargs** - Keyword arguments for Flair's `SequenceTagger.predict()` method
-        **return** A list of Flair's `Sentence`'s
+        **Returns**: A list of Flair's `Sentence`'s
         """
         if len(self.token_taggers) == 0:
             print("No token classification models loaded...")

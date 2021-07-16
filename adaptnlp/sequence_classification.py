@@ -44,21 +44,13 @@ logger = logging.getLogger(__name__)
 
 # Cell
 class TransformersSequenceClassifier(AdaptiveModel):
-    """Adaptive model for Transformer's Sequence Classification Model
+    "Adaptive model for Transformer's Sequence Classification Model"
 
-    Usage:
-    ```python
-    >>> classifier = TransformersSequenceClassifier.load('transformers-sc-model')
-    >>> classifier.predict(text='Example text', mini_batch_size=32)
-    ```
-
-    **Parameters:**
-
-    * **tokenizer** - A tokenizer object from Huggingface's transformers (TODO)and tokenizers
-    * **model** - A transformers Sequence Classsifciation model
-    """
-
-    def __init__(self, tokenizer: PreTrainedTokenizer, model: PreTrainedModel):
+    def __init__(
+        self,
+        tokenizer: PreTrainedTokenizer, # A tokenizer object from Huggingface's transformers (TODO)and tokenizers
+        model: PreTrainedModel # A transformers Sequence Classsifciation model
+    ):
         # Load up model and tokenizer
         self.tokenizer = tokenizer
         super().__init__()
@@ -72,11 +64,11 @@ class TransformersSequenceClassifier(AdaptiveModel):
         self.model.to(self.device)
 
     @classmethod
-    def load(cls, model_name_or_path: Union[HFModelResult, str]) -> AdaptiveModel:
-        """Class method for loading and constructing this classifier
-
-        * **model_name_or_path** - A key string of one of Transformer's pre-trained Sequence Classifier Model or a `HFModelResult`
-        """
+    def load(
+        cls,
+        model_name_or_path: Union[HFModelResult, str] # A key string of one of Transformer's pre-trained Sequence Classifier Model or a `HFModelResult`
+    ) -> AdaptiveModel:
+        "Class method for loading and constructing this classifier"
         if isinstance(model_name_or_path, HFModelResult): model_name_or_path = model_name_or_path.name
         tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
         model = AutoModelForSequenceClassification.from_pretrained(model_name_or_path)
@@ -85,16 +77,11 @@ class TransformersSequenceClassifier(AdaptiveModel):
 
     def predict(
         self,
-        text: Union[List[Sentence], Sentence, List[str], str],
-        mini_batch_size: int = 32,
-        **kwargs,
+        text: Union[List[Sentence], Sentence, List[str], str], # String, list of strings, sentences, or list of sentences to run inference on
+        mini_batch_size: int = 32, # Mini batch size
+        **kwargs, # Optional arguments for the Transformers classifier
     ) -> List[Sentence]:
-        """Predict method for running inference using the pre-trained sequence classifier model
-
-        * **text** - String, list of strings, sentences, or list of sentences to run inference on
-        * **mini_batch_size** - Mini batch size
-        * **&ast;&ast;kwargs**(Optional) - Optional arguments for the Transformers classifier
-        """
+        "Predict method for running inference using the pre-trained sequence classifier model"
         id2label = self.model.config.id2label
         sentences = text
         results: List[Sentence] = []
@@ -186,23 +173,14 @@ class TransformersSequenceClassifier(AdaptiveModel):
 
     def train(
         self,
-        training_args: TrainingArguments,
-        train_dataset: datasets.Dataset,
-        eval_dataset: datasets.Dataset,
-        text_col_nm: str = 'text',
-        label_col_nm: str = 'label',
-        compute_metrics: Callable = None,
+        training_args: TrainingArguments, # Transformers `TrainingArguments` object model
+        train_dataset: datasets.Dataset, # Training `Dataset` class object from the datasets library
+        eval_dataset: datasets.Dataset, # Eval `Dataset` class object from the datasets library
+        text_col_nm: str = 'text', # Name of the text feature column used as training data (Default 'text')
+        label_col_nm: str = 'label', # Name of the label feature column (Default 'label')
+        compute_metrics: Callable = None, # Custom metrics function callable for `transformers.Trainer`'s compute metrics
     ) -> None:
-        """Trains and/or finetunes the sequence classification model
-
-        * **training_args** - Transformers `TrainingArguments` object model
-        * **train_dataset** - Training `Dataset` class object from the datasets library
-        * **eval_dataset** - Eval `Dataset` class object from the datasets library
-        * **text_col_nm** - Name of the text feature column used as training data (Default 'text')
-        * **label_col_nm** - Name of the label feature column (Default 'label')
-        * **compute_metrics** - Custom metrics function callable for `transformers.Trainer`'s compute metrics
-        * **return** - None
-        """
+        "Trains and/or finetunes the sequence classification model"
         # Set default metrics if None
         if not compute_metrics:
             compute_metrics = self._default_metrics
@@ -261,10 +239,7 @@ class TransformersSequenceClassifier(AdaptiveModel):
         self.tokenizer.save_pretrained(training_args.output_dir)
 
     def evaluate(self) -> Dict[str, float]:
-        """Evaluates model specified
-
-        * **model_name_or_path** - The model name key or model path
-        """
+        "Evaluates model currently in trainer"
         if not self.trainer:
             logger.info('No trainer loaded, must run `classifier.train(...)` first')
             ValueError('Trainer not found, must run train() method')
@@ -301,28 +276,20 @@ class TransformersSequenceClassifier(AdaptiveModel):
 
 # Cell
 class FlairSequenceClassifier(AdaptiveModel):
-    """Adaptive Model for Flair's Sequence Classifier...very basic
+    "Adaptive Model for Flair's Sequence Classifier"
 
-    Usage:
-    ```python
-    >>> classifier = FlairSequenceClassifier.load('sentiment')
-    >>> classifier.predict(text='Example text', mini_batch_size=32)
-    ```
-
-    **Parameters:**
-
-    * **model_name_or_path** - A key string of one of Flair's pre-trained Sequence Classifier Model
-    """
-
-    def __init__(self, model_name_or_path: str):
+    def __init__(
+        self,
+        model_name_or_path: str # A key string of one of Flair's pre-trained Sequence Classifier Model
+    ):
         self.classifier = TextClassifier.load(model_name_or_path)
 
     @classmethod
-    def load(cls, model_name_or_path: Union[HFModelResult, FlairModelResult, str]) -> AdaptiveModel:
-        """Class method for loading a constructing this classifier
-
-        * **model_name_or_path** - A key string of one of Flair's pre-trained Sequence Classifier Model or a `HFModelResult`
-        """
+    def load(
+        cls,
+        model_name_or_path: Union[HFModelResult, FlairModelResult, str] # Class method for loading a constructing this classifier
+    ) -> AdaptiveModel:
+        "Class method for loading a constructing this classifier"
         if risinstance([HFModelResult, FlairModelResult], model_name_or_path):
             model_name_or_path = model_name_or_path.name
         classifier = cls(model_name_or_path)
@@ -330,16 +297,11 @@ class FlairSequenceClassifier(AdaptiveModel):
 
     def predict(
         self,
-        text: Union[List[Sentence], Sentence, List[str], str],
-        mini_batch_size: int = 32,
-        **kwargs,
+        text: Union[List[Sentence], Sentence, List[str], str], # String, list of strings, sentences, or list of sentences to run inference on
+        mini_batch_size: int = 32, # Mini batch size
+        **kwargs, # Optional arguments for the Flair classifier
     ) -> List[Sentence]:
-        """Predict method for running inference using the pre-trained sequence classifier model
-
-        * **text** - String, list of strings, sentences, or list of sentences to run inference on
-        * **mini_batch_size** - Mini batch size
-        * **&ast;&ast;kwargs**(Optional) - Optional arguments for the Flair classifier
-        """
+        "Predict method for running inference using the pre-trained sequence classifier model"
         if isinstance(text, (Sentence, str)):
             text = [text]
         if isinstance(text[0], str):
@@ -365,16 +327,7 @@ from .model_hub import HFModelHub, FlairModelHub
 
 # Cell
 class EasySequenceClassifier:
-    """Sequence classification models
-
-    Usage:
-
-    ```python
-    >>> classifier = EasySequenceClassifier()
-    >>> classifier.tag_text(text='text you want to label', model_name_or_path='en-sentiment')
-    ```
-
-    """
+    "Sequence classification models"
 
     def __init__(self):
         self.sequence_classifiers: Dict[AdaptiveModel] = defaultdict(bool)
@@ -383,17 +336,12 @@ class EasySequenceClassifier:
 
     def tag_text(
         self,
-        text: Union[List[Sentence], Sentence, List[str], str],
-        model_name_or_path: Union[str, FlairModelResult, HFModelResult] = 'en-sentiment',
-        mini_batch_size: int = 32,
+        text: Union[List[Sentence], Sentence, List[str], str], # String, list of strings, `Sentence`, or list of `Sentence`s to be classified
+        model_name_or_path: Union[str, FlairModelResult, HFModelResult] = 'en-sentiment', # The model name key or model path
+        mini_batch_size: int = 32, # (Optional) Keyword Arguments for Flair's `TextClassifier.predict()` method params
         **kwargs,
     ) -> List[Sentence]:
         """Tags a text sequence with labels the sequence classification models have been trained on
-
-        * **text** - String, list of strings, `Sentence`, or list of `Sentence`s to be classified
-        * **model_name_or_path** - The model name key or model path
-        * **mini_batch_size** - The mini batch size for running inference
-        * **&ast;&ast;kwargs** - (Optional) Keyword Arguments for Flair's `TextClassifier.predict()` method params
         **return** A list of Flair's `Sentence`'s
         """
         # Load Text Classifier Model and Pytorch Module into tagger dict
@@ -442,16 +390,12 @@ class EasySequenceClassifier:
 
     def tag_all(
         self,
-        text: Union[List[Sentence], Sentence, List[str], str],
-        mini_batch_size: int = 32,
-        **kwargs,
+        text: Union[List[Sentence], Sentence, List[str], str], # Text input, it can be a string or any of Flair's `Sentence` input formats
+        mini_batch_size: int = 32, # The mini batch size for running inference
+        **kwargs, # (Optional) Keyword Arguments for Flair's `TextClassifier.predict()` method params
     ) -> List[Sentence]:
         """Tags text with all labels from all sequence classification models
-
-        * **text** - Text input, it can be a string or any of Flair's `Sentence` input formats
-        * **mini_batch_size** - The mini batch size for running inference
-        * **&ast;&ast;kwargs** - (Optional) Keyword Arguments for Flair's `TextClassifier.predict()` method params
-        * **return** - A list of Flair's `Sentence`'s
+        **Returns**: A list of Flair's `Sentence`'s
         """
         sentences = text
         for tagger_name in self.sequence_classifiers.keys():
@@ -465,24 +409,16 @@ class EasySequenceClassifier:
 
     def train(
         self,
-        training_args: TrainingArguments,
-        train_dataset: Union[str, Path, datasets.Dataset],
-        eval_dataset: Union[str, Path, datasets.Dataset],
-        model_name_or_path: str = 'bert-base-uncased',
-        text_col_nm: str = 'text',
-        label_col_nm: str = 'label',
-        label_names: List[str] = None,
+        training_args: TrainingArguments, # Transformers `TrainingArguments` object model
+        train_dataset: Union[str, Path, datasets.Dataset], # Training `Dataset` class object from the datasets library or path to CSV file (labels must be int values)
+        eval_dataset: Union[str, Path, datasets.Dataset],  #Eval `Dataset` class object from the datasets library or path to CSV file (labels must be int values)
+        model_name_or_path: str = 'bert-base-uncased', # The model name key or model path
+        text_col_nm: str = 'text', # Name of the text feature column used as training data
+        label_col_nm: str = 'label', # Name of the label feature column
+        label_names: List[str] = None, # (Only when loading CSV) An ordered list of label strings with int label mapped to string via. index value
     ) -> None:
         """Trains and/or finetunes the sequence classification model
-
-        * **model_name_or_path** - The model name key or model path
-        * **training_args** - Transformers `TrainingArguments` object model
-        * **train_dataset** - Training `Dataset` class object from the datasets library or path to CSV file (labels must be int values)
-        * **eval_dataset** - Eval `Dataset` class object from the datasets library or path to CSV file (labels must be int values)
-        * **text_col_nm** - Name of the text feature column used as training data (Default 'text')
-        * **label_col_nm** - Name of the label feature column (Default 'label')
-        * **label_names** - (Only when loading CSV) An ordered list of label strings with int label mapped to string via. index value
-        * **return** - None
+        **Returns**: None
         """
 
         # Dynamically load sequence classifier
@@ -520,14 +456,12 @@ class EasySequenceClassifier:
 
     def release_model(
         self,
-        model_name_or_path: str,
+        model_name_or_path: str, # The model name or key path that you want to unload and release memory from
     ) -> None:
         """
         Unload `model_name_or_path` from classifier and empty cuda memory cache
 
         May leave residual cache per pytorch documentation on torch.cuda.empty_cache()
-
-        * **model_name_or_path** - The model name or key path that you want to unload and release memory from
         """
         if self.sequence_classifiers[model_name_or_path].trainer:
             del self.sequence_classifiers[model_name_or_path].trainer
@@ -536,12 +470,10 @@ class EasySequenceClassifier:
 
     def evaluate(
         self,
-        model_name_or_path: str = 'bert-base-uncased',
+        model_name_or_path: str = 'bert-base-uncased', # The model name key or model path
     ) -> Dict[str, float]:
         """
         Evalate `model_name_or_path`
-
-        * **model_name_or_path** - The model name key or model path
 
         Model does not need to be loaded into memory before calling `.evaluate(model_name)`
         """

@@ -130,14 +130,6 @@ class HFModelHub:
         Optionally can return all models as a `dict` rather than a list
 
         If `user_uploaded` is False, will only return models originating in HuggingFace (such as distilgpt2)
-
-        Usage:
-        ```python
-          hub = HFModelHubSearch()
-          hub.search_model_by_task('summarization')
-          # OR #
-          hub.search_model_by_task(HF_TASKS.SUMMARIZATION)
-      ```
         """
         if task not in _hf_tasks.values():
             raise ValueError(f'''`{task}` is not a valid task.
@@ -154,12 +146,6 @@ class HFModelHub:
         Optionally can return all models as `dict` rather than a list
 
         If `user_uploaded` is False, will only return models originating from HuggingFace (such as distilgpt2)
-
-        Usage:
-          ```python
-          hub = HFModelHubSearch()
-          hub.search_model_by_name('gpt2')
-          ```
         """
         if user_uploaded:
             models = self.api.list_models()
@@ -449,14 +435,6 @@ class FlairModelHub:
         Optionally can return all models as `dict` rather than a list
 
         If `user_uploaded` is False, will only return models originating from Flair (such as flair/chunk-english-fast)
-
-        Usage:
-        ```python
-            hub = FlairModelHubSearch()
-            hub.search_model_by_task('ner')
-            # OR: #
-            hub.search_model_by_task(FLAIR_TASKS.NAMED_ENTITY_RECOGNITION)
-        ```
         """
         if (task not in _flair_tasks.values()) and (task != ''):
             raise ValueError(f'''`{task}` is not a valid task.
