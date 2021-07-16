@@ -79,13 +79,11 @@ nb_path: "nbs/02_model_hub.ipynb"
 </blockquote>
 <p>A list of all HuggingFace tasks for valid API lookup as attribtues to get tab-completion and typo-proofing</p>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#export</span>
-<span class="n">_all_</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;HF_TASKS&#39;</span><span class="p">]</span>
+<p>Sample code from: 02_model_hub.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>View Notebook</a> for more context)</p>
+<div class="highlight"><pre><span></span><span class="n">_all_</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;HF_TASKS&#39;</span><span class="p">]</span>
 </pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#export</span>
-<span class="n">mk_class</span><span class="p">(</span><span class="s1">&#39;HF_TASKS&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">_hf_tasks</span><span class="p">,</span>
+<p>Sample code from: 02_model_hub.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>View Notebook</a> for more context)</p>
+<div class="highlight"><pre><span></span><span class="n">mk_class</span><span class="p">(</span><span class="s1">&#39;HF_TASKS&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">_hf_tasks</span><span class="p">,</span>
         <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;A list of all HuggingFace tasks for valid API lookup as attribtues to get tab-completion and typo-proofing&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -164,14 +162,12 @@ nb_path: "nbs/02_model_hub.ipynb"
 </blockquote>
 <p>A list of all Flair tasks for valid API lookup as attribtues to get tab-completion and typo-proofing</p>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#export</span>
-<span class="n">mk_class</span><span class="p">(</span><span class="s1">&#39;FLAIR_TASKS&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">_flair_tasks</span><span class="p">,</span>
+<p>Sample code from: 02_model_hub.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>View Notebook</a> for more context)</p>
+<div class="highlight"><pre><span></span><span class="n">mk_class</span><span class="p">(</span><span class="s1">&#39;FLAIR_TASKS&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">_flair_tasks</span><span class="p">,</span>
         <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;A list of all Flair tasks for valid API lookup as attribtues to get tab-completion and typo-proofing&quot;</span><span class="p">)</span>
 </pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#export</span>
-<span class="n">_all_</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;FLAIR_TASKS&#39;</span><span class="p">]</span>
+<p>Sample code from: 02_model_hub.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>View Notebook</a> for more context)</p>
+<div class="highlight"><pre><span></span><span class="n">_all_</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;FLAIR_TASKS&#39;</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -303,26 +299,17 @@ nb_path: "nbs/02_model_hub.ipynb"
 <p>A class for interacting with the HF model hub API, and searching for models by name or task</p>
 <p>Can optionally include your HuggingFace login for authorized access (but is not required)</p>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#export</span>
-<span class="n">_flair_hub</span> <span class="o">=</span> <span class="n">FlairModelHub</span><span class="p">()</span>
-<span class="n">_hf_hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
-</pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s2">&quot;nlptown/bert-base&quot;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">classifier</span> <span class="o">=</span> <span class="n">EasySequenceClassifier</span><span class="p">()</span>
-<span class="n">sentences</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> 
-                               <span class="n">model_name_or_path</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
-                               <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">pred</span><span class="p">,</span> <span class="n">truth</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">truth_lbls</span><span class="p">):</span>
-    <span class="n">test_eq</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">truth</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-    <span class="n">test_close</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="n">truth</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">)</span>
-</pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/09a_tutorial.easy_text_generator.ipynb>Source</a></b></p>
+<p>Sample code from: 09a_tutorial.easy_text_generator.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/09a_tutorial.easy_text_generator.ipynb>View Notebook</a> for more context)</p>
 <div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
 <span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;text-generation&#39;</span><span class="p">);</span> <span class="n">models</span>
+</pre></div>
+<p>Sample code from: 04_embeddings.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>View Notebook</a> for more context)</p>
+<div class="highlight"><pre><span></span><span class="n">_flair_hub</span> <span class="o">=</span> <span class="n">FlairModelHub</span><span class="p">()</span>
+<span class="n">_hf_hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+</pre></div>
+<p>Sample code from: 05a_tutorial.token_tagging.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>View Notebook</a> for more context)</p>
+<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;sshleifer/tiny-dbmdz-bert&#39;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span> <span class="n">model</span>
 </pre></div>
 
 </div>
@@ -372,26 +359,16 @@ nb_path: "nbs/02_model_hub.ipynb"
     <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="n">HF_TASKS</span><span class="o">.</span><span class="n">SUMMARIZATION</span><span class="p">)</span>
 </pre></div>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/09a_tutorial.easy_text_generator.ipynb>Source</a></b></p>
+<p>Sample code from: 08_translation.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/08_translation.ipynb>View Notebook</a> for more context)</p>
 <div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
-<span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;text-generation&#39;</span><span class="p">);</span> <span class="n">models</span>
-</pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/08_translation.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s2">&quot;translation&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">translations</span> <span class="o">=</span> <span class="n">translator</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">,</span> <span class="n">t5_prefix</span><span class="o">=</span><span class="s2">&quot;translate English to German&quot;</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">test_eq</span><span class="p">(</span><span class="n">translations</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Das Maschinenlernen wird die Welt in Kürze übernehmen.&#39;</span><span class="p">,</span>
  <span class="s1">&#39;Maschinen können in vielen Sprachen sprechen.&#39;</span><span class="p">])</span>
 </pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
-<span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;summarization&#39;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">models</span>
-<span class="c1">#hide</span>
-<span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;summarization&#39;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">models</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+<p>Sample code from: 09a_tutorial.easy_text_generator.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/09a_tutorial.easy_text_generator.ipynb>View Notebook</a> for more context)</p>
+<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+<span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;text-generation&#39;</span><span class="p">);</span> <span class="n">models</span>
 </pre></div>
 
 </div>
@@ -498,9 +475,16 @@ nb_path: "nbs/02_model_hub.ipynb"
   <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;gpt2&#39;</span><span class="p">)</span>
 </pre></div>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+<p>Sample code from: 05a_tutorial.token_tagging.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>View Notebook</a> for more context)</p>
+<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;sshleifer/tiny-dbmdz-bert&#39;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span> <span class="n">model</span>
+</pre></div>
+<p>Sample code from: 04a_tutorial.embeddings.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>View Notebook</a> for more context)</p>
+<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
+<span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;gpt2&#39;</span><span class="p">);</span> <span class="n">models</span>
+</pre></div>
+<p>Sample code from: 06_sequence_classification.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>View Notebook</a> for more context)</p>
+<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s2">&quot;nlptown/bert-base&quot;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">classifier</span> <span class="o">=</span> <span class="n">EasySequenceClassifier</span><span class="p">()</span>
 <span class="n">sentences</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> 
@@ -509,14 +493,6 @@ nb_path: "nbs/02_model_hub.ipynb"
 <span class="k">for</span> <span class="n">pred</span><span class="p">,</span> <span class="n">truth</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">truth_lbls</span><span class="p">):</span>
     <span class="n">test_eq</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">truth</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
     <span class="n">test_close</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="n">truth</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">)</span>
-</pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
-<span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;gpt2&#39;</span><span class="p">);</span> <span class="n">models</span>
-</pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/05a_tutorial.token_tagging.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;sshleifer/tiny-dbmdz-bert&#39;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span> <span class="n">model</span>
 </pre></div>
 
 </div>
@@ -683,22 +659,12 @@ nb_path: "nbs/02_model_hub.ipynb"
 <p>A class for interacting with the HF model hub API, and searching for Flair models by name or task</p>
 <p>Can optionally include your HuggingFace login for authorized access (but is not required)</p>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#export</span>
-<span class="n">_flair_hub</span> <span class="o">=</span> <span class="n">FlairModelHub</span><span class="p">()</span>
+<p>Sample code from: 04_embeddings.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>View Notebook</a> for more context)</p>
+<div class="highlight"><pre><span></span><span class="n">_flair_hub</span> <span class="o">=</span> <span class="n">FlairModelHub</span><span class="p">()</span>
 <span class="n">_hf_hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
 </pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">hub</span> <span class="o">=</span> <span class="n">FlairModelHub</span><span class="p">()</span>
-<span class="c1">#hide</span>
-<span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;ner&#39;</span><span class="p">)</span>
-<span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">models</span> <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="s2">&quot;Flair&#39;s Private Model Hub&quot;</span><span class="p">]</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">models</span><span class="p">),</span> <span class="mi">15</span><span class="p">)</span>
-</pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b></p>
+<p>Sample code from: 02_model_hub.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>View Notebook</a> for more context)</p>
 <div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">FlairModelHub</span><span class="p">()</span>
-<span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;sentiment&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -754,11 +720,6 @@ nb_path: "nbs/02_model_hub.ipynb"
 <p>Usage:</p>
 <div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">FlairModelHubSearch</span><span class="p">()</span>
   <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;flair/chunk-english-fast&#39;</span><span class="p">)</span>
-</pre></div>
-<p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">FlairModelHub</span><span class="p">()</span>
-<span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;sentiment&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -834,15 +795,6 @@ nb_path: "nbs/02_model_hub.ipynb"
     <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;ner&#39;</span><span class="p">)</span>
     <span class="c1"># OR: #</span>
     <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="n">FLAIR_TASKS</span><span class="o">.</span><span class="n">NAMED_ENTITY_RECOGNITION</span><span class="p">)</span>
-</pre></div>
-<p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/02_model_hub.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">hub</span> <span class="o">=</span> <span class="n">FlairModelHub</span><span class="p">()</span>
-<span class="c1">#hide</span>
-<span class="n">models</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_task</span><span class="p">(</span><span class="s1">&#39;ner&#39;</span><span class="p">)</span>
-<span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">models</span> <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="s2">&quot;Flair&#39;s Private Model Hub&quot;</span><span class="p">]</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">models</span><span class="p">),</span> <span class="mi">15</span><span class="p">)</span>
 </pre></div>
 
 </div>

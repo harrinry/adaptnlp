@@ -69,9 +69,8 @@ nb_path: "nbs/04_embeddings.ipynb"
 <span class="o">&gt;&gt;&gt;</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_text</span><span class="p">(</span><span class="s2">&quot;text you want embeddings for&quot;</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">)</span>
 </pre></div>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b></p>
+<p>Sample code from: 04a_tutorial.embeddings.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>View Notebook</a> for more context)</p>
 <div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyWordEmbeddings</span><span class="p">()</span>
-<span class="n">sentences</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_text</span><span class="p">(</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -114,11 +113,6 @@ nb_path: "nbs/04_embeddings.ipynb"
 <ul>
 <li>A list of Flair's <code>Sentence</code>s</li>
 </ul>
-<p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyWordEmbeddings</span><span class="p">()</span>
-<span class="n">sentences</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_text</span><span class="p">(</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
-</pre></div>
 
 </div>
 
@@ -186,15 +180,13 @@ nb_path: "nbs/04_embeddings.ipynb"
 <li><code>&amp;ast;embeddings</code> - Non-keyword variable number of strings specifying the embeddings you want to stack</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyStackedEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;xlnet-base-cased&quot;</span><span class="p">)</span>
+<p>Sample code from: 04a_tutorial.embeddings.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>View Notebook</a> for more context)</p>
+<div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyStackedEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;distilbert-base-cased&quot;</span><span class="p">)</span>
+</pre></div>
+<p>Sample code from: 04_embeddings.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>View Notebook</a> for more context)</p>
+<div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyStackedEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;xlnet-base-cased&quot;</span><span class="p">)</span>
 <span class="n">sentences</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_text</span><span class="p">(</span><span class="s2">&quot;This is Albert.  My last name is Einstein.  I like physics and atoms.&quot;</span><span class="p">)</span>
 <span class="n">test_eq</span><span class="p">(</span><span class="n">sentences</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_embedding</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">1536</span><span class="p">]))</span>
-</pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyStackedEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;distilbert-base-cased&quot;</span><span class="p">)</span>
-<span class="n">And</span> <span class="n">then</span> <span class="n">generate</span> <span class="n">our</span> <span class="n">stacked</span> <span class="n">word</span> <span class="n">embeddings</span> <span class="n">through</span> <span class="n">our</span> <span class="err">`</span><span class="n">embed_text</span><span class="err">`</span> <span class="n">function</span><span class="p">:</span>
 </pre></div>
 
 </div>
@@ -237,9 +229,8 @@ nb_path: "nbs/04_embeddings.ipynb"
 <li>A list of Flair's <code>Sentence</code>s</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyStackedEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;xlnet-base-cased&quot;</span><span class="p">)</span>
+<p>Sample code from: 04_embeddings.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>View Notebook</a> for more context)</p>
+<div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyStackedEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;xlnet-base-cased&quot;</span><span class="p">)</span>
 <span class="n">sentences</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_text</span><span class="p">(</span><span class="s2">&quot;This is Albert.  My last name is Einstein.  I like physics and atoms.&quot;</span><span class="p">)</span>
 <span class="n">test_eq</span><span class="p">(</span><span class="n">sentences</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_embedding</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">1536</span><span class="p">]))</span>
 </pre></div>
@@ -291,31 +282,18 @@ nb_path: "nbs/04_embeddings.ipynb"
 </li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>Source</a></b></p>
+<p>Sample code from: 04a_tutorial.embeddings.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>View Notebook</a> for more context)</p>
 <div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyDocumentEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;distilbert-base-cased&quot;</span><span class="p">)</span>
-<span class="n">This</span> <span class="n">time</span> <span class="n">we</span> <span class="n">will</span> <span class="n">use</span> <span class="n">the</span> <span class="err">`</span><span class="n">embed_pool</span><span class="err">`</span> <span class="n">method</span> <span class="n">to</span> <span class="n">generate</span> <span class="err">`</span><span class="n">DocumentPoolEmbeddings</span><span class="err">`</span><span class="o">.</span> <span class="n">These</span> <span class="n">do</span> <span class="n">an</span> <span class="n">average</span> <span class="n">over</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">word</span> <span class="n">embeddings</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">sentence</span><span class="p">:</span>
 </pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/20c_tutorial.flair_seq_class_trainer.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="n">corpus</span> <span class="o">=</span> <span class="n">TREC_6</span><span class="p">()</span> <span class="c1"># Or path to directory of train.csv, test.csv, dev.csv files at &quot;Path/to/data/directory&quot; </span>
-<span class="n">OUTPUT_DIR</span> <span class="o">=</span> <span class="s2">&quot;Path/to/model/output/directory&quot;</span> 
-<span class="n">doc_embeddings</span> <span class="o">=</span> <span class="n">EasyDocumentEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;rnn&quot;</span><span class="p">])</span>
-<span class="n">sc_configs</span> <span class="o">=</span> <span class="p">{</span>
-              <span class="s2">&quot;corpus&quot;</span><span class="p">:</span> <span class="n">corpus</span><span class="p">,</span>
-              <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="n">doc_embeddings</span><span class="p">,</span>
-              <span class="s2">&quot;column_name_map&quot;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">},</span>
-              <span class="s2">&quot;corpus_in_memory&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-              <span class="s2">&quot;predictive_head&quot;</span><span class="p">:</span> <span class="s2">&quot;flair&quot;</span><span class="p">,</span>
-             <span class="p">}</span>
-<span class="n">sc_trainer</span> <span class="o">=</span> <span class="n">SequenceClassifierTrainer</span><span class="p">(</span><span class="o">**</span><span class="n">sc_configs</span><span class="p">)</span>
+<p>Sample code from: 20c_tutorial.flair_seq_class_trainer.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/20c_tutorial.flair_seq_class_trainer.ipynb>View Notebook</a> for more context)</p>
+<div class="highlight"><pre><span></span><span class="n">OUTPUT_DIR</span> <span class="o">=</span> <span class="s2">&quot;Path/to/model/output/directory&quot;</span>
+<span class="n">FINETUNED_MODEL_DIR</span> <span class="o">=</span> <span class="s2">&quot;Path/to/finetuned/model/directory&quot;</span>
+<span class="n">doc_embeddings</span> <span class="o">=</span> <span class="n">EasyDocumentEmbeddings</span><span class="p">(</span><span class="n">FINETUNED_MODEL_DIR</span><span class="p">,</span> <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;rnn&quot;</span><span class="p">])</span>
 </pre></div>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyDocumentEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;xlnet-base-cased&quot;</span><span class="p">)</span>
+<p>Sample code from: 04_embeddings.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>View Notebook</a> for more context)</p>
+<div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyDocumentEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;xlnet-base-cased&quot;</span><span class="p">)</span>
 <span class="n">text</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_pool</span><span class="p">(</span><span class="s2">&quot;This is Albert.  My last name is Einstein.  I like physics and atoms.&quot;</span><span class="p">)</span>
 <span class="n">test_eq</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_embedding</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">1536</span><span class="p">]))</span>
-<span class="c1">#hide</span>
-<span class="n">text</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_rnn</span><span class="p">(</span><span class="s2">&quot;This is Albert.  My last name is Einstein.  I like physics and atoms.&quot;</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_embedding</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">512</span><span class="p">]))</span>
 </pre></div>
 
 </div>
@@ -358,9 +336,8 @@ nb_path: "nbs/04_embeddings.ipynb"
 <li>A list of Flair's <code>Sentence</code>s</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyDocumentEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;xlnet-base-cased&quot;</span><span class="p">)</span>
+<p>Sample code from: 04_embeddings.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>View Notebook</a> for more context)</p>
+<div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyDocumentEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;xlnet-base-cased&quot;</span><span class="p">)</span>
 <span class="n">text</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_pool</span><span class="p">(</span><span class="s2">&quot;This is Albert.  My last name is Einstein.  I like physics and atoms.&quot;</span><span class="p">)</span>
 <span class="n">test_eq</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_embedding</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">1536</span><span class="p">]))</span>
 </pre></div>
@@ -397,16 +374,6 @@ nb_path: "nbs/04_embeddings.ipynb"
 <ul>
 <li>A list of Flair's <code>Sentence</code>s</li>
 </ul>
-<p><strong>Usage Examples:</strong></p>
-<p><b><a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>Source</a></b></p>
-<div class="highlight"><pre><span></span><span class="c1">#hide</span>
-<span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyDocumentEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;xlnet-base-cased&quot;</span><span class="p">)</span>
-<span class="n">text</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_pool</span><span class="p">(</span><span class="s2">&quot;This is Albert.  My last name is Einstein.  I like physics and atoms.&quot;</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_embedding</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">1536</span><span class="p">]))</span>
-<span class="c1">#hide</span>
-<span class="n">text</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_rnn</span><span class="p">(</span><span class="s2">&quot;This is Albert.  My last name is Einstein.  I like physics and atoms.&quot;</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_embedding</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">512</span><span class="p">]))</span>
-</pre></div>
 
 </div>
 
