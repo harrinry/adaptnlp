@@ -6,7 +6,7 @@ __all__ = ['logger', 'SequenceResult', 'TransformersSequenceClassifier', 'FlairS
 # Cell
 import logging
 from typing import List, Dict, Union, Tuple, Callable
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 from pathlib import Path
 
 import torch
@@ -51,9 +51,10 @@ class SequenceResult(SentenceResult):
     """
     A result class designed for Sequence Classification models
     """
-    def __init__(self, sentences:List[Sentence]):
+    def __init__(self, sentences:List[Sentence], class_names:list = None):
         super().__init__(sentences)
         self.classes = sentences[0].get_label_names()
+        self.class_names = class_names
 
     @property
     def probabilities(self) -> List[List[tensor]]:
@@ -67,6 +68,8 @@ class SequenceResult(SentenceResult):
         """
         A list of the best classification for each input
         """
+        if self.class_names is not None:
+            return [self.class_names[p.argmax()] for p in self.probabilities]
         return [max(s.labels, key=lambda x: x.score).value for s in self._sentences]
 
     def to_dict(self, detail_level:DetailLevel=DetailLevel.Low):
@@ -74,16 +77,16 @@ class SequenceResult(SentenceResult):
         Returns details about `self` at various detail levels
         """
         o = {
-            'sentences':self.sentences,
-            'classes':self.classes,
-            'probs':self.probs
+            'sentences':self.inputs,
+            'predictions':self.predictions,
+            'probs':self.probabilities
         }
         if detail_level == 'medium' or detail_level == 'high':
             # Add a dictionary of sentence and probabilities, and return the vocab
             o['pairings'] = OrderedDict({
-                s:probs for (s,probs) in zip(self.sentences, self.probs)
+                s:probs for (s,probs) in zip(self.inputs, self.probabilities)
             })
-            o['vocab'] = self.vocab
+            o['classes'] = self.classes
 
         if detail_level == 'high':
             # Add original `Sentences`

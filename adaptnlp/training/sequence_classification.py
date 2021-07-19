@@ -11,9 +11,12 @@ from fastcore.xtras import Path, range_of
 from fastai.basics import * # TODO: Replace with absolutes in fastai_minima
 
 from datasets import Dataset
-from transformers import AutoModelForSequenceClassification, default_data_collator
+from transformers import AutoModelForSequenceClassification, default_data_collator, AutoTokenizer
 
 from .core import * # Core has everything we need so you should always import * with it
+
+from ..sequence_classification import TransformersSequenceClassifier, SequenceResult, DetailLevel
+from typing import List
 
 # Cell
 class SequenceClassificationDatasets(TaskDatasets):
@@ -27,6 +30,7 @@ class SequenceClassificationDatasets(TaskDatasets):
         get_y = ColReader('label'), # A function taking in one item and extracting the label(s)
         splits = None, # Indexs to split the data from
         tokenizer_name:str = None, # The string name of a `HuggingFace` tokenizer or model. If `None`, will not tokenize the dataset.
+        tokenize_func:callable = None, # Optional custom tokenize function for a single item, such as `def _inner(item): return self.tokenizer(item['text'])`
         tokenize:bool = True, # Whether to tokenize the dataset immediatly
         tokenize_kwargs:dict = {'padding':True}, # Some kwargs for when we call the tokenizer
         auto_kwargs:dict = {}, # Some kwargs when calling `AutoTokenizer.from_pretrained`
@@ -48,7 +52,7 @@ class SequenceClassificationDatasets(TaskDatasets):
             'labels':valid_ys
         })
 
-        super().__init__(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs)
+        super().__init__(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_func, tokenize_kwargs, auto_kwargs)
 
 
     @classmethod
@@ -60,6 +64,7 @@ class SequenceClassificationDatasets(TaskDatasets):
         splits = None, # Indexes to split the data with
         tokenizer_name:str = None, # The string name of a `HuggingFace` tokenizer or model. If `None`, will not tokenize the dataset.
         tokenize:bool = True, # Whether to tokenize the dataset immediatly
+        tokenize_func:callable = None, # Optional custom tokenize function for a single item, such as `def _inner(item): return self.tokenizer(item['text'])`
         tokenize_kwargs:dict = {'padding':True}, # Some kwargs for when we call the tokenizer
         auto_kwargs:dict = {}, # Some kwargs when calling `AutoTokenizer.from_pretrained`
     ):
@@ -67,7 +72,7 @@ class SequenceClassificationDatasets(TaskDatasets):
         get_x = ColReader(text_col)
         get_y = ColReader(label_col)
         if splits is None: splits = RandomSplitter(0.2)(range_of(df))
-        return cls(df, get_x, get_y, splits, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs)
+        return cls(df, get_x, get_y, splits, tokenizer_name, tokenize_func, tokenize, tokenize_kwargs, auto_kwargs)
 
     @delegates(DataLoaders)
     def dataloaders(
@@ -101,6 +106,7 @@ class SequenceClassificationTuner(AdaptiveTuner):
         self,
         dls:DataLoaders, # A set of DataLoaders
         model_name:str, # A HuggingFace model
+        tokenizer = None, # A HuggingFace tokenizer
         loss_func = CrossEntropyLossFlat(), # A loss function
         metrics = [accuracy, F1Score()], # Metrics to monitor the training with
         opt_func = Adam, # A fastai or torch Optimizer
@@ -114,12 +120,15 @@ class SequenceClassificationTuner(AdaptiveTuner):
             if arg in kwargs.keys(): kwargs.pop(arg) # Pop all existing kwargs
         if hasattr(dls[0], 'categorize'): num_classes = getattr(dls[0].categorize, 'classes', None)
         if num_classes is None: raise ValueError("Could not extrapolate number of classes, please pass it in as a param")
+        if not isinstance(num_classes, int): num_classes = len(num_classes)
         model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=num_classes)
+        if tokenizer is None: tokenizer = AutoTokenizer.from_pretrained(model_name)
 
         super().__init__(
             expose_fastai_api,
             dls = dls,
             model = model,
+            tokenizer = tokenizer,
             loss_func = loss_func,
             metrics = metrics,
             opt_func = opt_func,
@@ -143,6 +152,7 @@ class SequenceClassificationTuner(AdaptiveTuner):
         opt_func = Adam, # A fastai or torch Optimizer
         additional_cbs = None, # Additional Callbacks to have always tied to the Tuner,
         expose_fastai_api = False, # Whether to expose the fastai API
+        tokenize_func:callable = None, # Optional custom tokenize function for a single item, such as `def _inner(item): return self.tokenizer(item['text'])`
         tokenize_kwargs:dict = {'padding':True}, # Some kwargs for when we call the tokenizer
         auto_kwargs:dict = {}, # Some kwargs when calling `AutoTokenizer.from_pretrained`
         **kwargs # Learner kwargs
@@ -152,14 +162,32 @@ class SequenceClassificationTuner(AdaptiveTuner):
             splits = split_func(df)
         except:
             splits = split_func(range_of(df))
-        dls = SequenceClassificationDatasets.from_df(
+        dset = SequenceClassificationDatasets.from_df(
             df,
             text_col,
             label_col,
             splits,
             tokenizer_name=model_name,
             tokenize_kwargs=tokenize_kwargs,
-            auto_kwargs=auto_kwargs
-        ).dataloaders(batch_size, collate_fn)
+            auto_kwargs=auto_kwargs,
+            tokenize_func=tokenize_func
+        )
 
-        return cls(dls, model_name, loss_func, metrics, opt_func, additional_cbs, expose_fastai_api)
+        tokenizer = dset.tokenizer
+
+        dls = dset.dataloaders(batch_size, collate_fn)
+
+        return cls(dls, model_name, tokenizer, loss_func, metrics, opt_func, additional_cbs, expose_fastai_api)
+
+    def predict(
+        self,
+        text:Union[List[str], str], # Some text or list of texts to do inference with
+        bs:int=64, # A batch size to use for multiple texts
+        detail_level:DetailLevel = DetailLevel.Low, # A detail level to return on the predictions
+    ):
+        "Predict some `text` for sequence classification with the currently loaded model"
+        if getattr(self, '_inferencer', None) is None: self._inferencer = TransformersSequenceClassifier(self.tokenizer, self.model)
+        preds = self._inferencer.predict(text,bs)
+        cat = getattr(self.dls, 'categorize', None)
+        vocab = cat.classes if cat is not None else None
+        return SequenceResult(preds, vocab).to_dict(detail_level)
