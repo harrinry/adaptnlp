@@ -437,6 +437,8 @@ class EasySequenceClassifier:
         text: Union[List[Sentence], Sentence, List[str], str],
         model_name_or_path: Union[str, FlairModelResult, HFModelResult] = 'en-sentiment',
         mini_batch_size: int = 32,
+        detail_level:DetailLevel = DetailLevel.Low, # A level of detail to return
+        class_names:list = None, # A list of labels
         **kwargs,
     ) -> List[Sentence]:
         """Tags a text sequence with labels the sequence classification models have been trained on
@@ -485,16 +487,22 @@ class EasySequenceClassifier:
                     self.sequence_classifiers[name] = FlairSequenceClassifier.load(name) # Returning the first should always be non-fast
 
         classifier = self.sequence_classifiers[name]
-        return classifier.predict(
+        out = classifier.predict(
             text=text,
             mini_batch_size=mini_batch_size,
             **kwargs,
         )
+        if detail_level is None: return out
+        res = SequenceResult(out, class_names)
+        return res.to_dict(detail_level)
+
 
     def tag_all(
         self,
         text: Union[List[Sentence], Sentence, List[str], str],
         mini_batch_size: int = 32,
+        detail_level:DetailLevel = DetailLevel.Low,
+        class_names:list = None, # A list of labels
         **kwargs,
     ) -> List[Sentence]:
         """Tags text with all labels from all sequence classification models
@@ -510,9 +518,11 @@ class EasySequenceClassifier:
                 sentences,
                 model_name_or_path=tagger_name,
                 mini_batch_size=mini_batch_size,
+                detail_level = None
                 **kwargs,
             )
-        return sentences
+        res = SequenceResult(out, class_names)
+        return res.to_dict(detail_level)
 
     def train(
         self,
