@@ -210,7 +210,7 @@ class TransformersSequenceClassifier(AdaptiveModel):
         tokenized_text = self.tokenizer.batch_encode_plus(
             sentences,
             return_tensors='pt',
-            pad_to_max_length=True,
+            max_length=None,
             add_special_tokens=True,
         )
 
