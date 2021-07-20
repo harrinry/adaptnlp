@@ -55,6 +55,8 @@ __all__ = [
     "FlairModelHub",
     "HF_TASKS",
     "FLAIR_TASKS",
+    "TaskDatasets",
     "Strategy",
+    "SequenceClassificationDatasets",
     "SequenceClassificationTuner"
 ]
