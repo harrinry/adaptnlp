@@ -19,9 +19,9 @@ from transformers import (
     BartForConditionalGeneration,
 )
 
-from .callback import GeneratorCallback
-from .model import AdaptiveModel
-from .model_hub import HFModelResult, FlairModelResult
+from ..callback import GeneratorCallback
+from ..model import AdaptiveModel
+from ..model_hub import HFModelResult, FlairModelResult
 
 from fastcore.basics import store_attr
 from fastcore.meta import delegates
@@ -154,16 +154,6 @@ class TransformersSummarizer(AdaptiveModel):
         )
 
         return dataset
-
-    def train(
-        self,
-    ):
-        raise NotImplementedError
-
-    def evaluate(
-        self,
-    ):
-        raise NotImplementedError
 
 # Cell
 class EasySummarizer:

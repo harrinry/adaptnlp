@@ -24,10 +24,10 @@ from transformers import (
     AlbertForSequenceClassification,
 )
 
-from .result import DetailLevel
+from ..result import DetailLevel
 
-from .model import AdaptiveModel, DataLoader
-from .model_hub import HFModelResult, FlairModelResult, FlairModelHub, HFModelHub
+from ..model import AdaptiveModel, DataLoader
+from ..model_hub import HFModelResult, FlairModelResult, FlairModelHub, HFModelHub
 
 from fastai_minima.utils import to_detach, apply, to_device
 
@@ -282,16 +282,6 @@ class TransformersTokenTagger(AdaptiveModel):
 
         return answers
 
-    def train(
-        self,
-    ):
-        raise NotImplementedError
-
-    def evaluate(
-        self,
-    ):
-        raise NotImplementedError
-
 # Cell
 class FlairTokenTagger(AdaptiveModel):
     """Adaptive Model for Flair's Token Tagger...very basic
@@ -346,17 +336,6 @@ class FlairTokenTagger(AdaptiveModel):
                 **kwargs,
             )
             return text
-
-    def train(
-        self,
-    ):
-        raise NotImplementedError
-
-    def evaluate(
-        self,
-    ):
-
-        raise NotImplementedError
 
 # Cell
 class EasyTokenTagger:

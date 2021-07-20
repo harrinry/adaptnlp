@@ -26,9 +26,9 @@ from transformers import (
 )
 from transformers.data.processors.squad import SquadResult
 
-from .model import AdaptiveModel, DataLoader
-from .model_hub import HFModelResult
-from .transformers.squad_metrics import (
+from ..model import AdaptiveModel, DataLoader
+from ..model_hub import HFModelResult
+from ..transformers.squad_metrics import (
     compute_predictions_log_probs,
     compute_predictions_logits,
 )
@@ -98,7 +98,7 @@ class QACallback(Callback):
                 self.learn.pred = SquadResult(unique_id, start_logits, end_logits)
 
 # Cell
-from .embeddings import DetailLevel
+from ..embeddings import DetailLevel
 
 class QAResult:
     """
@@ -329,16 +329,6 @@ class TransformersQuestionAnswering(AdaptiveModel):
             )
             examples.append(example)
         return examples
-
-    def train(
-        self,
-    ):
-        raise NotImplementedError
-
-    def evaluate(
-        self,
-    ):
-        raise NotImplementedError
 
 # Cell
 class EasyQuestionAnswering:

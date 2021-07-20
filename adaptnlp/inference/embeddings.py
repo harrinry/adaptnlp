@@ -22,8 +22,8 @@ from flair.embeddings import (
     TransformerWordEmbeddings,
 )
 
-from .model_hub import FlairModelHub, HFModelHub, FlairModelResult, HFModelResult
-from .result import SentenceResult, DetailLevel
+from ..model_hub import FlairModelHub, HFModelHub, FlairModelResult, HFModelResult
+from ..result import SentenceResult, DetailLevel
 
 # Cell
 _flair_hub = FlairModelHub()

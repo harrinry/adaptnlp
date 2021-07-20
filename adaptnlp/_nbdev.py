@@ -86,20 +86,20 @@ modules = ["file_utils.py",
            "callback.py",
            "model_hub.py",
            "model.py",
-           "embeddings.py",
-           "token_classification.py",
-           "sequence_classification.py",
-           "summarization.py",
-           "translation.py",
-           "text_generation.py",
-           "question_answering.py",
+           "inference/embeddings.py",
+           "inference/token_classification.py",
+           "inference/sequence_classification.py",
+           "inference/summarization.py",
+           "inference/translation.py",
+           "inference/text_generation.py",
+           "inference/question_answering.py",
            "transformers/squad_metrics.py",
            "result.py",
            "training/core.py",
            "training/sequence_classification.py",
            "training/language_model.py"]
 
-doc_url = "https://novetta.github.io/adaptnlp"
+doc_url = "https://novetta.github.io/adaptnlp/"
 
 git_url = "https://github.com/novetta/adaptnlp/tree/master/"
 

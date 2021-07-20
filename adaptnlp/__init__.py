@@ -1,6 +1,44 @@
-__version__ = "0.2.3"
+__version__ = "0.2.5"
 
 from pathlib import Path
 
 # global variable like Flair's cache_root
 cache_root = Path.home()/".adaptnlp"
+
+# Inference modules
+from .inference.embeddings import (
+    EasyWordEmbeddings,
+    EasyStackedEmbeddings,
+    EasyDocumentEmbeddings
+)
+
+from .inference.sequence_classification import (
+    EasySequenceClassifier,
+    TransformersSequenceClassifier,
+    FlairSequenceClassifier
+)
+
+from .inference.token_classification import EasyTokenTagger
+from .inference.question_answering import EasyQuestionAnswering, TransformersQuestionAnswering
+from .inference.summarization import EasySummarizer, TransformersSummarizer
+from .inference.translation import EasyTranslator, TransformersTranslator
+from .inference.text_generation import EasyTextGenerator, TransformersTextGenerator
+
+__all__ = [
+    "__version__",
+    "EasyWordEmbeddings",
+    "EasyStackedEmbeddings",
+    "EasyDocumentEmbeddings",
+    "EasySequenceClassifier",
+    "TransformersSequenceClassifier",
+    "FlairSequenceClassifier",
+    "EasyTokenTagger",
+    "EasyQuestionAnswering",
+    "TransformersQuestionAnswering",
+    "EasySummarizer",
+    "TransformersSummarizer",
+    "EasyTranslator",
+    "TransformersTranslator",
+    "EasyTextGenerator",
+    "TransformersTextGenerator"
+]

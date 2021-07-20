@@ -18,14 +18,14 @@ from transformers import (
     T5ForConditionalGeneration,
 )
 
-from .model import AdaptiveModel
-from .callback import GeneratorCallback
+from ..model import AdaptiveModel
+from ..callback import GeneratorCallback
 
 from fastai_minima.utils import apply, to_device
 
 from fastcore.basics import Self
-from .model_hub import HFModelResult, FlairModelResult, HFModelHub, FlairModelHub
-from .result import DetailLevel
+from ..model_hub import HFModelResult, FlairModelResult, HFModelHub, FlairModelHub
+from ..result import DetailLevel
 
 # Cell
 logger = logging.getLogger(__name__)
@@ -182,16 +182,6 @@ class TransformersTranslator(AdaptiveModel):
             tokenized_text['attention_mask'],
         )
         return dataset
-
-    def train(
-        self,
-    ):
-        raise NotImplementedError
-
-    def evaluate(
-        self,
-    ):
-        raise NotImplementedError
 
 # Cell
 class EasyTranslator:

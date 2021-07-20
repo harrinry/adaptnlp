@@ -19,8 +19,8 @@ from transformers import (
 
 from fastprogress.fastprogress import progress_bar
 
-from .model import AdaptiveModel, DataLoader
-from .model_hub import HFModelResult
+from ..model import AdaptiveModel, DataLoader
+from ..model_hub import HFModelResult
 
 from fastai_minima.utils import apply, default_device, to_device
 
@@ -199,16 +199,6 @@ class TransformersTextGenerator(AdaptiveModel):
             self.tokenizer.decode(output, skip_special_tokens=True)
             for output in input_ids
         ]
-
-    def train(
-        self,
-    ):
-        raise NotImplementedError
-
-    def evaluate(
-        self,
-    ):
-        raise NotImplementedError
 
 # Cell
 class EasyTextGenerator:

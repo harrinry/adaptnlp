@@ -34,12 +34,12 @@ from transformers import (
     Trainer,
 )
 
-from .model import AdaptiveModel
-from .model_hub import HFModelResult, FlairModelResult
+from ..model import AdaptiveModel
+from ..model_hub import HFModelResult, FlairModelResult
 
 from fastcore.basics import risinstance
 from fastcore.xtras import Path
-from .result import DetailLevel, SentenceResult
+from ..result import DetailLevel, SentenceResult
 
 from torch import tensor
 
@@ -235,121 +235,6 @@ class TransformersSequenceClassifier(AdaptiveModel):
 
         return dataset
 
-    def train(
-        self,
-        training_args: TrainingArguments,
-        train_dataset: datasets.Dataset,
-        eval_dataset: datasets.Dataset,
-        text_col_nm: str = 'text',
-        label_col_nm: str = 'label',
-        compute_metrics: Callable = None,
-    ) -> None:
-        """Trains and/or finetunes the sequence classification model
-
-        * **training_args** - Transformers `TrainingArguments` object model
-        * **train_dataset** - Training `Dataset` class object from the datasets library
-        * **eval_dataset** - Eval `Dataset` class object from the datasets library
-        * **text_col_nm** - Name of the text feature column used as training data (Default 'text')
-        * **label_col_nm** - Name of the label feature column (Default 'label')
-        * **compute_metrics** - Custom metrics function callable for `transformers.Trainer`'s compute metrics
-        * **return** - None
-        """
-        # Set default metrics if None
-        if not compute_metrics:
-            compute_metrics = self._default_metrics
-
-        # Set datasets.Dataset label values in sequence classifier configuration
-        ## Important NOTE: Updating configurations do not update the sequence classification head module layer
-        ## We are manually initializing a new linear layer for the 'new' labels being trained
-        class_label = train_dataset.features[label_col_nm]
-        config_data = {
-            'num_labels': class_label.num_classes,
-            'id2label': {v: n for v, n in enumerate(class_label.names)},
-            'label2id': {n: v for v, n in enumerate(class_label.names)},
-        }
-        self.model.config.update(config_data)
-        self._mutate_model_head(class_label=class_label)
-
-        # Batch map datasets as torch tensors with tokenizer
-        def tokenize(batch):
-            return self.tokenizer(batch[text_col_nm], padding=True, truncation=True)
-
-        train_dataset = train_dataset.map(
-            tokenize, batch_size=len(train_dataset), batched=True
-        )
-        eval_dataset = eval_dataset.map(
-            tokenize, batch_size=len(eval_dataset), batched=True
-        )
-
-        # Rename label col name to match model forward signature of 'labels' or ['label','label_ids'] since these are addressed by the default collator from transformers
-        train_dataset.rename_column_(
-            original_column_name=label_col_nm, new_column_name='labels'
-        )
-        eval_dataset.rename_column_(
-            original_column_name=label_col_nm, new_column_name='labels'
-        )
-
-        # Set format as torch tensors for training
-        train_dataset.set_format(
-            'torch', columns=['input_ids', 'attention_mask', 'labels']
-        )
-        eval_dataset.set_format(
-            'torch', columns=['input_ids', 'attention_mask', 'labels']
-        )
-
-        # Instantiate transformers trainer
-        self.trainer = Trainer(
-            model=self.model,
-            args=training_args,
-            train_dataset=train_dataset,
-            eval_dataset=eval_dataset,
-            compute_metrics=compute_metrics,
-        )
-
-        # Train and serialize
-        self.trainer.train()
-        self.trainer.save_model()
-        self.tokenizer.save_pretrained(training_args.output_dir)
-
-    def evaluate(self) -> Dict[str, float]:
-        """Evaluates model specified
-
-        * **model_name_or_path** - The model name key or model path
-        """
-        if not self.trainer:
-            logger.info('No trainer loaded, must run `classifier.train(...)` first')
-            ValueError('Trainer not found, must run train() method')
-        return self.trainer.evaluate()
-
-    def _mutate_model_head(self, class_label: ClassLabel) -> None:
-        """Manually intialize new linear layers for prediction heads on specific language models that we're trying to train on"""
-        if risinstance([BertPreTrainedModel, DistilBertPreTrainedModel], self.model):
-            self.model.classifier = nn.Linear(
-                self.model.config.hidden_size, class_label.num_classes
-            )
-            self.model.num_labels = class_label.num_classes
-        elif isinstance(self.model, XLMPreTrainedModel):
-            self.model.num_labels = class_label.num_classes
-        elif isinstance(self.model, XLNetPreTrainedModel):
-            self.model.logits_proj = nn.Linear(
-                self.model.config.d_model, class_label.num_classes
-            )
-            self.model.num_labels = class_label.num_classes
-        elif isinstance(self.model, ElectraPreTrainedModel):
-            self.model.num_labels = class_label.num_classes
-        else:
-            logger.info(f'Sorry, can not train on a model of type {type(self.model)}')
-
-    # Setup default metrics for sequence classification training
-    def _default_metrics(self, pred) -> Dict:
-        labels = pred.label_ids
-        preds = pred.predictions.argmax(-1)
-        precision, recall, f1, _ = precision_recall_fscore_support(
-            labels, preds, average=None
-        )
-        acc = accuracy_score(labels, preds)
-        return {'accuracy': acc, 'f1': f1, 'precision': precision, 'recall': recall}
-
 # Cell
 class FlairSequenceClassifier(AdaptiveModel):
     """Adaptive Model for Flair's Sequence Classifier...very basic
@@ -405,14 +290,8 @@ class FlairSequenceClassifier(AdaptiveModel):
 
         return text
 
-    def train(self):
-        pass
-
-    def evaluate(self):
-        pass
-
 # Cell
-from .model_hub import HFModelHub, FlairModelHub
+from ..model_hub import HFModelHub, FlairModelHub
 
 # Cell
 class EasySequenceClassifier:
@@ -523,118 +402,3 @@ class EasySequenceClassifier:
             )
         res = SequenceResult(out, class_names)
         return res.to_dict(detail_level)
-
-    def train(
-        self,
-        training_args: TrainingArguments,
-        train_dataset: Union[str, Path, datasets.Dataset],
-        eval_dataset: Union[str, Path, datasets.Dataset],
-        model_name_or_path: str = 'bert-base-uncased',
-        text_col_nm: str = 'text',
-        label_col_nm: str = 'label',
-        label_names: List[str] = None,
-    ) -> None:
-        """Trains and/or finetunes the sequence classification model
-
-        * **model_name_or_path** - The model name key or model path
-        * **training_args** - Transformers `TrainingArguments` object model
-        * **train_dataset** - Training `Dataset` class object from the datasets library or path to CSV file (labels must be int values)
-        * **eval_dataset** - Eval `Dataset` class object from the datasets library or path to CSV file (labels must be int values)
-        * **text_col_nm** - Name of the text feature column used as training data (Default 'text')
-        * **label_col_nm** - Name of the label feature column (Default 'label')
-        * **label_names** - (Only when loading CSV) An ordered list of label strings with int label mapped to string via. index value
-        * **return** - None
-        """
-
-        # Dynamically load sequence classifier
-        if not self.sequence_classifiers[model_name_or_path]:
-            try:
-                self.sequence_classifiers[
-                    model_name_or_path
-                ] = TransformersSequenceClassifier.load(model_name_or_path)
-            except ValueError:
-                logger.info('Try transformers model')
-
-        classifier = self.sequence_classifiers[model_name_or_path]
-
-        # Check if csv filepath or `datasets.Dataset`
-        if not isinstance(train_dataset, datasets.Dataset):
-            train_dataset = self._csv2dataset(
-                data_path=train_dataset,
-                label_col_nm=label_col_nm,
-                label_names=label_names,
-            )
-        if not isinstance(eval_dataset, datasets.Dataset):
-            eval_dataset = self._csv2dataset(
-                data_path=eval_dataset,
-                label_col_nm=label_col_nm,
-                label_names=label_names,
-            )
-
-        classifier.train(
-            training_args=training_args,
-            train_dataset=train_dataset,
-            eval_dataset=eval_dataset,
-            text_col_nm=text_col_nm,
-            label_col_nm=label_col_nm,
-        )
-
-    def release_model(
-        self,
-        model_name_or_path: str,
-    ) -> None:
-        """
-        Unload `model_name_or_path` from classifier and empty cuda memory cache
-
-        May leave residual cache per pytorch documentation on torch.cuda.empty_cache()
-
-        * **model_name_or_path** - The model name or key path that you want to unload and release memory from
-        """
-        if self.sequence_classifiers[model_name_or_path].trainer:
-            del self.sequence_classifiers[model_name_or_path].trainer
-        del self.sequence_classifiers[model_name_or_path]
-        torch.cuda.empty_cache()
-
-    def evaluate(
-        self,
-        model_name_or_path: str = 'bert-base-uncased',
-    ) -> Dict[str, float]:
-        """
-        Evalate `model_name_or_path`
-
-        * **model_name_or_path** - The model name key or model path
-
-        Model does not need to be loaded into memory before calling `.evaluate(model_name)`
-        """
-
-        # Dynamically load sequence classifier
-        if not self.sequence_classifiers[model_name_or_path]:
-            try:
-                self.sequence_classifiers[
-                    model_name_or_path
-                ] = TransformersSequenceClassifier.load(model_name_or_path)
-            except ValueError:
-                logger.info('Try transformers model')
-
-        classifier = self.sequence_classifiers[model_name_or_path]
-
-        return classifier.evaluate()
-
-    def _csv2dataset(
-        self,
-        data_path: Union[str, Path],
-        label_col_nm: str,
-        label_names: List[str],
-    ) -> datasets.Dataset:
-        """Loads CSV path as an datasets.Dataset for downstream use"""
-        if not label_names:
-            raise ValueError(
-                'Must pass in `label_names` parameter for training when loading in CSV datasets.'
-            )
-        class_label = datasets.ClassLabel(
-            num_classes=len(label_names), names=label_names
-        )
-        dataset = datasets.load_dataset('csv', data_files=data_path)
-        dataset = dataset['train']
-        dataset.features[label_col_nm] = class_label
-        return dataset
