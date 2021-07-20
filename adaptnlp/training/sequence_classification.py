@@ -15,7 +15,7 @@ from transformers import AutoModelForSequenceClassification, default_data_collat
 
 from .core import * # Core has everything we need so you should always import * with it
 
-from ..sequence_classification import TransformersSequenceClassifier, SequenceResult, DetailLevel
+from ..inference.sequence_classification import TransformersSequenceClassifier, SequenceResult, DetailLevel
 from typing import List
 
 # Cell
