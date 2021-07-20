@@ -98,7 +98,7 @@ class QACallback(Callback):
                 self.learn.pred = SquadResult(unique_id, start_logits, end_logits)
 
 # Cell
-from ..embeddings import DetailLevel
+from ..result import DetailLevel
 
 class QAResult:
     """

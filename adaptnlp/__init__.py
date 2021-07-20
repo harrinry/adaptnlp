@@ -24,6 +24,11 @@ from .inference.summarization import EasySummarizer, TransformersSummarizer
 from .inference.translation import EasyTranslator, TransformersTranslator
 from .inference.text_generation import EasyTextGenerator, TransformersTextGenerator
 
+from .result import DetailLevel
+
+# Huggingface Hub bits
+from .model_hub import HFModelHub, FlairModelHub, HF_TASKS, FLAIR_TASKS
+
 __all__ = [
     "__version__",
     "EasyWordEmbeddings",
@@ -40,5 +45,10 @@ __all__ = [
     "EasyTranslator",
     "TransformersTranslator",
     "EasyTextGenerator",
-    "TransformersTextGenerator"
+    "TransformersTextGenerator",
+    "DetailLevel",
+    "HFModelHub",
+    "FlairModelHub",
+    "HF_TASKS",
+    "FLAIR_TASKS"
 ]

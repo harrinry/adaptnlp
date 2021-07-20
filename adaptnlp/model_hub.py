@@ -49,7 +49,7 @@ _flair_tasks = {
 
 # Cell
 mk_class('FLAIR_TASKS', **_flair_tasks,
-        doc="A list of all Flair tasks for valid API lookup as attribtues to get tab-completion and typo-proofing")
+        doc="A list of all Flair tasks for valid API lookup as attributes to get tab-completion and typo-proofing")
 
 # Cell
 #nbdev_comment _all_ = ['FLAIR_TASKS']
