@@ -29,6 +29,10 @@ from .result import DetailLevel
 # Huggingface Hub bits
 from .model_hub import HFModelHub, FlairModelHub, HF_TASKS, FLAIR_TASKS
 
+# Training API
+from .training.core import Strategy
+from .training.sequence_classification import SequenceClassificationTuner
+
 __all__ = [
     "__version__",
     "EasyWordEmbeddings",
@@ -50,5 +54,7 @@ __all__ = [
     "HFModelHub",
     "FlairModelHub",
     "HF_TASKS",
-    "FLAIR_TASKS"
+    "FLAIR_TASKS",
+    "Strategy",
+    "SequenceClassificationTuner"
 ]
