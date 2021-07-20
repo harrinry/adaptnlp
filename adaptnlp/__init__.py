@@ -30,7 +30,7 @@ from .result import DetailLevel
 from .model_hub import HFModelHub, FlairModelHub, HF_TASKS, FLAIR_TASKS
 
 # Training API
-from .training.core import Strategy
+from .training.core import Strategy, TaskDatasets, AdaptiveTuner
 from .training.sequence_classification import SequenceClassificationTuner
 
 __all__ = [
@@ -56,6 +56,7 @@ __all__ = [
     "HF_TASKS",
     "FLAIR_TASKS",
     "TaskDatasets",
+    "AdaptiveTuner",
     "Strategy",
     "SequenceClassificationDatasets",
     "SequenceClassificationTuner"
