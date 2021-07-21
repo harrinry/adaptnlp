@@ -22,7 +22,7 @@ from torch.utils.data import DataLoader
 from transformers import default_data_collator, AutoTokenizer, AutoModel
 import torch
 
-from typing import List
+from typing import List, Union
 
 # Cell
 #nbdev_comment _all_ = ['Strategy']
@@ -127,6 +127,9 @@ def RandomSplitter(valid_pct=0.2, seed=None):
         return rand_idx[cut:], rand_idx[:cut]
     return _inner
 
+# Internal Cell
+def _base_tok(item, tokenizer, tokenize_kwargs): return tokenizer(item, **tokenize_kwargs)
+
 # Cell
 class TaskDatasets:
     """
@@ -144,14 +147,15 @@ class TaskDatasets:
         tokenize_func:callable = None, # A function to tokenize an item with
         tokenize_kwargs:dict = {}, # Some kwargs for when we call the tokenizer
         auto_kwargs:dict = {}, # Some kwargs when calling `AutoTokenizer.from_pretrained`
-        remove_cols:str = None, # What columns to remove
+        remove_cols:Union[str,List[str]] = None, # What columns to remove
     ):
         self.train = train_dset
         self.valid = valid_dset
         self.tokenizer = None
-        self.remove_cols = remove_cols
+        self.remove_cols = listify(remove_cols)
         if tokenizer_name is not None: self.set_tokenizer(tokenizer_name, **auto_kwargs)
         if tokenize_func is not None: self.tok_func = tokenize_func
+        else: self.tok_func = _base_tok
         if self.tokenizer:
             if 'max_length' in tokenize_kwargs.keys() and self.tokenizer.model_max_length >= tokenize_kwargs['max_length']: pass
             elif 'max_length' in tokenize_kwargs.keys() and self.tokenizer.model_max_length < tokenize_kwargs['max_length']:
@@ -168,8 +172,6 @@ class TaskDatasets:
 
 
     def __getitem__(self, idx): return self.train[idx]
-
-    def tok_func(item, tokenizer, tokenize_kwargs): return tokenizer(item, **tokenize_kwargs)
 
     def _tokenize(self, **kwargs):
         "Tokenize dataset in `self.items` with `kwargs` for `tokenize()`"

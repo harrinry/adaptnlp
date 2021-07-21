@@ -34,6 +34,7 @@ class SequenceClassificationDatasets(TaskDatasets):
         tokenize:bool = True, # Whether to tokenize the dataset immediatly
         tokenize_kwargs:dict = {'padding':True}, # Some kwargs for when we call the tokenizer
         auto_kwargs:dict = {}, # Some kwargs when calling `AutoTokenizer.from_pretrained`
+        remove_columns:list = None, # Names of columns to remove from teh dataset, such as `text`
     ):
         xs = L(L(items).map(get_x)[0].values, use_list=True)
         ys = L(L(items).map(get_y)[0].values, use_list=True)
@@ -52,7 +53,8 @@ class SequenceClassificationDatasets(TaskDatasets):
             'labels':valid_ys
         })
 
-        super().__init__(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_func, tokenize_kwargs, auto_kwargs)
+
+        super().__init__(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_func, tokenize_kwargs, auto_kwargs, remove_columns)
 
 
     @classmethod
@@ -67,12 +69,13 @@ class SequenceClassificationDatasets(TaskDatasets):
         tokenize_func:callable = None, # Optional custom tokenize function for a single item, such as `def _inner(item): return self.tokenizer(item['text'])`
         tokenize_kwargs:dict = {'padding':True}, # Some kwargs for when we call the tokenizer
         auto_kwargs:dict = {}, # Some kwargs when calling `AutoTokenizer.from_pretrained`
+        remove_columns:list = None, # Names of columns to remove from the dataset, such as `text`
     ):
         "Builds `SequenceClassificationDatasets` from a `DataFrame` or file path"
         get_x = ColReader(text_col)
         get_y = ColReader(label_col)
         if splits is None: splits = RandomSplitter(0.2)(range_of(df))
-        return cls(df, get_x, get_y, splits, tokenizer_name, tokenize_func, tokenize, tokenize_kwargs, auto_kwargs)
+        return cls(df, get_x, get_y, splits, tokenizer_name, tokenize_func, tokenize, tokenize_kwargs, auto_kwargs, remove_columns)
 
     @delegates(DataLoaders)
     def dataloaders(
@@ -143,6 +146,7 @@ class SequenceClassificationTuner(AdaptiveTuner):
         df:pd.DataFrame, # A Pandas Dataframe or Path to a DataFrame
         text_col:str = 'text', # Name of the column the text is stored
         label_col:str = 'labels', # Name of the column the label(s) are stored
+        remove_columns:Union[str,List[str]] = None, # Name of columns to be removed after tokenizing
         model_name:str = None, # The string name of a huggingFace model
         split_func:callable = RandomSplitter(), # A function which splits the data
         loss_func = CrossEntropyLossFlat(), # A loss function
@@ -170,7 +174,8 @@ class SequenceClassificationTuner(AdaptiveTuner):
             tokenizer_name=model_name,
             tokenize_kwargs=tokenize_kwargs,
             auto_kwargs=auto_kwargs,
-            tokenize_func=tokenize_func
+            tokenize_func=tokenize_func,
+            remove_columns=remove_columns
         )
 
         tokenizer = dset.tokenizer
