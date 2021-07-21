@@ -163,17 +163,3 @@ class AdaptiveModel(ABC):
     ) -> List[Sentence]:
         """ Run inference on the model """
         raise NotImplementedError("Please Implement this method")
-
-    @abstractmethod
-    def train(
-        self,
-    ) -> None:
-        """ Evaluate on the model """
-        raise NotImplementedError("Please Implement this method")
-
-    @abstractmethod
-    def evaluate(
-        self,
-    ) -> None:
-        """ Evaluate on the model """
-        raise NotImplementedError("Please Implement this method")

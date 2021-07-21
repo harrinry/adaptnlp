@@ -193,7 +193,7 @@ class TransformersSequenceClassifier(AdaptiveModel):
             # Initialize and assign labels to each class in each datapoint prediction
             text_sent = Sentence(text)
             for k, v in id2label.items():
-                text_sent.add_label(label_type='sc', value=v, score=pred[k])
+                text_sent.add_label(typename='sc', value=v, score=pred[k])
             results.append(text_sent)
 
         # Order results back into original order
