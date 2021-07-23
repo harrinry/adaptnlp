@@ -236,9 +236,13 @@ class AdaptiveDataLoaders(DataLoaders):
     ):
         "Show a batch of data"
         dl = self[ds_idx]
-        orig_bs = dl.batch_size
-        dl.batch_size = n
         batch = next(iter(self[ds_idx]))
+
+        if n > len(batch):
+            print('`n` is larger than one batch, printing entire batch')
+            n = len(batch)
+        if n < 1:
+            raise ValueError('Tried to show zero samples, please enter a value for `n` greater than 0')
 
         if not self.tokenizer and not raw:
             print("Cannot decode without a tokenizer, printing raw outputs..")
@@ -268,7 +272,6 @@ class AdaptiveDataLoaders(DataLoaders):
 
             for i in range(n):
                 df.loc[i] = [inputs[i], lbls[i]]
-        self[ds_idx].batch_size = orig_bs
         display_df(df)
 
 # Cell
