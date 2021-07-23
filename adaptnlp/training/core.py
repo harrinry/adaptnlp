@@ -256,7 +256,7 @@ class AdaptiveDataLoaders(DataLoaders):
             for i in range(n):
                 new_row = []
                 for key in batch.keys():
-                    new_row += [batch[key][i]]
+                    new_row += [batch[key][i].cpu().numpy()]
                     new_row += [batch[key][i].shape]
                 df.loc[i] = new_row
 
@@ -271,7 +271,7 @@ class AdaptiveDataLoaders(DataLoaders):
             df = pd.DataFrame(columns=['Input Text', 'Label'])
 
             for i in range(n):
-                df.loc[i] = [inputs[i], lbls[i]]
+                df.loc[i] = [inputs[i], lbls[i].cpu().numpy()]
         display_df(df)
 
 # Cell
