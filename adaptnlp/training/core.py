@@ -213,7 +213,7 @@ class TaskDatasets:
         if collate_fn is None: collate_fn = default_data_collator
         train_dl = DataLoader(self.train, shuffle=shuffle_train, collate_fn=collate_fn, batch_size=batch_size, **kwargs)
         valid_dl = DataLoader(self.valid, shuffle=False, collate_fn=collate_fn, batch_size=batch_size, **kwargs)
-        return AdaptiveDataLoaders(train_dl, valid_dl, self.tokenizer)
+        return AdaptiveDataLoaders(train_dl, valid_dl, tokenizer=self.tokenizer)
 
 # Cell
 class AdaptiveDataLoaders(DataLoaders):
@@ -267,7 +267,7 @@ class AdaptiveDataLoaders(DataLoaders):
             )
             lbls = batch['labels']
 
-            assert len(inputs) == len(labels) # if not we have a mismatch = bad
+            assert len(inputs) == len(lbls) # if not we have a mismatch = bad
             df = pd.DataFrame(columns=['Input Text', 'Label'])
 
             for i in range(n):
