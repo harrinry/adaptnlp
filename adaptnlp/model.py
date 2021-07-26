@@ -22,7 +22,7 @@ from fastai.callback.progress import ProgressCallback
 from fastai.learner import Learner
 from fastai.data.core import DataLoaders
 
-from fastai.torch_core import to_device
+from fastai.torch_core import to_device, default_device
 
 from .callback import GatherInputsCallback, SetInputsCallback
 
