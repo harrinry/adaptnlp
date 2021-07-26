@@ -26,8 +26,8 @@ from ..model_hub import HFModelResult, FlairModelResult
 from fastcore.basics import store_attr
 from fastcore.meta import delegates
 
-from fastai_minima.callback.core import Callback, CancelBatchException
-from fastai_minima.utils import apply
+from fastai.callback.core import Callback, CancelBatchException
+from fastai.torch_core import apply
 
 # Cell
 logger = logging.getLogger(__name__)

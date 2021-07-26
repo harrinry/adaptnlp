@@ -21,7 +21,7 @@ from transformers import (
 from ..model import AdaptiveModel
 from ..callback import GeneratorCallback
 
-from fastai_minima.utils import apply, to_device
+from fastai.torch_core import apply, to_device
 
 from fastcore.basics import Self
 from ..model_hub import HFModelResult, FlairModelResult, HFModelHub, FlairModelHub

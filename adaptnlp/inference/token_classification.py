@@ -29,7 +29,7 @@ from ..result import DetailLevel
 from ..model import AdaptiveModel, DataLoader
 from ..model_hub import HFModelResult, FlairModelResult, FlairModelHub, HFModelHub
 
-from fastai_minima.utils import to_detach, apply, to_device
+from fastai.torch_core import to_detach, apply, to_device
 
 from fastcore.basics import Self, risinstance
 from fastcore.xtras import Path

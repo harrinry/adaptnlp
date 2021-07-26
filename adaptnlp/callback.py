@@ -6,7 +6,7 @@ __all__ = ['GatherInputsCallback', 'SetInputsCallback', 'GeneratorCallback']
 from fastcore.basics import store_attr
 from fastcore.meta import delegates
 
-from fastai_minima.callback.core import Callback, CancelBatchException
+from fastai.callback.core import Callback, CancelBatchException
 
 from transformers import PreTrainedModel
 

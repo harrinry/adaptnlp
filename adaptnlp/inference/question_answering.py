@@ -35,8 +35,8 @@ from ..transformers.squad_metrics import (
 
 from fastcore.basics import risinstance, nested_attr, Self, patch, listify
 
-from fastai_minima.callback.core import Callback
-from fastai_minima.utils import apply, to_detach
+from fastai.callback.core import Callback
+from fastai.torch_core import apply, to_detach
 
 # Cell
 logger = logging.getLogger(__name__)

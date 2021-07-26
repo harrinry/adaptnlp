@@ -6,7 +6,7 @@ __all__ = ['HF_TASKS', 'FLAIR_TASKS', 'HFModelResult', 'HFModelHub', 'FLAIR_MODE
 # Cell
 from fastcore.basics import Self, merge
 from fastcore.utils import dict2obj, obj2dict, mk_class
-from fastai_minima.utils import apply
+from fastai.torch_core import apply
 from huggingface_hub.hf_api import ModelInfo, HfApi
 
 from typing import List, Dict
