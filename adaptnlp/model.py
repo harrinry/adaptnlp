@@ -13,7 +13,7 @@ import torch
 from torch import nn
 from torch.utils.data import TensorDataset, DataLoader
 
-from fastcore.basics import noop, store_attr, patch, first
+from fastcore.basics import noop, store_attr, patch, first, ifnone
 from fastcore.meta import delegates
 
 from fastai.callback.core import Callback, GatherPredsCallback
@@ -21,6 +21,8 @@ from fastai.callback.progress import ProgressCallback
 
 from fastai.learner import Learner
 from fastai.data.core import DataLoaders
+
+from fastai.torch_core import to_device
 
 from .callback import GatherInputsCallback, SetInputsCallback
 
