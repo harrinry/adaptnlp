@@ -62,8 +62,8 @@ class SequenceClassificationDatasets(TaskDatasets):
         split_pct=.2, # What % to split the train_df
         tokenize_kwargs:dict={}, # kwargs for the tokenize function
         auto_kwargs:dict={} # kwargs for the AutoTokenizer.from_pretrained constructor
-        ):
-        "Builds `SequenceClassificationDatasets` from a `DataFrame` or file path"
+    ):
+        "Builds `SequenceClassificationDatasets` from a `DataFrame` or set of `DataFrames`"
         if split_func is None: split_func = RandomSplitter(split_pct)
         if valid_df is None:
             train_idxs, valid_idxs = split_func(range_of(train_df))
@@ -80,8 +80,25 @@ class SequenceClassificationDatasets(TaskDatasets):
         return cls(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs, remove_columns=['text'])
 
     @classmethod
-    def from_csvs(cls):
-        raise NotImplementedError()
+    def from_csvs(
+        cls,
+        train_csv:Path, # A training csv file
+        text_col:str, # The name of the text column
+        label_col:str, # The name of the label column
+        tokenizer_name:str, # The name of the tokenizer
+        tokenize:bool=True, # Whether to tokenize immediatly
+        valid_csv:Path=None, # An optional validation csv
+        split_func=None, # Optionally a splitting function similar to RandomSplitter
+        split_pct=.2, # What % to split the train_df
+        tokenize_kwargs:dict={}, # kwargs for the tokenize function
+        auto_kwargs:dict={} # kwargs for the AutoTokenizer.from_pretrained constructor
+    ):
+        "Builds `SequenceClassificationDatasets` from a single csv or set of csvs. A convience constructor for `from_dfs`"
+        train_df = pd.read_csv(train_csv)
+        if valid_csv is not None: valid_df = pd.read_csv(valid_csv)
+        else: valid_df = None
+        return cls.from_dfs(train_df, text_col, label_col, tokenizer_name, tokenize, valid_df, split_func, split_pct, tokenize_kwargs, auto_kwargs)
+
 
     @delegates(DataLoaders)
     def dataloaders(
