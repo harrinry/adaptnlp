@@ -8,7 +8,7 @@ from fastcore.foundation import L
 from fastcore.meta import delegates
 from fastcore.xtras import Path, range_of
 
-from fastai.basics import * # TODO: Replace with absolutes in fastai_minima
+from fastai.basics import *
 
 from datasets import Dataset
 from transformers import AutoModelForSequenceClassification, default_data_collator, AutoTokenizer
@@ -19,63 +19,69 @@ from ..inference.sequence_classification import TransformersSequenceClassifier, 
 from typing import List
 
 # Cell
+def _tokenize(item, tokenizer, tokenize_kwargs): return tokenizer(item['text'], **tokenize_kwargs)
+
+# Cell
 class SequenceClassificationDatasets(TaskDatasets):
     """
     A set of datasets designed for sequence classification
     """
     def __init__(
         self,
-        items, # Some items we can pull x's and y's from
-        get_x = ColReader('text'), # A function taking in one item and extracting the text
-        get_y = ColReader('label'), # A function taking in one item and extracting the label(s)
-        splits = None, # Indexs to split the data from
-        tokenizer_name:str = None, # The string name of a `HuggingFace` tokenizer or model. If `None`, will not tokenize the dataset.
-        tokenize_func:callable = None, # Optional custom tokenize function for a single item, such as `def _inner(item): return self.tokenizer(item['text'])`
-        tokenize:bool = True, # Whether to tokenize the dataset immediatly
-        tokenize_kwargs:dict = {'padding':True}, # Some kwargs for when we call the tokenizer
-        auto_kwargs:dict = {}, # Some kwargs when calling `AutoTokenizer.from_pretrained`
-        remove_columns:list = None, # Names of columns to remove from teh dataset, such as `text`
+        train_dset,
+        valid_dset,
+        tokenizer_name,
+        tokenize,
+        tokenize_kwargs,
+        auto_kwargs,
+        remove_columns
     ):
-        xs = L(L(items).map(get_x)[0].values, use_list=True)
-        ys = L(L(items).map(get_y)[0].values, use_list=True)
-        self.categorize = Categorize(ys)
-        ys = L([self.categorize(y) for y in ys], use_list=True)
-        train_xs, train_ys = xs[splits[0]], ys[splits[0]]
-        valid_xs, valid_ys = xs[splits[1]], ys[splits[1]]
-
-        train_dset = Dataset.from_dict({
-            'text':train_xs,
-            'labels':train_ys
-        })
-
-        valid_dset = Dataset.from_dict({
-            'text':valid_xs,
-            'labels':valid_ys
-        })
-
-
-        super().__init__(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_func, tokenize_kwargs, auto_kwargs, remove_columns)
+        "Constructs TaskDatasets, should not be called implicitly"
+        super().__init__(
+            train_dset,
+            valid_dset,
+            tokenizer_name,
+            tokenize,
+            _tokenize,
+            tokenize_kwargs,
+            auto_kwargs,
+            remove_columns
+        )
 
 
     @classmethod
-    def from_df(
+    def from_dfs(
         cls,
-        df:pd.DataFrame, # A Pandas Dataframe or Path to a DataFrame
-        text_col:str = 'text', # Name of the column the text is stored
-        label_col:str = 'labels', # Name of the column the label(s) are stored
-        splits = None, # Indexes to split the data with
-        tokenizer_name:str = None, # The string name of a `HuggingFace` tokenizer or model. If `None`, will not tokenize the dataset.
-        tokenize:bool = True, # Whether to tokenize the dataset immediatly
-        tokenize_func:callable = None, # Optional custom tokenize function for a single item, such as `def _inner(item): return self.tokenizer(item['text'])`
-        tokenize_kwargs:dict = {'padding':True}, # Some kwargs for when we call the tokenizer
-        auto_kwargs:dict = {}, # Some kwargs when calling `AutoTokenizer.from_pretrained`
-        remove_columns:list = None, # Names of columns to remove from the dataset, such as `text`
-    ):
+        train_df:pd.DataFrame, # A training dataframe
+        text_col:str, # The name of the text column
+        label_col:str, # The name of the label column
+        tokenizer_name:str, # The name of the tokenizer
+        tokenize:bool=True, # Whether to tokenize immediatly
+        valid_df=None, # An optional validation dataframe
+        split_func=None, # Optionally a splitting function similar to RandomSplitter
+        split_pct=.2, # What % to split the train_df
+        tokenize_kwargs:dict={}, # kwargs for the tokenize function
+        auto_kwargs:dict={} # kwargs for the AutoTokenizer.from_pretrained constructor
+        ):
         "Builds `SequenceClassificationDatasets` from a `DataFrame` or file path"
-        get_x = ColReader(text_col)
-        get_y = ColReader(label_col)
-        if splits is None: splits = RandomSplitter(0.2)(range_of(df))
-        return cls(df, get_x, get_y, splits, tokenizer_name, tokenize_func, tokenize, tokenize_kwargs, auto_kwargs, remove_columns)
+        if split_func is None: split_func = RandomSplitter(split_pct)
+        if valid_df is None:
+            train_idxs, valid_idxs = split_func(range_of(train_df))
+            valid_df = train_df.loc[valid_idxs]
+            train_df = train_df.loc[train_idxs]
+
+        train_df = train_df[[text_col,label_col]]
+        valid_df = valid_df[[text_col,label_col]]
+        train_df = train_df.rename(columns={text_col:'text', label_col: 'labels'})
+        valid_df = valid_df.rename(columns={text_col:'text', label_col: 'labels'})
+
+        train_dset = Dataset.from_dict(train_df.to_dict('list'))
+        valid_dset = Dataset.from_dict(valid_df.to_dict('list'))
+        return cls(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs, remove_columns=['text'])
+
+    @classmethod
+    def from_csvs(cls):
+        raise NotImplementedError()
 
     @delegates(DataLoaders)
     def dataloaders(
