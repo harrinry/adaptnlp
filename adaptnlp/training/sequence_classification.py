@@ -158,7 +158,7 @@ class SequenceClassificationDatasets(TaskDatasets):
             self.categorize = MultiCategorize(classes)
         else:
             classes = set()
-            for lbl in lbls: classes.add(lbl)
+            for lbl in train_lbls: classes.add(lbl)
             self.categorize = Categorize(classes)
         train_dset = train_dset.add_column('label', train_lbls)
         valid_dset = valid_dset.add_column('label', valid_lbls)
