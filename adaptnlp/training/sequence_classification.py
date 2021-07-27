@@ -37,7 +37,8 @@ class SequenceClassificationDatasets(TaskDatasets):
         tokenize,
         tokenize_kwargs,
         auto_kwargs,
-        remove_columns
+        remove_columns,
+        categorize
     ):
         "Constructs TaskDatasets, should not be called implicitly"
         super().__init__(
@@ -50,6 +51,7 @@ class SequenceClassificationDatasets(TaskDatasets):
             auto_kwargs,
             remove_columns
         )
+        self.categorize = categorize
 
 
     @classmethod
@@ -88,13 +90,13 @@ class SequenceClassificationDatasets(TaskDatasets):
             for lbl in lbls:
                 sep_l = lbl.split(label_delim)
                 for l in sep_l: classes.add(l)
-            self.categorize = MultiCategorize(classes)
+            categorize = MultiCategorize(classes)
         else:
             classes = set()
             for lbl in lbls: classes.add(lbl)
-            self.categorize = Categorize(classes)
+            categorize = Categorize(classes)
 
-        return cls(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs, remove_columns=['text'])
+        return cls(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs, remove_columns=['text'], categorize)
 
     @classmethod
     def from_csvs(
@@ -155,15 +157,15 @@ class SequenceClassificationDatasets(TaskDatasets):
             for lbl in train_lbls:
                 sep_l = lbl.split(label_delim)
                 for l in sep_l: classes.add(l)
-            self.categorize = MultiCategorize(classes)
+            categorize = MultiCategorize(classes)
         else:
             classes = set()
             for lbl in train_lbls: classes.add(lbl)
-            self.categorize = Categorize(classes)
+            categorize = Categorize(classes)
         train_dset = train_dset.add_column('label', train_lbls)
         valid_dset = valid_dset.add_column('label', valid_lbls)
 
-        return cls(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs, remove_columns=['text'])
+        return cls(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs, remove_columns=['text'], categorize)
 
     @delegates(DataLoaders)
     def dataloaders(
