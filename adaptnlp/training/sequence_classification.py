@@ -9,6 +9,7 @@ from fastcore.meta import delegates
 from fastcore.xtras import Path, range_of
 
 from fastai.basics import *
+from fastai.data.transforms import get_files
 
 from datasets import Dataset
 from transformers import AutoModelForSequenceClassification, default_data_collator, AutoTokenizer
@@ -17,6 +18,8 @@ from .core import * # Core has everything we need so you should always import * 
 
 from ..inference.sequence_classification import TransformersSequenceClassifier, SequenceResult, DetailLevel
 from typing import List
+
+from .arrow_utils import TextNoNewLineDatasetReader
 
 # Cell
 def _tokenize(item, tokenizer, tokenize_kwargs): return tokenizer(item['text'], **tokenize_kwargs)
@@ -57,6 +60,8 @@ class SequenceClassificationDatasets(TaskDatasets):
         label_col:str, # The name of the label column
         tokenizer_name:str, # The name of the tokenizer
         tokenize:bool=True, # Whether to tokenize immediatly
+        is_multicategory:bool=False, # Whether each item has a single label or multiple labels
+        label_delim=' ', # If `is_multicategory`, how to seperate the labels
         valid_df=None, # An optional validation dataframe
         split_func=None, # Optionally a splitting function similar to RandomSplitter
         split_pct=.2, # What % to split the train_df
@@ -77,6 +82,18 @@ class SequenceClassificationDatasets(TaskDatasets):
 
         train_dset = Dataset.from_dict(train_df.to_dict('list'))
         valid_dset = Dataset.from_dict(valid_df.to_dict('list'))
+        lbls = list(train_df['labels'].unique())
+        if is_multicategory:
+            classes = set()
+            for lbl in lbls:
+                sep_l = lbl.split(label_delim)
+                for l in sep_l: classes.add(l)
+            self.categorize = MultiCategorize(classes)
+        else:
+            classes = set()
+            for lbl in lbls: classes.add(lbl)
+            self.categorize = Categorize(classes)
+
         return cls(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs, remove_columns=['text'])
 
     @classmethod
@@ -87,6 +104,8 @@ class SequenceClassificationDatasets(TaskDatasets):
         label_col:str, # The name of the label column
         tokenizer_name:str, # The name of the tokenizer
         tokenize:bool=True, # Whether to tokenize immediatly
+        is_multicategory:bool=False, # Whether each item has a single label or multiple labels
+        label_delim=' ', # If `is_multicategory`, how to seperate the labels
         valid_csv:Path=None, # An optional validation csv
         split_func=None, # Optionally a splitting function similar to RandomSplitter
         split_pct=.2, # What % to split the train_df
@@ -97,8 +116,52 @@ class SequenceClassificationDatasets(TaskDatasets):
         train_df = pd.read_csv(train_csv)
         if valid_csv is not None: valid_df = pd.read_csv(valid_csv)
         else: valid_df = None
-        return cls.from_dfs(train_df, text_col, label_col, tokenizer_name, tokenize, valid_df, split_func, split_pct, tokenize_kwargs, auto_kwargs)
+        return cls.from_dfs(train_df, text_col, label_col, tokenizer_name, tokenize, is_multicategory, label_delim, valid_df, split_func, split_pct, tokenize_kwargs, auto_kwargs)
 
+    @classmethod
+    def from_folders(
+        cls,
+        train_path:Path, # The path to the training data
+        get_label:callable, # A function which grabs the label(s) given a text files `Path`
+        tokenizer_name:str, # The name of the tokenizer
+        tokenize:bool=True, # Whether to tokenize immediatly
+        is_multicategory:bool=False, # Whether each item has a single label or multiple labels
+        label_delim='_', # if `is_multicategory`, how to seperate the labels
+        valid_path:Path=None, # The path to the validation data
+        split_func=None, # Optionally a splitting function similar to RandomSplitter
+        split_pct=.2, # What % to split the items in the `train_path`
+        tokenize_kwargs:dict={}, # kwargs for the tokenize function
+        auto_kwargs:dict={}, # kwargs for the AutoTokenizer.from_pretrained constructor
+    ):
+        "Builds `SequenceClassificationDatasets` from a folder or groups of folders"
+        train_txts = get_files(train_path, extensions='.txt')
+        if valid_path is not None:
+            valid_txts = get_files(valid_path, extensions='.txt')
+        else:
+            if split_func is None:
+                split_func = RandomSplitter(split_pct)
+            train_idxs, valid_idxs = split_func(train_txts)
+            valid_txts = train_txts[valid_idxs]
+            train_txts = train_txts[train_idxs]
+        train_dset = TextNoNewLineDatasetReader(train_txts).read()
+        valid_dset = TextNoNewLineDatasetReader(valid_txts).read()
+
+        train_lbls = [get_label(o) for o in train_txts]
+        valid_lbls = [get_label(o) for o in valid_txts]
+        if is_multicategory:
+            classes = set()
+            for lbl in train_lbls:
+                sep_l = lbl.split(label_delim)
+                for l in sep_l: classes.add(l)
+            self.categorize = MultiCategorize(classes)
+        else:
+            classes = set()
+            for lbl in lbls: classes.add(lbl)
+            self.categorize = Categorize(classes)
+        train_dset = train_dset.add_column('label', train_lbls)
+        valid_dset = valid_dset.add_column('label', valid_lbls)
+
+        return cls(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs, remove_columns=['text'])
 
     @delegates(DataLoaders)
     def dataloaders(

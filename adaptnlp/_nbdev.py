@@ -58,6 +58,7 @@ index = {"GatherInputsCallback": "01_callback.ipynb",
          "ParentLabeller": "14_training.core.ipynb",
          "ColReader": "14_training.core.ipynb",
          "Categorize": "14_training.core.ipynb",
+         "MultiCategorize": "14_training.core.ipynb",
          "RandomSplitter": "14_training.core.ipynb",
          "TaskDatasets": "14_training.core.ipynb",
          "AdaptiveDataLoaders": "14_training.core.ipynb",
@@ -65,7 +66,9 @@ index = {"GatherInputsCallback": "01_callback.ipynb",
          "SequenceClassificationDatasets": "15_training.sequence_classification.ipynb",
          "SequenceClassificationTuner": "15_training.sequence_classification.ipynb",
          "LanguageModelDatasets": "16_training.language_model.ipynb",
-         "LanguageModelTuner": "16_training.language_model.ipynb"}
+         "LanguageModelTuner": "16_training.language_model.ipynb",
+         "TextNoNewLine": "17_training.arrow_utils.ipynb",
+         "TextNoNewLineDatasetReader": "17_training.arrow_utils.ipynb"}
 
 modules = ["callback.py",
            "model_hub.py",
@@ -81,7 +84,8 @@ modules = ["callback.py",
            "result.py",
            "training/core.py",
            "training/sequence_classification.py",
-           "training/language_model.py"]
+           "training/language_model.py",
+           "training/arrow_utils.py"]
 
 doc_url = "https://novetta.github.io/adaptnlp/"
 
