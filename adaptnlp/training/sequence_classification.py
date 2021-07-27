@@ -96,7 +96,7 @@ class SequenceClassificationDatasets(TaskDatasets):
             for lbl in lbls: classes.add(lbl)
             categorize = Categorize(classes)
 
-        return cls(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs, remove_columns=['text'], categorize)
+        return cls(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs, remove_columns=['text'], categorize=categorize)
 
     @classmethod
     def from_csvs(
@@ -165,7 +165,7 @@ class SequenceClassificationDatasets(TaskDatasets):
         train_dset = train_dset.add_column('label', train_lbls)
         valid_dset = valid_dset.add_column('label', valid_lbls)
 
-        return cls(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs, remove_columns=['text'], categorize)
+        return cls(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs, remove_columns=['text'], categorize=categorize)
 
     @delegates(DataLoaders)
     def dataloaders(
