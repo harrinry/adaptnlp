@@ -162,6 +162,8 @@ class SequenceClassificationDatasets(TaskDatasets):
             classes = set()
             for lbl in train_lbls: classes.add(lbl)
             categorize = Categorize(classes)
+        train_lbls = [categorize(lbl) for lbl in train_lbls]
+        valid_lbls = [categorize(lbl) for lbl in valid_lbls]
         train_dset = train_dset.add_column('label', train_lbls)
         valid_dset = valid_dset.add_column('label', valid_lbls)
 
