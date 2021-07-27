@@ -298,8 +298,10 @@ class AdaptiveDataLoaders(DataLoaders):
             assert len(inputs) == len(lbls) # if not we have a mismatch = bad
             df = pd.DataFrame(columns=['Input Text', 'Label'])
 
+            lbls = [self.categorize.decode(o.cpu().numpy()) for in lbls]
+
             for i in range(n):
-                df.loc[i] = [inputs[i], lbls[i].cpu().numpy()]
+                df.loc[i] = [inputs[i], lbls[i]]
         display_df(df)
 
 # Cell
