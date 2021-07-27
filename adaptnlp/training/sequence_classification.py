@@ -143,8 +143,10 @@ class SequenceClassificationDatasets(TaskDatasets):
             train_idxs, valid_idxs = split_func(train_txts)
             valid_txts = train_txts[valid_idxs]
             train_txts = train_txts[train_idxs]
-        train_dset = TextNoNewLineDatasetReader(list(train_txts)).read()
-        valid_dset = TextNoNewLineDatasetReader(list(valid_txts)).read()
+        train_txts = [str(x) for x in train_txts]
+        valid_txts = [str(x) for x in valid_txts]
+        train_dset = TextNoNewLineDatasetReader(train_txts).read()
+        valid_dset = TextNoNewLineDatasetReader(valid_txts).read()
 
         train_lbls = [get_label(o) for o in train_txts]
         valid_lbls = [get_label(o) for o in valid_txts]
