@@ -266,9 +266,9 @@ class AdaptiveDataLoaders(DataLoaders):
         dl = self[ds_idx]
         batch = next(iter(self[ds_idx]))
 
-        if n > len(batch):
+        if n > len(batch['input_ids']):
             print('`n` is larger than one batch, printing entire batch')
-            n = len(batch)
+            n = len(batch['input_ids'])
         if n < 1:
             raise ValueError('Tried to show zero samples, please enter a value for `n` greater than 0')
 
