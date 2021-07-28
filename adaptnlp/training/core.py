@@ -295,11 +295,12 @@ class AdaptiveDataLoaders(DataLoaders):
             )
             lbls = batch['labels']
 
-            assert len(inputs) == len(lbls) # if not we have a mismatch = bad
-            df = pd.DataFrame(columns=['Input Text', 'Label'])
-
-            lbls = [self.categorize.decode(o.cpu().numpy()) for o in lbls]
-
+            df = pd.DataFrame(columns=['Input', 'Label'])
+            if hasattr(self, 'categorize'):
+                lbls = [self.categorize.decode(o.cpu().numpy()) for o in lbls]
+            else:
+                # It's a language model
+                lbls = self.tokenizer.batch_decode(lbls, skip_special_tokens=True)
             for i in range(n):
                 df.loc[i] = [inputs[i], lbls[i]]
         display_df(df)

@@ -40,7 +40,7 @@ class SequenceClassificationDatasets(TaskDatasets):
         remove_columns,
         categorize
     ):
-        "Constructs TaskDatasets, should not be called implicitly"
+        "Constructs TaskDatasets, should not be called explicitly"
         super().__init__(
             train_dset,
             valid_dset,
@@ -74,8 +74,8 @@ class SequenceClassificationDatasets(TaskDatasets):
         if split_func is None: split_func = RandomSplitter(split_pct)
         if valid_df is None:
             train_idxs, valid_idxs = split_func(range_of(train_df))
-            valid_df = train_df.loc[valid_idxs]
-            train_df = train_df.loc[train_idxs]
+            valid_df = train_df.iloc[valid_idxs]
+            train_df = train_df.iloc[train_idxs]
 
         train_df = train_df[[text_col,label_col]]
         valid_df = valid_df[[text_col,label_col]]
@@ -96,7 +96,16 @@ class SequenceClassificationDatasets(TaskDatasets):
             for lbl in lbls: classes.add(lbl)
             categorize = Categorize(classes)
 
-        return cls(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs, remove_columns=['text'], categorize=categorize)
+        return cls(
+            train_dset,
+            valid_dset,
+            tokenizer_name,
+            tokenize,
+            tokenize_kwargs,
+            auto_kwargs,
+            remove_columns=['text'],
+            categorize=categorize
+        )
 
     @classmethod
     def from_csvs(
@@ -113,12 +122,26 @@ class SequenceClassificationDatasets(TaskDatasets):
         split_pct=.2, # What % to split the train_df
         tokenize_kwargs:dict={}, # kwargs for the tokenize function
         auto_kwargs:dict={} # kwargs for the AutoTokenizer.from_pretrained constructor
+        **kwargs, # kwargs for `pd.read_csv`
     ):
         "Builds `SequenceClassificationDatasets` from a single csv or set of csvs. A convience constructor for `from_dfs`"
-        train_df = pd.read_csv(train_csv)
-        if valid_csv is not None: valid_df = pd.read_csv(valid_csv)
+        train_df = pd.read_csv(train_csv, **kwargs)
+        if valid_csv is not None: valid_df = pd.read_csv(valid_csv, **kwargs)
         else: valid_df = None
-        return cls.from_dfs(train_df, text_col, label_col, tokenizer_name, tokenize, is_multicategory, label_delim, valid_df, split_func, split_pct, tokenize_kwargs, auto_kwargs)
+        return cls.from_dfs(
+            train_df,
+            text_col,
+            label_col,
+            tokenizer_name,
+            tokenize,
+            is_multicategory,
+            label_delim,
+            valid_df,
+            split_func,
+            split_pct,
+            tokenize_kwargs,
+            auto_kwargs
+        )
 
     @classmethod
     def from_folders(
@@ -167,7 +190,16 @@ class SequenceClassificationDatasets(TaskDatasets):
         train_dset = train_dset.add_column('label', train_lbls)
         valid_dset = valid_dset.add_column('label', valid_lbls)
 
-        return cls(train_dset, valid_dset, tokenizer_name, tokenize, tokenize_kwargs, auto_kwargs, remove_columns=['text'], categorize=categorize)
+        return cls(
+            train_dset,
+            valid_dset,
+            tokenizer_name,
+            tokenize,
+            tokenize_kwargs,
+            auto_kwargs,
+            remove_columns=['text'],
+            categorize=categorize
+        )
 
     @delegates(DataLoaders)
     def dataloaders(
@@ -175,7 +207,9 @@ class SequenceClassificationDatasets(TaskDatasets):
         batch_size=8, # A batch size
         shuffle_train=True, # Whether to shuffle the training dataset
         collate_fn = None, # A custom collation function
-        **kwargs): # Torch DataLoader kwargs
+        **kwargs, # Torch DataLoader kwargs
+    ):
+        "Build DataLoaders from `self`"
         dls = super().dataloaders(batch_size, shuffle_train, collate_fn, **kwargs)
         dls[0].categorize = self.categorize
         return dls
@@ -230,51 +264,6 @@ class SequenceClassificationTuner(AdaptiveTuner):
             cbs=additional_cbs,
             **kwargs
         )
-
-    @delegates(Learner.__init__)
-    @classmethod
-    def from_df(
-        cls,
-        df:pd.DataFrame, # A Pandas Dataframe or Path to a DataFrame
-        text_col:str = 'text', # Name of the column the text is stored
-        label_col:str = 'labels', # Name of the column the label(s) are stored
-        remove_columns:Union[str,List[str]] = None, # Name of columns to be removed after tokenizing
-        model_name:str = None, # The string name of a huggingFace model
-        split_func:callable = RandomSplitter(), # A function which splits the data
-        loss_func = CrossEntropyLossFlat(), # A loss function
-        metrics = [accuracy, F1Score()], # Metrics to monitor the training with
-        batch_size=8, # A batch size
-        collate_fn=default_data_collator, # An optional custom collate function
-        opt_func = Adam, # A fastai or torch Optimizer
-        additional_cbs = None, # Additional Callbacks to have always tied to the Tuner,
-        expose_fastai_api = False, # Whether to expose the fastai API
-        tokenize_func:callable = None, # Optional custom tokenize function for a single item, such as `def _inner(item): return self.tokenizer(item['text'])`
-        tokenize_kwargs:dict = {'padding':True}, # Some kwargs for when we call the tokenizer
-        auto_kwargs:dict = {}, # Some kwargs when calling `AutoTokenizer.from_pretrained`
-        **kwargs # Learner kwargs
-    ):
-        "Convience method to build a `SequenceClassificationTuner` from a Pandas Dataframe"
-        try:
-            splits = split_func(df)
-        except:
-            splits = split_func(range_of(df))
-        dset = SequenceClassificationDatasets.from_df(
-            df,
-            text_col,
-            label_col,
-            splits,
-            tokenizer_name=model_name,
-            tokenize_kwargs=tokenize_kwargs,
-            auto_kwargs=auto_kwargs,
-            tokenize_func=tokenize_func,
-            remove_columns=remove_columns
-        )
-
-        tokenizer = dset.tokenizer
-
-        dls = dset.dataloaders(batch_size, collate_fn)
-
-        return cls(dls, model_name, tokenizer, loss_func, metrics, opt_func, additional_cbs, expose_fastai_api)
 
     def predict(
         self,
