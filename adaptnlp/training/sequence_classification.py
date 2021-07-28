@@ -73,18 +73,16 @@ class SequenceClassificationDatasets(TaskDatasets):
         "Builds `SequenceClassificationDatasets` from a `DataFrame` or set of `DataFrames`"
         if split_func is None: split_func = RandomSplitter(split_pct)
         if valid_df is None:
-            train_idxs, valid_idxs = split_func(range_of(train_df))
+            train_idxs, valid_idxs = split_func(train_df)
             valid_df = train_df.iloc[valid_idxs]
             train_df = train_df.iloc[train_idxs]
 
         train_df = train_df[[text_col,label_col]]
         valid_df = valid_df[[text_col,label_col]]
-        train_df = train_df.rename(columns={text_col:'text', label_col: 'labels'})
-        valid_df = valid_df.rename(columns={text_col:'text', label_col: 'labels'})
+        train_df = train_df.rename(columns={text_col:'text', label_col: 'label'})
+        valid_df = valid_df.rename(columns={text_col:'text', label_col: 'label'})
 
-        train_dset = Dataset.from_dict(train_df.to_dict('list'))
-        valid_dset = Dataset.from_dict(valid_df.to_dict('list'))
-        lbls = list(train_df['labels'].unique())
+        lbls = list(train_df['label'].unique())
         if is_multicategory:
             classes = set()
             for lbl in lbls:
@@ -96,6 +94,12 @@ class SequenceClassificationDatasets(TaskDatasets):
             for lbl in lbls: classes.add(lbl)
             categorize = Categorize(classes)
 
+        train_df['label'] = train_df['label'].apply(lambda x: categorize(x))
+        valid_df['label'] = valid_df['label'].apply(lambda x: categorize(x))
+
+
+        train_dset = Dataset.from_dict(train_df.to_dict('list'))
+        valid_dset = Dataset.from_dict(valid_df.to_dict('list'))
         return cls(
             train_dset,
             valid_dset,

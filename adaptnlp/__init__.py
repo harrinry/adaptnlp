@@ -31,7 +31,7 @@ from .model_hub import HFModelHub, FlairModelHub, HF_TASKS, FLAIR_TASKS
 
 # Training API
 from .training.core import Strategy, TaskDatasets, AdaptiveTuner
-from .training.sequence_classification import SequenceClassificationTuner
+from .training.sequence_classification import SequenceClassificationTuner, SequenceClassificationDatasets
 
 __all__ = [
     "__version__",
