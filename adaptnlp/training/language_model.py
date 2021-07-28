@@ -124,7 +124,7 @@ class LanguageModelDatasets(TaskDatasets):
         split_func:callable=None, # Optionally a splitting function similar to RandomSplitter
         split_pct:float=.1, # What % to split the df between training and validation
         tokenize_kwargs:dict={}, # kwargs for the tokenize function
-        auto_kwargs:dict={} # kwargs for the AutoTokenizer.from_pretrained constructor
+        auto_kwargs:dict={}, # kwargs for the AutoTokenizer.from_pretrained constructor
         **kwargs, # kwargs for `pd.read_csv`
     ):
         "Builds `LanguageModelDatasets` from a single csv or set of csvs. A convience constructor for `from_dfs`"
