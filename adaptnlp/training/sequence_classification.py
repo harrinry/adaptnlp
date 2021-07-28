@@ -121,7 +121,7 @@ class SequenceClassificationDatasets(TaskDatasets):
         split_func=None, # Optionally a splitting function similar to RandomSplitter
         split_pct=.2, # What % to split the train_df
         tokenize_kwargs:dict={}, # kwargs for the tokenize function
-        auto_kwargs:dict={} # kwargs for the AutoTokenizer.from_pretrained constructor
+        auto_kwargs:dict={}, # kwargs for the AutoTokenizer.from_pretrained constructor
         **kwargs, # kwargs for `pd.read_csv`
     ):
         "Builds `SequenceClassificationDatasets` from a single csv or set of csvs. A convience constructor for `from_dfs`"
