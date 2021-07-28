@@ -229,6 +229,18 @@ class TaskDatasets:
         except:
             raise ValueError(f'{tokenizer_name} is not a valid pretrained model on the HuggingFace Hub or a local model')
 
+    def set_classes(
+        self,
+        classes:list, # An ordered list of class names
+    ):
+        "Override the class labels in `self.categorize` it exists, otherwise make it"
+        if hasasttr(self, 'categorize'):
+            self.categorize.classes = L(classes).sorted()
+            self.categorize.o2i = dict(self.categorize.val2idx())
+        else:
+            self.categorize = Categorize(classes)
+
+
     @delegates(DataLoaders)
     def dataloaders(
         self,

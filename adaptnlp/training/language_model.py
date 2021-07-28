@@ -107,8 +107,9 @@ class LanguageModelDatasets(TaskDatasets):
             True,
             tokenize_kwargs,
             auto_kwargs,
-            remove_columns=['text'],
-            block_size, masked_lm
+            ['text'],
+            block_size,
+            masked_lm
         )
 
     @classmethod
@@ -178,7 +179,7 @@ class LanguageModelDatasets(TaskDatasets):
             True,
             tokenize_kwargs,
             auto_kwargs,
-            remove_columns=['text'],
+            ['text'],
             block_size,
             masked_lm
         )
