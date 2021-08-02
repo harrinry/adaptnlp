@@ -19,6 +19,8 @@ from ..inference.text_generation import TransformersTextGenerator
 
 from transformers import DataCollatorForLanguageModeling, default_data_collator
 
+from typing import List
+
 # Internal Cell
 def _group_texts(examples, block_size):
     # Concatenate all texts, based on code by Transformers
