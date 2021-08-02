@@ -274,10 +274,15 @@ class SequenceClassificationTuner(AdaptiveTuner):
         text:Union[List[str], str], # Some text or list of texts to do inference with
         bs:int=64, # A batch size to use for multiple texts
         detail_level:DetailLevel = DetailLevel.Low, # A detail level to return on the predictions
+        class_names:list = None, # A list of labels
     ):
         "Predict some `text` for sequence classification with the currently loaded model"
         if getattr(self, '_inferencer', None) is None: self._inferencer = TransformersSequenceClassifier(self.tokenizer, self.model)
-        preds = self._inferencer.predict(text,bs)
-        cat = getattr(self.dls, 'categorize', None)
-        vocab = cat.classes if cat is not None else None
+        if class_names is None:
+            preds = self._inferencer.predict(text,bs)
+            cat = getattr(self.dls, 'categorize', None)
+            vocab = cat.classes if cat is not None else None
+        else:
+            preds = self._inferencer.predict(text,bs,class_names=class_names)
+            vocab = class_names
         return SequenceResult(preds, vocab).to_dict(detail_level)
