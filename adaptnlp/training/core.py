@@ -27,6 +27,8 @@ from typing import List, Union
 
 import pandas as pd
 
+from torch.cuda.amp import GradScaler
+
 # Cell
 #nbdev_comment _all_ = ['Strategy']
 
@@ -310,6 +312,9 @@ class AdaptiveDataLoaders(DataLoaders):
             df = pd.DataFrame(columns=['Input', 'Label'])
             if hasattr(self, 'categorize'):
                 lbls = [self.categorize.decode(o.cpu().numpy()) for o in lbls]
+            elif len(lbls.shape) < len(batch['input_ids'].shape):
+                # Not a language model, but we can't decode
+                lbls = lbls
             else:
                 # It's a language model
                 lbls = self.tokenizer.batch_decode(lbls, skip_special_tokens=True)
