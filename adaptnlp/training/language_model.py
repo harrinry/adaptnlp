@@ -18,6 +18,7 @@ from .arrow_utils import TextNoNewLineDatasetReader
 from ..inference.text_generation import TransformersTextGenerator
 
 from transformers import DataCollatorForLanguageModeling, default_data_collator
+from datasets import Dataset
 
 from typing import List
 
@@ -65,7 +66,8 @@ class LanguageModelDatasets(TaskDatasets):
             tokenize,
             _tokenize,
             tokenize_kwargs,
-            auto_kwargs)
+            auto_kwargs
+        )
         self.masked_lm = masked_lm
         self.block_size = block_size
         f = partial(_group_texts, block_size=self.block_size)
@@ -89,9 +91,9 @@ class LanguageModelDatasets(TaskDatasets):
         "Builds `LanguageModelDatasets` from a `DataFrame` or file path"
         if split_func is None: split_func = RandomSplitter(split_pct)
         if valid_df is None:
-            train_idxs, valid_idxs = split_func(range_of(df))
-            train_df = df.iloc[train_idxs]
-            valid_df = df.iloc[vaid_idxs]
+            train_idxs, valid_idxs = split_func(range_of(train_df))
+            valid_df = train_df.iloc[valid_idxs]
+            train_df = train_df.iloc[train_idxs]
 
         train_df = train_df[[text_col]]
         valid_df = valid_df[[text_col]]
@@ -102,17 +104,24 @@ class LanguageModelDatasets(TaskDatasets):
         train_dset = Dataset.from_dict(train_df.to_dict('list'))
         valid_dset = Dataset.from_dict(valid_df.to_dict('list'))
 
-        return cls(
+        dsets = TaskDatasets(
             train_dset,
             valid_dset,
-            tokenizer_name,
-            True,
-            tokenize_kwargs,
-            auto_kwargs,
-            ['text'],
-            block_size,
-            masked_lm
+            model_name,
+            False,
+            _tokenize,
+            tokenize_kwargs=tokenize_kwargs,
+            auto_kwargs=auto_kwargs
         )
+
+        f = partial(_group_texts, block_size=512)
+        t = partial(_tokenize, tokenizer=dsets.tokenizer, tokenize_kwargs=tokenize_kwargs)
+        dsets.train = dsets.train.map(t, batched=True, remove_columns=['text'])
+        dsets.valid = dsets.valid.map(t, batched=True, remove_columns=['text'])
+
+        dsets.train = dsets.train.map(f, batched=True)
+        dsets.valid = dsets.valid.map(f, batched=True)
+        return dsets
 
     @classmethod
     def from_csvs(
