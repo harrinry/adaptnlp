@@ -32,6 +32,7 @@ from .model_hub import HFModelHub, FlairModelHub, HF_TASKS, FLAIR_TASKS
 # Training API
 from .training.core import Strategy, TaskDatasets, AdaptiveTuner
 from .training.sequence_classification import SequenceClassificationTuner, SequenceClassificationDatasets
+from .training.language_model import LanguageModelTuner, LanguageModelDatasets
 
 __all__ = [
     "__version__",
@@ -59,5 +60,7 @@ __all__ = [
     "AdaptiveTuner",
     "Strategy",
     "SequenceClassificationDatasets",
-    "SequenceClassificationTuner"
+    "LanguageModelDatasets",
+    "SequenceClassificationTuner",
+    "LanguageModelTuner"
 ]

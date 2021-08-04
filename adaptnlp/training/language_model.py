@@ -107,7 +107,7 @@ class LanguageModelDatasets(TaskDatasets):
         dsets = TaskDatasets(
             train_dset,
             valid_dset,
-            model_name,
+            tokenizer_name,
             False,
             _tokenize,
             tokenize_kwargs=tokenize_kwargs,
