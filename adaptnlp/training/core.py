@@ -414,7 +414,7 @@ class AdaptiveTuner:
         self,
         text:Union[List[str], str] # Some text or list of texts to inference with
     ):
-        "Predict some `text` with the current model. Needs to be implemented for each task seperately"
+        "Predict some `text` with the current model. Needs to be implemented for each task separately"
         raise NotImplementedError()
 
     def export(

@@ -63,7 +63,7 @@ class SequenceClassificationDatasets(TaskDatasets):
         tokenizer_name:str, # The name of the tokenizer
         tokenize:bool=True, # Whether to tokenize immediatly
         is_multicategory:bool=False, # Whether each item has a single label or multiple labels
-        label_delim=' ', # If `is_multicategory`, how to seperate the labels
+        label_delim=' ', # If `is_multicategory`, how to separate the labels
         valid_df=None, # An optional validation dataframe
         split_func=None, # Optionally a splitting function similar to RandomSplitter
         split_pct=.2, # What % to split the train_df
@@ -120,7 +120,7 @@ class SequenceClassificationDatasets(TaskDatasets):
         tokenizer_name:str, # The name of the tokenizer
         tokenize:bool=True, # Whether to tokenize immediatly
         is_multicategory:bool=False, # Whether each item has a single label or multiple labels
-        label_delim=' ', # If `is_multicategory`, how to seperate the labels
+        label_delim=' ', # If `is_multicategory`, how to separate the labels
         valid_csv:Path=None, # An optional validation csv
         split_func=None, # Optionally a splitting function similar to RandomSplitter
         split_pct=.2, # What % to split the train_df
@@ -155,7 +155,7 @@ class SequenceClassificationDatasets(TaskDatasets):
         tokenizer_name:str, # The name of the tokenizer
         tokenize:bool=True, # Whether to tokenize immediatly
         is_multicategory:bool=False, # Whether each item has a single label or multiple labels
-        label_delim='_', # if `is_multicategory`, how to seperate the labels
+        label_delim='_', # if `is_multicategory`, how to separate the labels
         valid_path:Path=None, # The path to the validation data
         split_func=None, # Optionally a splitting function similar to RandomSplitter
         split_pct=.2, # What % to split the items in the `train_path`
