@@ -239,6 +239,7 @@ class LanguageModelTuner(AdaptiveTuner):
         self,
         dls:DataLoaders, # A set of DataLoaders or AdaptiveDataLoaders
         model_name, # A HuggingFace model
+        tokenizer = None, # A HuggingFace tokenizer
         language_model_type:LMType = LMType.Causal, # The type of language model to use
         loss_func = CrossEntropyLossFlat(), # A loss function
         metrics = [Perplexity()], # Metrics to monitor the training with
@@ -270,10 +271,14 @@ class LanguageModelTuner(AdaptiveTuner):
             e.args = [m]
             raise e
 
+        if tokenizer is None: tokenizer = AutoTokenizer.from_pretrained(model_name)
+        tokenizer.pad_token = "<PAD>"
+
         super().__init__(
             expose_fastai_api,
             dls = dls,
             model = model,
+            tokenizer = tokenizer,
             loss_func = loss_func,
             metrics = metrics,
             opt_func = opt_func,
@@ -289,5 +294,9 @@ class LanguageModelTuner(AdaptiveTuner):
         **kwargs, # Optional arguments for `PretrainedModel.generate`
     ):
         "Predict some `text` for sequence classification with the currently loaded model"
-        if getattr(self, '_inferencer', None) is None: self._inferencer = TransformersTextGenerator(self.tokenizer, self.model)
-        return self._inferencer.predict(text, bs, num_tokens_to_produce)
+        if getattr(self, '_inferencer', None) is None:
+
+            if self.tokenizer.pad_token is None:
+                self.tokenizer.pad_token="<PAD>"
+            self._inferencer = TransformersTextGenerator(self.tokenizer,self.model)
+        return self._inferencer.predict(text, bs, num_tokens_to_produce, **kwargs)
