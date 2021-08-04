@@ -159,7 +159,6 @@ class LanguageModelDatasets(TaskDatasets):
     def from_folders(
         cls,
         train_path:Path, # The path to the training data
-        text_col:str, # The name of the text column
         tokenizer_name:str, # The name of the tokenizer
         block_size:int=128, # The size of each block
         masked_lm:bool=False, # Whether the language model is a MLM
@@ -171,7 +170,7 @@ class LanguageModelDatasets(TaskDatasets):
     ):
         "Builds `LanguageModelDatasets` from a folder or group of folders"
         train_txts = get_files(train_path, extensions='.txt')
-        if valid_paths is not None:
+        if valid_path is not None:
             valid_txts = get_files(valid_path, extensions='.txt')
         else:
             if split_func is not None:
@@ -183,17 +182,25 @@ class LanguageModelDatasets(TaskDatasets):
         valid_txts = [str(x) for x in valid_txts]
         train_dset = TextNoNewLineDatasetReader(train_txts).read()
         valid_dset = TextNoNewLineDatasetReader(valid_txts).read()
-        return cls(
+
+        dsets = TaskDatasets(
             train_dset,
             valid_dset,
             tokenizer_name,
-            True,
-            tokenize_kwargs,
-            auto_kwargs,
-            ['text'],
-            block_size,
-            masked_lm
+            False,
+            _tokenize,
+            tokenize_kwargs=tokenize_kwargs,
+            auto_kwargs=auto_kwargs
         )
+
+        f = partial(_group_texts, block_size=512)
+        t = partial(_tokenize, tokenizer=dsets.tokenizer, tokenize_kwargs=tokenize_kwargs)
+        dsets.train = dsets.train.map(t, batched=True, remove_columns=['text'])
+        dsets.valid = dsets.valid.map(t, batched=True, remove_columns=['text'])
+
+        dsets.train = dsets.train.map(f, batched=True)
+        dsets.valid = dsets.valid.map(f, batched=True)
+        return dsets
 
     @delegates(DataLoaders)
     def dataloaders(
