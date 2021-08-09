@@ -54,77 +54,15 @@ nb_path: "nbs/10_question_answering.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="QACallback" class="doc_header"><code>class</code> <code>QACallback</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/question_answering.py#L45" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>QACallback</code>(<strong><code>xmodel_instances</code></strong>, <strong><code>features</code></strong>) :: <code>Callback</code></p>
+<h2 id="QACallback" class="doc_header"><code>class</code> <code>QACallback</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/question_answering.py#L45" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>QACallback</code>(<strong><code>xmodel_instances</code></strong>, <strong><code>features</code></strong>) :: <code>Callback</code></p>
 </blockquote>
 <p>Basic Question Answering Data Callback</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="QAResult" class="doc_header"><code>class</code> <code>QAResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/question_answering.py#L103" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>QAResult</code>(<strong><code>examples</code></strong>:<code>List</code>[<code>SquadExample</code>], <strong><code>top_predictions</code></strong>:<code>Union</code>[<code>str</code>, <code>OrderedDict</code>], <strong><code>all_nbest_json</code></strong>:<code>List</code>[<code>OrderedDict</code>])</p>
-</blockquote>
-<p>A result class designed for Question Answering models</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="TransformersQuestionAnswering" class="doc_header"><code>class</code> <code>TransformersQuestionAnswering</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/question_answering.py#L172" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersQuestionAnswering</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlpmodel.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
-</blockquote>
-<p>Adaptive Model for Transformers Question Answering Model</p>
-<p><strong>Parameters</strong></p>
+<p><strong>Parameters:</strong></p>
 <ul>
-<li><strong>tokenizer</strong> - A tokenizer object from Huggingface's transformers (TODO)and tokenizers *</li>
-<li><strong>model</strong> - A transformer Question Answering model</li>
+<li><p><strong><code>xmodel_instances</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></p>
+</li>
+<li><p><strong><code>features</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></p>
+</li>
 </ul>
 
 </div>
@@ -155,7 +93,92 @@ nb_path: "nbs/10_question_answering.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="EasyQuestionAnswering" class="doc_header"><code>class</code> <code>EasyQuestionAnswering</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/question_answering.py#L344" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyQuestionAnswering</code>()</p>
+<h2 id="QAResult" class="doc_header"><code>class</code> <code>QAResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/question_answering.py#L103" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>QAResult</code>(<strong><code>examples</code></strong>:<code>List</code>[<code>SquadExample</code>], <strong><code>top_predictions</code></strong>:<code>Union</code>[<code>str</code>, <code>OrderedDict</code>], <strong><code>all_nbest_json</code></strong>:<code>List</code>[<code>OrderedDict</code>])</p>
+</blockquote>
+<p>A result class designed for Question Answering models</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><p><strong><code>examples</code></strong> : <em><code>typing.List[transformers.data.processors.squad.SquadExample]</code></em></p>
+</li>
+<li><p><strong><code>top_predictions</code></strong> : <em><code>typing.Union[str, collections.OrderedDict]</code></em></p>
+</li>
+<li><p><strong><code>all_nbest_json</code></strong> : <em><code>typing.List[collections.OrderedDict]</code></em></p>
+</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="TransformersQuestionAnswering" class="doc_header"><code>class</code> <code>TransformersQuestionAnswering</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/question_answering.py#L172" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersQuestionAnswering</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
+</blockquote>
+<p>Adaptive Model for Transformers Question Answering Model</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><strong>tokenizer</strong> - A tokenizer object from Huggingface's transformers (TODO)and tokenizers *</li>
+<li><strong>model</strong> - A transformer Question Answering model</li>
+</ul>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><p><strong><code>tokenizer</code></strong> : <em><code>&lt;class 'transformers.tokenization_utils.PreTrainedTokenizer'&gt;</code></em></p>
+</li>
+<li><p><strong><code>model</code></strong> : <em><code>&lt;class 'transformers.modeling_utils.PreTrainedModel'&gt;</code></em></p>
+</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="EasyQuestionAnswering" class="doc_header"><code>class</code> <code>EasyQuestionAnswering</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/question_answering.py#L334" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyQuestionAnswering</code>()</p>
 </blockquote>
 <p>Question Answering Module</p>
 <p>Usage:</p>

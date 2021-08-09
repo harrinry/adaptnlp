@@ -54,6 +54,53 @@ nb_path: "nbs/01_callback.ipynb"
 <code>attention_masks</code>, and <code>token_type_ids</code>, and saves it to the attribute <code>self.learn.inputs</code>.</p>
 <p>If further data is expected or needed from the batch, the additional Callback(s) should have
 an order of -2</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><p><strong><code>after_create</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>before_fit</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>before_epoch</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>before_train</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>before_batch</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>after_pred</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>after_loss</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>before_backward</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>before_step</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>after_cancel_step</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>after_step</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>after_cancel_batch</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>after_batch</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>after_cancel_train</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>after_train</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>before_validate</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>after_cancel_validate</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>after_validate</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>after_cancel_epoch</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>after_epoch</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>after_cancel_fit</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>after_fit</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+</ul>
 
 </div>
 
@@ -68,6 +115,59 @@ an order of -2</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="GatherInputsCallback.before_validate" class="doc_header"><code>GatherInputsCallback.before_validate</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/callback.py#L26" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>GatherInputsCallback.before_validate</code>()</p>
+</blockquote>
+<p>Sets the number of inputs in <code>self.dls</code></p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="GatherInputsCallback.before_batch" class="doc_header"><code>GatherInputsCallback.before_batch</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/callback.py#L33" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>GatherInputsCallback.before_batch</code>()</p>
+</blockquote>
+<p>Turns <code>self.xb</code> from a tuple to a dictionary of either
+    <code>{"input_ids", "attention_masks", "token_type_ids"}</code>d
+or
+    <code>{"input_ids", "attention_masks"}</code></p>
+
+</div>
+
+</div>
+
+</div>
+</div>
 
 </div>
     {% endraw %}
@@ -85,7 +185,11 @@ an order of -2</p>
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="SetInputsCallback" class="doc_header"><code>class</code> <code>SetInputsCallback</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/callback.py#L51" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SetInputsCallback</code>(<strong><code>as_dict</code></strong>=<em><code>False</code></em>) :: <code>Callback</code></p>
 </blockquote>
-<p>Callback which runs after <a href="/adaptnlpcallback.html#GatherInputsCallback"><code>GatherInputsCallback</code></a> that sets <code>self.learn.xb</code></p>
+<p>Callback which runs after <a href="/adaptnlp/callback.html#GatherInputsCallback"><code>GatherInputsCallback</code></a> that sets <code>self.learn.xb</code></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>as_dict</code></strong> : <em><code>&lt;class 'bool'&gt;</code></em>, <em>optional</em>   <p>Whether to leave `self.xb` as a dictionary of values</p></li>
+</ul>
 
 </div>
 
@@ -115,9 +219,9 @@ an order of -2</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="GeneratorCallback" class="doc_header"><code>class</code> <code>GeneratorCallback</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/callback.py#L69" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>GeneratorCallback</code>(<strong><code>num_beams</code></strong>:<code>int</code>, <strong><code>min_length</code></strong>:<code>int</code>, <strong><code>max_length</code></strong>:<code>int</code>, <strong><code>early_stopping</code></strong>:<code>bool</code>, <strong><code>input_ids</code></strong>:<code>Optional</code>[<code>LongTensor</code>]=<em><code>None</code></em>, <strong><code>do_sample</code></strong>:<code>Optional</code>[<code>bool</code>]=<em><code>None</code></em>, <strong><code>temperature</code></strong>:<code>Optional</code>[<code>float</code>]=<em><code>None</code></em>, <strong><code>top_k</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>top_p</code></strong>:<code>Optional</code>[<code>float</code>]=<em><code>None</code></em>, <strong><code>repetition_penalty</code></strong>:<code>Optional</code>[<code>float</code>]=<em><code>None</code></em>, <strong><code>bad_words_ids</code></strong>:<code>Optional</code>[<code>Iterable</code>[<code>int</code>]]=<em><code>None</code></em>, <strong><code>bos_token_id</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>pad_token_id</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>eos_token_id</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>length_penalty</code></strong>:<code>Optional</code>[<code>float</code>]=<em><code>None</code></em>, <strong><code>no_repeat_ngram_size</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>encoder_no_repeat_ngram_size</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>num_return_sequences</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>max_time</code></strong>:<code>Optional</code>[<code>float</code>]=<em><code>None</code></em>, <strong><code>decoder_start_token_id</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>use_cache</code></strong>:<code>Optional</code>[<code>bool</code>]=<em><code>None</code></em>, <strong><code>num_beam_groups</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>diversity_penalty</code></strong>:<code>Optional</code>[<code>float</code>]=<em><code>None</code></em>, <strong><code>prefix_allowed_tokens_fn</code></strong>:<code>Optional</code>[<code>Callable</code>[<code>int</code>, <code>Tensor</code>, <code>List</code>[<code>int</code>]]]=<em><code>None</code></em>, <strong><code>output_attentions</code></strong>:<code>Optional</code>[<code>bool</code>]=<em><code>None</code></em>, <strong><code>output_hidden_states</code></strong>:<code>Optional</code>[<code>bool</code>]=<em><code>None</code></em>, <strong><code>output_scores</code></strong>:<code>Optional</code>[<code>bool</code>]=<em><code>None</code></em>, <strong><code>return_dict_in_generate</code></strong>:<code>Optional</code>[<code>bool</code>]=<em><code>None</code></em>, <strong><code>forced_bos_token_id</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>forced_eos_token_id</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>remove_invalid_values</code></strong>:<code>Optional</code>[<code>bool</code>]=<em><code>None</code></em>, <strong><code>synced_gpus</code></strong>:<code>Optional</code>[<code>bool</code>]=<em><code>None</code></em>) :: <code>Callback</code></p>
+<h4 id="SetInputsCallback.before_batch" class="doc_header"><code>SetInputsCallback.before_batch</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/callback.py#L62" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>SetInputsCallback.before_batch</code>()</p>
 </blockquote>
-<p>Callback used for models that utilize <code>self.model.generate</code></p>
+<p>Set <code>self.learn.xb</code> to <code>self.learn.inputs.values()</code></p>
 
 </div>
 
@@ -132,6 +236,104 @@ an order of -2</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="GeneratorCallback" class="doc_header"><code>class</code> <code>GeneratorCallback</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/callback.py#L72" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>GeneratorCallback</code>(<strong><code>num_beams</code></strong>:<code>int</code>, <strong><code>min_length</code></strong>:<code>int</code>, <strong><code>max_length</code></strong>:<code>int</code>, <strong><code>early_stopping</code></strong>:<code>bool</code>, <strong><code>input_ids</code></strong>:<code>Optional</code>[<code>LongTensor</code>]=<em><code>None</code></em>, <strong><code>do_sample</code></strong>:<code>Optional</code>[<code>bool</code>]=<em><code>None</code></em>, <strong><code>temperature</code></strong>:<code>Optional</code>[<code>float</code>]=<em><code>None</code></em>, <strong><code>top_k</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>top_p</code></strong>:<code>Optional</code>[<code>float</code>]=<em><code>None</code></em>, <strong><code>repetition_penalty</code></strong>:<code>Optional</code>[<code>float</code>]=<em><code>None</code></em>, <strong><code>bad_words_ids</code></strong>:<code>Optional</code>[<code>Iterable</code>[<code>int</code>]]=<em><code>None</code></em>, <strong><code>bos_token_id</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>pad_token_id</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>eos_token_id</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>length_penalty</code></strong>:<code>Optional</code>[<code>float</code>]=<em><code>None</code></em>, <strong><code>no_repeat_ngram_size</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>encoder_no_repeat_ngram_size</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>num_return_sequences</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>max_time</code></strong>:<code>Optional</code>[<code>float</code>]=<em><code>None</code></em>, <strong><code>max_new_tokens</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>decoder_start_token_id</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>use_cache</code></strong>:<code>Optional</code>[<code>bool</code>]=<em><code>None</code></em>, <strong><code>num_beam_groups</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>diversity_penalty</code></strong>:<code>Optional</code>[<code>float</code>]=<em><code>None</code></em>, <strong><code>prefix_allowed_tokens_fn</code></strong>:<code>Optional</code>[<code>Callable</code>[<code>int</code>, <code>Tensor</code>, <code>List</code>[<code>int</code>]]]=<em><code>None</code></em>, <strong><code>output_attentions</code></strong>:<code>Optional</code>[<code>bool</code>]=<em><code>None</code></em>, <strong><code>output_hidden_states</code></strong>:<code>Optional</code>[<code>bool</code>]=<em><code>None</code></em>, <strong><code>output_scores</code></strong>:<code>Optional</code>[<code>bool</code>]=<em><code>None</code></em>, <strong><code>return_dict_in_generate</code></strong>:<code>Optional</code>[<code>bool</code>]=<em><code>None</code></em>, <strong><code>forced_bos_token_id</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>forced_eos_token_id</code></strong>:<code>Optional</code>[<code>int</code>]=<em><code>None</code></em>, <strong><code>remove_invalid_values</code></strong>:<code>Optional</code>[<code>bool</code>]=<em><code>None</code></em>, <strong><code>synced_gpus</code></strong>:<code>Optional</code>[<code>bool</code>]=<em><code>None</code></em>) :: <code>Callback</code></p>
+</blockquote>
+<p>Callback used for models that utilize <code>self.model.generate</code></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>num_beams</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>  <p>Number of beams for beam search</p></li>
+</ul>
+<ul>
+<li><strong><code>min_length</code></strong> : <em><code>&lt;class 'int'&gt;</code></em> <p>Minimal length of the sequence generated</p></li>
+</ul>
+<ul>
+<li><strong><code>max_length</code></strong> : <em><code>&lt;class 'int'&gt;</code></em> <p>Maximum length of the sequence generated</p></li>
+</ul>
+<ul>
+<li><strong><code>early_stopping</code></strong> : <em><code>&lt;class 'bool'&gt;</code></em>    <p>Whether to do early stopping</p></li>
+</ul>
+<ul>
+<li><p><strong><code>input_ids</code></strong> : <em><code>typing.Union[torch.LongTensor, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>do_sample</code></strong> : <em><code>typing.Union[bool, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>temperature</code></strong> : <em><code>typing.Union[float, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>top_k</code></strong> : <em><code>typing.Union[int, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>top_p</code></strong> : <em><code>typing.Union[float, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>repetition_penalty</code></strong> : <em><code>typing.Union[float, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>bad_words_ids</code></strong> : <em><code>typing.Union[typing.Iterable[int], NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>bos_token_id</code></strong> : <em><code>typing.Union[int, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>pad_token_id</code></strong> : <em><code>typing.Union[int, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>eos_token_id</code></strong> : <em><code>typing.Union[int, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>length_penalty</code></strong> : <em><code>typing.Union[float, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>no_repeat_ngram_size</code></strong> : <em><code>typing.Union[int, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>encoder_no_repeat_ngram_size</code></strong> : <em><code>typing.Union[int, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>num_return_sequences</code></strong> : <em><code>typing.Union[int, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>max_time</code></strong> : <em><code>typing.Union[float, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>max_new_tokens</code></strong> : <em><code>typing.Union[int, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>decoder_start_token_id</code></strong> : <em><code>typing.Union[int, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>use_cache</code></strong> : <em><code>typing.Union[bool, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>num_beam_groups</code></strong> : <em><code>typing.Union[int, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>diversity_penalty</code></strong> : <em><code>typing.Union[float, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>prefix_allowed_tokens_fn</code></strong> : <em><code>typing.Union[typing.Callable[[int, torch.Tensor], typing.List[int]], NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>output_attentions</code></strong> : <em><code>typing.Union[bool, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>output_hidden_states</code></strong> : <em><code>typing.Union[bool, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>output_scores</code></strong> : <em><code>typing.Union[bool, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>return_dict_in_generate</code></strong> : <em><code>typing.Union[bool, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>forced_bos_token_id</code></strong> : <em><code>typing.Union[int, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>forced_eos_token_id</code></strong> : <em><code>typing.Union[int, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>remove_invalid_values</code></strong> : <em><code>typing.Union[bool, NoneType]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>synced_gpus</code></strong> : <em><code>typing.Union[bool, NoneType]</code></em>, <em>optional</em></p>
+</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
 
 </div>
     {% endraw %}

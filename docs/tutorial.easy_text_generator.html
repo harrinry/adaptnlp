@@ -49,14 +49,14 @@ nb_path: "nbs/09a_tutorial.easy_text_generator.ipynb"
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="What-is-Text-Generation?">What is Text Generation?<a class="anchor-link" href="#What-is-Text-Generation?"> </a></h2><p>Text generation is the NLP task of generating a coherent sequence of words, usually from a language model. The current leading methods, most notably OpenAI’s GPT-2 and GPT-3, rely on feeding tokens (words or characters) into a pre-trained language model which then uses this seed data to construct a sequence of text. AdaptNLP provides simple methods to easily fine-tune these state-of-the-art models and generate text for any use case.</p>
-<p>Below, we'll walk through how we can use AdaptNLP's <a href="/adaptnlptext_generation.html#EasyTextGenerator"><code>EasyTextGenerator</code></a> module to generate text to complete a given String.</p>
+<p>Below, we'll walk through how we can use AdaptNLP's <a href="/adaptnlp/text_generation.html#EasyTextGenerator"><code>EasyTextGenerator</code></a> module to generate text to complete a given String.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Getting-Started-with-TextGeneration">Getting Started with <code>TextGeneration</code><a class="anchor-link" href="#Getting-Started-with-TextGeneration"> </a></h2><p>We'll get started by importing the <a href="/adaptnlptext_generation.html#EasyTextGenerator"><code>EasyTextGenerator</code></a> class from AdaptNLP.</p>
+<h2 id="Getting-Started-with-TextGeneration">Getting Started with <code>TextGeneration</code><a class="anchor-link" href="#Getting-Started-with-TextGeneration"> </a></h2><p>We'll get started by importing the <a href="/adaptnlp/text_generation.html#EasyTextGenerator"><code>EasyTextGenerator</code></a> class from AdaptNLP.</p>
 
 </div>
 </div>
@@ -104,7 +104,7 @@ nb_path: "nbs/09a_tutorial.easy_text_generator.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>And finally instantiating our <a href="/adaptnlptext_generation.html#EasyTextGenerator"><code>EasyTextGenerator</code></a>:</p>
+<p>And finally instantiating our <a href="/adaptnlp/text_generation.html#EasyTextGenerator"><code>EasyTextGenerator</code></a>:</p>
 
 </div>
 </div>
@@ -204,7 +204,7 @@ with the built-in <code>generate()</code> method.</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Finding-Models-with-the-HFModelHub">Finding Models with the <a href="/adaptnlpmodel_hub.html#HFModelHub"><code>HFModelHub</code></a><a class="anchor-link" href="#Finding-Models-with-the-HFModelHub"> </a></h2><p>Rather than searching through HuggingFace for models to use, we can use Adapt's <a href="/adaptnlpmodel_hub.html#HFModelHub"><code>HFModelHub</code></a> to search for valid text generation models.</p>
+<h2 id="Finding-Models-with-the-HFModelHub">Finding Models with the <a href="/adaptnlp/model_hub.html#HFModelHub"><code>HFModelHub</code></a><a class="anchor-link" href="#Finding-Models-with-the-HFModelHub"> </a></h2><p>Rather than searching through HuggingFace for models to use, we can use Adapt's <a href="/adaptnlp/model_hub.html#HFModelHub"><code>HFModelHub</code></a> to search for valid text generation models.</p>
 <p>First, let's import it:</p>
 
 </div>
@@ -217,7 +217,7 @@ with the built-in <code>generate()</code> method.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp.model_hub</span> <span class="kn">import</span> <span class="n">HFModelHub</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">HFModelHub</span>
 </pre></div>
 
     </div>

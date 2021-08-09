@@ -54,50 +54,21 @@ nb_path: "nbs/08_translation.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="TranslationResult" class="doc_header"><code>class</code> <code>TranslationResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/translation.py#L34" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TranslationResult</code>(<strong><code>inputs</code></strong>:<code>List</code>[<code>str</code>], <strong><code>input_lang</code></strong>:<code>str</code>, <strong><code>output_lang</code></strong>:<code>str</code>, <strong><code>translations</code></strong>:<code>List</code>[<code>str</code>])</p>
+<h2 id="TranslationResult" class="doc_header"><code>class</code> <code>TranslationResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/translation.py#L34" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TranslationResult</code>(<strong><code>inputs</code></strong>:<code>List</code>[<code>str</code>], <strong><code>input_lang</code></strong>:<code>str</code>, <strong><code>output_lang</code></strong>:<code>str</code>, <strong><code>translations</code></strong>:<code>List</code>[<code>str</code>])</p>
 </blockquote>
 <p>A basic result class for Translation problems</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="TransformersTranslator" class="doc_header"><code>class</code> <code>TransformersTranslator</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/translation.py#L66" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersTranslator</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlpmodel.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
-</blockquote>
-<p>Adaptive model for Transformer's Conditional Generation or Language Models (Transformer's T5 and Bart
-conditional generation models have a language modeling head)</p>
-<p>Usage:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">translator</span> <span class="o">=</span> <span class="n">TransformersTranslator</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;transformers-translator-model&#39;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">translator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Example text&#39;</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
-</pre></div>
 <p><strong>Parameters:</strong></p>
 <ul>
-<li><strong>tokenizer</strong> - A tokenizer object from Huggingface's transformers (TODO)and tokenizers</li>
-<li><strong>model</strong> - A transformers Conditional Generation (Bart or T5) or Language model</li>
+<li><strong><code>inputs</code></strong> : <em><code>typing.List[str]</code></em>  <p>A list of input string sentences</p></li>
+</ul>
+<ul>
+<li><strong><code>input_lang</code></strong> : <em><code>&lt;class 'str'&gt;</code></em> <p>A input language</p></li>
+</ul>
+<ul>
+<li><strong><code>output_lang</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>    <p>An output language</p></li>
+</ul>
+<ul>
+<li><strong><code>translations</code></strong> : <em><code>typing.List[str]</code></em>    <p>A list of the translated sentences</p></li>
 </ul>
 
 </div>
@@ -128,13 +99,13 @@ conditional generation models have a language modeling head)</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="EasyTranslator" class="doc_header"><code>class</code> <code>EasyTranslator</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/translation.py#L197" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyTranslator</code>()</p>
+<h4 id="TranslationResult.to_dict" class="doc_header"><code>TranslationResult.to_dict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/translation.py#L48" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TranslationResult.to_dict</code>(<strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>)</p>
 </blockquote>
-<p>Translation Module</p>
-<p>Usage:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">translator</span> <span class="o">=</span> <span class="n">EasyTranslator</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">translator</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;translate this text&quot;</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;t5-small&quot;</span><span class="p">)</span>
-</pre></div>
+<p>Convert <code>self</code> to a filtered dictionary</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>detail_level</code></strong> : <em><code>&lt;class 'fastcore.basics.DetailLevel'&gt;</code></em>, <em>optional</em>   <p>A detail level to return</p></li>
+</ul>
 
 </div>
 
@@ -149,6 +120,220 @@ conditional generation models have a language modeling head)</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="TransformersTranslator" class="doc_header"><code>class</code> <code>TransformersTranslator</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/translation.py#L68" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersTranslator</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
+</blockquote>
+<p>Adaptive model for Transformer's Conditional Generation or Language Models (Transformer's T5 and Bart conditional generation models have a language modeling head)</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>tokenizer</code></strong> : <em><code>&lt;class 'transformers.tokenization_utils.PreTrainedTokenizer'&gt;</code></em>  <p>A tokenizer object from Huggingface's transformers (TODO)and tokenizers</p></li>
+</ul>
+<ul>
+<li><strong><code>model</code></strong> : <em><code>&lt;class 'transformers.modeling_utils.PreTrainedModel'&gt;</code></em>  <p>A transformers Conditional Generation (Bart or T5) or Language model</p></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="TransformersTranslator.load" class="doc_header"><code>TransformersTranslator.load</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/translation.py#L86" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TransformersTranslator.load</code>(<strong><code>model_name_or_path</code></strong>:<code>str</code>)</p>
+</blockquote>
+<p>Class method for loading and constructing this classifier</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>model_name_or_path</code></strong> : <em><code>&lt;class 'str'&gt;</code></em> <p>A key string of one of Transformer's pre-trained translator Model</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>&lt;class 'adaptnlp.model.AdaptiveModel'&gt;</code></em></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="TransformersTranslator.predict" class="doc_header"><code>TransformersTranslator.predict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/translation.py#L97" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TransformersTranslator.predict</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>str</code>], <code>str</code>], <strong><code>t5_prefix</code></strong>:<code>str</code>=<em><code>'translate English to German'</code></em>, <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong><code>num_beams</code></strong>:<code>int</code>=<em><code>1</code></em>, <strong><code>min_length</code></strong>:<code>int</code>=<em><code>0</code></em>, <strong><code>max_length</code></strong>:<code>int</code>=<em><code>128</code></em>, <strong><code>early_stopping</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+</blockquote>
+<p>Predict method for running inference using the pre-trained sequence classifier model. Keyword arguments for parameters of the method <code>Transformers.PreTrainedModel.generate()</code> can be used as well</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>text</code></strong> : <em><code>typing.Union[typing.List[str], str]</code></em> <p>Sentences to run inference on</p></li>
+</ul>
+<ul>
+<li><strong><code>t5_prefix</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>, <em>optional</em>  <p>The pre-appended prefix for the specificied task. Only in use for T5-type models.</p></li>
+</ul>
+<ul>
+<li><strong><code>mini_batch_size</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em>    <p>Mini batch size</p></li>
+</ul>
+<ul>
+<li><strong><code>num_beams</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em>  <p>Number of beams for beam search. Must be between 1 and infinity. 1 means no beam search</p></li>
+</ul>
+<ul>
+<li><strong><code>min_length</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em> <p>The min length of the sequence to be generated</p></li>
+</ul>
+<ul>
+<li><strong><code>max_length</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em> <p>The max length of the sequence to be generated. Between min_length and infinity</p></li>
+</ul>
+<ul>
+<li><strong><code>early_stopping</code></strong> : <em><code>&lt;class 'bool'&gt;</code></em>, <em>optional</em>    <p>If set to `True` beam search is stopped when at least num_beams sentences finished per batch</p></li>
+</ul>
+<ul>
+<li><strong><code>detail_level</code></strong> : <em><code>&lt;class 'fastcore.basics.DetailLevel'&gt;</code></em>, <em>optional</em>   <p>The level of detail to return</p></li>
+</ul>
+<ul>
+<li><strong><code>kwargs</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>typing.List[str]</code></em> <p>A list of translated sentences</p></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="EasyTranslator" class="doc_header"><code>class</code> <code>EasyTranslator</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/translation.py#L168" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyTranslator</code>()</p>
+</blockquote>
+<p>Translation Module</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="EasyTranslator.translate" class="doc_header"><code>EasyTranslator.translate</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/translation.py#L174" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyTranslator.translate</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>str</code>], <code>str</code>], <strong><code>model_name_or_path</code></strong>:<code>str</code>=<em><code>'t5-small'</code></em>, <strong><code>t5_prefix</code></strong>:<code>str</code>=<em><code>'translate English to German'</code></em>, <strong><code>detail_level</code></strong>=<em><code>'low'</code></em>, <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong><code>num_beams</code></strong>:<code>int</code>=<em><code>1</code></em>, <strong><code>min_length</code></strong>:<code>int</code>=<em><code>0</code></em>, <strong><code>max_length</code></strong>:<code>int</code>=<em><code>128</code></em>, <strong><code>early_stopping</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+</blockquote>
+<p>Predict method for running inference using the pre-trained sequence classifier model. Keyword arguments for parameters of the method <code>Transformers.PreTrainedModel.generate()</code> can be used as well.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>text</code></strong> : <em><code>typing.Union[typing.List[str], str]</code></em> <p>Sentences to run inference on</p></li>
+</ul>
+<ul>
+<li><strong><code>model_name_or_path</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>, <em>optional</em> <p>A model id or path to a pre-trained model repository or custom trained model directory</p></li>
+</ul>
+<ul>
+<li><strong><code>t5_prefix</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>, <em>optional</em>  <p>The pre-appended prefix for the specificied task. Only in use for T5-type models</p></li>
+</ul>
+<ul>
+<li><strong><code>detail_level</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>, <em>optional</em>   <p>The level of detail to return</p></li>
+</ul>
+<ul>
+<li><strong><code>mini_batch_size</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em>    <p>Mini batch size</p></li>
+</ul>
+<ul>
+<li><strong><code>num_beams</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em>  <p>Number of beams for beam search. Must be between 1 and infinity. 1 means no beam search</p></li>
+</ul>
+<ul>
+<li><strong><code>min_length</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em> <p>The min length of the sequence to be generated</p></li>
+</ul>
+<ul>
+<li><strong><code>max_length</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em> <p>The max length of the sequence to be generated. Between min_length and infinity</p></li>
+</ul>
+<ul>
+<li><strong><code>early_stopping</code></strong> : <em><code>&lt;class 'bool'&gt;</code></em>, <em>optional</em>    <p>If set to `True` beam search is stopped when at least num_beams sentences finished per batch</p></li>
+</ul>
+<ul>
+<li><strong><code>kwargs</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>typing.List[str]</code></em> <p>Optional arguments for the Transformers `PreTrainedModel.generate()` method</p></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
 
 </div>
     {% endraw %}

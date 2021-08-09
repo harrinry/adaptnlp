@@ -48,7 +48,7 @@ nb_path: "nbs/05a_tutorial.token_tagging.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We'll import the <code>adaptnlp</code> <a href="/adaptnlptoken_classification.html#EasyTokenTagger"><code>EasyTokenTagger</code></a> class:</p>
+<p>We'll import the <code>adaptnlp</code> <a href="/adaptnlp/token_classification.html#EasyTokenTagger"><code>EasyTokenTagger</code></a> class:</p>
 
 </div>
 </div>
@@ -73,7 +73,7 @@ nb_path: "nbs/05a_tutorial.token_tagging.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's write some simple example text, and instantiate an <a href="/adaptnlptoken_classification.html#EasyTokenTagger"><code>EasyTokenTagger</code></a>:</p>
+<p>Let's write some simple example text, and instantiate an <a href="/adaptnlp/token_classification.html#EasyTokenTagger"><code>EasyTokenTagger</code></a>:</p>
 
 </div>
 </div>
@@ -118,7 +118,7 @@ nb_path: "nbs/05a_tutorial.token_tagging.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp.model_hub</span> <span class="kn">import</span> <span class="n">HFModelHub</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">HFModelHub</span>
 </pre></div>
 
     </div>
@@ -370,7 +370,7 @@ nb_path: "nbs/05a_tutorial.token_tagging.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp.model_hub</span> <span class="kn">import</span> <span class="n">FlairModelHub</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">FlairModelHub</span>
 <span class="n">hub</span> <span class="o">=</span> <span class="n">FlairModelHub</span><span class="p">()</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s1">&#39;ontonotes-fast&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span> <span class="n">model</span>
 </pre></div>
@@ -1481,7 +1481,7 @@ Novetta Solutions is &lt;be.01&gt; the best . Albert Einstein used &lt;use.03&gt
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Tag-Tokens-with-All-Loaded-Models-At-Once">Tag Tokens with All Loaded Models At Once<a class="anchor-link" href="#Tag-Tokens-with-All-Loaded-Models-At-Once"> </a></h3><p>As different taggers are loaded into memory, we can tag with all of them at once, for example we'll make a new <a href="/adaptnlptoken_classification.html#EasyTokenTagger"><code>EasyTokenTagger</code></a> and load in a <code>ner</code> and <code>pos</code> tagger:</p>
+<h3 id="Tag-Tokens-with-All-Loaded-Models-At-Once">Tag Tokens with All Loaded Models At Once<a class="anchor-link" href="#Tag-Tokens-with-All-Loaded-Models-At-Once"> </a></h3><p>As different taggers are loaded into memory, we can tag with all of them at once, for example we'll make a new <a href="/adaptnlp/token_classification.html#EasyTokenTagger"><code>EasyTokenTagger</code></a> and load in a <code>ner</code> and <code>pos</code> tagger:</p>
 
 </div>
 </div>
