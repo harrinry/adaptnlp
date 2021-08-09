@@ -16,6 +16,7 @@ import pyarrow as pa
 
 # Cell
 class TextNoNewLine(datasets.ArrowBasedBuilder):
+    "An ArrowBasedBuilder dataset that doesn't split based on newlines"
     BUILDER_CONFIG_CLASS = TextConfig
 
     def _info(self):
@@ -63,11 +64,11 @@ class TextNoNewLineDatasetReader(AbstractDatasetReader):
     "A `DatasetReader` class that mimics `TextDatasetReader`, but uses `TextNoNewLine`"
     def __init__(
         self,
-        path_or_paths: NestedDataStructureLike[PathLike],
-        split: Optional[NamedSplit] = None,
-        features: Optional[Features] = None,
-        cache_dir: str = None,
-        keep_in_memory: bool = False,
+        path_or_paths: NestedDataStructureLike[PathLike], # Paths to texts
+        split: Optional[NamedSplit] = None, # Potential dataset splits
+        features: Optional[Features] = None, # Any features for the datasets
+        cache_dir: str = None, # A cache directory
+        keep_in_memory: bool = False, # Whether to keep the dataset completely in memory
         **kwargs,
     ):
         super().__init__(
@@ -82,11 +83,12 @@ class TextNoNewLineDatasetReader(AbstractDatasetReader):
         )
 
     def read(self):
-        download_config = None
-        download_mode = None
-        ignore_verifications = False
-        use_auth_token = None
-        base_path = None
+        "Reads in a dataset"
+        download_config = None # A download configuration
+        download_mode = None # A download mode
+        ignore_verifications = False # Whether to ignore any verification requests
+        use_auth_token = None # Potential authorization tokens
+        base_path = None # A path
 
         self.builder.download_and_prepare(
             download_config=download_config,

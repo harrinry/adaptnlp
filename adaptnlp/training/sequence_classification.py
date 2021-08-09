@@ -31,14 +31,14 @@ class SequenceClassificationDatasets(TaskDatasets):
     """
     def __init__(
         self,
-        train_dset,
-        valid_dset,
-        tokenizer_name,
-        tokenize,
-        tokenize_kwargs,
-        auto_kwargs,
-        remove_columns,
-        categorize
+        train_dset:Dataset, # A training dataset
+        valid_dset:Dataset, # A validation dataset
+        tokenizer_name:str, # The name of a tokenizer
+        tokenize:bool, # Whether to tokenize immediatly
+        tokenize_kwargs:dict, # kwargs for the tokenize function
+        auto_kwargs:dict, # AutoTokenizer.from_pretrained kwargs
+        remove_columns:list, # The columns to remove when tokenizing
+        categorize:[Categorize,MultiCategorize] # A Categorize instance
     ):
         "Constructs TaskDatasets, should not be called explicitly"
         super().__init__(
@@ -275,7 +275,7 @@ class SequenceClassificationTuner(AdaptiveTuner):
         bs:int=64, # A batch size to use for multiple texts
         detail_level:DetailLevel = DetailLevel.Low, # A detail level to return on the predictions
         class_names:list = None, # A list of labels
-    ):
+    ) -> dict: # A dictionary of filtered predictions
         "Predict some `text` for sequence classification with the currently loaded model"
         if getattr(self, '_inferencer', None) is None: self._inferencer = TransformersSequenceClassifier(self.tokenizer, self.model)
         if class_names is None:

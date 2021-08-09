@@ -31,8 +31,10 @@ from transformers.models.bert import BasicTokenizer
 logger = logging.getLogger(__name__)
 
 # Cell
-def normalize_answer(s):
-    """Lower text and remove punctuation, articles and extra whitespace."""
+def normalize_answer(
+    s:str # Some text
+) -> str:
+    "Lowercase text and remove punctuation, articles and extra whitespace."
 
     def remove_articles(text):
         regex = re.compile(r"\b(a|an|the)\b", re.UNICODE)
@@ -51,17 +53,27 @@ def normalize_answer(s):
     return white_space_fix(remove_articles(remove_punc(lower(s))))
 
 # Cell
-def get_tokens(s):
-    if not s:
-        return []
+def get_tokens(
+    s:str, # Some text
+) -> list: # Either a normalized answer or an empty array
+    "Get normalized tokens if s is not none"
+    if not s: return []
     return normalize_answer(s).split()
 
 # Cell
-def compute_exact(a_gold, a_pred):
+def compute_exact(
+    a_gold:str,
+    a_pred:str
+) -> int:
+    "Whether `a_gold` and `a_pred` match after normalizing"
     return int(normalize_answer(a_gold) == normalize_answer(a_pred))
 
 # Cell
-def compute_f1(a_gold, a_pred):
+def compute_f1(
+    a_gold:str,
+    a_pred:str
+) -> float:
+    "Calculate the F1 score between `a_gold` and `a_pred`"
     gold_toks = get_tokens(a_gold)
     pred_toks = get_tokens(a_pred)
     common = collections.Counter(gold_toks) & collections.Counter(pred_toks)
@@ -77,10 +89,11 @@ def compute_f1(a_gold, a_pred):
     return f1
 
 # Cell
-def get_raw_scores(examples, preds):
-    """
-    Computes the exact and f1 scores from the examples and the model predictions
-    """
+def get_raw_scores(
+    examples:list, # Ground truth examples
+    preds:list # Model predictions
+) -> tuple([float, float]): # The exact score and f1 score
+    "Computes the exact and F1 scores"
     exact_scores = {}
     f1_scores = {}
 
@@ -107,7 +120,13 @@ def get_raw_scores(examples, preds):
     return exact_scores, f1_scores
 
 # Cell
-def apply_no_ans_threshold(scores, na_probs, qid_to_has_ans, na_prob_thresh):
+def apply_no_ans_threshold(
+    scores:list,
+    na_probs:list,
+    qid_to_has_ans:list,
+    na_prob_thresh:float
+):
+    "Applies a threshold to non-answers"
     new_scores = {}
     for qid, s in scores.items():
         pred_na = na_probs[qid] > na_prob_thresh
@@ -118,7 +137,12 @@ def apply_no_ans_threshold(scores, na_probs, qid_to_has_ans, na_prob_thresh):
     return new_scores
 
 # Cell
-def make_eval_dict(exact_scores, f1_scores, qid_list=None):
+def make_eval_dict(
+    exact_scores:list, # Exact scores
+    f1_scores:list, # F1 Scores
+    qid_list=None # QID's
+):
+    "Generates an eval dictionary with exact and F1 scores"
     if not qid_list:
         total = len(exact_scores)
         return collections.OrderedDict(
@@ -140,11 +164,18 @@ def make_eval_dict(exact_scores, f1_scores, qid_list=None):
 
 # Cell
 def merge_eval(main_eval, new_eval, prefix):
+    "Merges eval dictionaries inplace based on prefix"
     for k in new_eval:
         main_eval["%s_%s" % (prefix, k)] = new_eval[k]
 
 # Cell
-def find_best_thresh_v2(preds, scores, na_probs, qid_to_has_ans):
+def find_best_thresh_v2(
+    preds, # Model predictions
+    scores, # Real scores
+    na_probs, # Probabilities for NA
+    qid_to_has_ans
+):
+    "Finds the best score threshold"
     num_no_ans = sum(1 for k in qid_to_has_ans if not qid_to_has_ans[k])
     cur_score = num_no_ans
     best_score = cur_score
@@ -183,8 +214,14 @@ def find_best_thresh_v2(preds, scores, na_probs, qid_to_has_ans):
 
 # Cell
 def find_all_best_thresh_v2(
-    main_eval, preds, exact_raw, f1_raw, na_probs, qid_to_has_ans
+    main_eval, # Main evaluation dictionary
+    preds, # A list of predictions
+    exact_raw, # A list of exact scores
+    f1_raw, # A list of F1 scores
+    na_probs, # A list of NA probabilities
+    qid_to_has_ans
 ):
+    "Finds the best threshold for all inputs"
     best_exact, exact_thresh, has_ans_exact = find_best_thresh_v2(
         preds, exact_raw, na_probs, qid_to_has_ans
     )
@@ -199,7 +236,13 @@ def find_all_best_thresh_v2(
     main_eval["has_ans_f1"] = has_ans_f1
 
 # Cell
-def find_best_thresh(preds, scores, na_probs, qid_to_has_ans):
+def find_best_thresh(
+    preds, # Model predictions
+    scores, # Real scores
+    na_probs, # Probabilities for NA
+    qid_to_has_ans
+):
+    "Finds best answer threshold"
     num_no_ans = sum(1 for k in qid_to_has_ans if not qid_to_has_ans[k])
     cur_score = num_no_ans
     best_score = cur_score
@@ -222,7 +265,15 @@ def find_best_thresh(preds, scores, na_probs, qid_to_has_ans):
     return 100.0 * best_score / len(scores), best_thresh
 
 # Cell
-def find_all_best_thresh(main_eval, preds, exact_raw, f1_raw, na_probs, qid_to_has_ans):
+def find_all_best_thresh(
+    main_eval, # Main evaluation dictionary
+    preds, # A list of predictions
+    exact_raw, # A list of exact scores
+    f1_raw, # A list of F1 scores
+    na_probs, # A list of NA probabilities
+    qid_to_has_ans
+):
+    "Finds the best threshold for all inputs"
     best_exact, exact_thresh = find_best_thresh(
         preds, exact_raw, na_probs, qid_to_has_ans
     )
@@ -235,8 +286,12 @@ def find_all_best_thresh(main_eval, preds, exact_raw, f1_raw, na_probs, qid_to_h
 
 # Cell
 def squad_evaluate(
-    examples, preds, no_answer_probs=None, no_answer_probability_threshold=1.0
+    examples, # Ground truth examples
+    preds, # Model predictions
+    no_answer_probs=None,
+    no_answer_probability_threshold=1.0
 ):
+    "Evalues SQuAD scores on inputs"
     qas_id_to_has_answer = {
         example.qas_id: bool(example.answers) for example in examples
     }

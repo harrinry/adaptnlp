@@ -43,22 +43,19 @@ def _tokenize(item, tokenizer, tokenize_kwargs): return tokenizer(item['text'], 
 
 # Cell
 class LanguageModelDatasets(TaskDatasets):
-    """
-    A set of datasets designed for language model fine-tuning
-    """
+    "A set of datasets designed for language model fine-tuning"
     def __init__(
         self,
-        train_dset,
-        valid_dset,
-        tokenizer_name,
-        tokenize,
-        tokenize_kwargs,
-        auto_kwargs,
-        remove_columns,
-        block_size,
-        masked_lm
+        train_dset:Dataset, # A training dataset
+        valid_dset:Dataset, # A validation dataset
+        tokenizer_name:str, # The name of a tokenizer
+        tokenize:bool, # Whether to tokenize immediatly
+        tokenize_kwargs:dict, # kwargs for the tokenize function
+        auto_kwargs:dict, # AutoTokenizer.from_pretrained kwargs
+        remove_columns:list, # The columns to remove when tokenizing
+        block_size:int, # The size of each block
+        masked_lm:bool # Whether the language model is a MLM
     ):
-        "Constructs TaskDatasets, should not be called explicitly"
         super().__init__(
             train_dset,
             valid_dset,

@@ -97,14 +97,14 @@ class Categorize:
     def map_objs(
         self,
         objs # Some iterable collection
-    ):
+    ) -> L:
         "Map `objs` to IDs"
         return L(self.o2i[o] for o in objs)
 
     def map_ids(
         self,
         ids # Some ids correlating to `self.classes`
-    ):
+    ) -> L:
         "Map `ids` to objects in vocab"
         return L(self.classes[o] for o in ids)
 
@@ -143,7 +143,7 @@ class MultiCategorize(Categorize):
     def decode(
         self,
         o # A list of keys in self.classes
-    ):
+    ) -> list:
         "Decodes `o` by looking in `self.classes`"
         return [self.classes[o_] for o_ in o]
 
@@ -355,7 +355,12 @@ mk_class('Strategy', **{'OneCycle':'fit_one_cycle', 'CosineAnnealing':'fit_flat_
 # Cell
 class AdaptiveTuner:
     "A base `Tuner` that interfaces with `AdaptiveLearner` with specific exposed functions"
-    def __init__(self, expose_fastai:bool=False, tokenizer = None, **kwargs):
+    def __init__(
+        self,
+        expose_fastai:bool=False, # Whether to expose the entire API in `self`
+        tokenizer = None, # A HuggingFace tokenizer
+        **kwargs # kwargs for `_AdaptiveLearner`
+    ):
         self.tokenizer = tokenizer
         self._tuner = _AdaptiveLearner(**kwargs)
 
