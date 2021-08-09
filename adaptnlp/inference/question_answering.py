@@ -28,7 +28,7 @@ from transformers.data.processors.squad import SquadResult
 
 from ..model import AdaptiveModel, DataLoader
 from ..model_hub import HFModelResult
-from ..transformers.squad_metrics import (
+from .utils import (
     compute_predictions_log_probs,
     compute_predictions_logits,
 )

@@ -74,7 +74,7 @@ entries:
           url: transformers.finetuning.html
         - output: web,pdf
           title: Transformers Squad Metrics
-          url: transformers.squad_metrics.html
+          url: inference.utils.html
         - output: web,pdf
           title: Transformers Squad Evaluate
           url: transformers.utils_squad_evaluate.html

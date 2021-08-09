@@ -27,7 +27,7 @@
             "Utilities": {
                 "File Utilities": "file_utils.html",
                 "Transformers Fine-Tuning": "transformers.finetuning.html",
-                "Transformers Squad Metrics": "transformers.squad_metrics.html",
+                "Transformers Squad Metrics": "inference.utils.html",
                 "Transformers Squad Evaluate": "transformers.utils_squad_evaluate.html"
             }
         }
