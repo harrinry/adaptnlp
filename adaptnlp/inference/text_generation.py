@@ -29,21 +29,13 @@ logger = logging.getLogger(__name__)
 
 # Cell
 class TransformersTextGenerator(AdaptiveModel):
-    """Adaptive model for Transformer's Language Models
+    "Adaptive model for Transformer's Language Models"
 
-    Usage:
-    ```python
-    >>> generator = TransformersTextGenerator.load("gpt2")
-    >>> generator.generate(text="Example text", mini_batch_size=32)
-    ```
-
-    **Parameters:**
-
-    * **tokenizer** - A tokenizer object from Huggingface's transformers (TODO)and tokenizers
-    * **model** - A transformers Language model
-    """
-
-    def __init__(self, tokenizer: PreTrainedTokenizer, model: PreTrainedModel):
+    def __init__(
+        self,
+        tokenizer: PreTrainedTokenizer, # A tokenizer object from Huggingface's transformers (TODO)and tokenizers
+        model: PreTrainedModel #  A transformers Language model
+    ):
         # Load up model and tokenizer
         self.tokenizer = tokenizer
         super().__init__()
@@ -56,11 +48,11 @@ class TransformersTextGenerator(AdaptiveModel):
         self.model.to(self.device)
 
     @classmethod
-    def load(cls, model_name_or_path: str) -> AdaptiveModel:
-        """Class method for loading and constructing this Model
-
-        * **model_name_or_path** - A key string of one of Transformer's pre-trained Language Model
-        """
+    def load(
+        cls,
+        model_name_or_path: str # A key string of one of Transformer's pre-trained Language Model
+    ) -> AdaptiveModel:
+        "Class method for loading and constructing this Model"
         tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, pad_token="<PAD>")
         model = AutoModelForCausalLM.from_pretrained(model_name_or_path)
         generator = cls(tokenizer, model)
@@ -68,19 +60,12 @@ class TransformersTextGenerator(AdaptiveModel):
 
     def predict(
         self,
-        text: Union[List[str], str],
-        mini_batch_size: int = 32,
-        num_tokens_to_produce: int = 50,
-        **kwargs,
-    ) -> List[str]:
-        """Predict method for running inference using the pre-trained sequence classifier model.  Keyword arguments
-        for parameters of the method `Transformers.PreTrainedModel.generate()` can be used as well.
-
-        * **text** - String, list of strings, sentences, or list of sentences to run inference on
-        * **mini_batch_size** - Mini batch size
-        * **num_tokens_to_produce** - Number of tokens you want to generate
-        * **&ast;&ast;kwargs**(Optional) - Optional arguments for the Transformers `PreTrainedModel.generate()` method
-        """
+        text: Union[List[str], str], # Sentences to run inference on
+        mini_batch_size: int = 32, # Mini batch size
+        num_tokens_to_produce: int = 50, # Number of tokens you want to generate
+        **kwargs, # Optional arguments for the Transformers `PreTrainedModel.generate()` method
+    ) -> List[str]: # A list of predicted sentences
+        "Predict method for running inference using the pre-trained sequence classifier model.  Keyword arguments for parameters of the method `Transformers.PreTrainedModel.generate()` can be used as well."
         with torch.no_grad():
 
             # Make all inputs lists
@@ -202,37 +187,20 @@ class TransformersTextGenerator(AdaptiveModel):
 
 # Cell
 class EasyTextGenerator:
-    """Text Generation Module
-
-    Usage:
-
-    ```python
-    >>> generator = EasyGenerator()
-    >>> generator.generate(text="generate from this text", num_tokens_to_produce=50)
-    ```
-
-    """
+    "Text Generation Module"
 
     def __init__(self):
         self.generators: Dict[AdaptiveModel] = defaultdict(bool)
 
     def generate(
         self,
-        text: Union[List[str], str],
-        model_name_or_path: [str, HFModelResult] = "gpt2",
-        mini_batch_size: int = 32,
-        num_tokens_to_produce: int = 50,
-        **kwargs,
-    ) -> List[str]:
-        """Predict method for running inference using the pre-trained sequence classifier model. Keyword arguments
-        for parameters of the method `Transformers.PreTrainedModel.generate()` can be used as well.
-
-        * **text** - String, list of strings, sentences, or list of sentences to run inference on
-        * **model_name_or_path** - A String model id or path to a pre-trained model repository or custom trained model directory
-        * **mini_batch_size** - Mini batch size
-        * **num_tokens_to_produce** - Number of tokens you want to generate
-        * **&ast;&ast;kwargs**(Optional) - Optional arguments for the Transformers `PreTrainedModel.generate()` method
-        """
+        text: Union[List[str], str], # List of sentences to run inference on
+        model_name_or_path: [str, HFModelResult] = "gpt2", # A model id or path to a pre-trained model repository or custom trained model directory
+        mini_batch_size: int = 32, # Mini batch size
+        num_tokens_to_produce: int = 50, # Number of tokens you want to generate
+        **kwargs, # Optional arguments for the Transformers `PreTrainedModel.generate()` method
+    ) -> List[str]: # A list of predicted sentences
+        "Predict method for running inference using the pre-trained sequence classifier model. Keyword arguments for parameters of the method `Transformers.PreTrainedModel.generate()` can be used as well."
         name = getattr(model_name_or_path, 'name', model_name_or_path)
         if not self.generators[name]:
             self.generators[name] = TransformersTextGenerator.load(

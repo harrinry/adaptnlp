@@ -48,10 +48,12 @@ logger = logging.getLogger(__name__)
 
 # Cell
 class SequenceResult(SentenceResult):
-    """
-    A result class designed for Sequence Classification models
-    """
-    def __init__(self, sentences:List[Sentence], class_names:list = None):
+    "A result class designed for Sequence Classification models"
+    def __init__(
+        self,
+        sentences:List[Sentence], # A list of flair `Sentence`'s
+        class_names:list = None # A potential list of class names
+    ):
         super().__init__(sentences)
         self.classes = sentences[0].get_label_names()
         self.class_names = class_names
@@ -72,10 +74,11 @@ class SequenceResult(SentenceResult):
             return [self.class_names[p.argmax()] for p in self.probabilities]
         return [max(s.labels, key=lambda x: x.score).value for s in self._sentences]
 
-    def to_dict(self, detail_level:DetailLevel=DetailLevel.Low):
-        """
-        Returns details about `self` at various detail levels
-        """
+    def to_dict(
+        self,
+        detail_level:DetailLevel=DetailLevel.Low # A level of detail to return
+    ) -> dict:
+        "Return `self` as a dictionary"
         o = {
             'sentences':self.inputs,
             'predictions':self.predictions,
@@ -95,21 +98,13 @@ class SequenceResult(SentenceResult):
 
 # Cell
 class TransformersSequenceClassifier(AdaptiveModel):
-    """Adaptive model for Transformer's Sequence Classification Model
+    "Adaptive model for Transformer's Sequence Classification Model"
 
-    Usage:
-    ```python
-    >>> classifier = TransformersSequenceClassifier.load('transformers-sc-model')
-    >>> classifier.predict(text='Example text', mini_batch_size=32)
-    ```
-
-    **Parameters:**
-
-    * **tokenizer** - A tokenizer object from Huggingface's transformers (TODO)and tokenizers
-    * **model** - A transformers Sequence Classsifciation model
-    """
-
-    def __init__(self, tokenizer: PreTrainedTokenizer, model: PreTrainedModel):
+    def __init__(
+        self,
+        tokenizer: PreTrainedTokenizer, # A tokenizer object from Huggingface's transformers (TODO)and tokenizers
+        model: PreTrainedModel # A transformers Sequence Classification model
+    ):
         # Load up model and tokenizer
         self.tokenizer = tokenizer
         super().__init__()
@@ -123,11 +118,11 @@ class TransformersSequenceClassifier(AdaptiveModel):
         self.model.to(self.device)
 
     @classmethod
-    def load(cls, model_name_or_path: Union[HFModelResult, str]) -> AdaptiveModel:
-        """Class method for loading and constructing this classifier
-
-        * **model_name_or_path** - A key string of one of Transformer's pre-trained Sequence Classifier Model or a `HFModelResult`
-        """
+    def load(
+        cls,
+        model_name_or_path: Union[HFModelResult, str] # A key string of one of Transformer's pre-trained Sequence Classifier Model or a `HFModelResult`
+    ) -> AdaptiveModel:
+        "Class method for loading and constructing this classifier"
         if isinstance(model_name_or_path, HFModelResult): model_name_or_path = model_name_or_path.name
         tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
         model = AutoModelForSequenceClassification.from_pretrained(model_name_or_path)
@@ -136,16 +131,11 @@ class TransformersSequenceClassifier(AdaptiveModel):
 
     def predict(
         self,
-        text: Union[List[Sentence], Sentence, List[str], str],
-        mini_batch_size: int = 32,
-        **kwargs,
-    ) -> List[Sentence]:
-        """Predict method for running inference using the pre-trained sequence classifier model
-
-        * **text** - String, list of strings, sentences, or list of sentences to run inference on
-        * **mini_batch_size** - Mini batch size
-        * **&ast;&ast;kwargs**(Optional) - Optional arguments for the Transformers classifier
-        """
+        text: Union[List[Sentence], Sentence, List[str], str], # Sentences to run inference on
+        mini_batch_size: int = 32, # Mini batch size
+        **kwargs, # Optional arguments for the Transformers classifier
+    ) -> List[Sentence]: # Returns a list of `Sentence` predictions
+        "Predict method for running inference using the pre-trained sequence classifier model"
         id2label = self.model.config.id2label
         sentences = text
         results: List[Sentence] = []
@@ -237,28 +227,20 @@ class TransformersSequenceClassifier(AdaptiveModel):
 
 # Cell
 class FlairSequenceClassifier(AdaptiveModel):
-    """Adaptive Model for Flair's Sequence Classifier...very basic
+    "Adaptive Model for Flair's Sequence Classifier"
 
-    Usage:
-    ```python
-    >>> classifier = FlairSequenceClassifier.load('sentiment')
-    >>> classifier.predict(text='Example text', mini_batch_size=32)
-    ```
-
-    **Parameters:**
-
-    * **model_name_or_path** - A key string of one of Flair's pre-trained Sequence Classifier Model
-    """
-
-    def __init__(self, model_name_or_path: str):
+    def __init__(
+        self,
+        model_name_or_path: str # A key string of one of Flair's pre-trained Sequence Classifier Model
+    ):
         self.classifier = TextClassifier.load(model_name_or_path)
 
     @classmethod
-    def load(cls, model_name_or_path: Union[HFModelResult, FlairModelResult, str]) -> AdaptiveModel:
-        """Class method for loading a constructing this classifier
-
-        * **model_name_or_path** - A key string of one of Flair's pre-trained Sequence Classifier Model or a `HFModelResult`
-        """
+    def load(
+        cls,
+        model_name_or_path: Union[HFModelResult, FlairModelResult, str] # A key string of one of Flair's pre-trained Sequence Classifier Model or a `HFModelResult`
+    ) -> AdaptiveModel:
+        "Class method for loading a constructing this classifier"
         if risinstance([HFModelResult, FlairModelResult], model_name_or_path):
             model_name_or_path = model_name_or_path.name
         classifier = cls(model_name_or_path)
@@ -266,16 +248,11 @@ class FlairSequenceClassifier(AdaptiveModel):
 
     def predict(
         self,
-        text: Union[List[Sentence], Sentence, List[str], str],
-        mini_batch_size: int = 32,
-        **kwargs,
-    ) -> List[Sentence]:
-        """Predict method for running inference using the pre-trained sequence classifier model
-
-        * **text** - String, list of strings, sentences, or list of sentences to run inference on
-        * **mini_batch_size** - Mini batch size
-        * **&ast;&ast;kwargs**(Optional) - Optional arguments for the Flair classifier
-        """
+        text: Union[List[Sentence], Sentence, List[str], str], # Sentences to run inference on
+        mini_batch_size: int = 32, # Mini batch size
+        **kwargs, # Optional arguments for the Flair classifier
+    ) -> List[Sentence]: # A list of predicted `Sentence`s
+        "Predict method for running inference using the pre-trained sequence classifier model"
         if isinstance(text, (Sentence, str)):
             text = [text]
         if isinstance(text[0], str):
@@ -287,7 +264,6 @@ class FlairSequenceClassifier(AdaptiveModel):
             **kwargs,
         )
 
-
         return text
 
 # Cell
@@ -295,16 +271,7 @@ from ..model_hub import HFModelHub, FlairModelHub
 
 # Cell
 class EasySequenceClassifier:
-    """Sequence classification models
-
-    Usage:
-
-    ```python
-    >>> classifier = EasySequenceClassifier()
-    >>> classifier.tag_text(text='text you want to label', model_name_or_path='en-sentiment')
-    ```
-
-    """
+    "Easy module for sequence classifiers"
 
     def __init__(self):
         self.sequence_classifiers: Dict[AdaptiveModel] = defaultdict(bool)
@@ -313,21 +280,14 @@ class EasySequenceClassifier:
 
     def tag_text(
         self,
-        text: Union[List[Sentence], Sentence, List[str], str],
-        model_name_or_path: Union[str, FlairModelResult, HFModelResult] = 'en-sentiment',
-        mini_batch_size: int = 32,
+        text: Union[List[Sentence], Sentence, List[str], str], # String, list of strings, `Sentence`, or list of `Sentence`s to be classified
+        model_name_or_path: Union[str, FlairModelResult, HFModelResult] = 'en-sentiment', # The model name key or model path
+        mini_batch_size: int = 32, # The mini batch size for running inference
         detail_level:DetailLevel = DetailLevel.Low, # A level of detail to return
         class_names:list = None, # A list of labels
-        **kwargs,
-    ) -> List[Sentence]:
-        """Tags a text sequence with labels the sequence classification models have been trained on
-
-        * **text** - String, list of strings, `Sentence`, or list of `Sentence`s to be classified
-        * **model_name_or_path** - The model name key or model path
-        * **mini_batch_size** - The mini batch size for running inference
-        * **&ast;&ast;kwargs** - (Optional) Keyword Arguments for Flair's `TextClassifier.predict()` method params
-        **return** A list of Flair's `Sentence`'s
-        """
+        **kwargs, # Keyword Arguments for Flair's `TextClassifier.predict()` method params
+    ) -> List[Sentence]: # A list of Flair's `Sentence`'s
+        "Tags a text sequence with labels the sequence classification models have been trained on"
         # Load Text Classifier Model and Pytorch Module into tagger dict
         name = getattr(model_name_or_path, 'name', model_name_or_path)
         if not self.sequence_classifiers[name]:
@@ -378,19 +338,13 @@ class EasySequenceClassifier:
 
     def tag_all(
         self,
-        text: Union[List[Sentence], Sentence, List[str], str],
-        mini_batch_size: int = 32,
-        detail_level:DetailLevel = DetailLevel.Low,
+        text: Union[List[Sentence], Sentence, List[str], str], # Text input, it can be a string or any of Flair's `Sentence` input formats
+        mini_batch_size: int = 32, # The mini batch size for running inference
+        detail_level:DetailLevel = DetailLevel.Low, # A level of detail to return
         class_names:list = None, # A list of labels
-        **kwargs,
-    ) -> List[Sentence]:
-        """Tags text with all labels from all sequence classification models
-
-        * **text** - Text input, it can be a string or any of Flair's `Sentence` input formats
-        * **mini_batch_size** - The mini batch size for running inference
-        * **&ast;&ast;kwargs** - (Optional) Keyword Arguments for Flair's `TextClassifier.predict()` method params
-        * **return** - A list of Flair's `Sentence`'s
-        """
+        **kwargs, # Keyword Arguments for Flair's `TextClassifier.predict()` method params
+    ) -> List[Sentence]: # A list of Flair's `Sentence`'s
+        "Tags text with all labels from all sequence classification models"
         sentences = text
         for tagger_name in self.sequence_classifiers.keys():
             sentences = self.tag_text(

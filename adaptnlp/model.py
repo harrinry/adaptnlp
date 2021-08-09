@@ -28,24 +28,29 @@ from .callback import GatherInputsCallback, SetInputsCallback
 
 # Cell
 @patch
-def one_batch(self:DataLoader):
-    """
-    Grabs one batch of data from the `DataLoader` and deletes the iter
-    """
+def one_batch(
+    self:DataLoader
+) -> torch.Tensor: # A batch of data
+    "Pathed functionality that grabs one batch of data from the `DataLoader` and deletes the iter"
     res = first(self)
     if hasattr(self, 'it'): delattr(self, 'it')
     return res
 
 # Cell
 @patch
-def after_validate(self:GatherPredsCallback):
-    "noop"
+def after_validate(
+    self:GatherPredsCallback
+):
+    "Patched functionality that does nothing"
     pass
 
 # Cell
 class CudaCallback(Callback):
     "Move data to CUDA device"
-    def __init__(self, device=None): self.device = ifnone(device, default_device())
+    def __init__(
+        self,
+        device:str=None # A device to move the data to, such as 'cuda:0' or 'cpu'
+    ): self.device = ifnone(device, default_device())
     def before_batch(self): self.learn.xb,self.learn.yb = to_device(self.xb),to_device(self.yb)
     def before_fit(self): self.model.to(self.device)
 
@@ -134,21 +139,34 @@ class _BaseLearner:
 class AdaptiveModel(ABC):
     _learn = _BaseLearner()
 
-    def set_model(self, model):
-        """ Sets model in `_learn` """
+    def set_model(
+        self,
+        model # A PyTorch model
+    ):
+        "Sets model in `_learn`"
         self._learn.set_model(model)
         self.model = model
 
-    def set_as_dict(self, as_dict:bool=False):
-        """ Sets `as_dict` in `_learn` """
+    def set_as_dict(
+        self,
+        as_dict:bool=False # Whether to return the inputs as a dictionary when predicting or training
+    ):
+        "Sets `as_dict` in `_learn`"
         self._learn.set_as_dict(as_dict)
 
-    def set_device(self, device:str='cpu'):
-        """ Sets the device for `CudaCallback` in `__learn` """
+    def set_device(
+        self,
+        device:str='cpu' #  A device for the `CudaCallback`, such as 'cuda:0' or 'cpu'
+    ):
+        "Sets the device for `CudaCallback` in `__learn`"
         self._learn.set_device(device)
 
 
-    def get_preds(self, dl=None, cbs=[]):
+    def get_preds(
+        self,
+        dl=None, # An iterable DataLoader or DataLoader-like object
+        cbs=[] # Optional fastai `Callbacks`
+    ):
         """
         Get raw predictions based on `dl` with `cbs`.
 
@@ -159,17 +177,17 @@ class AdaptiveModel(ABC):
     @abstractmethod
     def load(
         self,
-        model_name_or_path: Union[str, Path],
+        model_name_or_path: Union[str, Path], # A model file location to use
     ):
-        """ Load model into the `AdaptiveModel` object as alternative constructor """
+        "Load model into the `AdaptiveModel` object as alternative constructor"
         raise NotImplementedError("Please Implement this method")
 
     @abstractmethod
     def predict(
         self,
-        text: Union[List[Sentence], Sentence, List[str], str],
-        mini_batch_size: int = 32,
+        text: Union[List[Sentence], Sentence, List[str], str], # Some text to predict on
+        mini_batch_size: int = 32, # A batch size for if a list of texts are passed in
         **kwargs,
-    ) -> List[Sentence]:
-        """ Run inference on the model """
+    ) -> List[Sentence]: # A list of predicted sentences
+        "Run inference on the model"
         raise NotImplementedError("Please Implement this method")

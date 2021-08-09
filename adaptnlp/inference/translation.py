@@ -32,22 +32,24 @@ logger = logging.getLogger(__name__)
 
 # Cell
 class TranslationResult:
-    """
-    A basic result class for Translation problems
-    """
+    "A basic result class for Translation problems"
     def __init__(
         self,
-        inputs:List[str],
-        input_lang:str,
-        output_lang:str,
-        translations:List[str]
+        inputs:List[str], # A list of input string sentences
+        input_lang:str, # A input language
+        output_lang:str, # An output language
+        translations:List[str] # A list of the translated sentences
     ):
         self.inputs = inputs
         self.input_lang = input_lang
         self.output_lang = output_lang
         self.translations = translations
 
-    def to_dict(self, detail_level:DetailLevel=DetailLevel.Low):
+    def to_dict(
+        self,
+        detail_level:DetailLevel=DetailLevel.Low # A detail level to return
+    ):
+        "Convert `self` to a filtered dictionary"
         o = OrderedDict()
         o.update(
             {'translations':self.translations,}
@@ -64,22 +66,13 @@ class TranslationResult:
 
 # Cell
 class TransformersTranslator(AdaptiveModel):
-    """Adaptive model for Transformer's Conditional Generation or Language Models (Transformer's T5 and Bart
-    conditional generation models have a language modeling head)
+    "Adaptive model for Transformer's Conditional Generation or Language Models (Transformer's T5 and Bart conditional generation models have a language modeling head)"
 
-    Usage:
-    ```python
-    >>> translator = TransformersTranslator.load('transformers-translator-model')
-    >>> translator.predict(text='Example text', mini_batch_size=32)
-    ```
-
-    **Parameters:**
-
-    * **tokenizer** - A tokenizer object from Huggingface's transformers (TODO)and tokenizers
-    * **model** - A transformers Conditional Generation (Bart or T5) or Language model
-    """
-
-    def __init__(self, tokenizer: PreTrainedTokenizer, model: PreTrainedModel):
+    def __init__(
+        self,
+        tokenizer: PreTrainedTokenizer, # A tokenizer object from Huggingface's transformers (TODO)and tokenizers
+        model: PreTrainedModel # A transformers Conditional Generation (Bart or T5) or Language model
+    ):
         # Load up model and tokenizer
         self.tokenizer = tokenizer
         super().__init__()
@@ -91,11 +84,11 @@ class TransformersTranslator(AdaptiveModel):
         super().set_as_dict(True)
 
     @classmethod
-    def load(cls, model_name_or_path: str) -> AdaptiveModel:
-        """Class method for loading and constructing this classifier
-
-        * **model_name_or_path** - A key string of one of Transformer's pre-trained translator Model
-        """
+    def load(
+        cls,
+        model_name_or_path: str # A key string of one of Transformer's pre-trained translator Model
+    ) -> AdaptiveModel:
+        "Class method for loading and constructing this classifier"
         tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
         model = AutoModelForSeq2SeqLM.from_pretrained(model_name_or_path)
         translator = cls(tokenizer, model)
@@ -103,29 +96,17 @@ class TransformersTranslator(AdaptiveModel):
 
     def predict(
         self,
-        text: Union[List[str], str],
-        t5_prefix: str = 'translate English to German',
-        mini_batch_size: int = 32,
-        num_beams: int = 1,
-        min_length: int = 0,
-        max_length: int = 128,
-        early_stopping: bool = True,
-        detail_level:DetailLevel = DetailLevel.Low,
-        **kwargs,
-    ) -> List[str]:
-        """Predict method for running inference using the pre-trained sequence classifier model.  Keyword arguments
-        for parameters of the method `Transformers.PreTrainedModel.generate()` can be used as well.
-
-        * **text** - String, list of strings, sentences, or list of sentences to run inference on
-        * **t5_prefix**(Optional) - The pre-appended prefix for the specificied task. Only in use for T5-type models.
-        * **mini_batch_size** - Mini batch size
-        * **num_beams** - Number of beams for beam search. Must be between 1 and infinity. 1 means no beam search.  Default to 1.
-        * **min_length** -  The min length of the sequence to be generated. Default to 0
-        * **max_length** - The max length of the sequence to be generated. Between min_length and infinity. Default to 128
-        * **early_stopping** - if set to True beam search is stopped when at least num_beams sentences finished per batch.
-        * **detail_level** - The level of detail to return
-        * **&ast;&ast;kwargs**(Optional) - Optional arguments for the Transformers `PreTrainedModel.generate()` method
-        """
+        text: Union[List[str], str], # Sentences to run inference on
+        t5_prefix: str = 'translate English to German', # The pre-appended prefix for the specificied task. Only in use for T5-type models.
+        mini_batch_size: int = 32,  # Mini batch size
+        num_beams: int = 1, # Number of beams for beam search. Must be between 1 and infinity. 1 means no beam search
+        min_length: int = 0, # The min length of the sequence to be generated
+        max_length: int = 128, # The max length of the sequence to be generated. Between min_length and infinity
+        early_stopping: bool = True, # If set to `True` beam search is stopped when at least num_beams sentences finished per batch
+        detail_level:DetailLevel = DetailLevel.Low, # The level of detail to return
+        **kwargs, # Optional arguments for the Transformers `PreTrainedModel.generate()` method
+    ) -> List[str]: # A list of translated sentences
+        "Predict method for running inference using the pre-trained sequence classifier model. Keyword arguments for parameters of the method `Transformers.PreTrainedModel.generate()` can be used as well"
 
         # Make all inputs lists
         if isinstance(text, str):
@@ -185,47 +166,25 @@ class TransformersTranslator(AdaptiveModel):
 
 # Cell
 class EasyTranslator:
-    """Translation Module
-
-    Usage:
-
-    ```python
-    >>> translator = EasyTranslator()
-    >>> translator.translate(text="translate this text", model_name_or_path="t5-small")
-    ```
-
-    """
+    "Translation Module"
 
     def __init__(self):
         self.translators: Dict[AdaptiveModel] = defaultdict(bool)
 
     def translate(
         self,
-        text: Union[List[str], str],
-        model_name_or_path: str = "t5-small",
-        t5_prefix: str = "translate English to German",
-        detail_level=DetailLevel.Low,
-        mini_batch_size: int = 32,
-        num_beams: int = 1,
-        min_length: int = 0,
-        max_length: int = 128,
-        early_stopping: bool = True,
-        **kwargs,
+        text: Union[List[str], str], # Sentences to run inference on
+        model_name_or_path: str = "t5-small", # A model id or path to a pre-trained model repository or custom trained model directory
+        t5_prefix: str = "translate English to German", # The pre-appended prefix for the specificied task. Only in use for T5-type models
+        detail_level=DetailLevel.Low, # The level of detail to return
+        mini_batch_size: int = 32, # Mini batch size
+        num_beams: int = 1, # Number of beams for beam search. Must be between 1 and infinity. 1 means no beam search
+        min_length: int = 0, # The min length of the sequence to be generated
+        max_length: int = 128, # The max length of the sequence to be generated. Between min_length and infinity
+        early_stopping: bool = True, # If set to `True` beam search is stopped when at least num_beams sentences finished per batch
+        **kwargs, # Optional arguments for the Transformers `PreTrainedModel.generate()` method
     ) -> List[str]:
-        """Predict method for running inference using the pre-trained sequence classifier model. Keyword arguments
-        for parameters of the method `Transformers.PreTrainedModel.generate()` can be used as well.
-
-        * **text** - String, list of strings, sentences, or list of sentences to run inference on
-        * **model_name_or_path** - A String model id or path to a pre-trained model repository or custom trained model directory
-        * **t5_prefix**(Optional) - The pre-appended prefix for the specificied task. Only in use for T5-type models.
-        * **detail_level** - The level of detail to return
-        * **mini_batch_size** - Mini batch size
-        * **num_beams** - Number of beams for beam search. Must be between 1 and infinity. 1 means no beam search.  Default to 1.
-        * **min_length** -  The min length of the sequence to be generated. Default to 0
-        * **max_length** - The max length of the sequence to be generated. Between min_length and infinity. Default to 128
-        * **early_stopping** - if set to True beam search is stopped when at least num_beams sentences finished per batch.
-        * **&ast;&ast;kwargs**(Optional) - Optional arguments for the Transformers `PreTrainedModel.generate()` method
-        """
+        "Predict method for running inference using the pre-trained sequence classifier model. Keyword arguments for parameters of the method `Transformers.PreTrainedModel.generate()` can be used as well."
         name = getattr(model_name_or_path, 'name', model_name_or_path)
         if not self.translators[name]:
             self.translators[name] = TransformersTranslator.load(

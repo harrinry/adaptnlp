@@ -34,22 +34,12 @@ logger = logging.getLogger(__name__)
 
 # Cell
 class TransformersSummarizer(AdaptiveModel):
-    """Adaptive model for Transformer's Conditional Generation or Language Models (Transformer's T5 and Bart
-    conditiional generation models have a language modeling head)
-
-    Usage:
-    ```python
-    >>> summarizer = TransformersSummarizer.load("transformers-summarizer-model")
-    >>> summarizer.predict(text="Example text", mini_batch_size=32)
-    ```
-
-    **Parameters:**
-
-    * **tokenizer** - A tokenizer object from Huggingface's transformers (TODO)and tokenizers
-    * **model** - A transformers Conditional Generation (Bart or T5) or Language model
-    """
-
-    def __init__(self, tokenizer: PreTrainedTokenizer, model: PreTrainedModel):
+    "Adaptive model for Transformer's Conditional Generation or Language Models (Transformer's T5 and Bart conditiional generation models have a language modeling head)"
+    def __init__(
+        self,
+        tokenizer: PreTrainedTokenizer, # A tokenizer object from Huggingface's transformers (TODO)and tokenizers
+        model: PreTrainedModel # A transformers Conditional Generation (Bart or T5) or Language model
+    ):
         # Load up tokenizer
         self.tokenizer = tokenizer
 
@@ -61,11 +51,11 @@ class TransformersSummarizer(AdaptiveModel):
         super().set_as_dict(True)
 
     @classmethod
-    def load(cls, model_name_or_path: str) -> AdaptiveModel:
-        """Class method for loading and constructing this classifier
-
-        * **model_name_or_path** - A key string of one of Transformer's pre-trained Summarizer Model
-        """
+    def load(
+        cls,
+        model_name_or_path: str # A key string of one of Transformer's pre-trained Summarizer Model
+    ) -> AdaptiveModel:
+        "Class method for loading and constructing this classifier"
         tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
         model = AutoModelForSeq2SeqLM.from_pretrained(model_name_or_path)
         summarizer = cls(tokenizer, model)
@@ -73,24 +63,15 @@ class TransformersSummarizer(AdaptiveModel):
 
     def predict(
         self,
-        text: Union[List[str], str],
-        mini_batch_size: int = 32,
-        num_beams: int = 4,
-        min_length: int = 0,
-        max_length: int = 128,
-        early_stopping: bool = True,
-        **kwargs,
-    ) -> List[str]:
-        """Predict method for running inference using the pre-trained sequence classifier model
-
-        * **text** - String, list of strings, sentences, or list of sentences to run inference on
-        * **mini_batch_size** - Mini batch size
-        * **num_beams** - Number of beams for beam search. Must be between 1 and infinity. 1 means no beam search.  Default to 4.
-        * **min_length** -  The min length of the sequence to be generated. Default to 0
-        * **max_length** - The max length of the sequence to be generated. Between min_length and infinity. Default to 128
-        * **early_stopping** - if set to True beam search is stopped when at least num_beams sentences finished per batch.
-        * **&ast;&ast;kwargs**(Optional) - Optional arguments for the Transformers `PreTrainedModel.generate()` method
-        """
+        text: Union[List[str], str], # Sentences to run inference on
+        mini_batch_size: int = 32, # Mini batch size
+        num_beams: int = 4, # Number of beams for beam search. Must be between 1 and infinity. 1 means no beam search.
+        min_length: int = 0, # The min length of the sequence to be generated
+        max_length: int = 128, # The max length of the sequence to be generated. Between min_length and infinity
+        early_stopping: bool = True, # If set to True beam search is stopped when at least num_beams sentences finished per batch
+        **kwargs, # Optional arguments for the Transformers `PreTrainedModel.generate()` method
+    ) -> List[str]: # A list of predicted summarizations
+        "Predict method for running inference using the pre-trained sequence classifier model"
 
         # Make all inputs list
         if isinstance(text, str):
@@ -128,7 +109,7 @@ class TransformersSummarizer(AdaptiveModel):
         return {'summaries':summaries}
 
     def _tokenize(self, text: Union[List[str], str]) -> TensorDataset:
-        """ Batch tokenizes text and produces a `TensorDataset` with text """
+        "Batch tokenizes text and produces a `TensorDataset` with text"
 
         # Pre-trained Bart summarization model has a max length fo 1024 tokens for input
         if isinstance(self.model, BartForConditionalGeneration):
@@ -157,42 +138,22 @@ class TransformersSummarizer(AdaptiveModel):
 
 # Cell
 class EasySummarizer:
-    """Summarization Module
-
-    Usage:
-
-    ```python
-    >>> summarizer = EasySummarizer()
-    >>> summarizer.summarize(text="Summarize this text", model_name_or_path="t5-small")
-    ```
-
-    """
-
+    "Summarization Module"
     def __init__(self):
         self.summarizers: Dict[AdaptiveModel] = defaultdict(bool)
 
     def summarize(
         self,
-        text: Union[List[str], str],
-        model_name_or_path: Union[str, HFModelResult] = "t5-small",
-        mini_batch_size: int = 32,
-        num_beams: int = 4,
-        min_length: int = 0,
-        max_length: int = 128,
-        early_stopping: bool = True,
-        **kwargs,
-    ) -> List[str]:
-        """Predict method for running inference using the pre-trained sequence classifier model
-
-        * **text** - String, list of strings, sentences, or list of sentences to run inference on
-        * **model_name_or_path** - A String model id or path to a pre-trained model repository or custom trained model directory
-        * **mini_batch_size** - Mini batch size
-        * **num_beams** - Number of beams for beam search. Must be between 1 and infinity. 1 means no beam search.  Default to 4.
-        * **min_length** -  The min length of the sequence to be generated. Default to 0
-        * **max_length** - The max length of the sequence to be generated. Between min_length and infinity. Default to 128
-        * **early_stopping** - if set to True beam search is stopped when at least num_beams sentences finished per batch.
-        * **&ast;&ast;kwargs**(Optional) - Optional arguments for the Transformers `PreTrainedModel.generate()` method
-        """
+        text: Union[List[str], str], # Sentences to run inference on
+        model_name_or_path: Union[str, HFModelResult] = "t5-small", # A model id or path to a pre-trained model repository or custom trained model directory
+        mini_batch_size: int = 32, # Mini batch size
+        num_beams: int = 4, # Number of beams for beam search. Must be between 1 and infinity. 1 means no beam search
+        min_length: int = 0, # The max length of the sequence to be generated. Between min_length and infinity
+        max_length: int = 128, # The max length of the sequence to be generated. Between min_length and infinity
+        early_stopping: bool = True, # If set to True beam search is stopped when at least num_beams sentences finished per batch
+        **kwargs, # Optional arguments for the Transformers `PreTrainedModel.generate()` method
+    ) -> List[str]: # A list of predicted summaries
+        "Predict method for running inference using the pre-trained sequence classifier model"
         name = getattr(model_name_or_path, 'name', model_name_or_path)
         if not self.summarizers[name]:
             self.summarizers[name] = TransformersSummarizer.load(

@@ -54,7 +54,10 @@ class SetInputsCallback(Callback):
     """
     order = -1
 
-    def __init__(self, as_dict=False): store_attr()
+    def __init__(
+        self,
+        as_dict=False # Whether to leave `self.xb` as a dictionary of values
+    ): store_attr()
 
     def before_batch(self):
         """
@@ -72,7 +75,14 @@ class GeneratorCallback(Callback):
     """
 
     @delegates(PreTrainedModel.generate)
-    def __init__(self, num_beams:int, min_length:int, max_length:int, early_stopping:bool, **kwargs):
+    def __init__(
+        self,
+        num_beams:int, # Number of beams for beam search
+        min_length:int, # Minimal length of the sequence generated
+        max_length:int, # Maximum length of the sequence generated
+        early_stopping:bool, # Whether to do early stopping
+        **kwargs
+    ):
         store_attr()
         self.kwargs = kwargs
 
