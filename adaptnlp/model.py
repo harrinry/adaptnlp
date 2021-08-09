@@ -138,7 +138,6 @@ class _BaseLearner:
 # Cell
 class AdaptiveModel(ABC):
     _learn = _BaseLearner()
-
     def set_model(
         self,
         model # A PyTorch model
