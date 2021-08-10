@@ -10,26 +10,26 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
+      title: What are the Cookbooks?
+      url: cookbook.html
+    - output: web,pdf
       title: Contributing
       url: contributing
     output: web
     title: Getting Started
   - folderitems:
     - output: web,pdf
-      title: Language Models
-      url: language_model.html
-    - output: web,pdf
-      title: Model
+      title: Models
       url: model.html
+    - output: web,pdf
+      title: Results
+      url: result.html
     - output: web,pdf
       title: The Model Hub
       url: model_hub.html
     output: web
     title: Models and Model Hubs
   - folderitems:
-    - output: web,pdf
-      title: Overview
-      url: api_intro
       subfolders:
       - output: web
         subfolderitems:
@@ -54,76 +54,96 @@ entries:
         - output: web,pdf
           title: Translation
           url: translation.html
-        title: NLP Tasks
+        title: Inference Tasks
       - output: web
         subfolderitems:
         - output: web,pdf
-          title: Callbacks
-          url: callback.html
+          title: Sequence Classification
+          url: training.sequence_classification
         - output: web,pdf
-          title: Training
-          url: training.html
-        title: Training Framework
+          title: Language Models
+          url: training.language_model
+        title: Tuning Framework
       - output: web
         subfolderitems:
         - output: web,pdf
           title: File Utilities
           url: file_utils.html
         - output: web,pdf
-          title: Transformers Fine-Tuning
-          url: transformers.finetuning.html
+          title: Callbacks
+          url: callback.html
         - output: web,pdf
-          title: Transformers Squad Metrics
-          url: transformers.squad_metrics.html
-        - output: web,pdf
-          title: Transformers Squad Evaluate
-          url: transformers.utils_squad_evaluate.html
-        title: Utilities
+          title: Training
+          url: training.html
+        title: Utilities and Foundations
     output: web
     title: Class API
   - folderitems:
     - output: web,pdf
-      title: Tutorial- Intro
-      url: tutorial-intro
-    - output: web,pdf
-      title: Embeddings
-      url: tutorial.embeddings.html
-    - output: web,pdf
-      title: Question Answering
-      url: tutorial.question_answering.html
-    - output: web,pdf
-      title: Sequence Classification
-      url: tutorial.easy_sequence_classifier.html
-    - output: web,pdf
-      title: Summarization
-      url: tutorial.summarization.html
-    - output: web,pdf
-      title: Text Generation
-      url: tutorial.easy_text_generator.html
-    - output: web,pdf
-      title: Token Tagging
-      url: tutorial.token_tagging.html
-    - output: web,pdf
-      title: Translation
-      url: tutorial.translation.html
+      title: Cookbook Introduction
+      url: cookbook.html
+      subfolders:
+      - output: web,pdf
+        title: Embeddings
+        url: tutorial.embeddings.html
+      - output: web,pdf
+        title: Question Answering
+        url: tutorial.question_answering.html
+      - output: web,pdf
+        title: Sequence Classification
+        url: tutorial.easy_sequence_classifier.html
+      - output: web,pdf
+        title: Summarization
+        url: tutorial.summarization.html
+      - output: web,pdf
+        title: Text Generation
+        url: tutorial.easy_text_generator.html
+      - output: web,pdf
+        title: Token Tagging
+        url: tutorial.token_tagging.html
+      - output: web,pdf
+        title: Translation
+        url: tutorial.translation.html
     output: web
-    title: Tutorials - User Guide
+    title: Inference Cookbooks
   - folderitems:
     - output: web,pdf
-      title: Fine-Tuning a Language Model
-      url: tutorial.fine_tuning_lm.html
-    - output: web,pdf
-      title: Fine Tune Transformers Models
-      url: tutorial.fine_tuning_manual.html
-    - output: web,pdf
-      title: Training Sequence Classifier Head
-      url: tutorial.flair_seq_class_trainer.html
+      title: Cookbook Introduction
+      url: cookbook.html
+      subfolders:
+      - output: web
+        subfolderitems:
+        - output: web,pdf
+          title: From Dataframes
+          url: language_model_from_df.html
+        - output: web,pdf
+          title: From CSVs
+          url: language_model_from_csv.html
+        - output: web,pdf
+          title: From Folders
+          url: language_model_from_folder.html
+        title: Language Models
+      - output: web
+        subfolderitems:
+        - output: web,pdf
+          title: From Dataframes
+          url: sequence_classification_from_df.html
+        - output: web,pdf
+          title: From CSVs
+          url: sequence_classification_from_csv.html
+        - output: web,pdf
+          title: From Folders
+          url: sequence_classification_from_folder.html
+        - output: web,pdf
+          title: From (HF) Dataset
+          url: sequence_classification_from_dataset.html
+        title: Sequence Classification
     output: web
-    title: Tutorials - Advanced
+    title: Training Cookbooks
   - folderitems:
     - output: web,pdf
       title: AdaptNLP Rest API
-      url: rest
+      url: rest.md
     output: web
     title: NLP Services with FastAPI
   output: web

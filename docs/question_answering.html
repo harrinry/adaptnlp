@@ -54,45 +54,15 @@ nb_path: "nbs/10_question_answering.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="QACallback" class="doc_header"><code>class</code> <code>QACallback</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/question_answering.py#L44" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>QACallback</code>(<strong><code>xmodel_instances</code></strong>, <strong><code>features</code></strong>) :: <code>Callback</code></p>
+<h2 id="QACallback" class="doc_header"><code>class</code> <code>QACallback</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/question_answering.py#L45" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>QACallback</code>(<strong><code>xmodel_instances</code></strong>, <strong><code>features</code></strong>) :: <code>Callback</code></p>
 </blockquote>
 <p>Basic Question Answering Data Callback</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="TransformersQuestionAnswering" class="doc_header"><code>class</code> <code>TransformersQuestionAnswering</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/question_answering.py#L100" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersQuestionAnswering</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
-</blockquote>
-<p>Adaptive Model for Transformers Question Answering Model</p>
-<p><strong>Parameters</strong></p>
+<p><strong>Parameters:</strong></p>
 <ul>
-<li><strong>tokenizer</strong> - A tokenizer object from Huggingface's transformers (TODO)and tokenizers *</li>
-<li><strong>model</strong> - A transformer Question Answering model</li>
+<li><p><strong><code>xmodel_instances</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></p>
+</li>
+<li><p><strong><code>features</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></p>
+</li>
 </ul>
 
 </div>
@@ -123,34 +93,97 @@ nb_path: "nbs/10_question_answering.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="EasyQuestionAnswering" class="doc_header"><code>class</code> <code>EasyQuestionAnswering</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/question_answering.py#L272" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyQuestionAnswering</code>()</p>
+<h2 id="QAResult" class="doc_header"><code>class</code> <code>QAResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/question_answering.py#L103" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>QAResult</code>(<strong><code>examples</code></strong>:<code>List</code>[<code>SquadExample</code>], <strong><code>top_predictions</code></strong>:<code>Union</code>[<code>str</code>, <code>OrderedDict</code>], <strong><code>all_nbest_json</code></strong>:<code>List</code>[<code>OrderedDict</code>])</p>
+</blockquote>
+<p>A result class designed for Question Answering models</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><p><strong><code>examples</code></strong> : <em><code>typing.List[transformers.data.processors.squad.SquadExample]</code></em></p>
+</li>
+<li><p><strong><code>top_predictions</code></strong> : <em><code>typing.Union[str, collections.OrderedDict]</code></em></p>
+</li>
+<li><p><strong><code>all_nbest_json</code></strong> : <em><code>typing.List[collections.OrderedDict]</code></em></p>
+</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="TransformersQuestionAnswering" class="doc_header"><code>class</code> <code>TransformersQuestionAnswering</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/question_answering.py#L172" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersQuestionAnswering</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
+</blockquote>
+<p>Adaptive Model for Transformers Question Answering Model</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><strong>tokenizer</strong> - A tokenizer object from Huggingface's transformers (TODO)and tokenizers *</li>
+<li><strong>model</strong> - A transformer Question Answering model</li>
+</ul>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><p><strong><code>tokenizer</code></strong> : <em><code>&lt;class 'transformers.tokenization_utils.PreTrainedTokenizer'&gt;</code></em></p>
+</li>
+<li><p><strong><code>model</code></strong> : <em><code>&lt;class 'transformers.modeling_utils.PreTrainedModel'&gt;</code></em></p>
+</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="EasyQuestionAnswering" class="doc_header"><code>class</code> <code>EasyQuestionAnswering</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/question_answering.py#L334" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyQuestionAnswering</code>()</p>
 </blockquote>
 <p>Question Answering Module</p>
 <p>Usage:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">qa</span> <span class="o">=</span> <span class="n">adaptnlp</span><span class="o">.</span><span class="n">EasyQuestionAnswering</span><span class="p">()</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">qa</span><span class="o">.</span><span class="n">predict_qa</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s1">&#39;What is life?&#39;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;Life is NLP.&#39;</span><span class="p">,</span> <span class="n">n_best_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-<p><strong>Usage Examples:</strong></p>
-<p>Sample code from: 10_question_answering.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/10_question_answering.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">qa_model</span> <span class="o">=</span> <span class="n">EasyQuestionAnswering</span><span class="p">()</span>
-<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Amazon.com, Inc.[6] (/ˈæməzɒn/), is an American multinational technology company based in Seattle, </span>
-<span class="s2">Washington that focuses on e-commerce, cloud computing, digital streaming, and artificial intelligence. </span>
-<span class="s2">It is considered one of the Big Four technology companies along with Google, Apple, and Facebook.[7][8][9] </span>
-<span class="s2">Amazon is known for its disruption of well-established industries through technological innovation and mass </span>
-<span class="s2">scale.[10][11][12] It is the world&#39;s largest e-commerce marketplace, AI assistant provider, and cloud computing </span>
-<span class="s2">platform[13] as measured by revenue and market capitalization.[14] Amazon is the largest Internet company by </span>
-<span class="s2">revenue in the world.[15] It is the second largest private employer in the United States[16] and one of the world&#39;s </span>
-<span class="s2">most valuable companies. Amazon is the second largest technology company by revenue. Amazon was founded by Jeff Bezos </span>
-<span class="s2">on July 5, 1994, in Bellevue, Washington. The company initially started as an online marketplace for books but later </span>
-<span class="s2">expanded to sell electronics, software, video games, apparel, furniture, food, toys, and jewelry. In 2015, Amazon </span>
-<span class="s2">surpassed Walmart as the most valuable retailer in the United States by market capitalization.[17] In 2017, Amazon </span>
-<span class="s2">acquired Whole Foods Market for $13.4 billion, which vastly increased Amazon&#39;s presence as a brick-and-mortar </span>
-<span class="s2">retailer.[18] In 2018, Bezos announced that its two-day delivery service, Amazon Prime, had surpassed 100 million </span>
-<span class="s2">subscribers worldwide</span>
-<span class="s2">&quot;&quot;&quot;</span>
-
-<span class="n">top_prediction</span><span class="p">,</span> <span class="n">all_nbest_json</span> <span class="o">=</span> <span class="n">qa_model</span><span class="o">.</span><span class="n">predict_qa</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;What does Amazon do?&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">n_best_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;distilbert-base-uncased-distilled-squad&quot;</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">top_prediction</span><span class="p">,</span> <span class="s1">&#39;disruption of well-established industries&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>

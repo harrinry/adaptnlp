@@ -20,8 +20,9 @@ Learning Researchers and Scientists a modular and **adaptive** approach to a var
 ## Key Features
 
   - **[Full Guides and API Documentation](https://novetta.github.io/adaptnlp)**
-  - Jupyter Notebook [Tutorials](https://novetta.github.io/adaptnlp/tutorial-intro)
-  - Unified API for NLP Tasks with SOTA Pretrained Models (Adaptable with Flair and Transformer's Models)
+  - Built with [nbdev](https://github.com/fastai/nbdev)
+  - Jupyter Notebook [Cookbooks](https://novetta.github.io/adaptnlp/cookbook)
+  - Unified inference API for NLP Tasks with SOTA Pretrained Models (Adaptable with Flair and Transformer's Models)
     - Token Tagging 
     - Sequence Classification
     - Embeddings
@@ -30,21 +31,18 @@ Learning Researchers and Scientists a modular and **adaptive** approach to a var
     - Translation
     - Text Generation
     - <em> More in development </em>
-  - Training and Fine-tuning Interface
+  - Training interface
+    - Integration with the `Datasets` and `fastai` library for an approachable data API as well as fine-tuning API, making use of state-of-the-art practices
     - Integration with Transformer's Trainer Module for fast and easy transfer learning with custom datasets
-    - Jeremy's **[ULM-FIT](https://arxiv.org/abs/1801.06146)** approach for transfer learning in NLP
     - Fine-tuning Transformer's language models and task-specific predictive heads like Flair's `SequenceClassifier`
-  - [Rapid NLP Model Deployment](https://github.com/Novetta/adaptnlp/tree/master/rest) with Sebastián's [FastAPI](https://github.com/tiangolo/fastapi) Framework
+  - Deployment interface:
+    - [Rapid NLP Model Deployment](https://github.com/Novetta/adaptnlp/tree/master/rest) with Sebastián's [FastAPI](https://github.com/tiangolo/fastapi) Framework
     - Containerized FastAPI app
     - Immediately deploy any custom trained Flair or AdaptNLP model
-  - [Dockerizing AdaptNLP with GPUs](https://hub.docker.com/r/achangnovetta/adaptnlp)
+  - [Dockerizing AdaptNLP with GPUs](https://hub.docker.com/r/novetta/adaptnlp)
     - Easily build and run AdaptNLP containers leveraging NVIDIA GPUs with Docker
 
 ## Quick Start
-
-### Requirements and Installation for Linux/Mac
-
-Note: AdaptNLP will be using the latest stable torch version (v1.7 as of 11/2/20) which requires Python 3.7+. Please downgrade torch<=1.6 if using Python 3.6
 
 #### Virtual Environment
 To avoid dependency clustering and issues, it would be wise to install AdaptNLP in a virtual environment.
@@ -179,28 +177,7 @@ for t in translations:
 
 ## Tutorials
 
-### NLP Tasks
-
-  1. [Token Classification: NER, POS, Chunk, and Frame Tagging](https://novetta.github.io/adaptnlp/tutorial.token_tagging.html)
-      - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/nbs/05a_tutorial.token_tagging.ipynb)
-  2. [Sequence Classification: Sentiment](https://novetta.github.io/adaptnlp/tutorial.sequence_classification)
-      - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/nbs/06a_tutorial.sequence_classification.ipynb)
-  3. [Embeddings: Transformer Embeddings e.g. BERT, XLM, GPT2, XLNet, roBERTa, ALBERT](https://novetta.github.io/adaptnlp/tutorial.embeddings)
-      - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/nbs/04a_tutorial.embeddings.ipynb)
-  4. [Question Answering: Span-based Question Answering Model](https://novetta.github.io/adaptnlp/tutorial.question_answering)
-      - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/nbs/10a_tutorial.question_answering.ipynb)
-  5. [Summarization: Abstractive and Extractive](https://novetta.github.io/adaptnlp/tutorial.summarization)
-      - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/nbs/07a_tutorial.summarization.ipynb)
-  6. [Translation: Seq2Seq](https://novetta.github.io/adaptnlp/tutorial.translation)
-      - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/nbs/08a_tutorial.translation.ipynb)
-
-### Custom Fine-Tuning and Training with Transformer Models
-
- - Fine-tuning a Transformers Language Model
-   - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Novetta/adaptnlp/blob/master/nbs/20a_tutorial.fine_tuning_lm.ipynb)
-  
-Checkout the [documentation](https://novetta.github.io/adaptnlp) for more information.
-  
+Tutorials of the API are available in the cookbook section of the documentation [here](https://novetta.github.io/adaptnlp/cookbook)  
 
 ## REST Service 
 
@@ -213,7 +190,7 @@ fast way.
 
 ## Docker
 
-AdaptNLP official docker images are up on [Docker Hub](https://hub.docker.com/r/achangnovetta/adaptnlp).
+AdaptNLP official docker images are up on [Docker Hub](https://hub.docker.com/r/novetta/adaptnlp).
 
 Images have AdaptNLP installed from source in developer mode with tutorial notebooks available, and will default to launching a jupyter server from where you can start 
 running the tutorial and workshop notebooks.
@@ -223,11 +200,11 @@ Images can build with GPU support if NVIDA-Docker is correctly installed.
 ### Pull and Run AdaptNLP Immediately
 Simply run an image with AdaptNLP installed from source in developer mode by running:
 ```
-docker run -itp 8888:8888 achangnovetta/adaptnlp:latest
+docker run -itp 8888:8888 novetta/adaptnlp:latest
 ```
 Run an image with AdaptNLP running on GPUs if you have nvidia drivers and nvidia-docker 19.03+ installed:
 ```
-docker run -itp 8888:8888 --gpus all achangnovetta/adaptnlp:latest
+docker run -itp 8888:8888 --gpus all novetta/adaptnlp:latest
 ```
 
 Check `localhost:8888` or `localhost:8888/lab` to access the container notebook servers.
@@ -240,8 +217,8 @@ Refer to the `docker/` directory and run the following to build and run adaptnlp
 Note: A container with GPUs enabled requires Docker version 19.03+ and nvida-docker installed
 ```
 # From the repo directory
-docker build -t achangnovetta/adaptnlp:latest -f docker/runtime/Dockerfile.cuda11.0-runtime-ubuntu18.04-py3.8 .
-docker run -itp 8888:8888 achangnovetta/adaptnlp:latest
+docker build -t novetta/adaptnlp:latest
+docker run -itp 8888:8888 novetta/adaptnlp:latest
 ```
 If you want to use CUDA compatible GPUs 
 ```

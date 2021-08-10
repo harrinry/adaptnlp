@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu, macos]
+        os: [ubuntu, macos, windows]
         py: [3.6,3.7,3.8]
     runs-on: ${{ matrix.os }}-latest
     steps:

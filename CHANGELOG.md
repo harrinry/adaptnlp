@@ -1,5 +1,10 @@
 # Release Notes
 
+## 0.2.5
+
+### Breaking Changes
+- New versions of AdaptNLP will require a special forked and pinned version of Flair, that does not have a torch maximum requirement. Thus allowing for torch 1.7 >
+
 ## 0.2.3
 
 ### Breaking Changes:

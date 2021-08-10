@@ -1,53 +1,65 @@
 {
-  "Getting Started": {
-      "Overview": "/",
-      "Contributing": "contributing"
-    },
-    "Models and Model Hubs": {
-        "Language Models": "language_model.html",
-        "Model": "model.html",
-        "The Model Hub": "model_hub.html"
-    },
-    "Class API": {
-        "Overview" :"api_intro",
-        "": {
-            "NLP Tasks": {
-                "Embeddings": "embeddings.html",
-                "Question Answering": "question_answering.html",
-                "Sequence Classification": "sequence_classification.html",
-                "Summarization": "summarization.html",
-                "Text Generation": "text_generation.html",
-                "Token Tagging and Classification": "token_classification.html",
-                "Translation": "translation.html"
-            },
-            "Training Framework": {
-                "Callbacks": "callback.html",
-                "Training": "training.html"
-            },
-            "Utilities": {
-                "File Utilities": "file_utils.html",
-                "Transformers Fine-Tuning": "transformers.finetuning.html",
-                "Transformers Squad Metrics": "transformers.squad_metrics.html",
-                "Transformers Squad Evaluate": "transformers.utils_squad_evaluate.html"
-            }
+	"Getting Started": {
+		"Overview": "/",
+		"What are the Cookbooks?": "cookbook.html",
+		"Contributing": "contributing"
+	},
+	"Models and Model Hubs": {
+		"Models": "model.html",
+		"Results": "result.html",
+		"The Model Hub": "model_hub.html"
+	},
+	"Class API": {
+		"": {
+			"Inference Tasks": {
+				"Embeddings": "embeddings.html",
+				"Question Answering": "question_answering.html",
+				"Sequence Classification": "sequence_classification.html",
+				"Summarization": "summarization.html",
+				"Text Generation": "text_generation.html",
+				"Token Tagging and Classification": "token_classification.html",
+				"Translation": "translation.html"
+			},
+			"Tuning Framework": {
+				"Sequence Classification": "training.sequence_classification",
+				"Language Models": "training.language_model"
+			},
+			"Utilities and Foundations": {
+				"File Utilities": "file_utils.html",
+				"Callbacks": "callback.html",
+				"Training": "training.html"
+			}
+		}
+	},
+	"Inference Cookbooks": {
+		"Cookbook Introduction": "cookbook.html",
+        "":{
+            "Embeddings": "tutorial.embeddings.html",
+            "Question Answering": "tutorial.question_answering.html",
+            "Sequence Classification": "tutorial.easy_sequence_classifier.html",
+            "Summarization": "tutorial.summarization.html",
+            "Text Generation": "tutorial.easy_text_generator.html",
+            "Token Tagging": "tutorial.token_tagging.html",
+            "Translation": "tutorial.translation.html"
         }
-    },
-    "Tutorials - User Guide": {
-        "Tutorial- Intro" : "tutorial-intro",
-        "Embeddings" : "tutorial.embeddings.html",
-        "Question Answering": "tutorial.question_answering.html",
-        "Sequence Classification": "tutorial.easy_sequence_classifier.html",
-        "Summarization": "tutorial.summarization.html",
-        "Text Generation": "tutorial.easy_text_generator.html",
-        "Token Tagging": "tutorial.token_tagging.html",
-        "Translation": "tutorial.translation.html"
-    },
-    "Tutorials - Advanced": {
-        "Fine-Tuning a Language Model": "tutorial.fine_tuning_lm.html",
-        "Fine Tune Transformers Models": "tutorial.fine_tuning_manual.html",
-        "Training Sequence Classifier Head": "tutorial.flair_seq_class_trainer.html"
-    },
-    "NLP Services with FastAPI": {
-        "AdaptNLP Rest API": "rest"
-    }
+	},
+	"Training Cookbooks": {
+		"Cookbook Introduction": "cookbook.html",
+		"": {
+			"Language Models": {
+				"From Dataframes": "language_model_from_df.html",
+				"From CSVs": "language_model_from_csv.html",
+				"From Folders": "language_model_from_folder.html"
+			},
+			"Sequence Classification": {
+				"From Dataframes": "sequence_classification_from_df.html",
+				"From CSVs": "sequence_classification_from_csv.html",
+				"From Folders": "sequence_classification_from_folder.html",
+				"From (HF) Dataset": "sequence_classification_from_dataset.html"
+			}
+		}
+	},
+	"NLP Services with FastAPI": {
+		"AdaptNLP Rest API": "rest.md"
+	}
 }
