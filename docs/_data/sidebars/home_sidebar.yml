@@ -30,6 +30,9 @@ entries:
     output: web
     title: Models and Model Hubs
   - folderitems:
+    - output: web,pdf
+      title: Introduction
+      url: /
       subfolders:
       - output: web
         subfolderitems:

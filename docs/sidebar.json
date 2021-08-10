@@ -10,6 +10,7 @@
 		"The Model Hub": "model_hub.html"
 	},
 	"Class API": {
+        "Introduction": "/",
 		"": {
 			"Inference Tasks": {
 				"Embeddings": "embeddings.html",
