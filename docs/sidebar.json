@@ -33,15 +33,13 @@
 	},
 	"Inference Cookbooks": {
 		"Cookbook Introduction": "cookbook.html",
-        "":{
-            "Embeddings": "tutorial.embeddings.html",
-            "Question Answering": "tutorial.question_answering.html",
-            "Sequence Classification": "tutorial.easy_sequence_classifier.html",
-            "Summarization": "tutorial.summarization.html",
-            "Text Generation": "tutorial.easy_text_generator.html",
-            "Token Tagging": "tutorial.token_tagging.html",
-            "Translation": "tutorial.translation.html"
-        }
+        "Embeddings": "tutorial.embeddings.html",
+        "Question Answering": "tutorial.question_answering.html",
+        "Sequence Classification": "tutorial.easy_sequence_classifier.html",
+        "Summarization": "tutorial.summarization.html",
+        "Text Generation": "tutorial.easy_text_generator.html",
+        "Token Tagging": "tutorial.token_tagging.html",
+        "Translation": "tutorial.translation.html"
 	},
 	"Training Cookbooks": {
 		"Cookbook Introduction": "cookbook.html",

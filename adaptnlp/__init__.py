@@ -18,9 +18,6 @@ from .inference.sequence_classification import (
     FlairSequenceClassifier
 )
 
-<<<<<<< HEAD
-__version__ = "0.3.0"
-=======
 from .inference.token_classification import EasyTokenTagger
 from .inference.question_answering import EasyQuestionAnswering, TransformersQuestionAnswering
 from .inference.summarization import EasySummarizer, TransformersSummarizer
@@ -36,7 +33,7 @@ from .model_hub import HFModelHub, FlairModelHub, HF_TASKS, FLAIR_TASKS
 from .training.core import Strategy, TaskDatasets, AdaptiveTuner
 from .training.sequence_classification import SequenceClassificationTuner, SequenceClassificationDatasets
 from .training.language_model import LanguageModelTuner, LanguageModelDatasets
->>>>>>> 57903b82c17564a62485bd9c9f5072c1675afae5
+
 
 __all__ = [
     "__version__",

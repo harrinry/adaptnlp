@@ -82,28 +82,27 @@ entries:
     - output: web,pdf
       title: Cookbook Introduction
       url: cookbook.html
-      subfolders:
-      - output: web,pdf
-        title: Embeddings
-        url: tutorial.embeddings.html
-      - output: web,pdf
-        title: Question Answering
-        url: tutorial.question_answering.html
-      - output: web,pdf
-        title: Sequence Classification
-        url: tutorial.easy_sequence_classifier.html
-      - output: web,pdf
-        title: Summarization
-        url: tutorial.summarization.html
-      - output: web,pdf
-        title: Text Generation
-        url: tutorial.easy_text_generator.html
-      - output: web,pdf
-        title: Token Tagging
-        url: tutorial.token_tagging.html
-      - output: web,pdf
-        title: Translation
-        url: tutorial.translation.html
+    - output: web,pdf
+      title: Embeddings
+      url: tutorial.embeddings.html
+    - output: web,pdf
+      title: Question Answering
+      url: tutorial.question_answering.html
+    - output: web,pdf
+      title: Sequence Classification
+      url: tutorial.easy_sequence_classifier.html
+    - output: web,pdf
+      title: Summarization
+      url: tutorial.summarization.html
+    - output: web,pdf
+      title: Text Generation
+      url: tutorial.easy_text_generator.html
+    - output: web,pdf
+      title: Token Tagging
+      url: tutorial.token_tagging.html
+    - output: web,pdf
+      title: Translation
+      url: tutorial.translation.html
     output: web
     title: Inference Cookbooks
   - folderitems:
