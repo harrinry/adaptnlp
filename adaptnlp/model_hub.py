@@ -429,9 +429,9 @@ class FlairModelHub:
 
     def search_model_by_task(
         self,
-        task:str, # A valid task to search in the HuggingFace hub for
-        as_dict:bool=False, # Whether to return as a dictionary or list
-        user_uploaded:bool=False # Whether to filter out user-uploaded results
+        task:str, # A valid task to search the HuggingFace hub for
+        as_dict=False, # Whether to return as a dictionary or list
+        user_uploaded=False # Whether to filter out user-uploaded results
     ) -> (List[FlairModelResult], Dict[str, FlairModelResult]): # A list of `FlairModelResult`s
         "Searches HuggingFace Model API for all flair models for `task`"
         if (task not in _flair_tasks.values()) and (task != ''):
