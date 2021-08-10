@@ -61,11 +61,14 @@ entries:
       - output: web
         subfolderitems:
         - output: web,pdf
-          title: Sequence Classification
-          url: training.sequence_classification
+          title: Core
+          url: training.core
         - output: web,pdf
           title: Language Models
           url: training.language_model
+        - output: web,pdf
+          title: Sequence Classification
+          url: training.sequence_classification
         title: Tuning Framework
       - output: web
         subfolderitems:

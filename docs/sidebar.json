@@ -22,8 +22,9 @@
 				"Translation": "translation.html"
 			},
 			"Tuning Framework": {
-				"Sequence Classification": "training.sequence_classification",
-				"Language Models": "training.language_model"
+                "Core":"training.core",
+				"Language Models": "training.language_model",
+				"Sequence Classification": "training.sequence_classification"
 			},
 			"Utilities and Foundations": {
 				"File Utilities": "file_utils.html",
