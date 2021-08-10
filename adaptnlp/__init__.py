@@ -27,7 +27,7 @@ from .transformers.finetuning import LMFineTunerManual
 # global variable like flair's: cache_root
 cache_root = Path.home()/".adaptnlp"
 
-__version__ = "0.2.3"
+__version__ = "0.3.0"
 
 __all__ = [
     "__version__",
