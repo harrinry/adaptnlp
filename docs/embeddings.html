@@ -61,17 +61,124 @@ nb_path: "nbs/04_embeddings.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="EasyWordEmbeddings" class="doc_header"><code>class</code> <code>EasyWordEmbeddings</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/embeddings.py#L77" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyWordEmbeddings</code>()</p>
+<h2 id="EmbeddingResult" class="doc_header"><code>class</code> <code>EmbeddingResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/embeddings.py#L87" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EmbeddingResult</code>(<strong><code>sentences</code></strong>:<code>List</code>[<code>Sentence</code>]) :: <a href="/adaptnlp/result.html#SentenceResult"><code>SentenceResult</code></a></p>
+</blockquote>
+<p>A result class designed for Embedding models</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>sentences</code></strong> : <em><code>typing.List[flair.data.Sentence]</code></em>   <p>A list of Flair `Sentence`s</p></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="EmbeddingResult.sentence_embeddings" class="doc_header"><code>EmbeddingResult.sentence_embeddings</code><a href="" class="source_link" style="float:right">[source]</a></h4><p>All embeddings in <code>sentences</code> (if available)</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="EmbeddingResult.token_embeddings" class="doc_header"><code>EmbeddingResult.token_embeddings</code><a href="" class="source_link" style="float:right">[source]</a></h4><p>All embeddings from the individual tokens in <code>sentence</code> with original order in shape (n, embed_dim)</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="EmbeddingResult.to_dict" class="doc_header"><code>EmbeddingResult.to_dict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/embeddings.py#L104" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EmbeddingResult.to_dict</code>(<strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>)</p>
+</blockquote>
+<p>Returns <code>self</code> as a dictionary</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>detail_level</code></strong> : <em><code>&lt;class 'fastcore.basics.DetailLevel'&gt;</code></em>, <em>optional</em>   <p>A level of detail to return</p></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="EasyWordEmbeddings" class="doc_header"><code>class</code> <code>EasyWordEmbeddings</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/embeddings.py#L144" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyWordEmbeddings</code>()</p>
 </blockquote>
 <p>Word embeddings from the latest language models</p>
 <p>Usage:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">embeddings</span> <span class="o">=</span> <span class="n">adaptnlp</span><span class="o">.</span><span class="n">EasyWordEmbeddings</span><span class="p">()</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_text</span><span class="p">(</span><span class="s2">&quot;text you want embeddings for&quot;</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">)</span>
 </pre></div>
-<p><strong>Usage Examples:</strong></p>
-<p>Sample code from: 04a_tutorial.embeddings.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyWordEmbeddings</span><span class="p">()</span>
-</pre></div>
 
 </div>
 
@@ -101,17 +208,25 @@ nb_path: "nbs/04_embeddings.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="EasyWordEmbeddings.embed_text" class="doc_header"><code>EasyWordEmbeddings.embed_text</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/embeddings.py#L91" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyWordEmbeddings.embed_text</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>model_name_or_path</code></strong>:<code>Union</code>[<code>str</code>, <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a>, <a href="/adaptnlp/model_hub.html#FlairModelResult"><code>FlairModelResult</code></a>]=<em><code>'bert-base-cased'</code></em>)</p>
+<h4 id="EasyWordEmbeddings.embed_text" class="doc_header"><code>EasyWordEmbeddings.embed_text</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/embeddings.py#L158" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyWordEmbeddings.embed_text</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>model_name_or_path</code></strong>:<code>Union</code>[<code>str</code>, <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a>, <a href="/adaptnlp/model_hub.html#FlairModelResult"><code>FlairModelResult</code></a>]=<em><code>'bert-base-cased'</code></em>, <strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>, <strong><code>raw</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Produces embeddings for text</p>
-<p><strong>Parameters</strong>:</p>
+<p><strong>Parameters:</strong></p>
 <ul>
-<li><code>text</code> - Text input, it can be a string or any of Flair's <code>Sentence</code> input formats</li>
-<li><code>model_name_or_path</code> - The hosted model name key, model path, or an instance of either <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a> or <a href="/adaptnlp/model_hub.html#FlairModelResult"><code>FlairModelResult</code></a></li>
+<li><strong><code>text</code></strong> : <em><code>typing.Union[typing.List[flair.data.Sentence], flair.data.Sentence, typing.List[str], str]</code></em>  <p>Text input, it can be a string or any of Flair's `Sentence` input formats</p></li>
 </ul>
-<p><strong>Return</strong>:</p>
 <ul>
-<li>A list of Flair's <code>Sentence</code>s</li>
+<li><strong><code>model_name_or_path</code></strong> : <em><code>typing.Union[str, adaptnlp.model_hub.HFModelResult, adaptnlp.model_hub.FlairModelResult]</code></em>, <em>optional</em>  <p>The hosted model name key, model path, or an instance of either `HFModelResult` or `FlairModelResult`</p></li>
+</ul>
+<ul>
+<li><strong><code>detail_level</code></strong> : <em><code>&lt;class 'fastcore.basics.DetailLevel'&gt;</code></em>, <em>optional</em>   <p>A level of detail to return. By default is None, which returns a EmbeddingResult, otherwise will return a dict</p></li>
+</ul>
+<ul>
+<li><strong><code>raw</code></strong> : <em><code>&lt;class 'bool'&gt;</code></em>, <em>optional</em>   <p>Whether to return the raw outputs</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>typing.List[adaptnlp.inference.embeddings.EmbeddingResult]</code></em>   <p>A list of either `EmbeddingResult`s or dictionaries with information</p></li>
 </ul>
 
 </div>
@@ -135,59 +250,52 @@ nb_path: "nbs/04_embeddings.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="EasyWordEmbeddings.embed_all" class="doc_header"><code>EasyWordEmbeddings.embed_all</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/embeddings.py#L113" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyWordEmbeddings.embed_all</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong>*<code>model_names_or_paths</code></strong>:<code>str</code>)</p>
+<h4 id="EasyWordEmbeddings.embed_all" class="doc_header"><code>EasyWordEmbeddings.embed_all</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/embeddings.py#L181" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyWordEmbeddings.embed_all</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>model_names_or_paths</code></strong>:<code>List</code>[<code>str</code>]=<em><code>[]</code></em>, <strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>)</p>
 </blockquote>
 <p>Embeds text with all embedding models loaded</p>
-<p><strong>Parameters</strong>:</p>
-<ul>
-<li><code>text</code> - Text input, it can be a string or any of Flair's <code>Sentence</code> input formats</li>
-<li><code>model_names_or_paths</code> -  A variable input of model names or paths to embed</li>
-</ul>
-<p><strong>Return</strong>:</p>
-<ul>
-<li>A list of Flair's <code>Sentence</code>s</li>
-</ul>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="EasyStackedEmbeddings" class="doc_header"><code>class</code> <code>EasyStackedEmbeddings</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/embeddings.py#L143" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyStackedEmbeddings</code>(<strong>*<code>embeddings</code></strong>:<code>str</code>)</p>
-</blockquote>
-<p>Word Embeddings that have been concatenated and "stacked" as specified by flair</p>
-<p>Usage:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">embeddings</span> <span class="o">=</span> <span class="n">adaptnlp</span><span class="o">.</span><span class="n">EasyStackedEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;gpt2&quot;</span><span class="p">,</span> <span class="s2">&quot;xlnet-base-cased&quot;</span><span class="p">)</span>
-</pre></div>
 <p><strong>Parameters:</strong></p>
 <ul>
-<li><code>&amp;ast;embeddings</code> - Non-keyword variable number of strings specifying the embeddings you want to stack</li>
+<li><strong><code>text</code></strong> : <em><code>typing.Union[typing.List[flair.data.Sentence], flair.data.Sentence, typing.List[str], str]</code></em>  <p>Text input, it can be a string or any of Flair's `Sentence` input formats</p></li>
 </ul>
-<p><strong>Usage Examples:</strong></p>
-<p>Sample code from: 04a_tutorial.embeddings.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyStackedEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;distilbert-base-cased&quot;</span><span class="p">)</span>
-</pre></div>
-<p>Sample code from: 04_embeddings.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyStackedEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;xlnet-base-cased&quot;</span><span class="p">)</span>
-<span class="n">sentences</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_text</span><span class="p">(</span><span class="s2">&quot;This is Albert.  My last name is Einstein.  I like physics and atoms.&quot;</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">sentences</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_embedding</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">1536</span><span class="p">]))</span>
-</pre></div>
+<ul>
+<li><strong><code>model_names_or_paths</code></strong> : <em><code>typing.List[str]</code></em>, <em>optional</em>    <p>A list of model names</p></li>
+</ul>
+<ul>
+<li><strong><code>detail_level</code></strong> : <em><code>&lt;class 'fastcore.basics.DetailLevel'&gt;</code></em>, <em>optional</em>   <p>A level of detail to return. By default is None, which returns a EmbeddingResult, otherwise will return a dict</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>typing.List[adaptnlp.inference.embeddings.EmbeddingResult]</code></em>   <p>A list of either `EmbeddingResult`s or dictionaries with information</p></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="EasyStackedEmbeddings" class="doc_header"><code>class</code> <code>EasyStackedEmbeddings</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/embeddings.py#L205" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyStackedEmbeddings</code>(<strong>*<code>embeddings</code></strong>:<code>str</code>)</p>
+</blockquote>
+<p>Word Embeddings that have been concatenated and 'stacked' as specified by Flair</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>embeddings</code></strong> : <em><code>&lt;class 'str'&gt;</code></em></li>
+</ul>
 
 </div>
 
@@ -217,84 +325,54 @@ nb_path: "nbs/04_embeddings.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="EasyStackedEmbeddings.embed_text" class="doc_header"><code>EasyStackedEmbeddings.embed_text</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/embeddings.py#L168" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyStackedEmbeddings.embed_text</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>])</p>
+<h4 id="EasyStackedEmbeddings.embed_text" class="doc_header"><code>EasyStackedEmbeddings.embed_text</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/embeddings.py#L221" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyStackedEmbeddings.embed_text</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>)</p>
 </blockquote>
 <p>Stacked embeddings</p>
-<p><strong>Parameters</strong>:</p>
-<ul>
-<li><code>text</code> - Text input, it can be a string or any of Flair's <code>Sentence</code> input formats</li>
-</ul>
-<p><strong>Return</strong>:</p>
-<ul>
-<li>A list of Flair's <code>Sentence</code>s</li>
-</ul>
-<p><strong>Usage Examples:</strong></p>
-<p>Sample code from: 04_embeddings.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyStackedEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;xlnet-base-cased&quot;</span><span class="p">)</span>
-<span class="n">sentences</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_text</span><span class="p">(</span><span class="s2">&quot;This is Albert.  My last name is Einstein.  I like physics and atoms.&quot;</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">sentences</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_embedding</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">1536</span><span class="p">]))</span>
-</pre></div>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="EasyDocumentEmbeddings" class="doc_header"><code>class</code> <code>EasyDocumentEmbeddings</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/embeddings.py#L188" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyDocumentEmbeddings</code>(<strong>*<code>embeddings</code></strong>:<code>str</code>, <strong><code>methods</code></strong>:<code>List</code>[<code>str</code>]=<em><code>['rnn', 'pool']</code></em>, <strong><code>configs</code></strong>:<code>Dict</code>[<code>KT</code>, <code>VT</code>]=<em><code>{'pool_configs': {'fine_tune_mode': 'linear', 'pooling': 'mean'}, 'rnn_configs': {'hidden_size': 512, 'rnn_layers': 1, 'reproject_words': True, 'reproject_words_dimension': 256, 'bidirectional': False, 'dropout': 0.5, 'word_dropout': 0.0, 'locked_dropout': 0.0, 'rnn_type': 'GRU', 'fine_tune': True}}</code></em>)</p>
-</blockquote>
-<p>Document Embeddings generated by pool and rnn methods applied to the word embeddings of text</p>
-<p>Usage:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">embeddings</span> <span class="o">=</span> <span class="n">adaptnlp</span><span class="o">.</span><span class="n">EasyDocumentEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;xlnet-base-cased&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="p">[</span><span class="s2">&quot;rnn&quot;</span><span class="p">])</span>
-</pre></div>
 <p><strong>Parameters:</strong></p>
 <ul>
-<li><code>&amp;ast;embeddings</code> - Non-keyword variable number of strings referring to model names or paths</li>
-<li><code>methods</code> - A list of strings to specify which document embeddings to use i.e. ["rnn", "pool"] (avoids unncessary loading of models if only using one)</li>
-<li><code>configs</code> - A dictionary of configurations for flair's rnn and pool document embeddings<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">example_configs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;pool_configs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;fine_tune_mode&quot;</span><span class="p">:</span> <span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="s2">&quot;pooling&quot;</span><span class="p">:</span> <span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="p">},</span>
-<span class="o">...</span>                   <span class="s2">&quot;rnn_configs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;hidden_size&quot;</span><span class="p">:</span> <span class="mi">512</span><span class="p">,</span>
-<span class="o">...</span>                                   <span class="s2">&quot;rnn_layers&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-<span class="o">...</span>                                   <span class="s2">&quot;reproject_words&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-<span class="o">...</span>                                   <span class="s2">&quot;reproject_words_dimension&quot;</span><span class="p">:</span> <span class="mi">256</span><span class="p">,</span>
-<span class="o">...</span>                                   <span class="s2">&quot;bidirectional&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-<span class="o">...</span>                                   <span class="s2">&quot;dropout&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
-<span class="o">...</span>                                   <span class="s2">&quot;word_dropout&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
-<span class="o">...</span>                                   <span class="s2">&quot;locked_dropout&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
-<span class="o">...</span>                                   <span class="s2">&quot;rnn_type&quot;</span><span class="p">:</span> <span class="s2">&quot;GRU&quot;</span><span class="p">,</span>
-<span class="o">...</span>                                   <span class="s2">&quot;fine_tune&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="p">},</span>
-<span class="o">...</span>                  <span class="p">}</span>
-</pre></div>
+<li><strong><code>text</code></strong> : <em><code>typing.Union[typing.List[flair.data.Sentence], flair.data.Sentence, typing.List[str], str]</code></em>  <p>Text input, it can be a string or any of Flair's `Sentence` input formats</p></li>
+</ul>
+<ul>
+<li><strong><code>detail_level</code></strong> : <em><code>&lt;class 'fastcore.basics.DetailLevel'&gt;</code></em>, <em>optional</em>   <p>A level of detail to return. By default is None, which returns a EmbeddingResult, otherwise will return a dict</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>typing.List[adaptnlp.inference.embeddings.EmbeddingResult]</code></em>   <p>A list of either EmbeddingResult's or dictionaries with information</p></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="EasyDocumentEmbeddings" class="doc_header"><code>class</code> <code>EasyDocumentEmbeddings</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/embeddings.py#L237" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyDocumentEmbeddings</code>(<strong>*<code>embeddings</code></strong>:<code>str</code>, <strong><code>methods</code></strong>:<code>List</code>[<code>str</code>]=<em><code>['rnn', 'pool']</code></em>, <strong><code>configs</code></strong>:<code>Dict</code>[<code>KT</code>, <code>VT</code>]=<em><code>{'pool_configs': {'fine_tune_mode': 'linear', 'pooling': 'mean'}, 'rnn_configs': {'hidden_size': 512, 'rnn_layers': 1, 'reproject_words': True, 'reproject_words_dimension': 256, 'bidirectional': False, 'dropout': 0.5, 'word_dropout': 0.0, 'locked_dropout': 0.0, 'rnn_type': 'GRU', 'fine_tune': True}}</code></em>)</p>
+</blockquote>
+<p>Document Embeddings generated by pool and rnn methods applied to the word embeddings of text</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><p><strong><code>embeddings</code></strong> : <em><code>&lt;class 'str'&gt;</code></em></p>
+</li>
+<li><p><strong><code>methods</code></strong> : <em><code>typing.List[str]</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>configs</code></strong> : <em><code>typing.Dict</code></em>, <em>optional</em></p>
 </li>
 </ul>
-<p><strong>Usage Examples:</strong></p>
-<p>Sample code from: 04a_tutorial.embeddings.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04a_tutorial.embeddings.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyDocumentEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;distilbert-base-cased&quot;</span><span class="p">)</span>
-</pre></div>
-<p>Sample code from: 20c_tutorial.flair_seq_class_trainer.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/20c_tutorial.flair_seq_class_trainer.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">OUTPUT_DIR</span> <span class="o">=</span> <span class="s2">&quot;Path/to/model/output/directory&quot;</span>
-<span class="n">FINETUNED_MODEL_DIR</span> <span class="o">=</span> <span class="s2">&quot;Path/to/finetuned/model/directory&quot;</span>
-<span class="n">doc_embeddings</span> <span class="o">=</span> <span class="n">EasyDocumentEmbeddings</span><span class="p">(</span><span class="n">FINETUNED_MODEL_DIR</span><span class="p">,</span> <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;rnn&quot;</span><span class="p">])</span>
-</pre></div>
-<p>Sample code from: 04_embeddings.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyDocumentEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;xlnet-base-cased&quot;</span><span class="p">)</span>
-<span class="n">text</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_pool</span><span class="p">(</span><span class="s2">&quot;This is Albert.  My last name is Einstein.  I like physics and atoms.&quot;</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_embedding</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">1536</span><span class="p">]))</span>
-</pre></div>
 
 </div>
 
@@ -324,23 +402,20 @@ nb_path: "nbs/04_embeddings.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="EasyDocumentEmbeddings.embed_pool" class="doc_header"><code>EasyDocumentEmbeddings.embed_pool</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/embeddings.py#L269" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyDocumentEmbeddings.embed_pool</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>])</p>
+<h4 id="EasyDocumentEmbeddings.embed_pool" class="doc_header"><code>EasyDocumentEmbeddings.embed_pool</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/embeddings.py#L291" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyDocumentEmbeddings.embed_pool</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>)</p>
 </blockquote>
 <p>Generate stacked embeddings with <code>DocumentPoolEmbeddings</code></p>
-<p><strong>Parameters</strong>:</p>
+<p><strong>Parameters:</strong></p>
 <ul>
-<li><code>text</code> - Text input, it can be a string or any of Flair's <code>Sentence</code> input formats</li>
+<li><strong><code>text</code></strong> : <em><code>typing.Union[typing.List[flair.data.Sentence], flair.data.Sentence, typing.List[str], str]</code></em>  <p>Text input, it can be a string or any of Flair's `Sentence` input formats</p></li>
 </ul>
-<p><strong>Return</strong>:</p>
 <ul>
-<li>A list of Flair's <code>Sentence</code>s</li>
+<li><strong><code>detail_level</code></strong> : <em><code>&lt;class 'fastcore.basics.DetailLevel'&gt;</code></em>, <em>optional</em>   <p>A level of detail to return. By default is None, which returns a EmbeddingResult, otherwise will return a dict</p></li>
 </ul>
-<p><strong>Usage Examples:</strong></p>
-<p>Sample code from: 04_embeddings.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/04_embeddings.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">EasyDocumentEmbeddings</span><span class="p">(</span><span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span> <span class="s2">&quot;xlnet-base-cased&quot;</span><span class="p">)</span>
-<span class="n">text</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_pool</span><span class="p">(</span><span class="s2">&quot;This is Albert.  My last name is Einstein.  I like physics and atoms.&quot;</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_embedding</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">1536</span><span class="p">]))</span>
-</pre></div>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>typing.List[adaptnlp.inference.embeddings.EmbeddingResult]</code></em>   <p>A list of either EmbeddingResult's or dictionaries with information</p></li>
+</ul>
 
 </div>
 
@@ -363,16 +438,19 @@ nb_path: "nbs/04_embeddings.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="EasyDocumentEmbeddings.embed_rnn" class="doc_header"><code>EasyDocumentEmbeddings.embed_rnn</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/embeddings.py#L285" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyDocumentEmbeddings.embed_rnn</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>])</p>
+<h4 id="EasyDocumentEmbeddings.embed_rnn" class="doc_header"><code>EasyDocumentEmbeddings.embed_rnn</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/embeddings.py#L302" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyDocumentEmbeddings.embed_rnn</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>)</p>
 </blockquote>
 <p>Generate stacked embeddings with <code>DocumentRNNEmbeddings</code></p>
-<p><strong>Parameters</strong>:</p>
+<p><strong>Parameters:</strong></p>
 <ul>
-<li><code>text</code> - Text input, it can be a string or any of Flair's <code>Sentence</code> input formats</li>
+<li><strong><code>text</code></strong> : <em><code>typing.Union[typing.List[flair.data.Sentence], flair.data.Sentence, typing.List[str], str]</code></em>  <p>Text input, it can be a string or any of Flair's `Sentence` input formats</p></li>
 </ul>
-<p><strong>Return</strong>:</p>
 <ul>
-<li>A list of Flair's <code>Sentence</code>s</li>
+<li><strong><code>detail_level</code></strong> : <em><code>&lt;class 'fastcore.basics.DetailLevel'&gt;</code></em>, <em>optional</em>   <p>A level of detail to return. By default is None, which returns a EmbeddingResult, otherwise will return a dict</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>typing.List[flair.data.Sentence]</code></em> <p>A list of either EmbeddingResult's or dictionaries with information</p></li>
 </ul>
 
 </div>

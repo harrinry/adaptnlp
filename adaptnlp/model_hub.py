@@ -6,7 +6,7 @@ __all__ = ['HF_TASKS', 'FLAIR_TASKS', 'HFModelResult', 'HFModelHub', 'FLAIR_MODE
 # Cell
 from fastcore.basics import Self, merge
 from fastcore.utils import dict2obj, obj2dict, mk_class
-from fastai_minima.utils import apply
+from fastai.torch_core import apply
 from huggingface_hub.hf_api import ModelInfo, HfApi
 
 from typing import List, Dict
@@ -49,7 +49,7 @@ _flair_tasks = {
 
 # Cell
 mk_class('FLAIR_TASKS', **_flair_tasks,
-        doc="A list of all Flair tasks for valid API lookup as attribtues to get tab-completion and typo-proofing")
+        doc="A list of all Flair tasks for valid API lookup as attributes to get tab-completion and typo-proofing")
 
 # Cell
 #nbdev_comment _all_ = ['FLAIR_TASKS']
@@ -61,10 +61,13 @@ class HFModelResult:
 
     They have 4 properties:
       - `name`: The `modelId` from the `modelInfo`. This also includes the model author's name, such as "IlyaGusev/mbart_ru_sum_gazeta"
-      - `tags`: Any tags that were included in `HugginFace` in relation to the model.
+      - `tags`: Any tags that were included in `HuggingFace` in relation to the model.
       - `tasks`: These are the tasks dictated for the model.
     """
-    def __init__(self, model_info: ModelInfo):
+    def __init__(
+        self,
+        model_info: ModelInfo # `ModelInfo` object from HuggingFace model hub
+    ):
         self.info = model_info
 
     def __repr__(self): return f'Model Name: {self.name}, Tasks: [' + ', '.join(self.tasks) + ']'
@@ -86,35 +89,34 @@ class HFModelResult:
         all_tasks.sort()
         return all_tasks
 
-    def to_dict(self):
-        """
-        Returns `HFModelResult` as a dictionary with the keys:
-          * `model_name`
-          * `tags`
-          * `tasks`
-          * `model_info`
-        """
+    def to_dict(
+        self
+    ) -> dict: # Dictionary with keys `model_name`, `tags`, `tasks`, `model_info`
+        "Returns `HFModelResult` as a dictionary"
         return {'model_name':self.name, 'tags':self.tags, 'tasks':self.tasks, 'model_info':self.info}
 
 # Cell
 class HFModelHub:
-    """
-    A class for interacting with the HF model hub API, and searching for models by name or task
+    "A class for interacting with the HF model hub API, and searching for models by name or task"
 
-    Can optionally include your HuggingFace login for authorized access (but is not required)
-    """
-
-    def __init__(self, username=None, password=None):
+    def __init__(
+        self,
+        username:str=None, # Your HuggingFace username
+        password:str=None # Your HuggingFace password
+    ):
         self.api = HfApi()
         if username and password:
             self.token = self.api.login(username, password)
         elif username or password:
             print('Only a username or password was entered. You should include both to get authorized access')
 
-    def _format_results(self, results:list, as_dict=False, user_uploaded=False) -> (List[HFModelResult], Dict[str, HFModelResult]):
-        """
-        Takes raw HuggingFace API results and makes them easier to read and work with
-        """
+    def _format_results(
+        self,
+        results:list, # A list of HuggingFace API results
+        as_dict:bool=False, # Whether to return as a dictionary or list
+        user_uploaded:bool=False # Whether to filter out user-uploaded results
+    ) -> (List[HFModelResult], Dict[str, HFModelResult]): # A list of `HFModelResult`s
+        "Takes raw HuggingFace API results and makes them easier to read and work with"
         results = apply(HFModelResult, results)
         if not user_uploaded:
             results = [r for r in results if '/' not in r.name]
@@ -123,14 +125,13 @@ class HFModelHub:
             results = {m['model_name'] : m for m in dicts}
         return results
 
-    def search_model_by_task(self, task:str, as_dict=False, user_uploaded=False) -> (List[HFModelResult], Dict[str, HFModelResult]):
-        """
-        Searches HuggingFace Model API for all pretrained models relating to `task` and returns a list of HFModelResults
-
-        Optionally can return all models as a `dict` rather than a list
-
-        If `user_uploaded` is False, will only return models originating in HuggingFace (such as distilgpt2)
-        """
+    def search_model_by_task(
+        self,
+        task:str, # A valid task to search in the HuggingFace hub for
+        as_dict:bool=False, # Whether to return as a dictionary or list
+        user_uploaded:bool=False # Whether to filter out user-uploaded results
+    ) -> (List[HFModelResult], Dict[str, HFModelResult]): # A list of `HFModelResult`s
+        "Searches HuggingFace Model API for all pretrained models relating to `task`"
         if task not in _hf_tasks.values():
             raise ValueError(f'''`{task}` is not a valid task.
 
@@ -139,14 +140,13 @@ class HFModelHub:
         models = self.api.list_models(task)
         return self._format_results(models, as_dict, user_uploaded)
 
-    def search_model_by_name(self, name:str, as_dict=False, user_uploaded=False) -> (List[HFModelResult], Dict[str, HFModelResult]):
-        """
-        Searches HuggingFace Model API for all pretrained models containing `name` and returns a list of HFModelResults
-
-        Optionally can return all models as `dict` rather than a list
-
-        If `user_uploaded` is False, will only return models originating from HuggingFace (such as distilgpt2)
-        """
+    def search_model_by_name(
+        self,
+        name:str, # A valid model name
+        as_dict:bool=False, # Whether to return as a dictionary or list
+        user_uploaded:bool=False # Whether to filter out user-uploaded results
+    ) -> (List[HFModelResult], Dict[str, HFModelResult]): # A list of `HFModelResult`s
+        "Searches HuggingFace Model API for all pretrained models containing `name`"
         if user_uploaded:
             models = self.api.list_models()
             models = self._format_results(models, as_dict, user_uploaded)
@@ -369,7 +369,10 @@ class FlairModelResult(HFModelResult):
     Includes which backend the model was found (such as on HuggingFace or Flair's private model list)
     """
 
-    def __init__(self, model_info: ModelInfo):
+    def __init__(
+        self,
+        model_info: ModelInfo # ModelInfo object from HuggingFace model hub
+    ):
         if 'flairNLP' in model_info.modelId:
             self.from_hf = False
         else:
@@ -385,13 +388,13 @@ class FlairModelResult(HFModelResult):
 
 # Cell
 class FlairModelHub:
-    """
-    A class for interacting with the HF model hub API, and searching for Flair models by name or task
+    "A class for interacting with the HF model hub API, and searching for Flair models by name or task"
 
-    Can optionally include your HuggingFace login for authorized access (but is not required)
-    """
-
-    def __init__(self, username=None, password=None):
+    def __init__(
+        self,
+        username:str=None, # HuggingFace username
+        password:str=None # HuggingFace password
+    ):
         self.api = HfApi()
         if username and password:
             self.token = self.api.login(username, password)
@@ -399,10 +402,13 @@ class FlairModelHub:
             print('Only a username or password was entered. You should include both to get authorized access')
         self.models = self.api.list_models('flair') + FLAIR_MODELS
 
-    def _format_results(self, results:list, as_dict=False, user_uploaded=False) -> (List[HFModelResult], Dict[str, HFModelResult]):
-        """
-        Takes raw HuggingFace API results and makes them easier to read and work with
-        """
+    def _format_results(
+        self,
+        results:list, # A list of HuggingFace API results
+        as_dict:bool=False, # Whether to return as a dictionary or list
+        user_uploaded:bool=False # Whether to filter out user-uploaded results
+    ) -> (List[FlairModelResult], Dict[str, FlairModelResult]): # A list of `FlairModelResult`s
+        "Takes raw HuggingFace API results and makes them easier to read and work with"
         results = apply(FlairModelResult, results)
         if not user_uploaded:
             results = [r for r in results if 'flair/' in r.name or 'flairNLP/' in r.name]
@@ -411,31 +417,23 @@ class FlairModelHub:
             results = {m['model_name'] : m for m in dicts}
         return results
 
-    def search_model_by_name(self, name:str, as_dict=False, user_uploaded=False) -> (List[HFModelResult], Dict[str, HFModelResult]):
-        """
-        Searches HuggingFace Model API for all flair models containing `name` and returns a list of `HFModelResults`
-
-        Optionally can return all models as `dict` rather than a list
-
-        If `user_uploaded` is False, will only return models originating from Flair (such as flair/chunk-english-fast)
-
-        Usage:
-          ```python
-          hub = FlairModelHubSearch()
-          hub.search_model_by_name('flair/chunk-english-fast')
-          ```
-        """
+    def search_model_by_name(
+        self,
+        name:str, # A valid model name
+        as_dict:bool=False, # Whether to return as a dictionary or list
+        user_uploaded:bool=False # Whether to filter out user-uploaded results
+    ) -> (List[FlairModelResult], Dict[str, FlairModelResult]): # A list of `FlairModelResult`s
+        "Searches HuggingFace Model API for all flair models containing `name`"
         models = [m for m in self.models if name in m.modelId]
         return self._format_results(models, as_dict, user_uploaded)
 
-    def search_model_by_task(self, task:str, as_dict=False, user_uploaded=False) -> (List[HFModelResult], Dict[str, HFModelResult]):
-        """
-        Searches HuggingFace Model API for all flair models for `task` and returns a list of `HFModelResults`
-
-        Optionally can return all models as `dict` rather than a list
-
-        If `user_uploaded` is False, will only return models originating from Flair (such as flair/chunk-english-fast)
-        """
+    def search_model_by_task(
+        self,
+        task:str, # A valid task to search in the HuggingFace hub for
+        as_dict:bool=False, # Whether to return as a dictionary or list
+        user_uploaded:bool=False # Whether to filter out user-uploaded results
+    ) -> (List[FlairModelResult], Dict[str, FlairModelResult]): # A list of `FlairModelResult`s
+        "Searches HuggingFace Model API for all flair models for `task`"
         if (task not in _flair_tasks.values()) and (task != ''):
             raise ValueError(f'''`{task}` is not a valid task.
 

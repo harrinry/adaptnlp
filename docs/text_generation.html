@@ -54,17 +54,15 @@ nb_path: "nbs/09_text_generation.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="TransformersTextGenerator" class="doc_header"><code>class</code> <code>TransformersTextGenerator</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/text_generation.py#L31" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersTextGenerator</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
+<h2 id="TransformersTextGenerator" class="doc_header"><code>class</code> <code>TransformersTextGenerator</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/text_generation.py#L31" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersTextGenerator</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
 </blockquote>
 <p>Adaptive model for Transformer's Language Models</p>
-<p>Usage:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">generator</span> <span class="o">=</span> <span class="n">TransformersTextGenerator</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;gpt2&quot;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Example text&quot;</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
-</pre></div>
 <p><strong>Parameters:</strong></p>
 <ul>
-<li><strong>tokenizer</strong> - A tokenizer object from Huggingface's transformers (TODO)and tokenizers</li>
-<li><strong>model</strong> - A transformers Language model</li>
+<li><strong><code>tokenizer</code></strong> : <em><code>&lt;class 'transformers.tokenization_utils.PreTrainedTokenizer'&gt;</code></em>  <p>A tokenizer object from Huggingface's transformers (TODO)and tokenizers</p></li>
+</ul>
+<ul>
+<li><strong><code>model</code></strong> : <em><code>&lt;class 'transformers.modeling_utils.PreTrainedModel'&gt;</code></em>  <p>A transformers Language model</p></li>
 </ul>
 
 </div>
@@ -95,17 +93,17 @@ nb_path: "nbs/09_text_generation.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="EasyTextGenerator" class="doc_header"><code>class</code> <code>EasyTextGenerator</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/text_generation.py#L214" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyTextGenerator</code>()</p>
+<h4 id="TransformersTextGenerator.load" class="doc_header"><code>TransformersTextGenerator.load</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/text_generation.py#L50" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TransformersTextGenerator.load</code>(<strong><code>model_name_or_path</code></strong>:<code>str</code>)</p>
 </blockquote>
-<p>Text Generation Module</p>
-<p>Usage:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">generator</span> <span class="o">=</span> <span class="n">EasyGenerator</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;generate from this text&quot;</span><span class="p">,</span> <span class="n">num_tokens_to_produce</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-</pre></div>
-<p><strong>Usage Examples:</strong></p>
-<p>Sample code from: 09a_tutorial.easy_text_generator.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/09a_tutorial.easy_text_generator.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">generator</span> <span class="o">=</span> <span class="n">EasyTextGenerator</span><span class="p">()</span>
-</pre></div>
+<p>Class method for loading and constructing this Model</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>model_name_or_path</code></strong> : <em><code>&lt;class 'str'&gt;</code></em> <p>A key string of one of Transformer's pre-trained Language Model</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>&lt;class 'adaptnlp.model.AdaptiveModel'&gt;</code></em></li>
+</ul>
 
 </div>
 
@@ -120,6 +118,168 @@ nb_path: "nbs/09_text_generation.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">TransformersTextGenerator</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;gpt2&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+
+
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="TransformersTextGenerator.predict" class="doc_header"><code>TransformersTextGenerator.predict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/text_generation.py#L61" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TransformersTextGenerator.predict</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>str</code>], <code>str</code>], <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong><code>num_tokens_to_produce</code></strong>:<code>int</code>=<em><code>50</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+</blockquote>
+<p>Predict method for running inference using the pre-trained sequence classifier model.  Keyword arguments for parameters of the method <code>Transformers.PreTrainedModel.generate()</code> can be used as well.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>text</code></strong> : <em><code>typing.Union[typing.List[str], str]</code></em> <p>Sentences to run inference on</p></li>
+</ul>
+<ul>
+<li><strong><code>mini_batch_size</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em>    <p>Mini batch size</p></li>
+</ul>
+<ul>
+<li><strong><code>num_tokens_to_produce</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em>  <p>Number of tokens you want to generate</p></li>
+</ul>
+<ul>
+<li><strong><code>kwargs</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>typing.List[str]</code></em> <p>A list of predicted sentences</p></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="EasyTextGenerator" class="doc_header"><code>class</code> <code>EasyTextGenerator</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/text_generation.py#L189" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyTextGenerator</code>()</p>
+</blockquote>
+<p>Text Generation Module</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="EasyTextGenerator.generate" class="doc_header"><code>EasyTextGenerator.generate</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/text_generation.py#L195" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyTextGenerator.generate</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>str</code>], <code>str</code>], <strong><code>model_name_or_path</code></strong>:<code>HFModelResult'&gt;]</code>=<em><code>'gpt2'</code></em>, <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong><code>num_tokens_to_produce</code></strong>:<code>int</code>=<em><code>50</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+</blockquote>
+<p>Predict method for running inference using the pre-trained sequence classifier model. Keyword arguments for parameters of the method <code>Transformers.PreTrainedModel.generate()</code> can be used as well.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>text</code></strong> : <em><code>typing.Union[typing.List[str], str]</code></em> <p>List of sentences to run inference on</p></li>
+</ul>
+<ul>
+<li><strong><code>model_name_or_path</code></strong> : <em><code>[&lt;class 'str'&gt;, &lt;class 'adaptnlp.model_hub.HFModelResult'&gt;]</code></em>, <em>optional</em>   <p>A model id or path to a pre-trained model repository or custom trained model directory</p></li>
+</ul>
+<ul>
+<li><strong><code>mini_batch_size</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em>    <p>Mini batch size</p></li>
+</ul>
+<ul>
+<li><strong><code>num_tokens_to_produce</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em>  <p>Number of tokens you want to generate</p></li>
+</ul>
+<ul>
+<li><strong><code>kwargs</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>typing.List[str]</code></em> <p>A list of predicted sentences</p></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
 
 </div>
     {% endraw %}

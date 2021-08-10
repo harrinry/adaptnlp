@@ -54,27 +54,134 @@ nb_path: "nbs/06_sequence_classification.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="TransformersSequenceClassifier" class="doc_header"><code>class</code> <code>TransformersSequenceClassifier</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/sequence_classification.py#L46" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersSequenceClassifier</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
+<h2 id="SequenceResult" class="doc_header"><code>class</code> <code>SequenceResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/sequence_classification.py#L50" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SequenceResult</code>(<strong><code>sentences</code></strong>:<code>List</code>[<code>Sentence</code>], <strong><code>class_names</code></strong>:<code>list</code>=<em><code>None</code></em>) :: <a href="/adaptnlp/result.html#SentenceResult"><code>SentenceResult</code></a></p>
+</blockquote>
+<p>A result class designed for Sequence Classification models</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>sentences</code></strong> : <em><code>typing.List[flair.data.Sentence]</code></em>   <p>A list of flair `Sentence`'s</p></li>
+</ul>
+<ul>
+<li><strong><code>class_names</code></strong> : <em><code>&lt;class 'list'&gt;</code></em>, <em>optional</em>   <p>A potential list of class names</p></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="SequenceResult.probabilities" class="doc_header"><code>SequenceResult.probabilities</code><a href="" class="source_link" style="float:right">[source]</a></h4><p>The probabilities returned for each classification</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="SequenceResult.predictions" class="doc_header"><code>SequenceResult.predictions</code><a href="" class="source_link" style="float:right">[source]</a></h4><p>A list of the best classification for each input</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="SequenceResult.to_dict" class="doc_header"><code>SequenceResult.to_dict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/sequence_classification.py#L77" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>SequenceResult.to_dict</code>(<strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>)</p>
+</blockquote>
+<p>Return <code>self</code> as a dictionary</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>detail_level</code></strong> : <em><code>&lt;class 'fastcore.basics.DetailLevel'&gt;</code></em>, <em>optional</em>   <p>A level of detail to return</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>&lt;class 'dict'&gt;</code></em></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="TransformersSequenceClassifier" class="doc_header"><code>class</code> <code>TransformersSequenceClassifier</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/sequence_classification.py#L100" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersSequenceClassifier</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
 </blockquote>
 <p>Adaptive model for Transformer's Sequence Classification Model</p>
-<p>Usage:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">classifier</span> <span class="o">=</span> <span class="n">TransformersSequenceClassifier</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;transformers-sc-model&#39;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Example text&#39;</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
-</pre></div>
 <p><strong>Parameters:</strong></p>
 <ul>
-<li><strong>tokenizer</strong> - A tokenizer object from Huggingface's transformers (TODO)and tokenizers</li>
-<li><strong>model</strong> - A transformers Sequence Classsifciation model</li>
+<li><strong><code>tokenizer</code></strong> : <em><code>&lt;class 'transformers.tokenization_utils.PreTrainedTokenizer'&gt;</code></em>  <p>A tokenizer object from Huggingface's transformers (TODO)and tokenizers</p></li>
 </ul>
-<p><strong>Usage Examples:</strong></p>
-<p>Sample code from: 06_sequence_classification.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">example_text</span> <span class="o">=</span> <span class="s2">&quot;This didn&#39;t work at all&quot;</span>
-
-<span class="n">classifier</span> <span class="o">=</span> <span class="n">TransformersSequenceClassifier</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;nlptown/bert-base-multilingual-uncased-sentiment&quot;</span><span class="p">)</span>
-
-<span class="n">sentences</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span><span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
+<ul>
+<li><strong><code>model</code></strong> : <em><code>&lt;class 'transformers.modeling_utils.PreTrainedModel'&gt;</code></em>  <p>A transformers Sequence Classification model</p></li>
+</ul>
 
 </div>
 
@@ -104,158 +211,17 @@ nb_path: "nbs/06_sequence_classification.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TransformersSequenceClassifier.load" class="doc_header"><code>TransformersSequenceClassifier.load</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/sequence_classification.py#L74" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TransformersSequenceClassifier.load</code>(<strong><code>model_name_or_path</code></strong>:<code>Union</code>[<a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a>, <code>str</code>])</p>
+<h4 id="TransformersSequenceClassifier.load" class="doc_header"><code>TransformersSequenceClassifier.load</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/sequence_classification.py#L120" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TransformersSequenceClassifier.load</code>(<strong><code>model_name_or_path</code></strong>:<code>Union</code>[<a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a>, <code>str</code>])</p>
 </blockquote>
 <p>Class method for loading and constructing this classifier</p>
-<ul>
-<li><strong>model_name_or_path</strong> - A key string of one of Transformer's pre-trained Sequence Classifier Model or a <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a></li>
-</ul>
-<p><strong>Usage Examples:</strong></p>
-<p>Sample code from: 06_sequence_classification.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">example_text</span> <span class="o">=</span> <span class="s2">&quot;This didn&#39;t work at all&quot;</span>
-
-<span class="n">classifier</span> <span class="o">=</span> <span class="n">TransformersSequenceClassifier</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;nlptown/bert-base-multilingual-uncased-sentiment&quot;</span><span class="p">)</span>
-
-<span class="n">sentences</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span><span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="TransformersSequenceClassifier.predict" class="doc_header"><code>TransformersSequenceClassifier.predict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/sequence_classification.py#L86" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TransformersSequenceClassifier.predict</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong>**<code>kwargs</code></strong>)</p>
-</blockquote>
-<p>Predict method for running inference using the pre-trained sequence classifier model</p>
-<ul>
-<li><strong>text</strong> - String, list of strings, sentences, or list of sentences to run inference on</li>
-<li><strong>mini_batch_size</strong> - Mini batch size</li>
-<li><strong>&ast;&ast;kwargs</strong>(Optional) - Optional arguments for the Transformers classifier</li>
-</ul>
-<p><strong>Usage Examples:</strong></p>
-<p>Sample code from: 06_sequence_classification.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">example_text</span> <span class="o">=</span> <span class="s2">&quot;This didn&#39;t work at all&quot;</span>
-
-<span class="n">classifier</span> <span class="o">=</span> <span class="n">TransformersSequenceClassifier</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;nlptown/bert-base-multilingual-uncased-sentiment&quot;</span><span class="p">)</span>
-
-<span class="n">sentences</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span><span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="FlairSequenceClassifier" class="doc_header"><code>class</code> <code>FlairSequenceClassifier</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/sequence_classification.py#L303" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FlairSequenceClassifier</code>(<strong><code>model_name_or_path</code></strong>:<code>str</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
-</blockquote>
-<p>Adaptive Model for Flair's Sequence Classifier...very basic</p>
-<p>Usage:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">classifier</span> <span class="o">=</span> <span class="n">FlairSequenceClassifier</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;sentiment&#39;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Example text&#39;</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
-</pre></div>
 <p><strong>Parameters:</strong></p>
 <ul>
-<li><strong>model_name_or_path</strong> - A key string of one of Flair's pre-trained Sequence Classifier Model</li>
+<li><strong><code>model_name_or_path</code></strong> : <em><code>typing.Union[adaptnlp.model_hub.HFModelResult, str]</code></em>   <p>A key string of one of Transformer's pre-trained Sequence Classifier Model or a `HFModelResult`</p></li>
 </ul>
-<p><strong>Usage Examples:</strong></p>
-<p>Sample code from: 06_sequence_classification.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">example_text</span> <span class="o">=</span> <span class="s2">&quot;This didn&#39;t work at all&quot;</span>
-
-
-<span class="n">classifier</span> <span class="o">=</span> <span class="n">FlairSequenceClassifier</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;sentiment&#39;</span><span class="p">)</span>
-
-<span class="n">sentences</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span><span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">pred</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="n">test_eq</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;NEGATIVE&#39;</span><span class="p">)</span>
-<span class="n">test_close</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">)</span>
-</pre></div>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="FlairSequenceClassifier.load" class="doc_header"><code>FlairSequenceClassifier.load</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/sequence_classification.py#L320" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FlairSequenceClassifier.load</code>(<strong><code>model_name_or_path</code></strong>:<code>Union</code>[<a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a>, <a href="/adaptnlp/model_hub.html#FlairModelResult"><code>FlairModelResult</code></a>, <code>str</code>])</p>
-</blockquote>
-<p>Class method for loading a constructing this classifier</p>
+<p><strong>Returns</strong>:</p>
 <ul>
-<li><strong>model_name_or_path</strong> - A key string of one of Flair's pre-trained Sequence Classifier Model or a <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a></li>
+<li><em><code>&lt;class 'adaptnlp.model.AdaptiveModel'&gt;</code></em></li>
 </ul>
-<p><strong>Usage Examples:</strong></p>
-<p>Sample code from: 06_sequence_classification.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">example_text</span> <span class="o">=</span> <span class="s2">&quot;This didn&#39;t work at all&quot;</span>
-
-
-<span class="n">classifier</span> <span class="o">=</span> <span class="n">FlairSequenceClassifier</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;sentiment&#39;</span><span class="p">)</span>
-
-<span class="n">sentences</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span><span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">pred</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="n">test_eq</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;NEGATIVE&#39;</span><span class="p">)</span>
-<span class="n">test_close</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">)</span>
-</pre></div>
 
 </div>
 
@@ -278,29 +244,23 @@ nb_path: "nbs/06_sequence_classification.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="FlairSequenceClassifier.predict" class="doc_header"><code>FlairSequenceClassifier.predict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/sequence_classification.py#L331" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FlairSequenceClassifier.predict</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="TransformersSequenceClassifier.predict" class="doc_header"><code>TransformersSequenceClassifier.predict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/sequence_classification.py#L132" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TransformersSequenceClassifier.predict</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Predict method for running inference using the pre-trained sequence classifier model</p>
+<p><strong>Parameters:</strong></p>
 <ul>
-<li><strong>text</strong> - String, list of strings, sentences, or list of sentences to run inference on</li>
-<li><strong>mini_batch_size</strong> - Mini batch size</li>
-<li><strong>&ast;&ast;kwargs</strong>(Optional) - Optional arguments for the Flair classifier</li>
+<li><strong><code>text</code></strong> : <em><code>typing.Union[typing.List[flair.data.Sentence], flair.data.Sentence, typing.List[str], str]</code></em>  <p>Sentences to run inference on</p></li>
 </ul>
-<p><strong>Usage Examples:</strong></p>
-<p>Sample code from: 06_sequence_classification.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">example_text</span> <span class="o">=</span> <span class="s2">&quot;This didn&#39;t work at all&quot;</span>
-
-
-<span class="n">classifier</span> <span class="o">=</span> <span class="n">FlairSequenceClassifier</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;sentiment&#39;</span><span class="p">)</span>
-
-<span class="n">sentences</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span><span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">pred</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="n">test_eq</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;NEGATIVE&#39;</span><span class="p">)</span>
-<span class="n">test_close</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">)</span>
-</pre></div>
+<ul>
+<li><strong><code>mini_batch_size</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em>    <p>Mini batch size</p></li>
+</ul>
+<ul>
+<li><strong><code>kwargs</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>typing.List[flair.data.Sentence]</code></em> <p>Returns a list of `Sentence` predictions</p></li>
+</ul>
 
 </div>
 
@@ -308,13 +268,6 @@ nb_path: "nbs/06_sequence_classification.ipynb"
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -330,25 +283,13 @@ nb_path: "nbs/06_sequence_classification.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="EasySequenceClassifier" class="doc_header"><code>class</code> <code>EasySequenceClassifier</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/sequence_classification.py#L367" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasySequenceClassifier</code>()</p>
+<h2 id="FlairSequenceClassifier" class="doc_header"><code>class</code> <code>FlairSequenceClassifier</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/sequence_classification.py#L229" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FlairSequenceClassifier</code>(<strong><code>model_name_or_path</code></strong>:<code>str</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
 </blockquote>
-<p>Sequence classification models</p>
-<p>Usage:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">classifier</span> <span class="o">=</span> <span class="n">EasySequenceClassifier</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">classifier</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;text you want to label&#39;</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s1">&#39;en-sentiment&#39;</span><span class="p">)</span>
-</pre></div>
-<p><strong>Usage Examples:</strong></p>
-<p>Sample code from: 06_sequence_classification.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s2">&quot;nlptown/bert-base&quot;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">classifier</span> <span class="o">=</span> <span class="n">EasySequenceClassifier</span><span class="p">()</span>
-<span class="n">sentences</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> 
-                               <span class="n">model_name_or_path</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
-                               <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">pred</span><span class="p">,</span> <span class="n">truth</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">truth_lbls</span><span class="p">):</span>
-    <span class="n">test_eq</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">truth</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-    <span class="n">test_close</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="n">truth</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">)</span>
-</pre></div>
+<p>Adaptive Model for Flair's Sequence Classifier</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>model_name_or_path</code></strong> : <em><code>&lt;class 'str'&gt;</code></em> <p>A key string of one of Flair's pre-trained Sequence Classifier Model</p></li>
+</ul>
 
 </div>
 
@@ -378,28 +319,143 @@ nb_path: "nbs/06_sequence_classification.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="EasySequenceClassifier.tag_text" class="doc_header"><code>EasySequenceClassifier.tag_text</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/sequence_classification.py#L384" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasySequenceClassifier.tag_text</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>model_name_or_path</code></strong>:<code>Union</code>[<code>str</code>, <a href="/adaptnlp/model_hub.html#FlairModelResult"><code>FlairModelResult</code></a>, <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a>]=<em><code>'en-sentiment'</code></em>, <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="FlairSequenceClassifier.load" class="doc_header"><code>FlairSequenceClassifier.load</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/sequence_classification.py#L238" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FlairSequenceClassifier.load</code>(<strong><code>model_name_or_path</code></strong>:<code>Union</code>[<a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a>, <a href="/adaptnlp/model_hub.html#FlairModelResult"><code>FlairModelResult</code></a>, <code>str</code>])</p>
+</blockquote>
+<p>Class method for loading a constructing this classifier</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>model_name_or_path</code></strong> : <em><code>typing.Union[adaptnlp.model_hub.HFModelResult, adaptnlp.model_hub.FlairModelResult, str]</code></em>  <p>A key string of one of Flair's pre-trained Sequence Classifier Model or a `HFModelResult`</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>&lt;class 'adaptnlp.model.AdaptiveModel'&gt;</code></em></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="FlairSequenceClassifier.predict" class="doc_header"><code>FlairSequenceClassifier.predict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/sequence_classification.py#L249" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FlairSequenceClassifier.predict</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+</blockquote>
+<p>Predict method for running inference using the pre-trained sequence classifier model</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>text</code></strong> : <em><code>typing.Union[typing.List[flair.data.Sentence], flair.data.Sentence, typing.List[str], str]</code></em>  <p>Sentences to run inference on</p></li>
+</ul>
+<ul>
+<li><strong><code>mini_batch_size</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em>    <p>Mini batch size</p></li>
+</ul>
+<ul>
+<li><strong><code>kwargs</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>typing.List[flair.data.Sentence]</code></em> <p>A list of predicted `Sentence`s</p></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="EasySequenceClassifier" class="doc_header"><code>class</code> <code>EasySequenceClassifier</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/sequence_classification.py#L273" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasySequenceClassifier</code>()</p>
+</blockquote>
+<p>Easy module for sequence classifiers</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="EasySequenceClassifier.tag_text" class="doc_header"><code>EasySequenceClassifier.tag_text</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/sequence_classification.py#L281" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasySequenceClassifier.tag_text</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>model_name_or_path</code></strong>:<code>Union</code>[<code>str</code>, <a href="/adaptnlp/model_hub.html#FlairModelResult"><code>FlairModelResult</code></a>, <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a>]=<em><code>'en-sentiment'</code></em>, <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>, <strong><code>class_names</code></strong>:<code>list</code>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Tags a text sequence with labels the sequence classification models have been trained on</p>
+<p><strong>Parameters:</strong></p>
 <ul>
-<li><strong>text</strong> - String, list of strings, <code>Sentence</code>, or list of <code>Sentence</code>s to be classified</li>
-<li><strong>model_name_or_path</strong> - The model name key or model path</li>
-<li><strong>mini_batch_size</strong> - The mini batch size for running inference</li>
-<li><strong>&ast;&ast;kwargs</strong> - (Optional) Keyword Arguments for Flair's <code>TextClassifier.predict()</code> method params
-<strong>return</strong> A list of Flair's <code>Sentence</code>'s</li>
+<li><strong><code>text</code></strong> : <em><code>typing.Union[typing.List[flair.data.Sentence], flair.data.Sentence, typing.List[str], str]</code></em>  <p>String, list of strings, `Sentence`, or list of `Sentence`s to be classified</p></li>
 </ul>
-<p><strong>Usage Examples:</strong></p>
-<p>Sample code from: 06_sequence_classification.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/06_sequence_classification.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">hub</span> <span class="o">=</span> <span class="n">HFModelHub</span><span class="p">()</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">search_model_by_name</span><span class="p">(</span><span class="s2">&quot;nlptown/bert-base&quot;</span><span class="p">,</span> <span class="n">user_uploaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">classifier</span> <span class="o">=</span> <span class="n">EasySequenceClassifier</span><span class="p">()</span>
-<span class="n">sentences</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> 
-                               <span class="n">model_name_or_path</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
-                               <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">pred</span><span class="p">,</span> <span class="n">truth</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">truth_lbls</span><span class="p">):</span>
-    <span class="n">test_eq</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">truth</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-    <span class="n">test_close</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="n">truth</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">)</span>
-</pre></div>
+<ul>
+<li><strong><code>model_name_or_path</code></strong> : <em><code>typing.Union[str, adaptnlp.model_hub.FlairModelResult, adaptnlp.model_hub.HFModelResult]</code></em>, <em>optional</em>  <p>The model name key or model path</p></li>
+</ul>
+<ul>
+<li><strong><code>mini_batch_size</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em>    <p>The mini batch size for running inference</p></li>
+</ul>
+<ul>
+<li><strong><code>detail_level</code></strong> : <em><code>&lt;class 'fastcore.basics.DetailLevel'&gt;</code></em>, <em>optional</em>   <p>A level of detail to return</p></li>
+</ul>
+<ul>
+<li><strong><code>class_names</code></strong> : <em><code>&lt;class 'list'&gt;</code></em>, <em>optional</em>   <p>A list of labels</p></li>
+</ul>
+<ul>
+<li><strong><code>kwargs</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>typing.List[flair.data.Sentence]</code></em> <p>A list of Flair's `Sentence`'s</p></li>
+</ul>
 
 </div>
 
@@ -422,43 +478,28 @@ nb_path: "nbs/06_sequence_classification.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="EasySequenceClassifier.tag_all" class="doc_header"><code>EasySequenceClassifier.tag_all</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/sequence_classification.py#L443" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasySequenceClassifier.tag_all</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="EasySequenceClassifier.tag_all" class="doc_header"><code>EasySequenceClassifier.tag_all</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/sequence_classification.py#L339" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasySequenceClassifier.tag_all</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>, <strong><code>class_names</code></strong>:<code>list</code>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Tags text with all labels from all sequence classification models</p>
+<p><strong>Parameters:</strong></p>
 <ul>
-<li><strong>text</strong> - Text input, it can be a string or any of Flair's <code>Sentence</code> input formats</li>
-<li><strong>mini_batch_size</strong> - The mini batch size for running inference</li>
-<li><strong>&ast;&ast;kwargs</strong> - (Optional) Keyword Arguments for Flair's <code>TextClassifier.predict()</code> method params</li>
-<li><strong>return</strong> - A list of Flair's <code>Sentence</code>'s</li>
+<li><strong><code>text</code></strong> : <em><code>typing.Union[typing.List[flair.data.Sentence], flair.data.Sentence, typing.List[str], str]</code></em>  <p>Text input, it can be a string or any of Flair's `Sentence` input formats</p></li>
 </ul>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="EasySequenceClassifier.release_model" class="doc_header"><code>EasySequenceClassifier.release_model</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/sequence_classification.py#L521" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasySequenceClassifier.release_model</code>(<strong><code>model_name_or_path</code></strong>:<code>str</code>)</p>
-</blockquote>
-<p>Unload <code>model_name_or_path</code> from classifier and empty cuda memory cache</p>
-<p>May leave residual cache per pytorch documentation on torch.cuda.empty_cache()</p>
 <ul>
-<li><strong>model_name_or_path</strong> - The model name or key path that you want to unload and release memory from</li>
+<li><strong><code>mini_batch_size</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em>    <p>The mini batch size for running inference</p></li>
+</ul>
+<ul>
+<li><strong><code>detail_level</code></strong> : <em><code>&lt;class 'fastcore.basics.DetailLevel'&gt;</code></em>, <em>optional</em>   <p>A level of detail to return</p></li>
+</ul>
+<ul>
+<li><strong><code>class_names</code></strong> : <em><code>&lt;class 'list'&gt;</code></em>, <em>optional</em>   <p>A list of labels</p></li>
+</ul>
+<ul>
+<li><strong><code>kwargs</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>typing.List[flair.data.Sentence]</code></em> <p>A list of Flair's `Sentence`'s</p></li>
 </ul>
 
 </div>

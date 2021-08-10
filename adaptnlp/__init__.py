@@ -1,43 +1,48 @@
-import pkg_resources
+__version__ = "0.2.5"
+
 from pathlib import Path
 
-# Easy Modules
-from .embeddings import (
-    EasyWordEmbeddings,
-    EasyStackedEmbeddings,
-    EasyDocumentEmbeddings,
-)
-from .token_classification import EasyTokenTagger
-from .sequence_classification import (
-    EasySequenceClassifier,
-    TransformersSequenceClassifier,
-    FlairSequenceClassifier,
-)
-from .question_answering import EasyQuestionAnswering, TransformersQuestionAnswering
-from .summarization import EasySummarizer, TransformersSummarizer
-from .translation import EasyTranslator, TransformersTranslator
-from .text_generation import EasyTextGenerator, TransformersTextGenerator
-from .language_model import LMFineTuner
-
-# Training and Fine-tuning Modules
-# TODO: Deprecating in 0.3.0+
-from .training import SequenceClassifierTrainer
-from .transformers.finetuning import LMFineTunerManual
-
-# global variable like flair's: cache_root
+# global variable like Flair's cache_root
 cache_root = Path.home()/".adaptnlp"
 
-__version__ = "0.2.5"
+# Inference modules
+from .inference.embeddings import (
+    EasyWordEmbeddings,
+    EasyStackedEmbeddings,
+    EasyDocumentEmbeddings
+)
+
+from .inference.sequence_classification import (
+    EasySequenceClassifier,
+    TransformersSequenceClassifier,
+    FlairSequenceClassifier
+)
+
+from .inference.token_classification import EasyTokenTagger
+from .inference.question_answering import EasyQuestionAnswering, TransformersQuestionAnswering
+from .inference.summarization import EasySummarizer, TransformersSummarizer
+from .inference.translation import EasyTranslator, TransformersTranslator
+from .inference.text_generation import EasyTextGenerator, TransformersTextGenerator
+
+from .result import DetailLevel
+
+# Huggingface Hub bits
+from .model_hub import HFModelHub, FlairModelHub, HF_TASKS, FLAIR_TASKS
+
+# Training API
+from .training.core import Strategy, TaskDatasets, AdaptiveTuner
+from .training.sequence_classification import SequenceClassificationTuner, SequenceClassificationDatasets
+from .training.language_model import LanguageModelTuner, LanguageModelDatasets
 
 __all__ = [
     "__version__",
     "EasyWordEmbeddings",
     "EasyStackedEmbeddings",
     "EasyDocumentEmbeddings",
-    "EasyTokenTagger",
     "EasySequenceClassifier",
-    "FlairSequenceClassifier",
     "TransformersSequenceClassifier",
+    "FlairSequenceClassifier",
+    "EasyTokenTagger",
     "EasyQuestionAnswering",
     "TransformersQuestionAnswering",
     "EasySummarizer",
@@ -46,7 +51,16 @@ __all__ = [
     "TransformersTranslator",
     "EasyTextGenerator",
     "TransformersTextGenerator",
-    "SequenceClassifierTrainer",
-    "LMFineTuner",
-    "LMFineTunerManual",
+    "DetailLevel",
+    "HFModelHub",
+    "FlairModelHub",
+    "HF_TASKS",
+    "FLAIR_TASKS",
+    "TaskDatasets",
+    "AdaptiveTuner",
+    "Strategy",
+    "SequenceClassificationDatasets",
+    "LanguageModelDatasets",
+    "SequenceClassificationTuner",
+    "LanguageModelTuner"
 ]

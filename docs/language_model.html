@@ -32,6 +32,30 @@ nb_path: "nbs/11_language_model.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -54,7 +78,7 @@ nb_path: "nbs/11_language_model.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="LMFineTuner" class="doc_header"><code>class</code> <code>LMFineTuner</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/language_model.py#L35" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LMFineTuner</code>(<strong><code>model_name_or_path</code></strong>:<code>Union</code>[<code>str</code>, <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a>]=<em><code>'bert-base-cased'</code></em>)</p>
+<h2 id="LMFineTuner" class="doc_header"><code>class</code> <code>LMFineTuner</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/language_model.py#L44" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LMFineTuner</code>(<strong><code>model_name_or_path</code></strong>:<code>Union</code>[<code>str</code>, <a href="/adaptnlpmodel_hub.html#HFModelResult"><code>HFModelResult</code></a>]=<em><code>'bert-base-cased'</code></em>, <strong><code>language_model_class</code></strong>:<code>Union</code>[<code>str</code>, <code>LMClass</code>]=<em><code>'causal-lm'</code></em>)</p>
 </blockquote>
 <p>A Language Model Fine Tuner object you can set language model configurations and then train and evaluate</p>
 <p>Usage:</p>
@@ -64,30 +88,8 @@ nb_path: "nbs/11_language_model.ipynb"
 <p><strong>Parameters:</strong></p>
 <ul>
 <li><strong>model_name_or_path</strong> - The model checkpoint for weights initialization. Leave None if you want to train a model from scratch.</li>
+<li><strong>language_model_class</strong> - The type of language model you are trying to train, such as "causal" or "seq2seq"</li>
 </ul>
-<p><strong>Usage Examples:</strong></p>
-<p>Sample code from: 20b_tutorial.fine_tuning_manual.ipynb (<a href=https://nbviewer.jupyter.org/github/novetta/adaptnlp/tree/master/nbs/20b_tutorial.fine_tuning_manual.ipynb>View Notebook</a> for more context)</p>
-<div class="highlight"><pre><span></span><span class="n">ft_configs</span> <span class="o">=</span> <span class="p">{</span>
-              <span class="s2">&quot;train_data_file&quot;</span><span class="p">:</span> <span class="n">train_data_file</span><span class="p">,</span>
-              <span class="s2">&quot;eval_data_file&quot;</span><span class="p">:</span> <span class="n">eval_data_file</span><span class="p">,</span>
-              <span class="s2">&quot;model_type&quot;</span><span class="p">:</span> <span class="s2">&quot;bert&quot;</span><span class="p">,</span>
-              <span class="s2">&quot;model_name_or_path&quot;</span><span class="p">:</span> <span class="s2">&quot;bert-base-cased&quot;</span><span class="p">,</span>
-              <span class="s2">&quot;mlm&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-              <span class="s2">&quot;mlm_probability&quot;</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">,</span>
-              <span class="s2">&quot;config_name&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-              <span class="s2">&quot;tokenizer_name&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-              <span class="s2">&quot;cache_dir&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-              <span class="s2">&quot;block_size&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-              <span class="s2">&quot;no_cuda&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-              <span class="s2">&quot;overwrite_cache&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-              <span class="s2">&quot;seed&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
-              <span class="s2">&quot;fp16&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-              <span class="s2">&quot;fp16_opt_level&quot;</span><span class="p">:</span> <span class="s2">&quot;O1&quot;</span><span class="p">,</span>
-              <span class="s2">&quot;local_rank&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-             <span class="p">}</span>
-<span class="n">finetuner</span> <span class="o">=</span> <span class="n">LMFineTuner</span><span class="p">(</span><span class="o">**</span><span class="n">ft_configs</span><span class="p">)</span>
-<span class="n">finetuner</span><span class="o">.</span><span class="n">freeze</span><span class="p">()</span>
-</pre></div>
 
 </div>
 
@@ -102,6 +104,71 @@ nb_path: "nbs/11_language_model.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">finetuner</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>06/18/2021 17:08:00 - INFO - __main__ -   *** Evaluate ***
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+    <div>
+      
+      <progress value='279' max='279' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      [279/279 00:35]
+    </div>
+    
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>06/18/2021 17:08:35 - INFO - __main__ -   ***** Eval results *****
+06/18/2021 17:08:35 - INFO - __main__ -     perplexity = 19.988802908297547
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;perplexity&#39;: 19.988802908297547}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
 
 </div>
     {% endraw %}
