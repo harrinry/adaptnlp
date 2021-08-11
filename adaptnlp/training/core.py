@@ -7,12 +7,16 @@ __all__ = ['Strategy', 'ParentLabeller', 'ColReader', 'Categorize', 'MultiCatego
 from fastcore.xtras import Path, range_of # pathlib `Path` with extra bits
 from fastcore.foundation import mask2idxs, L
 from fastcore.meta import delegates
-from fastcore.basics import mk_class
+from fastcore.basics import mk_class, listify
 
+from fastai.torch_core import display_df
 from fastai.learner import Learner
+from fastai.callback.core import CancelStepException
 from fastai.callback.hook import Learner
 from fastai.callback.progress import Learner
 from fastai.callback.schedule import Learner
+
+from functools import partial
 # Patch'd Learner functionalities
 
 from fastai.data.core import DataLoaders
