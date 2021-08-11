@@ -148,7 +148,7 @@ entries:
   - folderitems:
     - output: web,pdf
       title: AdaptNLP Rest API
-      url: rest.md
+      url: rest
     output: web
     title: NLP Services with FastAPI
   output: web

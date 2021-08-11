@@ -9,227 +9,112 @@
 ![CI](https://github.com/Novetta/adaptnlp/workflows/CI/badge.svg) 
 [![PyPI](https://img.shields.io/pypi/v/adaptnlp?color=blue&label=pypi%20version)](https://pypi.org/project/adaptnlp/#description)
 
+## What is AdaptNLP?
 
-AdaptNLP allows users ranging from beginner python coders to experienced machine learning engineers to leverage
-state-of-the-art NLP models and training techniques in one easy-to-use python package.
+AdaptNLP is a python package that allows users ranging from beginner python coders to experienced Machine Learning Engineers to leverage
+state-of-the-art Natural Language Processing (NLP) models and training techniques in one easy-to-use python package.
 
-Built atop Zalando Research's Flair and Hugging Face's Transformers library, AdaptNLP provides Machine
-Learning Researchers and Scientists a modular and **adaptive** approach to a variety of NLP tasks with an
-**Easy** API for training, inference, and deploying NLP-based microservices.
+Utilizing [fastai](https://docs.fast.ai) with HuggingFace's [Transformers](https://github.com/huggingface/transformers) library and Humboldt University of Berlin's [Flair](https://github.com/flairNLP/flair) library, AdaptNLP provides Machine Learning Researchers and Scientists a modular and **adaptive** approach to a variety of NLP tasks simplifying what it takes to **train**, perform **inference**, and **deploy** NLP-based models and microservices.
 
-## Key Features
+## What is the Benefit of AdaptNLP Rather Than Just Using Transformers?
 
-  - **[Full Guides and API Documentation](https://novetta.github.io/adaptnlp)**
-  - Built with [nbdev](https://github.com/fastai/nbdev)
-  - Jupyter Notebook [Cookbooks](https://novetta.github.io/adaptnlp/cookbook)
-  - Unified inference API for NLP Tasks with SOTA Pretrained Models (Adaptable with Flair and Transformer's Models)
-    - Token Tagging 
-    - Sequence Classification
-    - Embeddings
-    - Question Answering
-    - Summarization
-    - Translation
-    - Text Generation
-    - <em> More in development </em>
-  - Training interface
-    - Integration with the `Datasets` and `fastai` library for an approachable data API as well as fine-tuning API, making use of state-of-the-art practices
-    - Integration with Transformer's Trainer Module for fast and easy transfer learning with custom datasets
-    - Fine-tuning Transformer's language models and task-specific predictive heads like Flair's `SequenceClassifier`
-  - Deployment interface:
-    - [Rapid NLP Model Deployment](https://github.com/Novetta/adaptnlp/tree/master/rest) with Sebastián's [FastAPI](https://github.com/tiangolo/fastapi) Framework
-    - Containerized FastAPI app
-    - Immediately deploy any custom trained Flair or AdaptNLP model
-  - [Dockerizing AdaptNLP with GPUs](https://hub.docker.com/r/novetta/adaptnlp)
-    - Easily build and run AdaptNLP containers leveraging NVIDIA GPUs with Docker
+Despite quick inference functionalities such as the `pipeline` API in `transformers`, it still is not quite as flexible nor fast enough. With AdaptNLP's `Easy*` inference modules, these tend to be slightly faster than the `pipeline` interface (bare minimum the same speed), while also providing the user with simple intuitive returns to alleviate any unneeded junk that may be returned. 
 
-## Quick Start
+Along with this, with the integration of the `fastai` library the code needed to train or run inference on your models has a completely modular API through the `fastai` [Callback](https://docs.fast.ai/callbacks.core) system. Rather than needing to write your entire torch loop, if there is anything special needed for a model a Callback can be written in less than 10 lines of code to achieve your specific functionalities.
 
-#### Virtual Environment
-To avoid dependency clustering and issues, it would be wise to install AdaptNLP in a virtual environment.
-To create a new python 3.7+ virtual environment, run this command and then activate it however your operating
-system specifies:
+Finally, when training your model fastai is on the forefront of beign a library constantly bringing in the best practices for achiving state-of-the-art training with new research methodologies heavily tested before integration. As such, AdaptNLP fully supports training with the One-Cycle policy, and using new optimizer combinations such as the Ranger optimizer with Cosine Annealing training through simple one-line fitting functions (`fit_one_cycle` and `fit_flat_cos`).
 
-```
-python -m venv venv-adaptnlp
-```
+## Installation Directions
 
-## Requirements and Installation for Windows
+### PyPi
 
-#### PyTorch Install
-PyTorch needs to be manually installed on Windows environments. If it's not already installed, proceed to http://pytorch.org/get-started/locally to select your preferences and then run the given install command. Note that the current version of PyTorch we use relies on cuda 10.1.
-
-#### AdaptNLP Install
-Install using pip:
-```
+To install with pypi, please use:
+```bash
 pip install adaptnlp
 ```
-
-If you want to work on AdaptNLP, `pip install adaptnlp[dev]` will install its development tools.
-
-## Examples and General Use
-
-Once you have installed AdaptNLP, here are a few examples of what you can run with AdaptNLP modules:
-
-### Named Entity Recognition with `EasyTokenTagger`
-
-```python
-from adaptnlp import EasyTokenTagger
-
-## Example Text
-example_text = "Novetta's headquarters is located in Mclean, Virginia."
-
-## Load the token tagger module and tag text with the NER model 
-tagger = EasyTokenTagger()
-sentences = tagger.tag_text(text=example_text, model_name_or_path="ner")
-
-## Output tagged token span results in Flair's Sentence object model
-for sentence in sentences:
-    for entity in sentence.get_spans("ner"):
-        print(entity)
-
+Or if you have pip3:
+```bash
+pip3 install adaptnlp
 ```
 
-### English Sentiment Classifier `EasySequenceClassifier`
+### Conda (Coming Soon)
 
-```python
-from adaptnlp import EasySequenceClassifier 
-from pprint import pprint
+### Developmental Builds
 
-## Example Text
-example_text = "This didn't work at all"
+To install any developmental style builds, please follow the below directions to install directly from git:
 
-## Load the sequence classifier module and classify sequence of text with the multi-lingual sentiment model 
-classifier = EasySequenceClassifier()
-sentences = classifier.tag_text(
-    text=example_text,
-    model_name_or_path="nlptown/bert-base-multilingual-uncased-sentiment",
-    mini_batch_size=1,
-)
-
-## Output labeled text results in Flair's Sentence object model
-print("Tag Score Outputs:\n")
-for sentence in sentences:
-    pprint({sentence.to_original_text(): sentence.labels})
-
+**Stable Master Branch**
+The master branch generally is not updated much except for hotfixes and new releases. To install please use:
+```bash
+pip install git+https://github.com/Novetta/adaptnlp
 ```
 
-### Span-based Question Answering `EasyQuestionAnswering`
-
-```python
-from adaptnlp import EasyQuestionAnswering 
-from pprint import pprint
-
-## Example Query and Context 
-query = "What is the meaning of life?"
-context = "Machine Learning is the meaning of life."
-top_n = 5
-
-## Load the QA module and run inference on results 
-qa = EasyQuestionAnswering()
-best_answer, best_n_answers = qa.predict_qa(query=query, context=context, n_best_size=top_n, mini_batch_size=1, model_name_or_path="distilbert-base-uncased-distilled-squad")
-
-## Output top answer as well as top 5 answers
-print(best_answer)
-pprint(best_n_answers)
+**Developmental Branch**
+{% include note.html content='Generally this branch can become unstable, and it is only recommended for contributors or those that really want to test out new technology. Please make sure to see if the latest tests are passing (A green checkmark on the commit message) before trying this branch out' %}
+You can install the developmental builds with:
+```bash
+pip install git+https://github.com/Novetta/adaptnlp@dev
 ```
 
-### Summarization `EasySummarizer`
+### Docker Images
 
-```python
-from adaptnlp import EasySummarizer
+There are actively updated Docker images hosted on Novetta's [DockerHub](https://hub.docker.com/r/novetta/adaptnlp)
 
-# Text from encyclopedia Britannica on Einstein
-text = """Einstein would write that two “wonders” deeply affected his early years. The first was his encounter with a compass at age five. 
-          He was mystified that invisible forces could deflect the needle. This would lead to a lifelong fascination with invisible forces. 
-          The second wonder came at age 12 when he discovered a book of geometry, which he devoured, calling it his 'sacred little geometry 
-          book'. Einstein became deeply religious at age 12, even composing several songs in praise of God and chanting religious songs on 
-          the way to school. This began to change, however, after he read science books that contradicted his religious beliefs. This challenge 
-          to established authority left a deep and lasting impression. At the Luitpold Gymnasium, Einstein often felt out of place and victimized 
-          by a Prussian-style educational system that seemed to stifle originality and creativity. One teacher even told him that he would 
-          never amount to anything."""
+The guide to each tag is as follows:
 
-summarizer = EasySummarizer()
+* **latest**: This is the latest pypi release and installs a complete package that is CUDA capable
+* **dev**: These are occasionally built developmental builds at certain stages. They are built by the `dev` branch and are generally stable
+* ***api**: The API builds are for the [REST-API](https://novetta.github.io/adaptnlp/rest)
 
-# Summarize
-summaries = summarizer.summarize(text = text, model_name_or_path="t5-small", mini_batch_size=1, num_beams = 4, min_length=0, max_length=100, early_stopping=True)
-
-print("Summaries:\n")
-for s in summaries:
-    print(s, "\n")
+To pull and run any AdaptNLP image immediatly you can run:
+```bash
+docker run -itp 8888:8888 novetta/adaptnlp:TAG
 ```
+Replacing `TAG` with any of the afformentioned tags earlier.
 
-### Translation `EasyTranslator`
-```python
-from adaptnlp import EasyTranslator
+Afterwards check `localhost:8888` or `localhost:888/lab` to access the notebook containers
 
-text = ["Machine learning will take over the world very soon.",
-        "Machines can speak in many languages.",]
+## Navigating the Documentation
 
-translator = EasyTranslator()
+The AdaptNLP library is built with [nbdev](https://nbdev.fast.ai), so any documentation page you find (including this one!) can be directly run as a Jupyter Notebook. Each page at the top includes an "Open in Colab" button as well that will open the notebook in Google Colaboratory to allow for immediate access to the code.
 
-# Translate
-translations = translator.translate(text = text, t5_prefix="translate English to German", model_name_or_path="t5-small", mini_batch_size=1, min_length=0, max_length=100, early_stopping=True)
+The documentation is split into six sections, each with a specific purpose:
 
-print("Translations:\n")
-for t in translations:
-    print(t, "\n")
-```
+### [Getting Started](https://novetta.github.io/adaptnlp/)
+This group contains quick access to the homepage, what are the AdaptNLP Cookbooks, and how to contribute
 
-## Tutorials
+### [Models and Model Hubs](https://novetta.github.io/adaptnlp/model.html)
+These contain any relevant documentation for the `AdaptiveModel` class, the HuggingFace Hub model search integration, and the `Result` class that various inference API's return
 
-Tutorials of the API are available in the cookbook section of the documentation [here](https://novetta.github.io/adaptnlp/cookbook)  
+### Class API
+This section contains the module documentation for the inference framework, the tuning framework, as well as the utilities and foundations for the AdaptNLP library.
 
-## REST Service 
+### [Inference and Training Cookbooks](https://novetta.github.io/adaptnlp/cookbook.html)
+These two sections provide **quick** access to *single use* recipies for starting any AdaptNLP project for a particular task, with easy to use code designed for that specific use case. 
+There are currently over 13 different tutorials available, with more coming soon.
 
-We use FastAPI for standing up endpoints for serving state-of-the-art NLP models with AdaptNLP.
+### [NLP Services with FastAPI](https://novetta.github.io/adaptnlp/rest)
+This section provides directions on how to use the AdaptNLP REST API for deploying your models quickly with FastAPI
 
-![Swagger Example](https://raw.githubusercontent.com/novetta/adaptnlp/master/docs/assets/images/fastapi-docs.png)
+## Contributing
 
-The [REST](https://github.com/Novetta/adaptnlp/tree/master/rest) directory contains more detail on deploying a REST API locally or with docker in a very easy and
-fast way.
+There is a controbution guide available [here](https://novetta.github.io/adaptnlp/contributing)
 
-## Docker
+## Testing
 
-AdaptNLP official docker images are up on [Docker Hub](https://hub.docker.com/r/novetta/adaptnlp).
+AdaptNLP is run on the `nbdev` framework. To run all tests please do the following:
 
-Images have AdaptNLP installed from source in developer mode with tutorial notebooks available, and will default to launching a jupyter server from where you can start 
-running the tutorial and workshop notebooks.
+1. `pip install nbverbose`
+2. `git clone https://github.com/Novetta/adaptnlp`
+3. `cd adaptnlp`
+4. `pip install -e .`
+5. `nbdev_test_nbs`
 
-Images can build with GPU support if NVIDA-Docker is correctly installed.
-
-### Pull and Run AdaptNLP Immediately
-Simply run an image with AdaptNLP installed from source in developer mode by running:
-```
-docker run -itp 8888:8888 novetta/adaptnlp:latest
-```
-Run an image with AdaptNLP running on GPUs if you have nvidia drivers and nvidia-docker 19.03+ installed:
-```
-docker run -itp 8888:8888 --gpus all novetta/adaptnlp:latest
-```
-
-Check `localhost:8888` or `localhost:8888/lab` to access the container notebook servers.
-
-
-### Build
-
-Refer to the `docker/` directory and run the following to build and run adaptnlp from the available images.
-
-Note: A container with GPUs enabled requires Docker version 19.03+ and nvida-docker installed
-```
-# From the repo directory
-docker build -t novetta/adaptnlp:latest
-docker run -itp 8888:8888 novetta/adaptnlp:latest
-```
-If you want to use CUDA compatible GPUs 
-```
-docker run -itp 8888:8888 --gpus all achangnovetta/adaptnlp:latest
-```
-
-Check `localhost:8888` or `localhost:8888/lab` to access the container notebook servers.
+This will run every notebook and ensure that all tests have passed. Please see the nbdev [documentation](https://nbdev.fast.ai) for more information about it. 
 
 ## Contact
 
-Please contact the author Zachary Mueller at zmueller@novetta.com with questions or comments regarding AdaptNLP.
+Please contact Zachary Mueller at zmueller@novetta.com with questions or comments regarding AdaptNLP.
 
 Follow  us on Twitter at [@TheZachMueller](https://twitter.com/TheZachMueller) and [@AdaptNLP](https://twitter.com/AdaptNLP) for
 updates and NLP dialogue.

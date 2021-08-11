@@ -60,6 +60,6 @@
 		}
 	},
 	"NLP Services with FastAPI": {
-		"AdaptNLP Rest API": "rest.md"
+		"AdaptNLP Rest API": "rest"
 	}
 }
