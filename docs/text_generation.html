@@ -176,7 +176,7 @@ nb_path: "nbs/09_text_generation.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TransformersTextGenerator.predict" class="doc_header"><code>TransformersTextGenerator.predict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/text_generation.py#L61" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TransformersTextGenerator.predict</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>str</code>], <code>str</code>], <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong><code>num_tokens_to_produce</code></strong>:<code>int</code>=<em><code>50</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="TransformersTextGenerator.predict" class="doc_header"><code>TransformersTextGenerator.predict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/text_generation.py#L61" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TransformersTextGenerator.predict</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>str</code>], <code>str</code>], <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong><code>num_tokens_to_produce</code></strong>:<code>int</code>=<em><code>50</code></em>)</p>
 </blockquote>
 <p>Predict method for running inference using the pre-trained sequence classifier model.  Keyword arguments for parameters of the method <code>Transformers.PreTrainedModel.generate()</code> can be used as well.</p>
 <p><strong>Parameters:</strong></p>
@@ -188,9 +188,6 @@ nb_path: "nbs/09_text_generation.ipynb"
 </ul>
 <ul>
 <li><strong><code>num_tokens_to_produce</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em>  <p>Number of tokens you want to generate</p></li>
-</ul>
-<ul>
-<li><strong><code>kwargs</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
 </ul>
 <p><strong>Returns</strong>:</p>
 <ul>
@@ -218,7 +215,7 @@ nb_path: "nbs/09_text_generation.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="EasyTextGenerator" class="doc_header"><code>class</code> <code>EasyTextGenerator</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/text_generation.py#L189" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyTextGenerator</code>()</p>
+<h2 id="EasyTextGenerator" class="doc_header"><code>class</code> <code>EasyTextGenerator</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/text_generation.py#L188" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyTextGenerator</code>()</p>
 </blockquote>
 <p>Text Generation Module</p>
 
@@ -250,7 +247,7 @@ nb_path: "nbs/09_text_generation.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="EasyTextGenerator.generate" class="doc_header"><code>EasyTextGenerator.generate</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/text_generation.py#L195" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyTextGenerator.generate</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>str</code>], <code>str</code>], <strong><code>model_name_or_path</code></strong>:<code>HFModelResult'&gt;]</code>=<em><code>'gpt2'</code></em>, <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong><code>num_tokens_to_produce</code></strong>:<code>int</code>=<em><code>50</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="EasyTextGenerator.generate" class="doc_header"><code>EasyTextGenerator.generate</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/text_generation.py#L194" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyTextGenerator.generate</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>str</code>], <code>str</code>], <strong><code>model_name_or_path</code></strong>:<code>HFModelResult'&gt;]</code>=<em><code>'gpt2'</code></em>, <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong><code>num_tokens_to_produce</code></strong>:<code>int</code>=<em><code>50</code></em>)</p>
 </blockquote>
 <p>Predict method for running inference using the pre-trained sequence classifier model. Keyword arguments for parameters of the method <code>Transformers.PreTrainedModel.generate()</code> can be used as well.</p>
 <p><strong>Parameters:</strong></p>
@@ -265,9 +262,6 @@ nb_path: "nbs/09_text_generation.ipynb"
 </ul>
 <ul>
 <li><strong><code>num_tokens_to_produce</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em>  <p>Number of tokens you want to generate</p></li>
-</ul>
-<ul>
-<li><strong><code>kwargs</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
 </ul>
 <p><strong>Returns</strong>:</p>
 <ul>

@@ -63,7 +63,6 @@ class TransformersTextGenerator(AdaptiveModel):
         text: Union[List[str], str], # Sentences to run inference on
         mini_batch_size: int = 32, # Mini batch size
         num_tokens_to_produce: int = 50, # Number of tokens you want to generate
-        **kwargs, # Optional arguments for the Transformers `PreTrainedModel.generate()` method
     ) -> List[str]: # A list of predicted sentences
         "Predict method for running inference using the pre-trained sequence classifier model.  Keyword arguments for parameters of the method `Transformers.PreTrainedModel.generate()` can be used as well."
         with torch.no_grad():
@@ -198,7 +197,6 @@ class EasyTextGenerator:
         model_name_or_path: [str, HFModelResult] = "gpt2", # A model id or path to a pre-trained model repository or custom trained model directory
         mini_batch_size: int = 32, # Mini batch size
         num_tokens_to_produce: int = 50, # Number of tokens you want to generate
-        **kwargs, # Optional arguments for the Transformers `PreTrainedModel.generate()` method
     ) -> List[str]: # A list of predicted sentences
         "Predict method for running inference using the pre-trained sequence classifier model. Keyword arguments for parameters of the method `Transformers.PreTrainedModel.generate()` can be used as well."
         name = getattr(model_name_or_path, 'name', model_name_or_path)
@@ -211,6 +209,5 @@ class EasyTextGenerator:
         return generator.predict(
             text=text,
             mini_batch_size=mini_batch_size,
-            num_tokens_to_produce=num_tokens_to_produce,
-            **kwargs,
+            num_tokens_to_produce=num_tokens_to_produce
         )

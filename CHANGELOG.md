@@ -1,13 +1,40 @@
 # Release Notes
 
+## 0.3.0
+
+### New Features
+
+- A new [Data API](https://novetta.github.io/adaptnlp/tuner.core#TaskDatasets) that integrates with HuggingFace's Dataset class
+
+- A new [Tuner API](https://novetta.github.io/adaptnlp/tuner.core#AdaptiveTuner) for training and fine-tuning Transformer models
+
+- Full integration of the latest [fastai library](https://docs.fast.ai) for full access to state-of-the-art practices when training and fine-tuning a model. As improvements are made to the library AdaptNLP will update to accomodate them
+
+- A new [Result API](https://novetta.github.io/adaptnlp/result) that most inference modules return. This is a filterable result ensuring that you only get the most relevent information when returning a prediction from the `Easy*` modules
+
+### Breaking Changes
+
+- The `train` and `eval` capabilities in the `Easy*` modules no longer exist, and all training related functionalities have migrated to the [Tuner](https://novetta.github.io/adaptnlp/tuner.core) API
+- `LanguageModelFineTuner` no longer exists, and the same tuning functionality is in `LanguageModelTuner`
+
+### Bugs Squashed
+
+- `max_len` Attribute Error ([127](https://github.com/Novetta/adaptnlp/issues/127)
+- Integrate a complete Data API (milestone) ([129](https://github.com/Novetta/adaptnlp/issues/129)
+- Use the latest fastcore ([132](https://github.com/Novetta/adaptnlp/issues/132))
+- Fix unused kwarg arguments in text generation ([134](https://github.com/Novetta/adaptnlp/issues/134))
+- Fix name 'df' is not defined ([135](https://github.com/Novetta/adaptnlp/issues/135))
+
 ## 0.2.5
 
 ### Breaking Changes
+
 - New versions of AdaptNLP will require a special forked and pinned version of Flair, that does not have a torch maximum requirement. Thus allowing for torch 1.7 >
 
 ## 0.2.3
 
 ### Breaking Changes:
+
 - New versions of AdaptNLP will require a minimum torch version of 1.7, and flair of 0.9 (currently we install via git until 0.9/0.81 is released)
 
 ### New Features
