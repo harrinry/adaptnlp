@@ -29,13 +29,6 @@ nb_path: "nbs/12_training.core.ipynb"
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Label-Functions">Label Functions<a class="anchor-link" href="#Label-Functions"> </a></h2><p>Functions that help extract a label from an item</p>
-
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -443,12 +436,6 @@ Based on the fastai class</p>
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-Basic-Datasets">The Basic Datasets<a class="anchor-link" href="#The-Basic-Datasets"> </a></h2>
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -659,13 +646,6 @@ Based on the fastai class</p>
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-Basic-Tuner-and-Integration-with-fastai">The Basic <code>Tuner</code> and Integration with <a href="https://docs.fast.ai">fastai</a><a class="anchor-link" href="#The-Basic-Tuner-and-Integration-with-fastai"> </a></h2><p>Since <code>fastai</code> is a <em>very</em> lightweight framework that is easily approachable and incorporates state-of-the-art ideas, <code>AdaptNLP</code> bridges the gap between HuggingFace and fastai, allowing you to train with their framework through the <code>*Tuner</code> classes</p>
-
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -754,6 +734,13 @@ Based on the fastai class</p>
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Since <code>fastai</code> is a <em>very</em> lightweight framework that is easily approachable and incorporates state-of-the-art ideas, <code>AdaptNLP</code> bridges the gap between HuggingFace and fastai, allowing you to train with their framework through the <code>*Tuner</code> classes</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The constructor of the <a href="/adaptnlp/training.core.html#AdaptiveTuner"><code>AdaptiveTuner</code></a> class has an optional <code>expose_fastai_api</code> parameter. When set to <code>True</code>, the <code>Tuner</code> inherits fastai's <code>Learner</code>, so every attribute of the <code>Learner</code> is available to you. This is only recommended for those very familiar with the fastai API.</p>
