@@ -55,7 +55,7 @@
 				"From Dataframes": "sequence_classification_from_df.html",
 				"From CSVs": "sequence_classification_from_csv.html",
 				"From Folders": "sequence_classification_from_folder.html",
-				"From (HF) Dataset": "sequence_classification_from_dataset.html"
+				"From (HF) Dataset": "sequence_classification_from_datasets.html"
 			}
 		}
 	},
