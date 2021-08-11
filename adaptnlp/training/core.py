@@ -9,7 +9,7 @@ from fastcore.foundation import mask2idxs, L
 from fastcore.meta import delegates
 from fastcore.basics import mk_class, listify
 
-from fastai.torch_core import display_df
+from fastai.torch_core import display_df, rank_distrib
 from fastai.learner import Learner
 from fastai.callback.core import CancelStepException
 from fastai.callback.hook import Learner
