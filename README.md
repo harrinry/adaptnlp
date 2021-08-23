@@ -98,7 +98,7 @@ This section provides directions on how to use the AdaptNLP REST API for deployi
 
 ## Contributing
 
-There is a controbution guide available [here](https://novetta.github.io/adaptnlp/contributing)
+There is a contribution guide available [here](https://novetta.github.io/adaptnlp/contributing)
 
 ## Testing
 
