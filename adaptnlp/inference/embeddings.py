@@ -92,14 +92,24 @@ class EmbeddingResult(SentenceResult):
     ): super().__init__(sentences)
 
     @property
-    def sentence_embeddings(self) -> List[torch.tensor]:
+    def sentence_embeddings(self) -> OrderedDict:
         "All embeddings in `sentences` (if available)"
-        return [s.get_embedding() for s in self._sentences]
+        e = OrderedDict()
+        for i,s in enumerate(self._sentences):
+            e.update({i:s.get_embedding()})
+        return e
 
     @property
-    def token_embeddings(self) -> List[torch.tensor]:
+    def token_embeddings(self) -> OrderedDict:
         "All embeddings from the individual tokens in `sentence` with original order in shape (n, embed_dim)"
-        return [torch.stack([tok.get_embedding() for tok in s], dim=0) for s in self._sentences]
+        res = []
+        for s in self._sentences:
+            e = OrderedDict()
+            for i, tok in enumerate(s):
+                e.update({
+                    i: tok.get_embedding()})
+            res.append(e)
+        return e
 
     def to_dict(
         self,
@@ -136,8 +146,8 @@ class EmbeddingResult(SentenceResult):
     def __repr__(self):
         s = f"{self.__class__.__name__}:" + " {"
         s += f'\n\tInputs: {self.inputs}'
-        if self.token_embeddings is not None: s += f'\n\tToken Embeddings Shapes: {[f.shape for f in self.token_embeddings]}'
-        if self.sentence_embeddings is not None: s += f'\n\tSentence Embeddings Shapes: {[f.shape for f in self.sentence_embeddings]}'
+        if self.token_embeddings is not None: s += f'\n\tToken Embeddings Shapes: {[self.token_embeddings[i].shape for i in range(len(self.token_embeddings))]}'
+        if self.sentence_embeddings is not None: s += f'\n\tSentence Embeddings Shapes: {[self.sentence_embeddings[i].shape for i in range(len(self.sentence_embeddings))]}'
         return s + '\n}'
 
 # Cell

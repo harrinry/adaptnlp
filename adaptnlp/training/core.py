@@ -341,7 +341,7 @@ class _AdaptiveLearner(Learner):
         "Assign `self.xb` to model input and labels"
         self.xb = b
         yb = []
-        for label in self.labels:
+        for label in self.label_keys:
             if label in b.keys():
                 yb.append(b[label])
         self.yb = torch.stack(yb, dim=0)
@@ -351,9 +351,10 @@ class _AdaptiveLearner(Learner):
         self.xb = {k:v.to(self.device) for k,v in self.xb.items()} # See if `to_device` fixes this
         self.yb = self.yb.to(self.device)
         out = self.model(**self.xb)
-        self.pred = out['logits'].to(self.device)
+        if 'loss' in out.keys():
+            self.loss_grad = out['loss'].to(self.device)
+        self.pred = out
         self('after_pred')
-        self.loss_grad = out['loss'].to(self.device)
         self.loss = self.loss_grad.clone()
         self('after_loss')
         if not self.training or not len(self.yb): return
@@ -381,7 +382,8 @@ class AdaptiveTuner:
                 raise ValueError("Could not find keys for the labels. Please pass in a `label_keys` param")
             else:
                 label_keys = kwargs['dls'].label_keys
-        self._tuner = _AdaptiveLearner(label_keys=label_keys, **kwargs)
+        self._tuner = _AdaptiveLearner(**kwargs)
+        self._tuner.label_keys = label_keys
 
         exposed_attrs = ['dls', 'model', 'loss_func', 'metrics']
         for attr in exposed_attrs:
