@@ -1,6 +1,6 @@
 ---
 
-title: Tutorial: Fine-Tuning Sequence Classification on CSV Files with IMDB
+title: Tutorial&#58; Fine-Tuning Sequence Classification on CSV Files with IMDB
 
 
 keywords: fastai
@@ -69,27 +69,13 @@ nb_path: "nbs/training_api_tutorials/sequence_classification/sequence_classifica
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This tutorial utilizies the latest AdaptNLP version, as well as parts of the <code>fastai</code> library. Please run the below code to install them:</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class="highlight"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">adaptnlp</span> <span class="o">-</span><span class="n">U</span>
 </pre></div>
-
-    </div>
-</div>
-</div>
+<p>(or <code>pip3</code>)</p>
 
 </div>
-    {% endraw %}
-
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Getting-the-Dataset">Getting the Dataset<a class="anchor-link" href="#Getting-the-Dataset"> </a></h2>
@@ -770,7 +756,7 @@ nb_path: "nbs/training_api_tutorials/sequence_classification/sequence_classifica
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="SequenceClassificationTuner" class="doc_header"><code>class</code> <code>SequenceClassificationTuner</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/sequence_classification.py#L222" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SequenceClassificationTuner</code>(<strong><code>dls</code></strong>:<code>DataLoaders</code>, <strong><code>model_name</code></strong>:<code>str</code>, <strong><code>tokenizer</code></strong>=<em><code>None</code></em>, <strong><code>loss_func</code></strong>=<em><code>CrossEntropyLoss()</code></em>, <strong><code>metrics</code></strong>=<em><code>[&lt;function accuracy at 0x7f6723015940&gt;, &lt;fastai.metrics.AccumMetric object at 0x7f6722e472e0&gt;]</code></em>, <strong><code>opt_func</code></strong>=<em><code>Adam</code></em>, <strong><code>additional_cbs</code></strong>=<em><code>None</code></em>, <strong><code>expose_fastai_api</code></strong>=<em><code>False</code></em>, <strong><code>num_classes</code></strong>:<code>int</code>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/adaptnlp/training.core.html#AdaptiveTuner"><code>AdaptiveTuner</code></a></p>
+<h2 id="SequenceClassificationTuner" class="doc_header"><code>class</code> <code>SequenceClassificationTuner</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/sequence_classification.py#L222" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SequenceClassificationTuner</code>(<strong><code>dls</code></strong>:<code>DataLoaders</code>, <strong><code>model_name</code></strong>:<code>str</code>, <strong><code>tokenizer</code></strong>=<em><code>None</code></em>, <strong><code>loss_func</code></strong>=<em><code>CrossEntropyLoss()</code></em>, <strong><code>metrics</code></strong>=<em><code>[&lt;function accuracy at 0x7f881ea52940&gt;, &lt;fastai.metrics.AccumMetric object at 0x7f881e8843a0&gt;]</code></em>, <strong><code>opt_func</code></strong>=<em><code>Adam</code></em>, <strong><code>additional_cbs</code></strong>=<em><code>None</code></em>, <strong><code>expose_fastai_api</code></strong>=<em><code>False</code></em>, <strong><code>num_classes</code></strong>:<code>int</code>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/adaptnlp/training.core.html#AdaptiveTuner"><code>AdaptiveTuner</code></a></p>
 </blockquote>
 <p>An <a href="/adaptnlp/training.core.html#AdaptiveTuner"><code>AdaptiveTuner</code></a> with good defaults for Sequence Classification tasks</p>
 <p><strong>Valid kwargs and defaults:</strong></p>
@@ -1070,7 +1056,7 @@ f1_score
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="AdaptiveTuner.lr_find" class="doc_header"><code>AdaptiveTuner.lr_find</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L385" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.lr_find</code>(<strong><code>start_lr</code></strong>=<em><code>1e-07</code></em>, <strong><code>end_lr</code></strong>=<em><code>10</code></em>, <strong><code>num_it</code></strong>=<em><code>100</code></em>, <strong><code>stop_div</code></strong>=<em><code>True</code></em>, <strong><code>show_plot</code></strong>=<em><code>True</code></em>, <strong><code>suggest_funcs</code></strong>=<em><code>valley</code></em>)</p>
+<h4 id="AdaptiveTuner.lr_find" class="doc_header"><code>AdaptiveTuner.lr_find</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L389" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.lr_find</code>(<strong><code>start_lr</code></strong>=<em><code>1e-07</code></em>, <strong><code>end_lr</code></strong>=<em><code>10</code></em>, <strong><code>num_it</code></strong>=<em><code>100</code></em>, <strong><code>stop_div</code></strong>=<em><code>True</code></em>, <strong><code>show_plot</code></strong>=<em><code>True</code></em>, <strong><code>suggest_funcs</code></strong>=<em><code>valley</code></em>)</p>
 </blockquote>
 <p>Runs fastai's <code>LR Finder</code></p>
 <p><strong>Parameters:</strong></p>
@@ -1204,7 +1190,7 @@ f1_score
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="AdaptiveTuner.tune" class="doc_header"><code>AdaptiveTuner.tune</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L371" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.tune</code>(<strong><code>epochs</code></strong>:<code>int</code>, <strong><code>lr</code></strong>:<code>float</code>=<em><code>None</code></em>, <strong><code>strategy</code></strong>:<code>Strategy</code>=<em><code>'fit_one_cycle'</code></em>, <strong><code>callbacks</code></strong>:<code>list</code>=<em><code>[]</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="AdaptiveTuner.tune" class="doc_header"><code>AdaptiveTuner.tune</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L375" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.tune</code>(<strong><code>epochs</code></strong>:<code>int</code>, <strong><code>lr</code></strong>:<code>float</code>=<em><code>None</code></em>, <strong><code>strategy</code></strong>:<code>Strategy</code>=<em><code>'fit_one_cycle'</code></em>, <strong><code>callbacks</code></strong>:<code>list</code>=<em><code>[]</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Fine tune <code>self.model</code> for <code>epochs</code> with an <code>lr</code> and <code>strategy</code></p>
 <p><strong>Parameters:</strong></p>
@@ -1365,7 +1351,7 @@ f1_score
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="AdaptiveTuner.save" class="doc_header"><code>AdaptiveTuner.save</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L393" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.save</code>(<strong><code>save_directory</code></strong>)</p>
+<h4 id="AdaptiveTuner.save" class="doc_header"><code>AdaptiveTuner.save</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L397" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.save</code>(<strong><code>save_directory</code></strong>)</p>
 </blockquote>
 <p>Save a pretrained model to a <code>save_directory</code></p>
 <p><strong>Parameters:</strong></p>

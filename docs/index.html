@@ -35,155 +35,53 @@ nb_path: "nbs/index.ipynb"
     <a href="https://github.com/Novetta/adaptnlp"> <img src="https://raw.githubusercontent.com/novetta/adaptnlp/master/docs/assets/images/company_logo.png" width="400"/></a>
 </p><p><img src="https://github.com/Novetta/adaptnlp/workflows/CI/badge.svg" alt="CI"> 
 <a href="https://pypi.org/project/adaptnlp/#description"><img src="https://img.shields.io/pypi/v/adaptnlp?color=blue&amp;label=pypi%20version" alt="PyPI"></a></p>
-<p>AdaptNLP allows users ranging from beginner python coders to experienced machine learning engineers to leverage
-state-of-the-art NLP models and training techniques in one easy-to-use python package.</p>
-<p>Built atop Zalando Research's Flair and Hugging Face's Transformers library, AdaptNLP provides Machine
-Learning Researchers and Scientists a modular and <strong>adaptive</strong> approach to a variety of NLP tasks with an
-<strong>Easy</strong> API for training, inference, and deploying NLP-based microservices.</p>
-<h2 id="Key-Features">Key Features<a class="anchor-link" href="#Key-Features"> </a></h2><ul>
-<li><strong><a href="https://novetta.github.io/adaptnlp">Full Guides and API Documentation</a></strong></li>
-<li>Built with <a href="https://github.com/fastai/nbdev">nbdev</a></li>
-<li>Jupyter Notebook <a href="https://novetta.github.io/adaptnlp/cookbook">Cookbooks</a></li>
-<li>Unified inference API for NLP Tasks with SOTA Pretrained Models (Adaptable with Flair and Transformer's Models)<ul>
-<li>Token Tagging </li>
-<li>Sequence Classification</li>
-<li>Embeddings</li>
-<li>Question Answering</li>
-<li>Summarization</li>
-<li>Translation</li>
-<li>Text Generation</li>
-<li><em> More in development </em></li>
-</ul>
-</li>
-<li>Training interface<ul>
-<li>Integration with the <code>Datasets</code> and <code>fastai</code> library for an approachable data API as well as fine-tuning API, making use of state-of-the-art practices</li>
-<li>Integration with Transformer's Trainer Module for fast and easy transfer learning with custom datasets</li>
-<li>Fine-tuning Transformer's language models and task-specific predictive heads like Flair's <code>SequenceClassifier</code></li>
-</ul>
-</li>
-<li>Deployment interface:<ul>
-<li><a href="https://github.com/Novetta/adaptnlp/tree/master/rest">Rapid NLP Model Deployment</a> with Sebastián's <a href="https://github.com/tiangolo/fastapi">FastAPI</a> Framework</li>
-<li>Containerized FastAPI app</li>
-<li>Immediately deploy any custom trained Flair or AdaptNLP model</li>
-</ul>
-</li>
-<li><a href="https://hub.docker.com/r/novetta/adaptnlp">Dockerizing AdaptNLP with GPUs</a><ul>
-<li>Easily build and run AdaptNLP containers leveraging NVIDIA GPUs with Docker</li>
-</ul>
-</li>
-</ul>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Quick-Start">Quick Start<a class="anchor-link" href="#Quick-Start"> </a></h2><h4 id="Virtual-Environment">Virtual Environment<a class="anchor-link" href="#Virtual-Environment"> </a></h4><p>To avoid dependency clustering and issues, it would be wise to install AdaptNLP in a virtual environment.
-To create a new python 3.7+ virtual environment, run this command and then activate it however your operating
-system specifies:</p>
-
-<pre><code>python -m venv venv-adaptnlp</code></pre>
+<h2 id="What-is-AdaptNLP?">What is AdaptNLP?<a class="anchor-link" href="#What-is-AdaptNLP?"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>AdaptNLP is a python package that allows users ranging from beginner python coders to experienced Machine Learning Engineers to leverage
+state-of-the-art Natural Language Processing (NLP) models and training techniques in one easy-to-use python package.</p>
+<p>Utilizing <a href="https://docs.fast.ai">fastai</a> with HuggingFace's <a href="https://github.com/huggingface/transformers">Transformers</a> library and Humboldt University of Berlin's <a href="https://github.com/flairNLP/flair">Flair</a> library, AdaptNLP provides Machine Learning Researchers and Scientists a modular and <strong>adaptive</strong> approach to a variety of NLP tasks simplifying what it takes to <strong>train</strong>, perform <strong>inference</strong>, and <strong>deploy</strong> NLP-based models and microservices.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Requirements-and-Installation-for-Windows">Requirements and Installation for Windows<a class="anchor-link" href="#Requirements-and-Installation-for-Windows"> </a></h2><h4 id="PyTorch-Install">PyTorch Install<a class="anchor-link" href="#PyTorch-Install"> </a></h4><p>PyTorch needs to be manually installed on Windows environments. If it's not already installed, proceed to <a href="http://pytorch.org/get-started/locally">http://pytorch.org/get-started/locally</a> to select your preferences and then run the given install command. Note that the current version of PyTorch we use relies on cuda 10.1.</p>
-<h4 id="AdaptNLP-Install">AdaptNLP Install<a class="anchor-link" href="#AdaptNLP-Install"> </a></h4><p>Install using pip:</p>
-
-<pre><code>pip install adaptnlp</code></pre>
-<p>If you want to work on AdaptNLP, <code>pip install adaptnlp[dev]</code> will install its development tools.</p>
+<h2 id="What-is-the-Benefit-of-AdaptNLP-Rather-Than-Just-Using-Transformers?">What is the Benefit of AdaptNLP Rather Than Just Using Transformers?<a class="anchor-link" href="#What-is-the-Benefit-of-AdaptNLP-Rather-Than-Just-Using-Transformers?"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Despite quick inference functionalities such as the <code>pipeline</code> API in <code>transformers</code>, it still is not quite as flexible nor fast enough. With AdaptNLP's <code>Easy*</code> inference modules, these tend to be slightly faster than the <code>pipeline</code> interface (bare minimum the same speed), while also providing the user with simple intuitive returns to alleviate any unneeded junk that may be returned.</p>
+<p>Along with this, with the integration of the <code>fastai</code> library the code needed to train or run inference on your models has a completely modular API through the <code>fastai</code> <a href="https://docs.fast.ai/callbacks.core">Callback</a> system. Rather than needing to write your entire torch loop, if there is anything special needed for a model a Callback can be written in less than 10 lines of code to achieve your specific functionalities.</p>
+<p>Finally, when training your model fastai is on the forefront of beign a library constantly bringing in the best practices for achiving state-of-the-art training with new research methodologies heavily tested before integration. As such, AdaptNLP fully supports training with the One-Cycle policy, and using new optimizer combinations such as the Ranger optimizer with Cosine Annealing training through simple one-line fitting functions (<code>fit_one_cycle</code> and <code>fit_flat_cos</code>).</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Examples-and-General-Use">Examples and General Use<a class="anchor-link" href="#Examples-and-General-Use"> </a></h2><p>Once you have installed AdaptNLP, here are a few examples of what you can run with AdaptNLP modules:</p>
-<h3 id="Named-Entity-Recognition-with-EasyTokenTagger">Named Entity Recognition with <a href="/adaptnlp/token_classification.html#EasyTokenTagger"><code>EasyTokenTagger</code></a><a class="anchor-link" href="#Named-Entity-Recognition-with-EasyTokenTagger"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasyTokenTagger</span>
-
-<span class="c1">## Example Text</span>
-<span class="n">example_text</span> <span class="o">=</span> <span class="s2">&quot;Novetta&#39;s headquarters is located in Mclean, Virginia.&quot;</span>
-
-<span class="c1">## Load the token tagger module and tag text with the NER model </span>
-<span class="n">tagger</span> <span class="o">=</span> <span class="n">EasyTokenTagger</span><span class="p">()</span>
-<span class="n">sentences</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;ner&quot;</span><span class="p">)</span>
-
-<span class="c1">## Output tagged token span results in Flair&#39;s Sentence object model</span>
-<span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">sentence</span><span class="o">.</span><span class="n">get_spans</span><span class="p">(</span><span class="s2">&quot;ner&quot;</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+<h2 id="Installation-Directions">Installation Directions<a class="anchor-link" href="#Installation-Directions"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="PyPi">PyPi<a class="anchor-link" href="#PyPi"> </a></h3><p>To install with pypi, please use:</p>
+<div class="highlight"><pre><span></span>pip install adaptnlp
 </pre></div>
-<h3 id="English-Sentiment-Classifier-EasySequenceClassifier">English Sentiment Classifier <a href="/adaptnlp/sequence_classification.html#EasySequenceClassifier"><code>EasySequenceClassifier</code></a><a class="anchor-link" href="#English-Sentiment-Classifier-EasySequenceClassifier"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasySequenceClassifier</span> 
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
-
-<span class="c1">## Example Text</span>
-<span class="n">example_text</span> <span class="o">=</span> <span class="s2">&quot;This didn&#39;t work at all&quot;</span>
-
-<span class="c1">## Load the sequence classifier module and classify sequence of text with the multi-lingual sentiment model </span>
-<span class="n">classifier</span> <span class="o">=</span> <span class="n">EasySequenceClassifier</span><span class="p">()</span>
-<span class="n">sentences</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span>
-    <span class="n">text</span><span class="o">=</span><span class="n">example_text</span><span class="p">,</span>
-    <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;nlptown/bert-base-multilingual-uncased-sentiment&quot;</span><span class="p">,</span>
-    <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1">## Output labeled text results in Flair&#39;s Sentence object model</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tag Score Outputs:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
-    <span class="n">pprint</span><span class="p">({</span><span class="n">sentence</span><span class="o">.</span><span class="n">to_original_text</span><span class="p">():</span> <span class="n">sentence</span><span class="o">.</span><span class="n">labels</span><span class="p">})</span>
-</pre></div>
-<h3 id="Span-based-Question-Answering-EasyQuestionAnswering">Span-based Question Answering <a href="/adaptnlp/question_answering.html#EasyQuestionAnswering"><code>EasyQuestionAnswering</code></a><a class="anchor-link" href="#Span-based-Question-Answering-EasyQuestionAnswering"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasyQuestionAnswering</span> 
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
-
-<span class="c1">## Example Query and Context </span>
-<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;What is the meaning of life?&quot;</span>
-<span class="n">context</span> <span class="o">=</span> <span class="s2">&quot;Machine Learning is the meaning of life.&quot;</span>
-<span class="n">top_n</span> <span class="o">=</span> <span class="mi">5</span>
-
-<span class="c1">## Load the QA module and run inference on results </span>
-<span class="n">qa</span> <span class="o">=</span> <span class="n">EasyQuestionAnswering</span><span class="p">()</span>
-<span class="n">best_answer</span><span class="p">,</span> <span class="n">best_n_answers</span> <span class="o">=</span> <span class="n">qa</span><span class="o">.</span><span class="n">predict_qa</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">n_best_size</span><span class="o">=</span><span class="n">top_n</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;distilbert-base-uncased-distilled-squad&quot;</span><span class="p">)</span>
-
-<span class="c1">## Output top answer as well as top 5 answers</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">best_answer</span><span class="p">)</span>
-<span class="n">pprint</span><span class="p">(</span><span class="n">best_n_answers</span><span class="p">)</span>
-</pre></div>
-<h3 id="Summarization-EasySummarizer">Summarization <a href="/adaptnlp/summarization.html#EasySummarizer"><code>EasySummarizer</code></a><a class="anchor-link" href="#Summarization-EasySummarizer"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasySummarizer</span>
-
-<span class="c1"># Text from encyclopedia Britannica on Einstein</span>
-<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Einstein would write that two “wonders” deeply affected his early years. The first was his encounter with a compass at age five. </span>
-<span class="s2">          He was mystified that invisible forces could deflect the needle. This would lead to a lifelong fascination with invisible forces. </span>
-<span class="s2">          The second wonder came at age 12 when he discovered a book of geometry, which he devoured, calling it his &#39;sacred little geometry </span>
-<span class="s2">          book&#39;. Einstein became deeply religious at age 12, even composing several songs in praise of God and chanting religious songs on </span>
-<span class="s2">          the way to school. This began to change, however, after he read science books that contradicted his religious beliefs. This challenge </span>
-<span class="s2">          to established authority left a deep and lasting impression. At the Luitpold Gymnasium, Einstein often felt out of place and victimized </span>
-<span class="s2">          by a Prussian-style educational system that seemed to stifle originality and creativity. One teacher even told him that he would </span>
-<span class="s2">          never amount to anything.&quot;&quot;&quot;</span>
-
-<span class="n">summarizer</span> <span class="o">=</span> <span class="n">EasySummarizer</span><span class="p">()</span>
-
-<span class="c1"># Summarize</span>
-<span class="n">summaries</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;t5-small&quot;</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_beams</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Summaries:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">summaries</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-<h3 id="Translation-EasyTranslator">Translation <a href="/adaptnlp/translation.html#EasyTranslator"><code>EasyTranslator</code></a><a class="anchor-link" href="#Translation-EasyTranslator"> </a></h3><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adaptnlp</span> <span class="kn">import</span> <span class="n">EasyTranslator</span>
-
-<span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Machine learning will take over the world very soon.&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Machines can speak in many languages.&quot;</span><span class="p">,]</span>
-
-<span class="n">translator</span> <span class="o">=</span> <span class="n">EasyTranslator</span><span class="p">()</span>
-
-<span class="c1"># Translate</span>
-<span class="n">translations</span> <span class="o">=</span> <span class="n">translator</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">,</span> <span class="n">t5_prefix</span><span class="o">=</span><span class="s2">&quot;translate English to German&quot;</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;t5-small&quot;</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Translations:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">translations</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<p>Or if you have pip3:</p>
+<div class="highlight"><pre><span></span>pip3 install adaptnlp
 </pre></div>
 
 </div>
@@ -191,51 +89,83 @@ system specifies:</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Tutorials">Tutorials<a class="anchor-link" href="#Tutorials"> </a></h2><p>Tutorials of the API are available in the cookbook section of the documentation <a href="https://novetta.github.io/adaptnlp/cookbook">here</a></p>
+<h3 id="Conda-(Coming-Soon)">Conda (Coming Soon)<a class="anchor-link" href="#Conda-(Coming-Soon)"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Developmental-Builds">Developmental Builds<a class="anchor-link" href="#Developmental-Builds"> </a></h3><p>To install any developmental style builds, please follow the below directions to install directly from git:</p>
+<p><strong>Stable Master Branch</strong>
+The master branch generally is not updated much except for hotfixes and new releases. To install please use:</p>
+<div class="highlight"><pre><span></span>pip install git+https://github.com/Novetta/adaptnlp
+</pre></div>
+<p><strong>Developmental Branch</strong>
+{% include note.html content='Generally this branch can become unstable, and it is only recommended for contributors or those that really want to test out new technology. Please make sure to see if the latest tests are passing (A green checkmark on the commit message) before trying this branch out' %}
+You can install the developmental builds with:</p>
+<div class="highlight"><pre><span></span>pip install git+https://github.com/Novetta/adaptnlp@dev
+</pre></div>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="REST-Service">REST Service<a class="anchor-link" href="#REST-Service"> </a></h2><p>We use FastAPI for standing up endpoints for serving state-of-the-art NLP models with AdaptNLP.</p>
-<p><img src="https://raw.githubusercontent.com/novetta/adaptnlp/master/docs/assets/images/fastapi-docs.png" alt="Swagger Example"></p>
-<p>The <a href="https://github.com/Novetta/adaptnlp/tree/master/rest">REST</a> directory contains more detail on deploying a REST API locally or with docker in a very easy and
-fast way.</p>
+<h3 id="Docker-Images">Docker Images<a class="anchor-link" href="#Docker-Images"> </a></h3><p>There are actively updated Docker images hosted on Novetta's <a href="https://hub.docker.com/r/novetta/adaptnlp">DockerHub</a></p>
+<p>The guide to each tag is as follows:</p>
+<ul>
+<li><strong>latest</strong>: This is the latest pypi release and installs a complete package that is CUDA capable</li>
+<li><strong>dev</strong>: These are occasionally built developmental builds at certain stages. They are built by the <code>dev</code> branch and are generally stable</li>
+<li><strong>*api</strong>: The API builds are for the <a href="https://novetta.github.io/adaptnlp/rest">REST-API</a></li>
+</ul>
+<p>To pull and run any AdaptNLP image immediatly you can run:</p>
+<div class="highlight"><pre><span></span>docker run -itp <span class="m">8888</span>:8888 novetta/adaptnlp:TAG
+</pre></div>
+<p>Replacing <code>TAG</code> with any of the afformentioned tags earlier.</p>
+<p>Afterwards check <code>localhost:8888</code> or <code>localhost:888/lab</code> to access the notebook containers</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Docker">Docker<a class="anchor-link" href="#Docker"> </a></h2><p>AdaptNLP official docker images are up on <a href="https://hub.docker.com/r/novetta/adaptnlp">Docker Hub</a>.</p>
-<p>Images have AdaptNLP installed from source in developer mode with tutorial notebooks available, and will default to launching a jupyter server from where you can start 
-running the tutorial and workshop notebooks.</p>
-<p>Images can build with GPU support if NVIDA-Docker is correctly installed.</p>
-<h3 id="Pull-and-Run-AdaptNLP-Immediately">Pull and Run AdaptNLP Immediately<a class="anchor-link" href="#Pull-and-Run-AdaptNLP-Immediately"> </a></h3><p>Simply run an image with AdaptNLP installed from source in developer mode by running:</p>
-
-<pre><code>docker run -itp 8888:8888 novetta/adaptnlp:latest</code></pre>
-<p>Run an image with AdaptNLP running on GPUs if you have nvidia drivers and nvidia-docker 19.03+ installed:</p>
-
-<pre><code>docker run -itp 8888:8888 --gpus all novetta/adaptnlp:latest</code></pre>
-<p>Check <code>localhost:8888</code> or <code>localhost:8888/lab</code> to access the container notebook servers.</p>
-<h3 id="Build">Build<a class="anchor-link" href="#Build"> </a></h3><p>Refer to the <code>docker/</code> directory and run the following to build and run adaptnlp from the available images.</p>
-<p>Note: A container with GPUs enabled requires Docker version 19.03+ and nvida-docker installed</p>
-
-<pre><code># From the repo directory
-docker build -t novetta/adaptnlp:latest
-docker run -itp 8888:8888 novetta/adaptnlp:latest</code></pre>
-<p>If you want to use CUDA compatible GPUs</p>
-
-<pre><code>docker run -itp 8888:8888 --gpus all achangnovetta/adaptnlp:latest</code></pre>
-<p>Check <code>localhost:8888</code> or <code>localhost:8888/lab</code> to access the container notebook servers.</p>
+<h2 id="Navigating-the-Documentation">Navigating the Documentation<a class="anchor-link" href="#Navigating-the-Documentation"> </a></h2><p>The AdaptNLP library is built with <a href="https://nbdev.fast.ai">nbdev</a>, so any documentation page you find (including this one!) can be directly run as a Jupyter Notebook. Each page at the top includes an "Open in Colab" button as well that will open the notebook in Google Colaboratory to allow for immediate access to the code.</p>
+<p>The documentation is split into six sections, each with a specific purpose:</p>
+<h3 id="Getting-Started"><a href="https://novetta.github.io/adaptnlp/">Getting Started</a><a class="anchor-link" href="#Getting-Started"> </a></h3><p>This group contains quick access to the homepage, what are the AdaptNLP Cookbooks, and how to contribute</p>
+<h3 id="Models-and-Model-Hubs"><a href="https://novetta.github.io/adaptnlp/model.html">Models and Model Hubs</a><a class="anchor-link" href="#Models-and-Model-Hubs"> </a></h3><p>These contain any relevant documentation for the <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a> class, the HuggingFace Hub model search integration, and the <code>Result</code> class that various inference API's return</p>
+<h3 id="Class-API">Class API<a class="anchor-link" href="#Class-API"> </a></h3><p>This section contains the module documentation for the inference framework, the tuning framework, as well as the utilities and foundations for the AdaptNLP library.</p>
+<h3 id="Inference-and-Training-Cookbooks"><a href="https://novetta.github.io/adaptnlp/cookbook.html">Inference and Training Cookbooks</a><a class="anchor-link" href="#Inference-and-Training-Cookbooks"> </a></h3><p>These two sections provide <strong>quick</strong> access to <em>single use</em> recipies for starting any AdaptNLP project for a particular task, with easy to use code designed for that specific use case. 
+There are currently over 13 different tutorials available, with more coming soon.</p>
+<h3 id="NLP-Services-with-FastAPI"><a href="https://novetta.github.io/adaptnlp/rest">NLP Services with FastAPI</a><a class="anchor-link" href="#NLP-Services-with-FastAPI"> </a></h3><p>This section provides directions on how to use the AdaptNLP REST API for deploying your models quickly with FastAPI</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Contact">Contact<a class="anchor-link" href="#Contact"> </a></h2><p>Please contact the author Zachary Mueller at zmueller@novetta.com with questions or comments regarding AdaptNLP.</p>
+<h2 id="Contributing">Contributing<a class="anchor-link" href="#Contributing"> </a></h2><p>There is a controbution guide available <a href="https://novetta.github.io/adaptnlp/contributing">here</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Testing">Testing<a class="anchor-link" href="#Testing"> </a></h2><p>AdaptNLP is run on the <code>nbdev</code> framework. To run all tests please do the following:</p>
+<ol>
+<li><code>pip install nbverbose</code></li>
+<li><code>git clone https://github.com/Novetta/adaptnlp</code></li>
+<li><code>cd adaptnlp</code></li>
+<li><code>pip install -e .</code></li>
+<li><code>nbdev_test_nbs</code></li>
+</ol>
+<p>This will run every notebook and ensure that all tests have passed. Please see the nbdev <a href="https://nbdev.fast.ai">documentation</a> for more information about it.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Contact">Contact<a class="anchor-link" href="#Contact"> </a></h2><p>Please contact Zachary Mueller at zmueller@novetta.com with questions or comments regarding AdaptNLP.</p>
 <p>Follow  us on Twitter at <a href="https://twitter.com/TheZachMueller">@TheZachMueller</a> and <a href="https://twitter.com/AdaptNLP">@AdaptNLP</a> for
 updates and NLP dialogue.</p>
 

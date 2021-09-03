@@ -1,4 +1,4 @@
-FROM achangnovetta/adaptnlp:latest
+FROM novetta/adaptnlp:latest
 
 # For SSL/TLS for requests
 ENV REQUESTS_CA_BUNDLE /etc/ssl/certs/ca-certificates.crt

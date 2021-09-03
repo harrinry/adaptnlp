@@ -10,6 +10,7 @@
 		"The Model Hub": "model_hub.html"
 	},
 	"Class API": {
+        "Introduction": "/",
 		"": {
 			"Inference Tasks": {
 				"Embeddings": "embeddings.html",
@@ -21,8 +22,9 @@
 				"Translation": "translation.html"
 			},
 			"Tuning Framework": {
-				"Sequence Classification": "training.sequence_classification",
-				"Language Models": "training.language_model"
+                "Core":"training.core",
+				"Language Models": "training.language_model",
+				"Sequence Classification": "training.sequence_classification"
 			},
 			"Utilities and Foundations": {
 				"File Utilities": "file_utils.html",
@@ -33,15 +35,13 @@
 	},
 	"Inference Cookbooks": {
 		"Cookbook Introduction": "cookbook.html",
-        "":{
-            "Embeddings": "tutorial.embeddings.html",
-            "Question Answering": "tutorial.question_answering.html",
-            "Sequence Classification": "tutorial.easy_sequence_classifier.html",
-            "Summarization": "tutorial.summarization.html",
-            "Text Generation": "tutorial.easy_text_generator.html",
-            "Token Tagging": "tutorial.token_tagging.html",
-            "Translation": "tutorial.translation.html"
-        }
+        "Embeddings": "tutorial.embeddings.html",
+        "Question Answering": "tutorial.question_answering.html",
+        "Sequence Classification": "tutorial.easy_sequence_classifier.html",
+        "Summarization": "tutorial.summarization.html",
+        "Text Generation": "tutorial.easy_text_generator.html",
+        "Token Tagging": "tutorial.token_tagging.html",
+        "Translation": "tutorial.translation.html"
 	},
 	"Training Cookbooks": {
 		"Cookbook Introduction": "cookbook.html",
@@ -55,11 +55,11 @@
 				"From Dataframes": "sequence_classification_from_df.html",
 				"From CSVs": "sequence_classification_from_csv.html",
 				"From Folders": "sequence_classification_from_folder.html",
-				"From (HF) Dataset": "sequence_classification_from_dataset.html"
+				"From (HF) Dataset": "sequence_classification_from_datasets.html"
 			}
 		}
 	},
 	"NLP Services with FastAPI": {
-		"AdaptNLP Rest API": "rest.md"
+		"AdaptNLP Rest API": "rest"
 	}
 }

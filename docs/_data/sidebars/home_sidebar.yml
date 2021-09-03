@@ -30,6 +30,9 @@ entries:
     output: web
     title: Models and Model Hubs
   - folderitems:
+    - output: web,pdf
+      title: Introduction
+      url: /
       subfolders:
       - output: web
         subfolderitems:
@@ -58,11 +61,14 @@ entries:
       - output: web
         subfolderitems:
         - output: web,pdf
-          title: Sequence Classification
-          url: training.sequence_classification
+          title: Core
+          url: training.core
         - output: web,pdf
           title: Language Models
           url: training.language_model
+        - output: web,pdf
+          title: Sequence Classification
+          url: training.sequence_classification
         title: Tuning Framework
       - output: web
         subfolderitems:
@@ -82,28 +88,27 @@ entries:
     - output: web,pdf
       title: Cookbook Introduction
       url: cookbook.html
-      subfolders:
-      - output: web,pdf
-        title: Embeddings
-        url: tutorial.embeddings.html
-      - output: web,pdf
-        title: Question Answering
-        url: tutorial.question_answering.html
-      - output: web,pdf
-        title: Sequence Classification
-        url: tutorial.easy_sequence_classifier.html
-      - output: web,pdf
-        title: Summarization
-        url: tutorial.summarization.html
-      - output: web,pdf
-        title: Text Generation
-        url: tutorial.easy_text_generator.html
-      - output: web,pdf
-        title: Token Tagging
-        url: tutorial.token_tagging.html
-      - output: web,pdf
-        title: Translation
-        url: tutorial.translation.html
+    - output: web,pdf
+      title: Embeddings
+      url: tutorial.embeddings.html
+    - output: web,pdf
+      title: Question Answering
+      url: tutorial.question_answering.html
+    - output: web,pdf
+      title: Sequence Classification
+      url: tutorial.easy_sequence_classifier.html
+    - output: web,pdf
+      title: Summarization
+      url: tutorial.summarization.html
+    - output: web,pdf
+      title: Text Generation
+      url: tutorial.easy_text_generator.html
+    - output: web,pdf
+      title: Token Tagging
+      url: tutorial.token_tagging.html
+    - output: web,pdf
+      title: Translation
+      url: tutorial.translation.html
     output: web
     title: Inference Cookbooks
   - folderitems:
@@ -136,14 +141,14 @@ entries:
           url: sequence_classification_from_folder.html
         - output: web,pdf
           title: From (HF) Dataset
-          url: sequence_classification_from_dataset.html
+          url: sequence_classification_from_datasets.html
         title: Sequence Classification
     output: web
     title: Training Cookbooks
   - folderitems:
     - output: web,pdf
       title: AdaptNLP Rest API
-      url: rest.md
+      url: rest
     output: web
     title: NLP Services with FastAPI
   output: web

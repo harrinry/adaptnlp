@@ -1,0 +1,10 @@
+# Github
+.github/
+.git
+
+# nbdev
+docs/
+nbs/
+
+# Other documentation
+workshops/
