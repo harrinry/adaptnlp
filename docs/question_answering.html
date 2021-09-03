@@ -93,7 +93,7 @@ nb_path: "nbs/10_question_answering.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="QAResult" class="doc_header"><code>class</code> <code>QAResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/question_answering.py#L103" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>QAResult</code>(<strong><code>examples</code></strong>:<code>List</code>[<code>SquadExample</code>], <strong><code>top_predictions</code></strong>:<code>Union</code>[<code>str</code>, <code>OrderedDict</code>], <strong><code>all_nbest_json</code></strong>:<code>List</code>[<code>OrderedDict</code>])</p>
+<h2 id="QAResult" class="doc_header"><code>class</code> <code>QAResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/question_answering.py#L103" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>QAResult</code>(<strong><code>examples</code></strong>:<code>List</code>[<code>SquadExample</code>], <strong><code>top_predictions</code></strong>:<code>Union</code>[<code>str</code>, <code>OrderedDict</code>], <strong><code>all_nbest_json</code></strong>:<code>List</code>[<code>OrderedDict</code>], <strong><code>n_best_size</code></strong>:<code>int</code>)</p>
 </blockquote>
 <p>A result class designed for Question Answering models</p>
 <p><strong>Parameters:</strong></p>
@@ -103,6 +103,8 @@ nb_path: "nbs/10_question_answering.ipynb"
 <li><p><strong><code>top_predictions</code></strong> : <em><code>typing.Union[str, collections.OrderedDict]</code></em></p>
 </li>
 <li><p><strong><code>all_nbest_json</code></strong> : <em><code>typing.List[collections.OrderedDict]</code></em></p>
+</li>
+<li><p><strong><code>n_best_size</code></strong> : <em><code>&lt;class 'int'&gt;</code></em></p>
 </li>
 </ul>
 
@@ -134,7 +136,7 @@ nb_path: "nbs/10_question_answering.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="TransformersQuestionAnswering" class="doc_header"><code>class</code> <code>TransformersQuestionAnswering</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/question_answering.py#L172" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersQuestionAnswering</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
+<h2 id="TransformersQuestionAnswering" class="doc_header"><code>class</code> <code>TransformersQuestionAnswering</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/question_answering.py#L185" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersQuestionAnswering</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
 </blockquote>
 <p>Adaptive Model for Transformers Question Answering Model</p>
 <p><strong>Parameters</strong></p>
@@ -178,7 +180,7 @@ nb_path: "nbs/10_question_answering.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="EasyQuestionAnswering" class="doc_header"><code>class</code> <code>EasyQuestionAnswering</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/question_answering.py#L334" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyQuestionAnswering</code>()</p>
+<h2 id="EasyQuestionAnswering" class="doc_header"><code>class</code> <code>EasyQuestionAnswering</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/question_answering.py#L347" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyQuestionAnswering</code>()</p>
 </blockquote>
 <p>Question Answering Module</p>
 <p>Usage:</p>
