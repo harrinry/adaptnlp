@@ -54,7 +54,7 @@ nb_path: "nbs/12_training.core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="ParentLabeller" class="doc_header"><code>class</code> <code>ParentLabeller</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L37" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ParentLabeller</code>(<strong><code>level</code></strong>=<em><code>1</code></em>)</p>
+<h2 id="ParentLabeller" class="doc_header"><code>class</code> <code>ParentLabeller</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L40" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ParentLabeller</code>(<strong><code>level</code></strong>=<em><code>1</code></em>)</p>
 </blockquote>
 <p>Extracts class based on filename's parent at <code>level</code></p>
 <p><strong>Parameters:</strong></p>
@@ -90,7 +90,7 @@ nb_path: "nbs/12_training.core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="ColReader" class="doc_header"><code>class</code> <code>ColReader</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L56" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ColReader</code>(<strong><code>cols</code></strong>, <strong><code>pref</code></strong>:<code>str</code>=<em><code>''</code></em>, <strong><code>suff</code></strong>:<code>str</code>=<em><code>''</code></em>, <strong><code>label_delim</code></strong>:<code>str</code>=<em><code>None</code></em>)</p>
+<h2 id="ColReader" class="doc_header"><code>class</code> <code>ColReader</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L59" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ColReader</code>(<strong><code>cols</code></strong>, <strong><code>pref</code></strong>:<code>str</code>=<em><code>''</code></em>, <strong><code>suff</code></strong>:<code>str</code>=<em><code>''</code></em>, <strong><code>label_delim</code></strong>:<code>str</code>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Reads <code>cols</code> in <code>row</code> with potential <code>pref</code> and <code>suff</code>
 Based on the fastai class</p>
@@ -136,7 +136,7 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Categorize" class="doc_header"><code>class</code> <code>Categorize</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L83" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Categorize</code>(<strong><code>names</code></strong>, <strong><code>sort</code></strong>=<em><code>True</code></em>)</p>
+<h2 id="Categorize" class="doc_header"><code>class</code> <code>Categorize</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L86" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Categorize</code>(<strong><code>names</code></strong>, <strong><code>sort</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>Collection of categories with reverse mapping in <code>o2i</code>
 Based on the fastai class</p>
@@ -176,7 +176,7 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Categorize.map_objs" class="doc_header"><code>Categorize.map_objs</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L98" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Categorize.map_objs</code>(<strong><code>objs</code></strong>)</p>
+<h4 id="Categorize.map_objs" class="doc_header"><code>Categorize.map_objs</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L101" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Categorize.map_objs</code>(<strong><code>objs</code></strong>)</p>
 </blockquote>
 <p>Map <code>objs</code> to IDs</p>
 <p><strong>Parameters:</strong></p>
@@ -209,7 +209,7 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Categorize.map_ids" class="doc_header"><code>Categorize.map_ids</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L105" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Categorize.map_ids</code>(<strong><code>ids</code></strong>)</p>
+<h4 id="Categorize.map_ids" class="doc_header"><code>Categorize.map_ids</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L108" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Categorize.map_ids</code>(<strong><code>ids</code></strong>)</p>
 </blockquote>
 <p>Map <code>ids</code> to objects in vocab</p>
 <p><strong>Parameters:</strong></p>
@@ -242,7 +242,7 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Categorize.decode" class="doc_header"><code>Categorize.decode</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L116" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Categorize.decode</code>(<strong><code>o</code></strong>)</p>
+<h4 id="Categorize.decode" class="doc_header"><code>Categorize.decode</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L119" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Categorize.decode</code>(<strong><code>o</code></strong>)</p>
 </blockquote>
 <p>Decodes <code>o</code> by looking in <code>self.classes</code></p>
 <p><strong>Parameters:</strong></p>
@@ -271,7 +271,7 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="MultiCategorize" class="doc_header"><code>class</code> <code>MultiCategorize</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L124" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>MultiCategorize</code>(<strong><code>names</code></strong>) :: <a href="/adaptnlp/training.core.html#Categorize"><code>Categorize</code></a></p>
+<h2 id="MultiCategorize" class="doc_header"><code>class</code> <code>MultiCategorize</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L127" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>MultiCategorize</code>(<strong><code>names</code></strong>) :: <a href="/adaptnlp/training.core.html#Categorize"><code>Categorize</code></a></p>
 </blockquote>
 <p>Collection of multi-categories with reverse mapping in <code>o2i</code>
 Based on the fastai class</p>
@@ -308,7 +308,7 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="MultiCategorize.decode" class="doc_header"><code>MultiCategorize.decode</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L144" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>MultiCategorize.decode</code>(<strong><code>o</code></strong>)</p>
+<h4 id="MultiCategorize.decode" class="doc_header"><code>MultiCategorize.decode</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L147" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>MultiCategorize.decode</code>(<strong><code>o</code></strong>)</p>
 </blockquote>
 <p>Decodes <code>o</code> by looking in <code>self.classes</code></p>
 <p><strong>Parameters:</strong></p>
@@ -407,7 +407,7 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RandomSplitter" class="doc_header"><code>RandomSplitter</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L152" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RandomSplitter</code>(<strong><code>valid_pct</code></strong>=<em><code>0.2</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="RandomSplitter" class="doc_header"><code>RandomSplitter</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L155" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RandomSplitter</code>(<strong><code>valid_pct</code></strong>=<em><code>0.2</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Creates a function that splits some items between train and validation with <code>valid_pct</code> randomly
 Based on the fastai class</p>
@@ -447,7 +447,7 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="TaskDatasets" class="doc_header"><code>class</code> <code>TaskDatasets</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L168" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TaskDatasets</code>(<strong><code>train_dset</code></strong>, <strong><code>valid_dset</code></strong>, <strong><code>tokenizer_name</code></strong>:<code>str</code>=<em><code>None</code></em>, <strong><code>tokenize</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>tokenize_func</code></strong>:<code>callable</code>=<em><code>None</code></em>, <strong><code>tokenize_kwargs</code></strong>:<code>dict</code>=<em><code>{}</code></em>, <strong><code>auto_kwargs</code></strong>:<code>dict</code>=<em><code>{}</code></em>, <strong><code>remove_cols</code></strong>:<code>Union</code>[<code>str</code>, <code>List</code>[<code>str</code>]]=<em><code>None</code></em>)</p>
+<h2 id="TaskDatasets" class="doc_header"><code>class</code> <code>TaskDatasets</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L171" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TaskDatasets</code>(<strong><code>train_dset</code></strong>, <strong><code>valid_dset</code></strong>, <strong><code>tokenizer_name</code></strong>:<code>str</code>=<em><code>None</code></em>, <strong><code>tokenize</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>tokenize_func</code></strong>:<code>callable</code>=<em><code>None</code></em>, <strong><code>tokenize_kwargs</code></strong>:<code>dict</code>=<em><code>{}</code></em>, <strong><code>auto_kwargs</code></strong>:<code>dict</code>=<em><code>{}</code></em>, <strong><code>remove_cols</code></strong>:<code>Union</code>[<code>str</code>, <code>List</code>[<code>str</code>]]=<em><code>None</code></em>, <strong><code>label_keys</code></strong>:<code>list</code>=<em><code>['labels']</code></em>)</p>
 </blockquote>
 <p>A set of datasets for a particular task, with a simple API.</p>
 <p>Note: This is the base API, <code>items</code> should be a set of regular text and model-ready labels,
@@ -476,6 +476,9 @@ Based on the fastai class</p>
 </ul>
 <ul>
 <li><strong><code>remove_cols</code></strong> : <em><code>typing.Union[str, typing.List[str]]</code></em>, <em>optional</em>  <p>What columns to remove</p></li>
+</ul>
+<ul>
+<li><strong><code>label_keys</code></strong> : <em><code>&lt;class 'list'&gt;</code></em>, <em>optional</em>    <p>The keys in each item that relate to the label (such as `labels`)</p></li>
 </ul>
 
 </div>
@@ -506,7 +509,7 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TaskDatasets.set_tokenizer" class="doc_header"><code>TaskDatasets.set_tokenizer</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L217" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TaskDatasets.set_tokenizer</code>(<strong><code>tokenizer_name</code></strong>:<code>str</code>, <strong><code>override_existing</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
+<h4 id="TaskDatasets.set_tokenizer" class="doc_header"><code>TaskDatasets.set_tokenizer</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L222" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TaskDatasets.set_tokenizer</code>(<strong><code>tokenizer_name</code></strong>:<code>str</code>, <strong><code>override_existing</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Sets a new <code>AutoTokenizer</code> to <code>self.tokenizer</code></p>
 <p><strong>Parameters:</strong></p>
@@ -538,7 +541,7 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TaskDatasets.dataloaders" class="doc_header"><code>TaskDatasets.dataloaders</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L247" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TaskDatasets.dataloaders</code>(<strong><code>batch_size</code></strong>:<code>int</code>=<em><code>8</code></em>, <strong><code>shuffle_train</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>collate_fn</code></strong>:<code>callable</code>=<em><code>None</code></em>, <strong><code>path</code></strong>=<em><code>'.'</code></em>, <strong><code>device</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="TaskDatasets.dataloaders" class="doc_header"><code>TaskDatasets.dataloaders</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L252" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TaskDatasets.dataloaders</code>(<strong><code>batch_size</code></strong>:<code>int</code>=<em><code>8</code></em>, <strong><code>shuffle_train</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>collate_fn</code></strong>:<code>callable</code>=<em><code>None</code></em>, <strong><code>path</code></strong>=<em><code>'.'</code></em>, <strong><code>device</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Creates <code>DataLoaders</code> from the dataset</p>
 <p><strong>Parameters:</strong></p>
@@ -579,7 +582,7 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="AdaptiveDataLoaders" class="doc_header"><code>class</code> <code>AdaptiveDataLoaders</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L262" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AdaptiveDataLoaders</code>(<strong>*<code>loaders</code></strong>, <strong><code>tokenizer</code></strong>=<em><code>None</code></em>, <strong><code>path</code></strong>=<em><code>'.'</code></em>, <strong><code>device</code></strong>=<em><code>None</code></em>) :: <code>DataLoaders</code></p>
+<h2 id="AdaptiveDataLoaders" class="doc_header"><code>class</code> <code>AdaptiveDataLoaders</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L267" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AdaptiveDataLoaders</code>(<strong>*<code>loaders</code></strong>, <strong><code>tokenizer</code></strong>=<em><code>None</code></em>, <strong><code>label_keys</code></strong>:<code>list</code>=<em><code>['labels']</code></em>, <strong><code>path</code></strong>=<em><code>'.'</code></em>, <strong><code>device</code></strong>=<em><code>None</code></em>) :: <code>DataLoaders</code></p>
 </blockquote>
 <p>A set of <code>DataLoaders</code> that keeps track of a <code>tokenizer</code></p>
 <p><strong>Parameters:</strong></p>
@@ -587,6 +590,8 @@ Based on the fastai class</p>
 <li><p><strong><code>loaders</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></p>
 </li>
 <li><p><strong><code>tokenizer</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>label_keys</code></strong> : <em><code>&lt;class 'list'&gt;</code></em>, <em>optional</em></p>
 </li>
 <li><p><strong><code>path</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>, <em>optional</em></p>
 </li>
@@ -622,19 +627,9 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="AdaptiveDataLoaders.show_batch" class="doc_header"><code>AdaptiveDataLoaders.show_batch</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L274" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveDataLoaders.show_batch</code>(<strong><code>ds_idx</code></strong>:<code>int</code>=<em><code>0</code></em>, <strong><code>n</code></strong>:<code>int</code>=<em><code>5</code></em>, <strong><code>raw</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
+<h4 id="AdaptiveDataLoaders.show_batch" class="doc_header"><code>AdaptiveDataLoaders.show_batch</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L281" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveDataLoaders.show_batch</code>(<strong><code>ds_idx</code></strong>:<code>int</code>=<em><code>0</code></em>, <strong><code>n</code></strong>:<code>int</code>=<em><code>5</code></em>, <strong><code>raw</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Show a batch of data</p>
-<p><strong>Parameters:</strong></p>
-<ul>
-<li><strong><code>ds_idx</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em> <p>Index of the DataLoader to show, 0 = training, 1 = validation</p></li>
-</ul>
-<ul>
-<li><strong><code>n</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em>  <p>Number of examples to show</p></li>
-</ul>
-<ul>
-<li><strong><code>raw</code></strong> : <em><code>&lt;class 'bool'&gt;</code></em>, <em>optional</em>   <p>Prints the raw inputs and targets without decoding</p></li>
-</ul>
 
 </div>
 
@@ -703,7 +698,7 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="AdaptiveTuner" class="doc_header"><code>class</code> <code>AdaptiveTuner</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L357" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AdaptiveTuner</code>(<strong><code>expose_fastai</code></strong>:<code>bool</code>=<em><code>False</code></em>, <strong><code>tokenizer</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h2 id="AdaptiveTuner" class="doc_header"><code>class</code> <code>AdaptiveTuner</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L374" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AdaptiveTuner</code>(<strong><code>expose_fastai</code></strong>:<code>bool</code>=<em><code>False</code></em>, <strong><code>tokenizer</code></strong>=<em><code>None</code></em>, <strong><code>label_keys</code></strong>:<code>list</code>=<em><code>['labels']</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>A base <code>Tuner</code> that interfaces with <code>AdaptiveLearner</code> with specific exposed functions</p>
 <p><strong>Parameters:</strong></p>
@@ -712,6 +707,9 @@ Based on the fastai class</p>
 </ul>
 <ul>
 <li><strong><code>tokenizer</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em> <p>A HuggingFace tokenizer</p></li>
+</ul>
+<ul>
+<li><strong><code>label_keys</code></strong> : <em><code>&lt;class 'list'&gt;</code></em>, <em>optional</em>    <p>A list of keys correlating to the labels in the batch</p></li>
 </ul>
 <ul>
 <li><strong><code>kwargs</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
@@ -769,7 +767,7 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="AdaptiveTuner.tune" class="doc_header"><code>AdaptiveTuner.tune</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L375" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.tune</code>(<strong><code>epochs</code></strong>:<code>int</code>, <strong><code>lr</code></strong>:<code>float</code>=<em><code>None</code></em>, <strong><code>strategy</code></strong>:<code>Strategy</code>=<em><code>'fit_one_cycle'</code></em>, <strong><code>callbacks</code></strong>:<code>list</code>=<em><code>[]</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="AdaptiveTuner.tune" class="doc_header"><code>AdaptiveTuner.tune</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L399" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.tune</code>(<strong><code>epochs</code></strong>:<code>int</code>, <strong><code>lr</code></strong>:<code>float</code>=<em><code>None</code></em>, <strong><code>strategy</code></strong>:<code>Strategy</code>=<em><code>'fit_one_cycle'</code></em>, <strong><code>callbacks</code></strong>:<code>list</code>=<em><code>[]</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Fine tune <code>self.model</code> for <code>epochs</code> with an <code>lr</code> and <code>strategy</code></p>
 <p><strong>Parameters:</strong></p>
@@ -810,7 +808,7 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="AdaptiveTuner.lr_find" class="doc_header"><code>AdaptiveTuner.lr_find</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L389" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.lr_find</code>(<strong><code>start_lr</code></strong>=<em><code>1e-07</code></em>, <strong><code>end_lr</code></strong>=<em><code>10</code></em>, <strong><code>num_it</code></strong>=<em><code>100</code></em>, <strong><code>stop_div</code></strong>=<em><code>True</code></em>, <strong><code>show_plot</code></strong>=<em><code>True</code></em>, <strong><code>suggest_funcs</code></strong>=<em><code>valley</code></em>)</p>
+<h4 id="AdaptiveTuner.lr_find" class="doc_header"><code>AdaptiveTuner.lr_find</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L413" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.lr_find</code>(<strong><code>start_lr</code></strong>=<em><code>1e-07</code></em>, <strong><code>end_lr</code></strong>=<em><code>10</code></em>, <strong><code>num_it</code></strong>=<em><code>100</code></em>, <strong><code>stop_div</code></strong>=<em><code>True</code></em>, <strong><code>show_plot</code></strong>=<em><code>True</code></em>, <strong><code>suggest_funcs</code></strong>=<em><code>valley</code></em>)</p>
 </blockquote>
 <p>Runs fastai's <code>LR Finder</code></p>
 <p><strong>Parameters:</strong></p>
@@ -850,7 +848,7 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="AdaptiveTuner.save" class="doc_header"><code>AdaptiveTuner.save</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L397" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.save</code>(<strong><code>save_directory</code></strong>)</p>
+<h4 id="AdaptiveTuner.save" class="doc_header"><code>AdaptiveTuner.save</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L421" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.save</code>(<strong><code>save_directory</code></strong>)</p>
 </blockquote>
 <p>Save a pretrained model to a <code>save_directory</code></p>
 <p><strong>Parameters:</strong></p>
@@ -879,7 +877,7 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="AdaptiveTuner.load" class="doc_header"><code>AdaptiveTuner.load</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L407" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.load</code>(<strong><code>path</code></strong>:<code>Union</code>[<code>Path</code>, <code>str</code>], <strong><code>device</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="AdaptiveTuner.load" class="doc_header"><code>AdaptiveTuner.load</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L431" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.load</code>(<strong><code>path</code></strong>:<code>Union</code>[<code>Path</code>, <code>str</code>], <strong><code>device</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Loads a pretrained model with <code>AutoModel.from_pretrained</code> from <code>path</code> and loads it to device</p>
 <p><strong>Parameters:</strong></p>
@@ -911,7 +909,7 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="AdaptiveTuner.predict" class="doc_header"><code>AdaptiveTuner.predict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L419" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.predict</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>str</code>], <code>str</code>])</p>
+<h4 id="AdaptiveTuner.predict" class="doc_header"><code>AdaptiveTuner.predict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L443" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.predict</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>str</code>], <code>str</code>])</p>
 </blockquote>
 <p>Predict some <code>text</code> with the current model. Needs to be implemented for each task separately</p>
 <p><strong>Parameters:</strong></p>
@@ -940,7 +938,7 @@ Based on the fastai class</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="AdaptiveTuner.export" class="doc_header"><code>AdaptiveTuner.export</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L426" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.export</code>(<strong><code>save_directory</code></strong>:<code>Union</code>[<code>Path</code>, <code>str</code>])</p>
+<h4 id="AdaptiveTuner.export" class="doc_header"><code>AdaptiveTuner.export</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L450" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.export</code>(<strong><code>save_directory</code></strong>:<code>Union</code>[<code>Path</code>, <code>str</code>])</p>
 </blockquote>
 <p>Exports the current model and tokenizer information to <code>save_directory</code></p>
 <p><strong>Parameters:</strong></p>

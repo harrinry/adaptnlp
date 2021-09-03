@@ -104,10 +104,17 @@ class QAResult:
     """
     A result class designed for Question Answering models
     """
-    def __init__(self, examples:List[SquadExample], top_predictions:Union[str, OrderedDict], all_nbest_json:List[OrderedDict]):
+    def __init__(
+        self,
+        examples:List[SquadExample],
+        top_predictions:Union[str, OrderedDict],
+        all_nbest_json:List[OrderedDict],
+        n_best_size:int
+    ):
         self._examples = examples
         self._top_predictions = top_predictions
         self._all_nbest_json = all_nbest_json
+        self.n_best_size = n_best_size
 
     @property
     def queries(self) -> List[str]:
@@ -134,11 +141,17 @@ class QAResult:
         return torch.stack([tensor([o['probability'] for o in self._all_nbest_json[i]]) for i in self._all_nbest_json], dim=0)
 
     @property
-    def best_answer(self) -> List[str]:
+    def best_answers(self) -> List[str]:
         """
         The best answer from each question
         """
-        return [self._top_predictions[i] for i in self._top_predictions]
+        a = []
+        for i in range(len(self._all_nbest_json)):
+            o = OrderedDict()
+            for j in range(self.n_best_size):
+                o.update({j:self._all_nbest_json[str(i)][j]['text']})
+            a.append(o)
+        return a
 
     @property
     def all_answers(self) -> List[List[str]]:
@@ -153,7 +166,7 @@ class QAResult:
         """
         o = {
                 'queries':self.queries,
-                'best_answers':self.best_answer,
+                'best_answers':self.best_answers,
             }
         if detail_level == 'medium' or detail_level == 'high':
             # Add a dictionary of query and answer and probabilities, also returns contexts
@@ -392,6 +405,6 @@ class EasyQuestionAnswering:
             **kwargs,
         )
 
-        result = QAResult(examples, top_answer, top_n_answers)
+        result = QAResult(examples, top_answer, top_n_answers, n_best_size)
 
         return result.to_dict(detail_level) if detail_level is not None else result
