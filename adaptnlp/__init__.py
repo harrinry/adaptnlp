@@ -1,4 +1,4 @@
-__version__ = "0.3.2"
+__version__ = "0.3.3"
 
 from pathlib import Path
 
@@ -30,7 +30,7 @@ from .result import DetailLevel
 from .model_hub import HFModelHub, FlairModelHub, HF_TASKS, FLAIR_TASKS
 
 # Training API
-from .training.core import Strategy, TaskDatasets, AdaptiveTuner
+from .training.core import Strategy, TaskDatasets, AdaptiveTuner, AdaptiveDataLoaders
 from .training.sequence_classification import SequenceClassificationTuner, SequenceClassificationDatasets
 from .training.language_model import LanguageModelTuner, LanguageModelDatasets
 
@@ -58,6 +58,7 @@ __all__ = [
     "HF_TASKS",
     "FLAIR_TASKS",
     "TaskDatasets",
+    "AdaptiveDataLoaders",
     "AdaptiveTuner",
     "Strategy",
     "SequenceClassificationDatasets",

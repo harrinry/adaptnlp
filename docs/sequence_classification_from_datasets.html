@@ -453,7 +453,7 @@ nb_path: "nbs/training_api_tutorials/sequence_classification/sequence_classifica
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="TaskDatasets" class="doc_header"><code>class</code> <code>TaskDatasets</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L168" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TaskDatasets</code>(<strong><code>train_dset</code></strong>, <strong><code>valid_dset</code></strong>, <strong><code>tokenizer_name</code></strong>:<code>str</code>=<em><code>None</code></em>, <strong><code>tokenize</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>tokenize_func</code></strong>:<code>callable</code>=<em><code>None</code></em>, <strong><code>tokenize_kwargs</code></strong>:<code>dict</code>=<em><code>{}</code></em>, <strong><code>auto_kwargs</code></strong>:<code>dict</code>=<em><code>{}</code></em>, <strong><code>remove_cols</code></strong>:<code>Union</code>[<code>str</code>, <code>List</code>[<code>str</code>]]=<em><code>None</code></em>)</p>
+<h2 id="TaskDatasets" class="doc_header"><code>class</code> <code>TaskDatasets</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L171" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TaskDatasets</code>(<strong><code>train_dset</code></strong>, <strong><code>valid_dset</code></strong>, <strong><code>tokenizer_name</code></strong>:<code>str</code>=<em><code>None</code></em>, <strong><code>tokenize</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>tokenize_func</code></strong>:<code>callable</code>=<em><code>None</code></em>, <strong><code>tokenize_kwargs</code></strong>:<code>dict</code>=<em><code>{}</code></em>, <strong><code>auto_kwargs</code></strong>:<code>dict</code>=<em><code>{}</code></em>, <strong><code>remove_cols</code></strong>:<code>Union</code>[<code>str</code>, <code>List</code>[<code>str</code>]]=<em><code>None</code></em>, <strong><code>label_keys</code></strong>:<code>list</code>=<em><code>['labels']</code></em>)</p>
 </blockquote>
 <p>A set of datasets for a particular task, with a simple API.</p>
 <p>Note: This is the base API, <code>items</code> should be a set of regular text and model-ready labels,
@@ -482,6 +482,9 @@ nb_path: "nbs/training_api_tutorials/sequence_classification/sequence_classifica
 </ul>
 <ul>
 <li><strong><code>remove_cols</code></strong> : <em><code>typing.Union[str, typing.List[str]]</code></em>, <em>optional</em>  <p>What columns to remove</p></li>
+</ul>
+<ul>
+<li><strong><code>label_keys</code></strong> : <em><code>&lt;class 'list'&gt;</code></em>, <em>optional</em>    <p>The keys in each item that relate to the label (such as `labels`)</p></li>
 </ul>
 
 </div>
@@ -662,7 +665,7 @@ nb_path: "nbs/training_api_tutorials/sequence_classification/sequence_classifica
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TaskDatasets.dataloaders" class="doc_header"><code>TaskDatasets.dataloaders</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L247" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TaskDatasets.dataloaders</code>(<strong><code>batch_size</code></strong>:<code>int</code>=<em><code>8</code></em>, <strong><code>shuffle_train</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>collate_fn</code></strong>:<code>callable</code>=<em><code>None</code></em>, <strong><code>path</code></strong>=<em><code>'.'</code></em>, <strong><code>device</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="TaskDatasets.dataloaders" class="doc_header"><code>TaskDatasets.dataloaders</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L252" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TaskDatasets.dataloaders</code>(<strong><code>batch_size</code></strong>:<code>int</code>=<em><code>8</code></em>, <strong><code>shuffle_train</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>collate_fn</code></strong>:<code>callable</code>=<em><code>None</code></em>, <strong><code>path</code></strong>=<em><code>'.'</code></em>, <strong><code>device</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Creates <code>DataLoaders</code> from the dataset</p>
 <p><strong>Parameters:</strong></p>
@@ -775,23 +778,23 @@ nb_path: "nbs/training_api_tutorials/sequence_classification/sequence_classifica
   <tbody>
     <tr>
       <th>0</th>
-      <td>germany, another opponent of the war currently on the u. n. security council, has moved closer to the united states, and did not insist on a timetable monday. germany, another opponent of the war currently on the u. n. security council, in recent weeks has moved closer to washington and did not insist on a timetable.</td>
+      <td>the government said firstenergy nuclear determined that a contractor had established an unprotected high - speed computer connection to its corporate network that allowed the " slammer " infection to spread internally. it said firstenergy determined that a contractor had established an unprotected computer connection to its corporate network that allowed the so - called ` ` slammer'' worm to spread internally.</td>
       <td>tensor(1)</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>the comment period was to have expired on monday. a public comment period on the proposed new taxes will end on monday.</td>
+      <td>that failure to act contributed to september the 11th and the failure to act today continues ( to put ) americans in a vulnerable circumstance, " graham said. " that failure to act contributed to september 11 and the failure to act today continues [ to put ] americans in a vulnerable circumstance, " said graham.</td>
       <td>tensor(1)</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>subsequently, some bondholders have filed suit to block the exchange offer. bondholders of mirant americas generation subsequently filed suit against mirant seeking to block the exchange offer.</td>
+      <td>the companies said " it was not our intention to target or offend any group or persons or to incite hatred or violence. " " in creating the game, it was not our intention to target or offend any group or persons or to incite hatred or violence against such groups persons. "</td>
       <td>tensor(1)</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>a judge ordered the child placed in state custody aug. 8. on aug. 8, juvenile court judge robert yeates ordered that parker be placed in protective custody.</td>
-      <td>tensor(1)</td>
+      <td>the 4th u. s. circuit court of appeals has unsealed a heavily edited transcript of the june 3 court session where classified evidence was discussed out of public earshot. the 4th u. s. circuit court of appeals in richmond, va., released the edited transcript of a closed hearing june 3, which followed a public proceeding.</td>
+      <td>tensor(0)</td>
     </tr>
   </tbody>
 </table>
@@ -861,7 +864,7 @@ nb_path: "nbs/training_api_tutorials/sequence_classification/sequence_classifica
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="SequenceClassificationTuner" class="doc_header"><code>class</code> <code>SequenceClassificationTuner</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/sequence_classification.py#L222" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SequenceClassificationTuner</code>(<strong><code>dls</code></strong>:<code>DataLoaders</code>, <strong><code>model_name</code></strong>:<code>str</code>, <strong><code>tokenizer</code></strong>=<em><code>None</code></em>, <strong><code>loss_func</code></strong>=<em><code>CrossEntropyLoss()</code></em>, <strong><code>metrics</code></strong>=<em><code>[&lt;function accuracy at 0x7f601fb14940&gt;, &lt;fastai.metrics.AccumMetric object at 0x7f601f9472e0&gt;]</code></em>, <strong><code>opt_func</code></strong>=<em><code>Adam</code></em>, <strong><code>additional_cbs</code></strong>=<em><code>None</code></em>, <strong><code>expose_fastai_api</code></strong>=<em><code>False</code></em>, <strong><code>num_classes</code></strong>:<code>int</code>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/adaptnlp/training.core.html#AdaptiveTuner"><code>AdaptiveTuner</code></a></p>
+<h2 id="SequenceClassificationTuner" class="doc_header"><code>class</code> <code>SequenceClassificationTuner</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/sequence_classification.py#L222" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SequenceClassificationTuner</code>(<strong><code>dls</code></strong>:<code>DataLoaders</code>, <strong><code>model_name</code></strong>:<code>str</code>, <strong><code>tokenizer</code></strong>=<em><code>None</code></em>, <strong><code>loss_func</code></strong>=<em><code>CrossEntropyLoss()</code></em>, <strong><code>metrics</code></strong>=<em><code>[&lt;function accuracy at 0x7f543895a820&gt;, &lt;fastai.metrics.AccumMetric object at 0x7f54388caaf0&gt;]</code></em>, <strong><code>opt_func</code></strong>=<em><code>Adam</code></em>, <strong><code>additional_cbs</code></strong>=<em><code>None</code></em>, <strong><code>expose_fastai_api</code></strong>=<em><code>False</code></em>, <strong><code>num_classes</code></strong>:<code>int</code>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/adaptnlp/training.core.html#AdaptiveTuner"><code>AdaptiveTuner</code></a></p>
 </blockquote>
 <p>An <a href="/adaptnlp/training.core.html#AdaptiveTuner"><code>AdaptiveTuner</code></a> with good defaults for Sequence Classification tasks</p>
 <p><strong>Valid kwargs and defaults:</strong></p>
@@ -951,19 +954,11 @@ nb_path: "nbs/training_api_tutorials/sequence_classification/sequence_classifica
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>Some weights of the model checkpoint at bert-base-uncased were not used when initializing BertForSequenceClassification: [&#39;cls.predictions.transform.LayerNorm.weight&#39;, &#39;cls.predictions.transform.LayerNorm.bias&#39;, &#39;cls.predictions.bias&#39;, &#39;cls.predictions.transform.dense.weight&#39;, &#39;cls.seq_relationship.weight&#39;, &#39;cls.predictions.decoder.weight&#39;, &#39;cls.predictions.transform.dense.bias&#39;, &#39;cls.seq_relationship.bias&#39;]
+<pre>Some weights of the model checkpoint at bert-base-uncased were not used when initializing BertForSequenceClassification: [&#39;cls.predictions.transform.LayerNorm.weight&#39;, &#39;cls.predictions.decoder.weight&#39;, &#39;cls.predictions.bias&#39;, &#39;cls.predictions.transform.dense.bias&#39;, &#39;cls.predictions.transform.LayerNorm.bias&#39;, &#39;cls.seq_relationship.weight&#39;, &#39;cls.predictions.transform.dense.weight&#39;, &#39;cls.seq_relationship.bias&#39;]
 - This IS expected if you are initializing BertForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
 - This IS NOT expected if you are initializing BertForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
-Some weights of BertForSequenceClassification were not initialized from the model checkpoint at bert-base-uncased and are newly initialized: [&#39;classifier.weight&#39;, &#39;classifier.bias&#39;]
+Some weights of BertForSequenceClassification were not initialized from the model checkpoint at bert-base-uncased and are newly initialized: [&#39;classifier.bias&#39;, &#39;classifier.weight&#39;]
 You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
 </pre>
 </div>
@@ -1101,10 +1096,10 @@ f1_score
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>Some weights of the model checkpoint at bert-base-uncased were not used when initializing BertForSequenceClassification: [&#39;cls.predictions.transform.LayerNorm.weight&#39;, &#39;cls.predictions.transform.LayerNorm.bias&#39;, &#39;cls.predictions.bias&#39;, &#39;cls.predictions.transform.dense.weight&#39;, &#39;cls.seq_relationship.weight&#39;, &#39;cls.predictions.decoder.weight&#39;, &#39;cls.predictions.transform.dense.bias&#39;, &#39;cls.seq_relationship.bias&#39;]
+<pre>Some weights of the model checkpoint at bert-base-uncased were not used when initializing BertForSequenceClassification: [&#39;cls.predictions.transform.LayerNorm.weight&#39;, &#39;cls.predictions.decoder.weight&#39;, &#39;cls.predictions.bias&#39;, &#39;cls.predictions.transform.dense.bias&#39;, &#39;cls.predictions.transform.LayerNorm.bias&#39;, &#39;cls.seq_relationship.weight&#39;, &#39;cls.predictions.transform.dense.weight&#39;, &#39;cls.seq_relationship.bias&#39;]
 - This IS expected if you are initializing BertForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
 - This IS NOT expected if you are initializing BertForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
-Some weights of BertForSequenceClassification were not initialized from the model checkpoint at bert-base-uncased and are newly initialized: [&#39;classifier.weight&#39;, &#39;classifier.bias&#39;]
+Some weights of BertForSequenceClassification were not initialized from the model checkpoint at bert-base-uncased and are newly initialized: [&#39;classifier.bias&#39;, &#39;classifier.weight&#39;]
 You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
 </pre>
 </div>
@@ -1183,10 +1178,10 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>Some weights of the model checkpoint at bert-base-uncased were not used when initializing BertForSequenceClassification: [&#39;cls.predictions.transform.LayerNorm.weight&#39;, &#39;cls.predictions.transform.LayerNorm.bias&#39;, &#39;cls.predictions.bias&#39;, &#39;cls.predictions.transform.dense.weight&#39;, &#39;cls.seq_relationship.weight&#39;, &#39;cls.predictions.decoder.weight&#39;, &#39;cls.predictions.transform.dense.bias&#39;, &#39;cls.seq_relationship.bias&#39;]
+<pre>Some weights of the model checkpoint at bert-base-uncased were not used when initializing BertForSequenceClassification: [&#39;cls.predictions.transform.LayerNorm.weight&#39;, &#39;cls.predictions.decoder.weight&#39;, &#39;cls.predictions.bias&#39;, &#39;cls.predictions.transform.dense.bias&#39;, &#39;cls.predictions.transform.LayerNorm.bias&#39;, &#39;cls.seq_relationship.weight&#39;, &#39;cls.predictions.transform.dense.weight&#39;, &#39;cls.seq_relationship.bias&#39;]
 - This IS expected if you are initializing BertForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
 - This IS NOT expected if you are initializing BertForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
-Some weights of BertForSequenceClassification were not initialized from the model checkpoint at bert-base-uncased and are newly initialized: [&#39;classifier.weight&#39;, &#39;classifier.bias&#39;]
+Some weights of BertForSequenceClassification were not initialized from the model checkpoint at bert-base-uncased and are newly initialized: [&#39;classifier.bias&#39;, &#39;classifier.weight&#39;]
 You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
 </pre>
 </div>
@@ -1230,7 +1225,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="AdaptiveTuner.lr_find" class="doc_header"><code>AdaptiveTuner.lr_find</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L389" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.lr_find</code>(<strong><code>start_lr</code></strong>=<em><code>1e-07</code></em>, <strong><code>end_lr</code></strong>=<em><code>10</code></em>, <strong><code>num_it</code></strong>=<em><code>100</code></em>, <strong><code>stop_div</code></strong>=<em><code>True</code></em>, <strong><code>show_plot</code></strong>=<em><code>True</code></em>, <strong><code>suggest_funcs</code></strong>=<em><code>valley</code></em>)</p>
+<h4 id="AdaptiveTuner.lr_find" class="doc_header"><code>AdaptiveTuner.lr_find</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L413" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.lr_find</code>(<strong><code>start_lr</code></strong>=<em><code>1e-07</code></em>, <strong><code>end_lr</code></strong>=<em><code>10</code></em>, <strong><code>num_it</code></strong>=<em><code>100</code></em>, <strong><code>stop_div</code></strong>=<em><code>True</code></em>, <strong><code>show_plot</code></strong>=<em><code>True</code></em>, <strong><code>suggest_funcs</code></strong>=<em><code>valley</code></em>)</p>
 </blockquote>
 <p>Runs fastai's <code>LR Finder</code></p>
 <p><strong>Parameters:</strong></p>
@@ -1299,7 +1294,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>SuggestedLRs(valley=0.0003981071640737355)</pre>
+<pre>SuggestedLRs(valley=7.585775892948732e-05)</pre>
 </div>
 
 </div>
@@ -1309,7 +1304,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 
 
 <div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
+<img src="data:image/png;base64,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
 "
 >
 </div>
@@ -1365,7 +1360,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="AdaptiveTuner.tune" class="doc_header"><code>AdaptiveTuner.tune</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L375" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.tune</code>(<strong><code>epochs</code></strong>:<code>int</code>, <strong><code>lr</code></strong>:<code>float</code>=<em><code>None</code></em>, <strong><code>strategy</code></strong>:<code>Strategy</code>=<em><code>'fit_one_cycle'</code></em>, <strong><code>callbacks</code></strong>:<code>list</code>=<em><code>[]</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="AdaptiveTuner.tune" class="doc_header"><code>AdaptiveTuner.tune</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L399" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.tune</code>(<strong><code>epochs</code></strong>:<code>int</code>, <strong><code>lr</code></strong>:<code>float</code>=<em><code>None</code></em>, <strong><code>strategy</code></strong>:<code>Strategy</code>=<em><code>'fit_one_cycle'</code></em>, <strong><code>callbacks</code></strong>:<code>list</code>=<em><code>[]</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Fine tune <code>self.model</code> for <code>epochs</code> with an <code>lr</code> and <code>strategy</code></p>
 <p><strong>Parameters:</strong></p>
@@ -1453,24 +1448,6 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 
 
 <div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='0' class='' max='3' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      0.00% [0/3 00:00<00:00]
-    </div>
-    
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: left;">
@@ -1483,153 +1460,34 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td>0</td>
+      <td>0.505338</td>
+      <td>0.372632</td>
+      <td>0.835784</td>
+      <td>0.876611</td>
+      <td>01:19</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0.286884</td>
+      <td>0.375253</td>
+      <td>0.855392</td>
+      <td>0.900840</td>
+      <td>01:20</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0.058951</td>
+      <td>0.439049</td>
+      <td>0.860294</td>
+      <td>0.903226</td>
+      <td>01:20</td>
+    </tr>
   </tbody>
-</table><p>
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='0' class='' max='459' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      0.00% [0/459 00:00<00:00]
-    </div>
-    
+</table>
 </div>
 
-</div>
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">RuntimeError</span>                              Traceback (most recent call last)
-<span class="ansi-green-fg">/tmp/ipykernel_9720/1466054727.py</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>tuner<span class="ansi-blue-fg">.</span>tune<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">3</span><span class="ansi-blue-fg">,</span> lr<span class="ansi-blue-fg">,</span> strategy<span class="ansi-blue-fg">=</span>Strategy<span class="ansi-blue-fg">.</span>OneCycle<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/home/jovyan/adaptnlp/adaptnlp/training/core.py</span> in <span class="ansi-cyan-fg">tune</span><span class="ansi-blue-fg">(self, epochs, lr, strategy, callbacks, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    385</span>         <span class="ansi-green-fg">for</span> attr <span class="ansi-green-fg">in</span> <span class="ansi-blue-fg">&#39;epochs,lr,cbs&#39;</span><span class="ansi-blue-fg">.</span>split<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    386</span>             <span class="ansi-green-fg">if</span> attr <span class="ansi-green-fg">in</span> kwargs<span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span> kwargs<span class="ansi-blue-fg">.</span>pop<span class="ansi-blue-fg">(</span>attr<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">--&gt; 387</span><span class="ansi-red-fg">         </span>func<span class="ansi-blue-fg">(</span>epochs<span class="ansi-blue-fg">,</span> lr<span class="ansi-blue-fg">,</span> cbs<span class="ansi-blue-fg">=</span>callbacks<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    388</span> 
-<span class="ansi-green-intense-fg ansi-bold">    389</span>     <span class="ansi-blue-fg">@</span>delegates<span class="ansi-blue-fg">(</span>Learner<span class="ansi-blue-fg">.</span>lr_find<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/opt/venv/lib/python3.8/site-packages/fastai/callback/schedule.py</span> in <span class="ansi-cyan-fg">fit_one_cycle</span><span class="ansi-blue-fg">(self, n_epoch, lr_max, div, div_final, pct_start, wd, moms, cbs, reset_opt)</span>
-<span class="ansi-green-intense-fg ansi-bold">    111</span>     scheds = {&#39;lr&#39;: combined_cos(pct_start, lr_max/div, lr_max, lr_max/div_final),
-<span class="ansi-green-intense-fg ansi-bold">    112</span>               &#39;mom&#39;: combined_cos(pct_start, *(self.moms if moms is None else moms))}
-<span class="ansi-green-fg">--&gt; 113</span><span class="ansi-red-fg">     </span>self<span class="ansi-blue-fg">.</span>fit<span class="ansi-blue-fg">(</span>n_epoch<span class="ansi-blue-fg">,</span> cbs<span class="ansi-blue-fg">=</span>ParamScheduler<span class="ansi-blue-fg">(</span>scheds<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">+</span>L<span class="ansi-blue-fg">(</span>cbs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> reset_opt<span class="ansi-blue-fg">=</span>reset_opt<span class="ansi-blue-fg">,</span> wd<span class="ansi-blue-fg">=</span>wd<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    114</span> 
-<span class="ansi-green-intense-fg ansi-bold">    115</span> <span class="ansi-red-fg"># Cell</span>
-
-<span class="ansi-green-fg">/opt/venv/lib/python3.8/site-packages/fastai/learner.py</span> in <span class="ansi-cyan-fg">fit</span><span class="ansi-blue-fg">(self, n_epoch, lr, wd, cbs, reset_opt)</span>
-<span class="ansi-green-intense-fg ansi-bold">    219</span>             self<span class="ansi-blue-fg">.</span>opt<span class="ansi-blue-fg">.</span>set_hypers<span class="ansi-blue-fg">(</span>lr<span class="ansi-blue-fg">=</span>self<span class="ansi-blue-fg">.</span>lr <span class="ansi-green-fg">if</span> lr <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">None</span> <span class="ansi-green-fg">else</span> lr<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    220</span>             self<span class="ansi-blue-fg">.</span>n_epoch <span class="ansi-blue-fg">=</span> n_epoch
-<span class="ansi-green-fg">--&gt; 221</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>_with_events<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>_do_fit<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;fit&#39;</span><span class="ansi-blue-fg">,</span> CancelFitException<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>_end_cleanup<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    222</span> 
-<span class="ansi-green-intense-fg ansi-bold">    223</span>     <span class="ansi-green-fg">def</span> _end_cleanup<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span> self<span class="ansi-blue-fg">.</span>dl<span class="ansi-blue-fg">,</span>self<span class="ansi-blue-fg">.</span>xb<span class="ansi-blue-fg">,</span>self<span class="ansi-blue-fg">.</span>yb<span class="ansi-blue-fg">,</span>self<span class="ansi-blue-fg">.</span>pred<span class="ansi-blue-fg">,</span>self<span class="ansi-blue-fg">.</span>loss <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">(</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">(</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span><span class="ansi-green-fg">None</span>
-
-<span class="ansi-green-fg">/opt/venv/lib/python3.8/site-packages/fastai/learner.py</span> in <span class="ansi-cyan-fg">_with_events</span><span class="ansi-blue-fg">(self, f, event_type, ex, final)</span>
-<span class="ansi-green-intense-fg ansi-bold">    161</span> 
-<span class="ansi-green-intense-fg ansi-bold">    162</span>     <span class="ansi-green-fg">def</span> _with_events<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> f<span class="ansi-blue-fg">,</span> event_type<span class="ansi-blue-fg">,</span> ex<span class="ansi-blue-fg">,</span> final<span class="ansi-blue-fg">=</span>noop<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 163</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span> self<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;before_{event_type}&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">;</span>  f<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    164</span>         <span class="ansi-green-fg">except</span> ex<span class="ansi-blue-fg">:</span> self<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;after_cancel_{event_type}&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    165</span>         self<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;after_{event_type}&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">;</span>  final<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/opt/venv/lib/python3.8/site-packages/fastai/learner.py</span> in <span class="ansi-cyan-fg">_do_fit</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">    210</span>         <span class="ansi-green-fg">for</span> epoch <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>n_epoch<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    211</span>             self<span class="ansi-blue-fg">.</span>epoch<span class="ansi-blue-fg">=</span>epoch
-<span class="ansi-green-fg">--&gt; 212</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>_with_events<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>_do_epoch<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;epoch&#39;</span><span class="ansi-blue-fg">,</span> CancelEpochException<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    213</span> 
-<span class="ansi-green-intense-fg ansi-bold">    214</span>     <span class="ansi-green-fg">def</span> fit<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> n_epoch<span class="ansi-blue-fg">,</span> lr<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> wd<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> cbs<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> reset_opt<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/opt/venv/lib/python3.8/site-packages/fastai/learner.py</span> in <span class="ansi-cyan-fg">_with_events</span><span class="ansi-blue-fg">(self, f, event_type, ex, final)</span>
-<span class="ansi-green-intense-fg ansi-bold">    161</span> 
-<span class="ansi-green-intense-fg ansi-bold">    162</span>     <span class="ansi-green-fg">def</span> _with_events<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> f<span class="ansi-blue-fg">,</span> event_type<span class="ansi-blue-fg">,</span> ex<span class="ansi-blue-fg">,</span> final<span class="ansi-blue-fg">=</span>noop<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 163</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span> self<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;before_{event_type}&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">;</span>  f<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    164</span>         <span class="ansi-green-fg">except</span> ex<span class="ansi-blue-fg">:</span> self<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;after_cancel_{event_type}&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    165</span>         self<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;after_{event_type}&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">;</span>  final<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/opt/venv/lib/python3.8/site-packages/fastai/learner.py</span> in <span class="ansi-cyan-fg">_do_epoch</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">    204</span> 
-<span class="ansi-green-intense-fg ansi-bold">    205</span>     <span class="ansi-green-fg">def</span> _do_epoch<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 206</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>_do_epoch_train<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    207</span>         self<span class="ansi-blue-fg">.</span>_do_epoch_validate<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    208</span> 
-
-<span class="ansi-green-fg">/opt/venv/lib/python3.8/site-packages/fastai/learner.py</span> in <span class="ansi-cyan-fg">_do_epoch_train</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">    196</span>     <span class="ansi-green-fg">def</span> _do_epoch_train<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    197</span>         self<span class="ansi-blue-fg">.</span>dl <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>dls<span class="ansi-blue-fg">.</span>train
-<span class="ansi-green-fg">--&gt; 198</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>_with_events<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>all_batches<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;train&#39;</span><span class="ansi-blue-fg">,</span> CancelTrainException<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    199</span> 
-<span class="ansi-green-intense-fg ansi-bold">    200</span>     <span class="ansi-green-fg">def</span> _do_epoch_validate<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> ds_idx<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> dl<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/opt/venv/lib/python3.8/site-packages/fastai/learner.py</span> in <span class="ansi-cyan-fg">_with_events</span><span class="ansi-blue-fg">(self, f, event_type, ex, final)</span>
-<span class="ansi-green-intense-fg ansi-bold">    161</span> 
-<span class="ansi-green-intense-fg ansi-bold">    162</span>     <span class="ansi-green-fg">def</span> _with_events<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> f<span class="ansi-blue-fg">,</span> event_type<span class="ansi-blue-fg">,</span> ex<span class="ansi-blue-fg">,</span> final<span class="ansi-blue-fg">=</span>noop<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 163</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span> self<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;before_{event_type}&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">;</span>  f<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    164</span>         <span class="ansi-green-fg">except</span> ex<span class="ansi-blue-fg">:</span> self<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;after_cancel_{event_type}&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    165</span>         self<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;after_{event_type}&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">;</span>  final<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/opt/venv/lib/python3.8/site-packages/fastai/learner.py</span> in <span class="ansi-cyan-fg">all_batches</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">    167</span>     <span class="ansi-green-fg">def</span> all_batches<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    168</span>         self<span class="ansi-blue-fg">.</span>n_iter <span class="ansi-blue-fg">=</span> len<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>dl<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">--&gt; 169</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">for</span> o <span class="ansi-green-fg">in</span> enumerate<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>dl<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span> self<span class="ansi-blue-fg">.</span>one_batch<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">*</span>o<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    170</span> 
-<span class="ansi-green-intense-fg ansi-bold">    171</span>     <span class="ansi-green-fg">def</span> _do_one_batch<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/opt/venv/lib/python3.8/site-packages/fastai/learner.py</span> in <span class="ansi-cyan-fg">one_batch</span><span class="ansi-blue-fg">(self, i, b)</span>
-<span class="ansi-green-intense-fg ansi-bold">    192</span>         b <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>_set_device<span class="ansi-blue-fg">(</span>b<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    193</span>         self<span class="ansi-blue-fg">.</span>_split<span class="ansi-blue-fg">(</span>b<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">--&gt; 194</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>_with_events<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>_do_one_batch<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;batch&#39;</span><span class="ansi-blue-fg">,</span> CancelBatchException<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    195</span> 
-<span class="ansi-green-intense-fg ansi-bold">    196</span>     <span class="ansi-green-fg">def</span> _do_epoch_train<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/opt/venv/lib/python3.8/site-packages/fastai/learner.py</span> in <span class="ansi-cyan-fg">_with_events</span><span class="ansi-blue-fg">(self, f, event_type, ex, final)</span>
-<span class="ansi-green-intense-fg ansi-bold">    161</span> 
-<span class="ansi-green-intense-fg ansi-bold">    162</span>     <span class="ansi-green-fg">def</span> _with_events<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> f<span class="ansi-blue-fg">,</span> event_type<span class="ansi-blue-fg">,</span> ex<span class="ansi-blue-fg">,</span> final<span class="ansi-blue-fg">=</span>noop<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 163</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span> self<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;before_{event_type}&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">;</span>  f<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    164</span>         <span class="ansi-green-fg">except</span> ex<span class="ansi-blue-fg">:</span> self<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;after_cancel_{event_type}&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    165</span>         self<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;after_{event_type}&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">;</span>  final<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/home/jovyan/adaptnlp/adaptnlp/training/core.py</span> in <span class="ansi-cyan-fg">_do_one_batch</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">    348</span>         self<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;before_backward&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    349</span>         self<span class="ansi-blue-fg">.</span>loss_grad<span class="ansi-blue-fg">.</span>backward<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">--&gt; 350</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>_with_events<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>opt<span class="ansi-blue-fg">.</span>step<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;step&#39;</span><span class="ansi-blue-fg">,</span> CancelStepException<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    351</span>         self<span class="ansi-blue-fg">.</span>opt<span class="ansi-blue-fg">.</span>zero_grad<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    352</span> 
-
-<span class="ansi-green-fg">/opt/venv/lib/python3.8/site-packages/fastai/learner.py</span> in <span class="ansi-cyan-fg">_with_events</span><span class="ansi-blue-fg">(self, f, event_type, ex, final)</span>
-<span class="ansi-green-intense-fg ansi-bold">    161</span> 
-<span class="ansi-green-intense-fg ansi-bold">    162</span>     <span class="ansi-green-fg">def</span> _with_events<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> f<span class="ansi-blue-fg">,</span> event_type<span class="ansi-blue-fg">,</span> ex<span class="ansi-blue-fg">,</span> final<span class="ansi-blue-fg">=</span>noop<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 163</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span> self<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;before_{event_type}&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">;</span>  f<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    164</span>         <span class="ansi-green-fg">except</span> ex<span class="ansi-blue-fg">:</span> self<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;after_cancel_{event_type}&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    165</span>         self<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;after_{event_type}&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">;</span>  final<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/opt/venv/lib/python3.8/site-packages/fastai/optimizer.py</span> in <span class="ansi-cyan-fg">step</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">     80</span>     <span class="ansi-green-fg">def</span> step<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     81</span>         <span class="ansi-green-fg">for</span> p<span class="ansi-blue-fg">,</span>pg<span class="ansi-blue-fg">,</span>state<span class="ansi-blue-fg">,</span>hyper <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>all_params<span class="ansi-blue-fg">(</span>with_grad<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 82</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">for</span> cb <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>cbs<span class="ansi-blue-fg">:</span> state <span class="ansi-blue-fg">=</span> _update<span class="ansi-blue-fg">(</span>state<span class="ansi-blue-fg">,</span> cb<span class="ansi-blue-fg">(</span>p<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span><span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">**</span>state<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>hyper<span class="ansi-blue-fg">}</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     83</span>             self<span class="ansi-blue-fg">.</span>state<span class="ansi-blue-fg">[</span>p<span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> state
-<span class="ansi-green-intense-fg ansi-bold">     84</span> 
-
-<span class="ansi-green-fg">/opt/venv/lib/python3.8/site-packages/fastai/optimizer.py</span> in <span class="ansi-cyan-fg">average_grad</span><span class="ansi-blue-fg">(p, mom, dampening, grad_avg, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    120</span>     <span class="ansi-green-fg">if</span> grad_avg <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span> grad_avg <span class="ansi-blue-fg">=</span> torch<span class="ansi-blue-fg">.</span>zeros_like<span class="ansi-blue-fg">(</span>p<span class="ansi-blue-fg">.</span>grad<span class="ansi-blue-fg">.</span>data<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    121</span>     damp <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">-</span>mom <span class="ansi-green-fg">if</span> dampening <span class="ansi-green-fg">else</span> <span class="ansi-cyan-fg">1.</span>
-<span class="ansi-green-fg">--&gt; 122</span><span class="ansi-red-fg">     </span>grad_avg<span class="ansi-blue-fg">.</span>mul_<span class="ansi-blue-fg">(</span>mom<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>add_<span class="ansi-blue-fg">(</span>p<span class="ansi-blue-fg">.</span>grad<span class="ansi-blue-fg">.</span>data<span class="ansi-blue-fg">,</span> alpha<span class="ansi-blue-fg">=</span>damp<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    123</span>     <span class="ansi-green-fg">return</span> <span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">&#39;grad_avg&#39;</span><span class="ansi-blue-fg">:</span> grad_avg<span class="ansi-blue-fg">}</span>
-<span class="ansi-green-intense-fg ansi-bold">    124</span> 
-
-<span class="ansi-red-fg">RuntimeError</span>: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!</pre>
-</div>
 </div>
 
 </div>
@@ -1663,7 +1521,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="AdaptiveTuner.save" class="doc_header"><code>AdaptiveTuner.save</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L397" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.save</code>(<strong><code>save_directory</code></strong>)</p>
+<h4 id="AdaptiveTuner.save" class="doc_header"><code>AdaptiveTuner.save</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/training/core.py#L421" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>AdaptiveTuner.save</code>(<strong><code>save_directory</code></strong>)</p>
 </blockquote>
 <p>Save a pretrained model to a <code>save_directory</code></p>
 <p><strong>Parameters:</strong></p>
@@ -1692,6 +1550,32 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">/tmp/ipykernel_11201/1955740056.py</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>tuner<span class="ansi-blue-fg">.</span>save<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;good_model&#39;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/home/jovyan/adaptnlp/adaptnlp/training/core.py</span> in <span class="ansi-cyan-fg">save</span><span class="ansi-blue-fg">(self, save_directory)</span>
+<span class="ansi-green-intense-fg ansi-bold">    400</span>     ):
+<span class="ansi-green-intense-fg ansi-bold">    401</span>         <span class="ansi-blue-fg">&#34;Save a pretrained model to a `save_directory`&#34;</span>
+<span class="ansi-green-fg">--&gt; 402</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">if</span> rank_distrib<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span> <span class="ansi-green-fg">return</span> <span class="ansi-red-fg"># Don&#39;t save if child proc</span>
+<span class="ansi-green-intense-fg ansi-bold">    403</span>         self<span class="ansi-blue-fg">.</span>model<span class="ansi-blue-fg">.</span>save_pretrained<span class="ansi-blue-fg">(</span>save_directory<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    404</span>         self<span class="ansi-blue-fg">.</span>tokenizer<span class="ansi-blue-fg">.</span>save_pretrained<span class="ansi-blue-fg">(</span>save_directory<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;rank_distrib&#39; is not defined</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1841,33 +1725,6 @@ The other method is with AdaptNLP's inference API, which we will show afterwards
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea ">
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;sentences&#39;: [&#39;Amrozi accused his brother , whom he called &#34; the witness &#34; , of deliberately distorting his evidence . Referring to him as only &#34; the witness &#34; , Amrozi accused his brother of deliberately distorting his evidence .&#39;],
- &#39;predictions&#39;: [&#39;not_equivalent&#39;],
- &#39;probs&#39;: tensor([[0.6317, 0.3683]])}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -1952,41 +1809,6 @@ The other method is with AdaptNLP's inference API, which we will show afterwards
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>2021-08-02 19:42:29,864 loading file good_model
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea ">
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;sentences&#39;: [&#39;Amrozi accused his brother , whom he called &#34; the witness &#34; , of deliberately distorting his evidence . Referring to him as only &#34; the witness &#34; , Amrozi accused his brother of deliberately distorting his evidence .&#39;],
- &#39;predictions&#39;: [&#39;not_equivalent&#39;],
- &#39;probs&#39;: tensor([[0.6317, 0.3683]])}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -2036,22 +1858,6 @@ The other method is with AdaptNLP's inference API, which we will show afterwards
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&#39;low&#39;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -2081,33 +1887,6 @@ The other method is with AdaptNLP's inference API, which we will show afterwards
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea ">
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;sentences&#39;: [&#39;Amrozi accused his brother , whom he called &#34; the witness &#34; , of deliberately distorting his evidence . Referring to him as only &#34; the witness &#34; , Amrozi accused his brother of deliberately distorting his evidence .&#39;],
- &#39;predictions&#39;: [&#39;not_equivalent&#39;],
- &#39;probs&#39;: tensor([[0.6317, 0.3683]])}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -2130,36 +1909,6 @@ The other method is with AdaptNLP's inference API, which we will show afterwards
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea ">
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;sentences&#39;: [&#39;Amrozi accused his brother , whom he called &#34; the witness &#34; , of deliberately distorting his evidence . Referring to him as only &#34; the witness &#34; , Amrozi accused his brother of deliberately distorting his evidence .&#39;],
- &#39;predictions&#39;: [&#39;not_equivalent&#39;],
- &#39;probs&#39;: tensor([[0.6317, 0.3683]]),
- &#39;pairings&#39;: OrderedDict([(&#39;Amrozi accused his brother , whom he called &#34; the witness &#34; , of deliberately distorting his evidence . Referring to him as only &#34; the witness &#34; , Amrozi accused his brother of deliberately distorting his evidence .&#39;,
-               tensor([0.6317, 0.3683]))]),
- &#39;classes&#39;: [&#39;LABEL_0&#39;, &#39;LABEL_1&#39;]}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -2179,36 +1928,6 @@ The other method is with AdaptNLP's inference API, which we will show afterwards
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea ">
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;sentences&#39;: [Sentence: &#34;Amrozi accused his brother , whom he called &#34; the witness &#34; , of deliberately distorting his evidence . Referring to him as only &#34; the witness &#34; , Amrozi accused his brother of deliberately distorting his evidence .&#34;   [− Tokens: 39  − Sentence-Labels: {&#39;sc&#39;: [LABEL_0 (0.6317), LABEL_1 (0.3683)]}]],
- &#39;predictions&#39;: [&#39;not_equivalent&#39;],
- &#39;probs&#39;: tensor([[0.6317, 0.3683]]),
- &#39;pairings&#39;: OrderedDict([(&#39;Amrozi accused his brother , whom he called &#34; the witness &#34; , of deliberately distorting his evidence . Referring to him as only &#34; the witness &#34; , Amrozi accused his brother of deliberately distorting his evidence .&#39;,
-               tensor([0.6317, 0.3683]))]),
- &#39;classes&#39;: [&#39;LABEL_0&#39;, &#39;LABEL_1&#39;]}</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 

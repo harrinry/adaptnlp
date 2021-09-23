@@ -19,7 +19,10 @@ from fastai.callback.schedule import Learner
 from functools import partial
 # Patch'd Learner functionalities
 
+from fastai.torch_core import display_df
 from fastai.data.core import DataLoaders
+
+from functools import partial
 
 from torch.utils.data import DataLoader
 
@@ -182,10 +185,12 @@ class TaskDatasets:
         tokenize_kwargs:dict = {}, # Some kwargs for when we call the tokenizer
         auto_kwargs:dict = {}, # Some kwargs when calling `AutoTokenizer.from_pretrained`
         remove_cols:Union[str,List[str]] = None, # What columns to remove
+        label_keys:list=['labels'], # The keys in each item that relate to the label (such as `labels`)
     ):
         self.train = train_dset
         self.valid = valid_dset
         self.tokenizer = None
+        self.label_keys = label_keys
         self.remove_cols = listify(remove_cols)
         if tokenizer_name is not None: self.set_tokenizer(tokenizer_name, **auto_kwargs)
         if tokenize_func is not None: self.tok_func = tokenize_func
@@ -256,7 +261,7 @@ class TaskDatasets:
         if collate_fn is None: collate_fn = default_data_collator
         train_dl = DataLoader(self.train, shuffle=shuffle_train, collate_fn=collate_fn, batch_size=batch_size, **kwargs)
         valid_dl = DataLoader(self.valid, shuffle=False, collate_fn=collate_fn, batch_size=batch_size, **kwargs)
-        return AdaptiveDataLoaders(train_dl, valid_dl, tokenizer=self.tokenizer)
+        return AdaptiveDataLoaders(train_dl, valid_dl, tokenizer=self.tokenizer, label_keys=self.label_keys)
 
 # Cell
 class AdaptiveDataLoaders(DataLoaders):
@@ -265,10 +270,12 @@ class AdaptiveDataLoaders(DataLoaders):
         self,
         *loaders, # A variable list of DataLoaders
         tokenizer=None, # A Transformers tokenizer object
+        label_keys:list=['labels'], # A list of keys correlating to the labels in the batch
         path='.', # A path to be stored in `self.path`
         device=None # A device for the tensors, such as "cpu" or "cuda:0"
     ):
         self.tokenizer = tokenizer
+        self.label_keys = label_keys
         super().__init__(*loaders, path=path, device=device)
 
     def show_batch(
@@ -308,20 +315,25 @@ class AdaptiveDataLoaders(DataLoaders):
                 batch['input_ids'],
                 skip_special_tokens=True
             )
-            lbls = batch['labels']
-
-            df = pd.DataFrame(columns=['Input', 'Label'])
-            if hasattr(self, 'categorize'):
-                lbls = [self.categorize.decode(o.cpu().numpy()) for o in lbls]
-            elif len(lbls.shape) < len(batch['input_ids'].shape):
-                # Not a language model, but we can't decode
-                lbls = lbls
-            else:
-                # It's a language model
-                lbls = self.tokenizer.batch_decode(lbls, skip_special_tokens=True)
+            # Pair each label by item
+            lbls = [[batch[l][i] for l in self.label_keys] for i in range(len(batch['input_ids']))]
+            df = pd.DataFrame(columns=['Input'] + [l.title() for l in self.label_keys])
+            for i in range(len(lbls)):
+                decoded_lbl = []
+                for j,key in enumerate(self.label_keys):
+                    if key == 'labels' or key == 'label':
+                        if hasattr(self, 'categorize'):
+                            decoded_lbl.append(self.categorize.decode(lbls[i][j].cpu().numpy()))
+#                             decoded_lbl.append([self.categorize.decode(o.cpu().numpy()) for o in lbls])
+                        else:
+                            # It's a language model
+                            decoded_lbl.append(self.tokenizer.batch_decode(lbls[i][j].unsqueeze(0), skip_special_tokens=True)[0])
+                    else:
+                        decoded_lbl.append(lbls[i][j])
+                lbls[i] = decoded_lbl
             for i in range(n):
-                df.loc[i] = [inputs[i], lbls[i]]
-        display_df(df)
+                df.loc[i] = [inputs[i]] + lbls[i]
+            display_df(df)
 
 # Cell
 class _AdaptiveLearner(Learner):
@@ -332,16 +344,21 @@ class _AdaptiveLearner(Learner):
     def _split(self, b):
         "Assign `self.xb` to model input and labels"
         self.xb = b
-        if 'labels' in b.keys(): self.yb = b['labels'].unsqueeze(0)
+        yb = []
+        for label in self.label_keys:
+            if label in b.keys():
+                yb.append(b[label])
+        self.yb = torch.stack(yb, dim=0)
 
     def _do_one_batch(self):
         "Move a batch of data to a device, get predictions, calculate the loss, and perform backward pass"
         self.xb = {k:v.to(self.device) for k,v in self.xb.items()} # See if `to_device` fixes this
         self.yb = self.yb.to(self.device)
         out = self.model(**self.xb)
-        self.pred = out['logits'].to(self.device)
+        if 'loss' in out.keys():
+            self.loss_grad = out['loss'].to(self.device)
+        self.pred = out
         self('after_pred')
-        self.loss_grad = out['loss'].to(self.device)
         self.loss = self.loss_grad.clone()
         self('after_loss')
         if not self.training or not len(self.yb): return
@@ -360,10 +377,17 @@ class AdaptiveTuner:
         self,
         expose_fastai:bool=False, # Whether to expose the entire API in `self`
         tokenizer = None, # A HuggingFace tokenizer
+        label_keys:list=['labels'], # A list of keys correlating to the labels in the batch
         **kwargs # kwargs for `_AdaptiveLearner`
     ):
         self.tokenizer = tokenizer
+        if label_keys is None:
+            if getattr(kwargs['dls'], 'label_keys', None) is None:
+                raise ValueError("Could not find keys for the labels. Please pass in a `label_keys` param")
+            else:
+                label_keys = kwargs['dls'].label_keys
         self._tuner = _AdaptiveLearner(**kwargs)
+        self._tuner.label_keys = label_keys
 
         exposed_attrs = ['dls', 'model', 'loss_func', 'metrics']
         for attr in exposed_attrs:

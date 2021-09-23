@@ -1,5 +1,14 @@
 # Release Notes
 
+
+## 0.3.3
+
+### Bug Squashed
+
+- Embeddings were conjoined rather than seperated out by word
+- Question Answering Results would only return the first instance, rather than top `n` instances
+- `AdaptiveTuner` can accept a `label_names` parameter for where the labels in a batch are present
+
 ## 0.3.0
 
 ### New Features
@@ -30,6 +39,7 @@
 ### Breaking Changes
 
 - New versions of AdaptNLP will require a special forked and pinned version of Flair, that does not have a torch maximum requirement. Thus allowing for torch 1.7 >
+
 
 ## 0.2.3
 
