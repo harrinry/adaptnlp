@@ -63,8 +63,9 @@ jobs:
     - name: Build and Tag Container
       run: |
         export DOCKER_BUILDKIT=1
-        docker build -t novetta/adaptnlp:latest-api-sequence-classification
-         -f rest/sequence-classification/Dockerfile .
+        docker pull ${IMAGE_NAME}:latest || true
+        docker build -t novetta/adaptnlp:latest-api-sequence-classification \
+        -f rest/sequence-classification/Dockerfile .
       env:
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
         
