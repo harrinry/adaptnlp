@@ -35,8 +35,9 @@ jobs:
       run: |
         export DOCKER_BUILDKIT=1
         docker pull ${IMAGE_NAME}:latest || true
+        cd rest/sequence-classification
         docker build -t novetta/adaptnlp:latest-api-sequence-classification \
-        -f rest/sequence-classification/Dockerfile .
+        -f Dockerfile .
       env:
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
         
