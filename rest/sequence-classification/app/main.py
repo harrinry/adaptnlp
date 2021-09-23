@@ -37,7 +37,7 @@ _SEQUENCE_CLASSIFICATION_MODEL = os.environ["SEQUENCE_CLASSIFICATION_MODEL"]
 @app.on_event("startup")
 async def initialize_nlp_task_modules():
     _SEQUENCE_CLASSIFIER.tag_text(
-        text="", mini_batch_size=1, model_name_or_path=_SEQUENCE_CLASSIFICATION_MODEL
+        text="test_me", mini_batch_size=1, model_name_or_path=_SEQUENCE_CLASSIFICATION_MODEL
     )
 
 
@@ -57,10 +57,17 @@ async def sequence_classifier(
 ):
     text = sequence_classification_request.text
     sentences = _SEQUENCE_CLASSIFIER.tag_text(
-        text=text, mini_batch_size=1, model_name_or_path=_SEQUENCE_CLASSIFICATION_MODEL
+        text=text, mini_batch_size=1, model_name_or_path=_SEQUENCE_CLASSIFICATION_MODEL,detail_level="low"
     )
-    payload = [sentence.to_dict() for sentence in sentences]
-    return payload
+    response = []
+    curr_d = {}
+    for i in range(len(sentences["sentences"])):
+        curr_d["text"] = sentences["sentences"][i]
+        curr_d["probability"] = sentences["probs"][i].tolist()
+        curr_d["prediction"] = sentences["predictions"][i]
+        response.append(curr_d)
+        curr_d = {}
+    return response
 
 
 if __name__ == "__main__":

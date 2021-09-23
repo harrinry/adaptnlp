@@ -1,21 +1,13 @@
-from typing import List
+from typing import List, Tuple
 
 from pydantic import BaseModel
 
 
 # General Data Models
 class Labels(BaseModel):
-    value: str
-    confidence: float
-
-
-class Entities(BaseModel):
-    text: str
-    start_pos: int
-    end_pos: int
-    type: str
-    confidence: float
-
+    predictions: str
+    probabilities: float
+    
 
 # Sequence Classification
 class SequenceClassificationRequest(BaseModel):
@@ -24,5 +16,13 @@ class SequenceClassificationRequest(BaseModel):
 
 class SequenceClassificationResponse(BaseModel):
     text: str
-    labels: List[Labels] = []
-    entities: List[Entities] = []
+    probability: Tuple[float]
+    prediction: str
+        
+### We get back:
+
+# Sentences
+# Predictions
+# Probabilities
+# Pairings
+# Classes
