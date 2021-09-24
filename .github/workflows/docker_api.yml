@@ -67,7 +67,6 @@ jobs:
     - name: Build and Tag Container Question Answering
       run: |
         export DOCKER_BUILDKIT=1
-        docker pull ${IMAGE_NAME}:latest || true
         cd rest/question-answering
         docker build -t novetta/adaptnlp:latest-api-question-answering \
         -t novetta/adaptnlp:${VERSION}-api-question-answering \
@@ -78,7 +77,6 @@ jobs:
     - name: Build and Tag Container Sequence Classification
       run: |
         export DOCKER_BUILDKIT=1
-        docker pull ${IMAGE_NAME}:latest || true
         cd rest/sequence-classification
         docker build -t novetta/adaptnlp:latest-api-sequence-classification \
         -t novetta/adaptnlp:${VERSION}-api-sequence-classification \
@@ -100,7 +98,6 @@ jobs:
     - name: Text Generation
       run: |
         export DOCKER_BUILDKIT=1
-        docker pull ${IMAGE_NAME}:latest || true
         cd rest/text-generation
         docker build -t novetta/adaptnlp:latest-api-text-generation \
         -t novetta/adaptnlp:${VERSION}-api-text-generation \
@@ -112,7 +109,6 @@ jobs:
     - name: Token Tagging
       run: |
         export DOCKER_BUILDKIT=1
-        docker pull ${IMAGE_NAME}:latest || true
         cd rest/token-tagging
         docker build -t novetta/adaptnlp:latest-api-token-tagging \
         -t novetta/adaptnlp:${VERSION}-api-token-tagging \
@@ -123,7 +119,6 @@ jobs:
     - name: Translation
       run: |
         export DOCKER_BUILDKIT=1
-        docker pull ${IMAGE_NAME}:latest || true
         cd rest/rest/translation
         docker build -t novetta/adaptnlp:latest-api-translation \
         -t novetta/adaptnlp:${VERSION}-api-translation \
