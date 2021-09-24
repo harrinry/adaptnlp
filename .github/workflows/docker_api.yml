@@ -124,7 +124,7 @@ jobs:
     - name: Translation
       run: |
         export DOCKER_BUILDKIT=1
-        cd rest/rest/translation
+        cd rest/translation
         docker build -t novetta/adaptnlp:latest-api-translation \
         -t novetta/adaptnlp:${VERSION}-api-translation \
         -f Dockerfile .
