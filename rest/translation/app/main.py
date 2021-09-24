@@ -68,7 +68,6 @@ async def translator(
         num_beams=1,
     )
     payload = {"text": translations["translations"]}
-    print(payload)
     return payload
 
 
