@@ -1,0 +1,52 @@
+# Release Weekly Insider Builds to Docker and Releases
+name: Test, Build, and Release AdaptNLP DockerHub API Images
+
+on: 
+  workflow_dispatch: # Allow manual trigger
+    
+jobs:
+  sequence-classification:
+    runs-on: ubuntu-latest
+    if: github.event.ref == 'refs/heads/master'
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Python Environment
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+        architecture: 'x64'
+        
+    - name: Get version and image name
+      id: get_variables
+      run: |
+        from configparser import ConfigParser
+        import os
+        from pathlib import Path
+        config = ConfigParser()
+        settings = Path('settings.ini')
+        assert settings.exists(), 'Not able to read or download settings.ini file'
+        config.read(settings)
+        cfg = config['DEFAULT']
+        print(f"::set-output name=version::{cfg['version']}")
+        print(f"::set-output name=image_name::{cfg['lib_name']}")
+      shell: python
+      
+    - name: Build and Tag Container
+      run: |
+        export DOCKER_BUILDKIT=1
+        docker pull ${IMAGE_NAME}:latest || true
+        cd rest/sequence-classification
+        docker build -t novetta/adaptnlp:latest-api-sequence-classification \
+        -f Dockerfile .
+      env:
+        IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
+        
+    - name: Push Images
+      run: |
+        echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
+        docker push --all-tags novetta/adaptnlp
+      env:
+        USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
+        IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
+        VERSION: ${{ steps.get_variables.outputs.version }}
