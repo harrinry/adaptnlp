@@ -84,6 +84,7 @@ jobs:
         -f Dockerfile .
       env:
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
+        VERSION: ${{ steps.get_variables.outputs.version }}
       
     - name: Summarization
       run: |
