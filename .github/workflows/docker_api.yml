@@ -138,5 +138,3 @@ jobs:
       env:
         USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_HUB_TOKEN }}
-        IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
-        VERSION: ${{ steps.get_variables.outputs.version }}
