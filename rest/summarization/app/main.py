@@ -46,7 +46,6 @@ async def initialize_nlp_task_modules():
         early_stopping=True,
     )
 
-
 ######################
 ### AdaptNLP API ###
 ######################
@@ -71,7 +70,7 @@ async def translator(
         max_length=max_length,
         num_beams=4,
     )
-    payload = {"text": summaries}
+    payload = {"text": summaries["summaries"]}
     return payload
 
 

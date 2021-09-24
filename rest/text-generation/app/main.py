@@ -65,7 +65,7 @@ async def translator(
         model_name_or_path=_TEXT_GENERATION_MODEL,
         num_tokens_to_produce=num_tokens_to_produce,
     )
-    payload = {"text": generated_text}
+    payload = {"text": generated_text['generated_text']}
     return payload
 
 
