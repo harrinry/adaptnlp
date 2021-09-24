@@ -7,22 +7,41 @@ The docker image of AdaptNLP is built with the `novetta/adaptnlp:latest` image.
 
 The docker image of AdaptNLP's NLP task rest services are hosted on Docker Hub as well, identified by `adaptnlp:{VERSION_NUMBER}-api-{TASK}` naming convention
 
-Every image can be pulled and run by running the following:
+Every image can be pulled and run by using the following convention:
+
+`docker run -itp 5000:5000 -e TASK_SPECIFIC_ENVIRONMENTAL_PARAMS novetta/adaptnlp:latest-api-{task} bash`
+
+Depending on the task, it may need specific environmental variables to go with it. Examples for each of the six tasks are below:
 
 - Token Tagging
-  - `docker run -itp 5000:5000 -e TOKEN_TAGGING_MODE=ner -e TOKEN_TAGGING_MODE=ner-ontonotes-fast novetta/adaptnlp:latest-api-token-tagging bash`
-- Sequence Classification
-  - `docker run -itp 5000:5000 -e SEQUENCE_CLASSIFICATION_MODEL=nlptown/bert-base-multilingual-uncased-sentiment novetta/adaptnlp:latest-api-sequence-classification bash`
-- Question Answering
-  - `docker run -itp 5000:5000 -e QUESTION_ANSWERING_MODEL=distilbert-base-uncased-distilled-squad novetta/adaptnlp:latest-api-question-answering bash`
-- Translation 
-  - `docker run -itp 5000:5000 -e TRANSLATION_MODEL=Helsinki-NLP/opus-mt-ar-e novetta/adaptnlp:translation-api-latest bash`
-- Summarization 
-  - `docker run -itp 5000:5000 -e SUMMARIZATION_MODEL=facebook/bart-large-cnn novetta/adaptnlp:summarization-api-latest bash`
-- Text Generation 
-  - `docker run -itp 5000:5000 -e TEXT_GENERATION_MODEL=gpt2 novetta/adaptnlp:text-generation-api-latest bash`
+  - `TOKEN_TAGGING_MODE`: The type of tagging to perform, such as `ner`
+  - `TOKEN_TAGGING_MODEL`: The name of the model to use, such as `ner-ontonotes-fast`
+  - An example `docker run`:
+    - `docker run -itp 5000:5000 -e TOKEN_TAGGING_MODE=ner -e TOKEN_TAGGING_MODEL=ner-ontonotes-fast novetta/adaptnlp:latest-api-token-tagging bash`
 
-Note: Add the `--gpus` arg parameter if you'd like the images and endpoints to run with GPUs. You need to have NVIDIA Docker installed with a CUDA-compatible GPU.
+- Sequence Classification
+  - `SEQUENCE_CLASSIFICATION_MODEL`: The name of the model to use, such as `nlptown/bert-base-multilingual-uncased-sentiment`
+  - An example `docker run`:
+    - `docker run -itp 5000:5000 -e SEQUENCE_CLASSIFICATION_MODEL=nlptown/bert-base-multilingual-uncased-sentiment novetta/adaptnlp:latest-api-sequence-classification bash`
+
+- Question Answering
+  - `QUESTION_ANSWERING_MODEL`: The name of the model to use, such as `distilbert-base-uncased-distilled-squad`
+  - An example `docker run`:
+      - `docker run -itp 5000:5000 -e QUESTION_ANSWERING_MODEL=distilbert-base-uncased-distilled-squad novetta/adaptnlp:latest-api-question-answering bash`
+      
+- Translation 
+  - `TRANSLATION_MODEL`: The name of the model to use, such as `Helsinki-NLP/opus-mt-ar-en`
+  - An example `docker run`:
+    - `docker run -itp 5000:5000 -e TRANSLATION_MODEL=Helsinki-NLP/opus-mt-ar-en novetta/adaptnlp:translation-api-latest bash`
+- Summarization 
+  - `SUMMARIZATION_MODEL`: The name of the model to use, such as `facebook/bart-large-cnn`
+  - An example `docker run`: 
+      - `docker run -itp 5000:5000 -e SUMMARIZATION_MODEL=facebook/bart-large-cnn novetta/adaptnlp:summarization-api-latest bash`
+- Text Generation 
+  - `TEXT_GENERATION_MODEL`: The name of the model to use, such as `gpt2`
+  - An example `docker run`:
+      - `docker run -itp 5000:5000 -e TEXT_GENERATION_MODEL=gpt2 novetta/adaptnlp:text-generation-api-latest bash`
+
 
 ## Build and Run
 Manually build and run your own docker images and deploy endpoints by following one of the below methods:
@@ -95,7 +114,7 @@ docker run -itp 5000:5000 --gpus all text-generation:latest bash
 
 
 ### 2. Docker Run Env Arg Entries
-Sometimes you may wont to specify the models as environment variables in docker post-build for convience or other reasons. To do so use the below commands to deploy any of the above NLP task services. The example below runs the token classification service.
+Sometimes you may want to specify the models as environment variables in docker post-build for convience or other reasons. To do so use the below commands to deploy any of the above NLP task services. The example below runs the token classification service.
 ```
 docker build -t token-tagging:latest .
 docker run -itp 5000:5000 -e TOKEN_TAGGING_MODE='ner' \
