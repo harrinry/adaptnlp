@@ -63,46 +63,45 @@ jobs:
         print(f"::set-output name=version::{cfg['version']}")
         print(f"::set-output name=image_name::{cfg['lib_name']}")
       shell: python
-    
-    - name: Setup env
-      run: |
-        export DOCKER_BUILDKIT=1
-        docker pull ${IMAGE_NAME}:latest || true
-        cd rest
       
     - name: Build and Tag Container Question Answering
       run: |
-        cd question-answering
+        export DOCKER_BUILDKIT=1
+        docker pull ${IMAGE_NAME}:latest || true
+        cd rest/question-answering
         docker build -t novetta/adaptnlp:latest-api-question-answering \
         -t novetta/adaptnlp:${VERSION}-api-question-answering \
         -f Dockerfile .
-        cd ..
       env:
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
       
     - name: Build and Tag Container Sequence Classification
       run: |
-        cd sequence-classification
+        export DOCKER_BUILDKIT=1
+        docker pull ${IMAGE_NAME}:latest || true
+        cd rest/sequence-classification
         docker build -t novetta/adaptnlp:latest-api-sequence-classification \
         -t novetta/adaptnlp:${VERSION}-api-sequence-classification \
         -f Dockerfile .
-        cd ..
       env:
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
       
     - name: Summarization
       run: |
-        cd summarization
+        export DOCKER_BUILDKIT=1
+        docker pull ${IMAGE_NAME}:latest || true
+        cd rest/summarization
         docker build -t novetta/adaptnlp:latest-api-summarization \
         -t novetta/adaptnlp:${VERSION}-api-summarization \
         -f Dockerfile .
-        cd ..
       env:
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
         
     - name: Text Generation
       run: |
-        cd text-generation
+        export DOCKER_BUILDKIT=1
+        docker pull ${IMAGE_NAME}:latest || true
+        cd rest/text-generation
         docker build -t novetta/adaptnlp:latest-api-text-generation \
         -t novetta/adaptnlp:${VERSION}-api-text-generation \
         -f Dockerfile .
@@ -112,21 +111,23 @@ jobs:
         
     - name: Token Tagging
       run: |
-        cd token-tagging
+        export DOCKER_BUILDKIT=1
+        docker pull ${IMAGE_NAME}:latest || true
+        cd rest/token-tagging
         docker build -t novetta/adaptnlp:latest-api-token-tagging \
         -t novetta/adaptnlp:${VERSION}-api-token-tagging \
         -f Dockerfile .
-        cd ..
       env:
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
         
     - name: Translation
       run: |
-        cd rest/translation
+        export DOCKER_BUILDKIT=1
+        docker pull ${IMAGE_NAME}:latest || true
+        cd rest/rest/translation
         docker build -t novetta/adaptnlp:latest-api-translation \
         -t novetta/adaptnlp:${VERSION}-api-translation \
         -f Dockerfile .
-        cd ..
       env:
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
         
