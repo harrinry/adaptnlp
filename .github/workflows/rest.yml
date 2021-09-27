@@ -1,17 +1,17 @@
 name: Testing REST API
 on:
   workflow_dispatch: #allow repo admins to trigger this workflow from the Actions tab
-#   pull_request: 
-#   push:
-#     branches:
-#       - master
-#       - dev
-#     paths-ignore:
-#       - '.github/**'
-#       - '!.github.workflows/main.yml'
-#       - 'docs/**'
-#       - '*.md'
-#       - '.git*'
+  pull_request: 
+  push:
+    branches:
+      - master
+      - dev
+    paths-ignore:
+      - '.github/**'
+      - '!.github.workflows/main.yml'
+      - 'docs/**'
+      - '*.md'
+      - '.git*'
 
 defaults:
   run:
@@ -35,5 +35,80 @@ jobs:
     - name: Run Tests
       run: |
         cd rest/question-answering
-        export QUESTION_ANSWERING_MODEL=distilbert-base-uncased-distilled-squad
+        pytest
+
+  sequence-classification:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Python Environmment
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+        architecture: 'x64'
+    - name: Install the library and pytest
+      run: |
+        pip install -e .
+        pip install pytest starlette uvicorn fastapi
+        
+    - name: Run Tests
+      run: |
+        cd rest/sequence-classification
+        pytest
+        
+  summarization:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Python Environmment
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+        architecture: 'x64'
+    - name: Install the library and pytest
+      run: |
+        pip install -e .
+        pip install pytest starlette uvicorn fastapi
+        
+    - name: Run Tests
+      run: |
+        cd rest/summarization
+        pytest
+
+  text-generation:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Python Environmment
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+        architecture: 'x64'
+    - name: Install the library and pytest
+      run: |
+        pip install -e .
+        pip install pytest starlette uvicorn fastapi
+        
+    - name: Run Tests
+      run: |
+        cd rest/text-generation
+        pytest
+
+  translation:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Python Environmment
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+        architecture: 'x64'
+    - name: Install the library and pytest
+      run: |
+        pip install -e .
+        pip install pytest starlette uvicorn fastapi
+        
+    - name: Run Tests
+      run: |
+        cd rest/translation
         pytest
