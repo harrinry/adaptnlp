@@ -32,7 +32,7 @@ jobs:
         python -m pip install fastapi uvicorn
       
     - name: Install Newman dependency
-      run: npm install --prefix tests/postman
+      run: npm install --prefix rest/tests
 
     - name: Run the API and Postman tests
       run: |
