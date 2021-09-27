@@ -28,7 +28,6 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install -U pip
-        cd adaptnlp
         python -m pip install -e .
         python -m pip install fastapi uvicorn
       
