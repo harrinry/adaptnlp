@@ -67,3 +67,4 @@ target/
 
 # venvs
 venv-*
+nbs/99_broken_tests.ipynb
