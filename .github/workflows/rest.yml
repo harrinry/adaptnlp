@@ -1,0 +1,38 @@
+name: Testing REST API
+on:
+  workflow_dispatch: #allow repo admins to trigger this workflow from the Actions tab
+#   pull_request: 
+#   push:
+#     branches:
+#       - master
+#       - dev
+#     paths-ignore:
+#       - '.github/**'
+#       - '!.github.workflows/main.yml'
+#       - 'docs/**'
+#       - '*.md'
+#       - '.git*'
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  question-answering:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Python Environmment
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+        architecture: 'x64'
+    - name: Install the library and pytest
+      run: |
+        pip install -e .
+        pip install pytest starlette
+        
+    - name: Run Tests
+      run: |
+        cd rest/question-answering
+        pytest
