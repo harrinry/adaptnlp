@@ -30,7 +30,7 @@ jobs:
     - name: Install the library and pytest
       run: |
         pip install -e .
-        pip install pytest starlette uvicorn
+        pip install pytest starlette uvicorn fastapi
         
     - name: Run Tests
       run: |
