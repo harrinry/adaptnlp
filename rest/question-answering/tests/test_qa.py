@@ -1,9 +1,9 @@
 from starlette.testclient import TestClient
 import os
 
-from app.main import app
-
 os.environ["QUESTION_ANSWERING_MODEL"] = 'distilbert-base-uncased-distilled-squad'
+
+from app.main import app
 
 client = TestClient(app)
     
