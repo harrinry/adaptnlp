@@ -35,4 +35,5 @@ jobs:
     - name: Run Tests
       run: |
         cd rest/question-answering
+        export QUESTION_ANSWERING_MODEL=distilbert-base-uncased-distilled-squad
         pytest
