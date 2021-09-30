@@ -202,6 +202,8 @@ class TransformersSequenceClassifier(AdaptiveModel):
             return_tensors='pt',
             max_length=None,
             add_special_tokens=True,
+            padding=True,
+            truncation=True
         )
 
         # Bart, XLM, DistilBERT, RoBERTa, and XLM-RoBERTa don't use token_type_ids

@@ -1,5 +1,12 @@
 # Release Notes
 
+## 0.3.4
+
+### Bugs Squashed
+
+- QA queries that did not contain `n_best_answers` worth of errors would throw a key error. Changed to return only what is there
+- Some issues with the tutorials have been upstreamed, and inference tutorials now run under the CI
+
 
 ## 0.3.3
 

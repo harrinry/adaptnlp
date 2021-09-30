@@ -22,8 +22,10 @@ from transformers import (
     PreTrainedModel,
     PreTrainedTokenizer,
     SquadExample,
-    squad_convert_examples_to_features,
+    squad_convert_examples_to_features
 )
+
+from transformers.modeling_outputs import QuestionAnsweringModelOutput
 from transformers.data.processors.squad import SquadResult
 
 from ..model import AdaptiveModel, DataLoader
@@ -73,7 +75,6 @@ class QACallback(Callback):
         for i, example_index in enumerate(self.example_indices):
             eval_feature = self.features[example_index.item()]
             unique_id = int(eval_feature.unique_id)
-
             output = [self.pred[output][i] for output in self.pred]
             output = apply(Self.numpy(), to_detach(output))
 
@@ -148,7 +149,12 @@ class QAResult:
         a = []
         for i in range(len(self._all_nbest_json)):
             o = OrderedDict()
-            for j in range(self.n_best_size):
+            if self.n_best_size > len(self._all_nbest_json[str(i)]):
+                print(f"Warning! `n_best_size` {self.n_best_size} is greater than the actual number of answers {len(self._all_nbest_json[str(i)])}, only returning {len(self._all_nbest_json[str(i)])} answers")
+                rng = len(self._all_nbest_json[str(i)])
+            else:
+                rng = self.n_best_size
+            for j in range(rng):
                 o.update({j:self._all_nbest_json[str(i)][j]['text']})
             a.append(o)
         return a
@@ -250,7 +256,6 @@ class TransformersQuestionAnswering(AdaptiveModel):
             query = [query]
             context = [context]
         assert len(query) == len(context)
-
         examples = self._mini_squad_processor(query=query, context=context)
         features, dataset = squad_convert_examples_to_features(
             examples,

@@ -29,23 +29,6 @@ nb_path: "nbs/06a_tutorial.easy_sequence_classifier.ipynb"
 </div>
     {% endraw %}
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Sequence Classification (or Text Classification) is the NLP task of predicting a label for a sequence of words.</p>
@@ -266,16 +249,7 @@ nb_path: "nbs/06a_tutorial.easy_sequence_classifier.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2021-05-31 16:09:42,794 loading file nlptown/bert-base-multilingual-uncased-sentiment
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/opt/venv/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:2104: FutureWarning: The `pad_to_max_length` argument is deprecated and will be removed in a future version, use `padding=True` or `padding=&#39;longest&#39;` to pad to the longest sequence in the batch, or use `padding=&#39;max_length&#39;` to pad to a max length. In this case, you can give a specific length with `max_length` (e.g. `max_length=45`) or leave max_length to None to pad to the maximal input size of the model (e.g. 512 for Bert).
-  warnings.warn(
+<pre>2021-09-30 14:38:54,487 loading file nlptown/bert-base-multilingual-uncased-sentiment
 </pre>
 </div>
 </div>
@@ -314,9 +288,9 @@ nb_path: "nbs/06a_tutorial.easy_sequence_classifier.ipynb"
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Tag Score Outputs:
 
-Sentences: [&#34;This did n&#39;t work at all&#34;]
+Sentences: [&#34;This didn&#39;t work at all&#34;]
 
-Classes: [&#39;1 star&#39;]
+Predictions: [&#39;1 star&#39;]
 
 Probabilities: 
 	tensor([[8.4212e-01, 1.3793e-01, 1.8024e-02, 1.2419e-03, 6.8153e-04]])
@@ -419,9 +393,9 @@ Probabilities:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Tag Score Outputs:
 
-Sentences: [&#34;This did n&#39;t work well at all .&#34;, &#39;I really liked it .&#39;, &#39;It was really useful .&#39;, &#39;It broke after I bought it .&#39;]
+Sentences: [&#34;This didn&#39;t work well at all.&#34;, &#39;I really liked it.&#39;, &#39;It was really useful.&#39;, &#39;It broke after I bought it.&#39;]
 
-Classes: [&#39;1 star&#39;, &#39;4 stars&#39;, &#39;5 stars&#39;, &#39;1 star&#39;]
+Predictions: [&#39;1 star&#39;, &#39;4 stars&#39;, &#39;5 stars&#39;, &#39;1 star&#39;]
 
 Probabilities: 
 	tensor([[6.2198e-01, 3.3563e-01, 4.0320e-02, 1.5827e-03, 4.8790e-04],
@@ -549,9 +523,9 @@ Probabilities:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Tag Score Outputs:
 
-Sentences: [&#39;Das hat überhaupt nicht gut funktioniert .&#39;, &#39;Ich mochte es wirklich .&#39;, &#39;Es war wirklich nützlich .&#39;, &#39;Es ist kaputt gegangen , nachdem ich es gekauft habe .&#39;]
+Sentences: [&#39;Das hat überhaupt nicht gut funktioniert.&#39;, &#39;Ich mochte es wirklich.&#39;, &#39;Es war wirklich nützlich.&#39;, &#39;Es ist kaputt gegangen, nachdem ich es gekauft habe.&#39;]
 
-Classes: [&#39;negative&#39;, &#39;positive&#39;, &#39;positive&#39;, &#39;negative&#39;]
+Predictions: [&#39;negative&#39;, &#39;positive&#39;, &#39;positive&#39;, &#39;negative&#39;]
 
 Probabilities: 
 	tensor([[8.2706e-04, 9.9915e-01, 2.7373e-05],

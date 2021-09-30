@@ -29,23 +29,6 @@ nb_path: "nbs/10a_tutorial.question_answering.ipynb"
 </div>
     {% endraw %}
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Question-Answering">Question Answering<a class="anchor-link" href="#Question-Answering"> </a></h2><p>Question Answering is the NLP task of producing a legible answer from being provided two text inputs: the context and the question in regards to the context.</p>
@@ -154,8 +137,8 @@ nb_path: "nbs/10a_tutorial.question_answering.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>convert squad examples to features: 100%|██████████| 1/1 [00:00&lt;00:00, 45.86it/s]
-add example index and unique id: 100%|██████████| 1/1 [00:00&lt;00:00, 6574.14it/s]
+<pre>convert squad examples to features: 100%|██████████| 1/1 [00:00&lt;00:00, 40.63it/s]
+add example index and unique id: 100%|██████████| 1/1 [00:00&lt;00:00, 5146.39it/s]
 </pre>
 </div>
 </div>
@@ -205,7 +188,12 @@ add example index and unique id: 100%|██████████| 1/1 [00:00
 
 <div class="output_text output_subarea output_execute_result">
 <pre>{&#39;queries&#39;: [&#39;What does Amazon do?&#39;],
- &#39;best_answers&#39;: [&#39;disruption of well-established industries&#39;]}</pre>
+ &#39;best_answers&#39;: [OrderedDict([(0,
+                &#39;disruption of well-established industries&#39;),
+               (1, &#39;disruption&#39;),
+               (2, &#39;its disruption of well-established industries&#39;),
+               (3, &#39;its disruption&#39;),
+               (4, &#39;Amazon is known for its disruption&#39;)])]}</pre>
 </div>
 
 </div>
@@ -238,7 +226,11 @@ add example index and unique id: 100%|██████████| 1/1 [00:00
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;disruption of well-established industries&#39;]</pre>
+<pre>[OrderedDict([(0, &#39;disruption of well-established industries&#39;),
+              (1, &#39;disruption&#39;),
+              (2, &#39;its disruption of well-established industries&#39;),
+              (3, &#39;its disruption&#39;),
+              (4, &#39;Amazon is known for its disruption&#39;)])]</pre>
 </div>
 
 </div>
@@ -289,7 +281,12 @@ add example index and unique id: 100%|██████████| 1/1 [00:00
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">qa_model</span><span class="o">.</span><span class="n">predict_qa</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">questions</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="p">[</span><span class="n">context</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_best_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;distilbert-base-uncased-distilled-squad&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">qa_model</span><span class="o">.</span><span class="n">predict_qa</span><span class="p">(</span>
+    <span class="n">query</span><span class="o">=</span><span class="n">questions</span><span class="p">,</span> 
+    <span class="n">context</span><span class="o">=</span><span class="p">[</span><span class="n">context</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+    <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;distilbert-base-uncased-distilled-squad&quot;</span>
+<span class="p">)</span>
 </pre></div>
 
     </div>
@@ -302,8 +299,8 @@ add example index and unique id: 100%|██████████| 1/1 [00:00
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>convert squad examples to features: 100%|██████████| 3/3 [00:00&lt;00:00, 44.46it/s]
-add example index and unique id: 100%|██████████| 3/3 [00:00&lt;00:00, 15051.33it/s]
+<pre>convert squad examples to features: 100%|██████████| 3/3 [00:00&lt;00:00, 38.89it/s]
+add example index and unique id: 100%|██████████| 3/3 [00:00&lt;00:00, 15439.16it/s]
 </pre>
 </div>
 </div>
@@ -315,6 +312,14 @@ add example index and unique id: 100%|██████████| 3/3 [00:00
 
 </div>
 
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Warning! `n_best_size` 5 is greater than the actual number of answers 4, only returning 4 answers
+</pre>
+</div>
 </div>
 
 </div>
@@ -352,7 +357,20 @@ add example index and unique id: 100%|██████████| 3/3 [00:00
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;disruption of well-established industries&#39;, &#39;Jeff Bezos&#39;, &#39;$13.4 billion&#39;]</pre>
+<pre>[OrderedDict([(0, &#39;disruption of well-established industries&#39;),
+              (1, &#39;disruption&#39;),
+              (2, &#39;its disruption of well-established industries&#39;),
+              (3, &#39;its disruption&#39;),
+              (4, &#39;Amazon is known for its disruption&#39;)]),
+ OrderedDict([(0, &#39;Jeff Bezos&#39;),
+              (1, &#39;Amazon was founded by Jeff Bezos&#39;),
+              (2, &#39;founded by Jeff Bezos&#39;),
+              (3, &#39;Bezos&#39;)]),
+ OrderedDict([(0, &#39;$13.4 billion&#39;),
+              (1, &#39;13.4 billion&#39;),
+              (2, &#39;$13.4 billion,&#39;),
+              (3, &#39;13.4 billion,&#39;),
+              (4, &#39;$&#39;)])]</pre>
 </div>
 
 </div>
@@ -413,8 +431,8 @@ add example index and unique id: 100%|██████████| 3/3 [00:00
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>convert squad examples to features: 100%|██████████| 1/1 [00:00&lt;00:00, 46.65it/s]
-add example index and unique id: 100%|██████████| 1/1 [00:00&lt;00:00, 4681.14it/s]
+<pre>convert squad examples to features: 100%|██████████| 1/1 [00:00&lt;00:00, 57.00it/s]
+add example index and unique id: 100%|██████████| 1/1 [00:00&lt;00:00, 5077.85it/s]
 </pre>
 </div>
 </div>
@@ -457,7 +475,12 @@ add example index and unique id: 100%|██████████| 1/1 [00:00
 
 <div class="output_text output_subarea output_execute_result">
 <pre>{&#39;queries&#39;: [&#39;What does Amazon do?&#39;],
- &#39;best_answers&#39;: [&#39;disruption of well-established industries&#39;],
+ &#39;best_answers&#39;: [OrderedDict([(0,
+                &#39;disruption of well-established industries&#39;),
+               (1, &#39;disruption&#39;),
+               (2, &#39;its disruption of well-established industries&#39;),
+               (3, &#39;its disruption&#39;),
+               (4, &#39;Amazon is known for its disruption&#39;)])],
  &#39;pairings&#39;: OrderedDict([(&#39;What does Amazon do?&#39;,
                ((&#39;disruption of well-established industries&#39;,
                  &#39;disruption&#39;,
@@ -516,8 +539,8 @@ add example index and unique id: 100%|██████████| 1/1 [00:00
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>convert squad examples to features: 100%|██████████| 1/1 [00:00&lt;00:00, 48.58it/s]
-add example index and unique id: 100%|██████████| 1/1 [00:00&lt;00:00, 6260.16it/s]
+<pre>convert squad examples to features: 100%|██████████| 1/1 [00:00&lt;00:00, 53.25it/s]
+add example index and unique id: 100%|██████████| 1/1 [00:00&lt;00:00, 5592.41it/s]
 </pre>
 </div>
 </div>
@@ -560,7 +583,12 @@ add example index and unique id: 100%|██████████| 1/1 [00:00
 
 <div class="output_text output_subarea output_execute_result">
 <pre>{&#39;queries&#39;: [&#39;What does Amazon do?&#39;],
- &#39;best_answers&#39;: [&#39;disruption of well-established industries&#39;],
+ &#39;best_answers&#39;: [OrderedDict([(0,
+                &#39;disruption of well-established industries&#39;),
+               (1, &#39;disruption&#39;),
+               (2, &#39;its disruption of well-established industries&#39;),
+               (3, &#39;its disruption&#39;),
+               (4, &#39;Amazon is known for its disruption&#39;)])],
  &#39;pairings&#39;: OrderedDict([(&#39;What does Amazon do?&#39;,
                ((&#39;disruption of well-established industries&#39;,
                  &#39;disruption&#39;,
@@ -569,38 +597,38 @@ add example index and unique id: 100%|██████████| 1/1 [00:00
                  &#39;Amazon is known for its disruption&#39;),
                 tensor([0.6033, 0.2977, 0.0585, 0.0289, 0.0116])))]),
  &#39;context&#39;: &#34;Amazon.com, Inc.[6] (/ˈæməzɒn/), is an American multinational technology company based in Seattle, \nWashington that focuses on e-commerce, cloud computing, digital streaming, and artificial intelligence. \nIt is considered one of the Big Four technology companies along with Google, Apple, and Facebook.[7][8][9] \nAmazon is known for its disruption of well-established industries through technological innovation and mass \nscale.[10][11][12] It is the world&#39;s largest e-commerce marketplace, AI assistant provider, and cloud computing \nplatform[13] as measured by revenue and market capitalization.[14] Amazon is the largest Internet company by \nrevenue in the world.[15] It is the second largest private employer in the United States[16] and one of the world&#39;s \nmost valuable companies. Amazon is the second largest technology company by revenue. Amazon was founded by Jeff Bezos \non July 5, 1994, in Bellevue, Washington. The company initially started as an online marketplace for books but later \nexpanded to sell electronics, software, video games, apparel, furniture, food, toys, and jewelry. In 2015, Amazon \nsurpassed Walmart as the most valuable retailer in the United States by market capitalization.[17] In 2017, Amazon \nacquired Whole Foods Market for $13.4 billion, which vastly increased Amazon&#39;s presence as a brick-and-mortar \nretailer.[18] In 2018, Bezos announced that its two-day delivery service, Amazon Prime, had surpassed 100 million \nsubscribers worldwide\n&#34;,
- &#39;squad_example&#39;: [&lt;transformers.data.processors.squad.SquadExample at 0x7fa3636553a0&gt;],
+ &#39;squad_example&#39;: [&lt;transformers.data.processors.squad.SquadExample at 0x7f1d0a7aac40&gt;],
  &#39;n_best_json&#39;: OrderedDict([(&#39;0&#39;,
                [OrderedDict([(&#39;text&#39;,
                               &#39;disruption of well-established industries&#39;),
-                             (&#39;probability&#39;, 0.6033452454300696),
-                             (&#39;start_logit&#39;, 6.112517),
+                             (&#39;probability&#39;, 0.6033453867567354),
+                             (&#39;start_logit&#39;, 6.112513),
                              (&#39;end_logit&#39;, 4.161786),
                              (&#39;start_index&#39;, 45),
                              (&#39;end_index&#39;, 48)]),
                 OrderedDict([(&#39;text&#39;, &#39;disruption&#39;),
-                             (&#39;probability&#39;, 0.2976601300650915),
-                             (&#39;start_logit&#39;, 6.112517),
-                             (&#39;end_logit&#39;, 3.4552488),
+                             (&#39;probability&#39;, 0.2976593481770998),
+                             (&#39;start_logit&#39;, 6.112513),
+                             (&#39;end_logit&#39;, 3.4552462),
                              (&#39;start_index&#39;, 45),
                              (&#39;end_index&#39;, 45)]),
                 OrderedDict([(&#39;text&#39;,
                               &#39;its disruption of well-established industries&#39;),
-                             (&#39;probability&#39;, 0.058525787061892556),
-                             (&#39;start_logit&#39;, 3.7794955),
+                             (&#39;probability&#39;, 0.0585262472890109),
+                             (&#39;start_logit&#39;, 3.779499),
                              (&#39;end_logit&#39;, 4.161786),
                              (&#39;start_index&#39;, 44),
                              (&#39;end_index&#39;, 48)]),
                 OrderedDict([(&#39;text&#39;, &#39;its disruption&#39;),
-                             (&#39;probability&#39;, 0.028873673109973873),
-                             (&#39;start_logit&#39;, 3.7794955),
-                             (&#39;end_logit&#39;, 3.4552488),
+                             (&#39;probability&#39;, 0.02887381755406165),
+                             (&#39;start_logit&#39;, 3.779499),
+                             (&#39;end_logit&#39;, 3.4552462),
                              (&#39;start_index&#39;, 44),
                              (&#39;end_index&#39;, 45)]),
                 OrderedDict([(&#39;text&#39;, &#39;Amazon is known for its disruption&#39;),
-                             (&#39;probability&#39;, 0.01159516433297233),
-                             (&#39;start_logit&#39;, 2.8671532),
-                             (&#39;end_logit&#39;, 3.4552488),
+                             (&#39;probability&#39;, 0.011595200223092338),
+                             (&#39;start_logit&#39;, 2.8671546),
+                             (&#39;end_logit&#39;, 3.4552462),
                              (&#39;start_index&#39;, 40),
                              (&#39;end_index&#39;, 45)])])])}</pre>
 </div>

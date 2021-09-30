@@ -29,23 +29,6 @@ nb_path: "nbs/04a_tutorial.embeddings.ipynb"
 </div>
     {% endraw %}
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Finding-Available-Models-with-Hubs">Finding Available Models with Hubs<a class="anchor-link" href="#Finding-Available-Models-with-Hubs"> </a></h2><p>We can search for available models to utilize with Embeddings with the <a href="/adaptnlp/model_hub.html#HFModelHub"><code>HFModelHub</code></a> and <a href="/adaptnlp/model_hub.html#FlairModelHub"><code>FlairModelHub</code></a>. We'll see an example below:</p>
@@ -230,6 +213,24 @@ nb_path: "nbs/04a_tutorial.embeddings.ipynb"
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+
+
+
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -346,8 +347,20 @@ nb_path: "nbs/04a_tutorial.embeddings.ipynb"
 
 <div class="output_area">
 
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+
+
+
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>Some weights of the model checkpoint at bert-base-cased-finetuned-mrpc were not used when initializing BertModel: [&#39;classifier.weight&#39;, &#39;classifier.bias&#39;]
+<pre>Some weights of the model checkpoint at bert-base-cased-finetuned-mrpc were not used when initializing BertModel: [&#39;classifier.bias&#39;, &#39;classifier.weight&#39;]
 - This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
 - This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
 </pre>
@@ -666,7 +679,7 @@ nb_path: "nbs/04a_tutorial.embeddings.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>Some weights of the model checkpoint at distilroberta-base were not used when initializing RobertaModel: [&#39;lm_head.decoder.weight&#39;, &#39;lm_head.dense.bias&#39;, &#39;lm_head.dense.weight&#39;, &#39;lm_head.layer_norm.weight&#39;, &#39;lm_head.layer_norm.bias&#39;, &#39;lm_head.bias&#39;]
+<pre>Some weights of the model checkpoint at distilroberta-base were not used when initializing RobertaModel: [&#39;lm_head.decoder.weight&#39;, &#39;lm_head.layer_norm.weight&#39;, &#39;lm_head.bias&#39;, &#39;lm_head.dense.weight&#39;, &#39;lm_head.layer_norm.bias&#39;, &#39;lm_head.dense.bias&#39;]
 - This IS expected if you are initializing RobertaModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
 - This IS NOT expected if you are initializing RobertaModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
 </pre>
@@ -751,7 +764,7 @@ Embedding: torch.Size([768])
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>Some weights of the model checkpoint at bert-base-cased-finetuned-mrpc were not used when initializing BertModel: [&#39;classifier.weight&#39;, &#39;classifier.bias&#39;]
+<pre>Some weights of the model checkpoint at bert-base-cased-finetuned-mrpc were not used when initializing BertModel: [&#39;classifier.bias&#39;, &#39;classifier.weight&#39;]
 - This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
 - This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
 </pre>
@@ -773,7 +786,7 @@ Embedding: torch.Size([768])
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>Some weights of the model checkpoint at distilbert-base-cased-distilled-squad were not used when initializing DistilBertModel: [&#39;qa_outputs.weight&#39;, &#39;qa_outputs.bias&#39;]
+<pre>Some weights of the model checkpoint at distilbert-base-cased-distilled-squad were not used when initializing DistilBertModel: [&#39;qa_outputs.bias&#39;, &#39;qa_outputs.weight&#39;]
 - This IS expected if you are initializing DistilBertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
 - This IS NOT expected if you are initializing DistilBertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
 </pre>
@@ -876,10 +889,10 @@ Embedding: tensor([-0.6795, -0.2041,  1.0153,  ...,  0.2426, -0.2324,  0.3107])
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>Some weights of the model checkpoint at bert-base-cased-finetuned-mrpc were not used when initializing BertModel: [&#39;classifier.weight&#39;, &#39;classifier.bias&#39;]
+<pre>Some weights of the model checkpoint at bert-base-cased-finetuned-mrpc were not used when initializing BertModel: [&#39;classifier.bias&#39;, &#39;classifier.weight&#39;]
 - This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
 - This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
-Some weights of the model checkpoint at distilbert-base-cased-distilled-squad were not used when initializing DistilBertModel: [&#39;qa_outputs.weight&#39;, &#39;qa_outputs.bias&#39;]
+Some weights of the model checkpoint at distilbert-base-cased-distilled-squad were not used when initializing DistilBertModel: [&#39;qa_outputs.bias&#39;, &#39;qa_outputs.weight&#39;]
 - This IS expected if you are initializing DistilBertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
 - This IS NOT expected if you are initializing DistilBertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
 </pre>

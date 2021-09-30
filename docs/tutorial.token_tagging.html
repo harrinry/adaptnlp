@@ -29,23 +29,6 @@ nb_path: "nbs/05a_tutorial.token_tagging.ipynb"
 </div>
     {% endraw %}
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We'll import the <code>adaptnlp</code> <a href="/adaptnlp/token_classification.html#EasyTokenTagger"><code>EasyTokenTagger</code></a> class:</p>
@@ -189,16 +172,13 @@ nb_path: "nbs/05a_tutorial.token_tagging.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2021-04-20 16:39:49,456 loading file /root/.flair/models/tiny-dbmdz-bert-large-cased-finetuned-conll03-english/1e2c09da4ad5b3257008353a87852a7148389cc8308b91cf837f066b95650a0d.595173de82e795b5e4022dca79d10d885137a50ed2ee3974f15a75d328c0cd0a
-</pre>
-</div>
-</div>
+<pre>
+2021-09-30 14:28:39,817 loading file /root/.flair/models/tiny-dbmdz-bert-large-cased-finetuned-conll03-english/1e2c09da4ad5b3257008353a87852a7148389cc8308b91cf837f066b95650a0d.595173de82e795b5e4022dca79d10d885137a50ed2ee3974f15a75d328c0cd0a
 
-<div class="output_area">
 
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/opt/venv/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:2073: FutureWarning: The `pad_to_max_length` argument is deprecated and will be removed in a future version, use `padding=True` or `padding=&#39;longest&#39;` to pad to the longest sequence in the batch, or use `padding=&#39;max_length&#39;` to pad to a max length. In this case, you can give a specific length with `max_length` (e.g. `max_length=45`) or leave max_length to None to pad to the maximal input size of the model (e.g. 512 for Bert).
-  warnings.warn(
+
+
+
 </pre>
 </div>
 </div>
@@ -282,58 +262,7 @@ nb_path: "nbs/05a_tutorial.token_tagging.ipynb"
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>List string outputs of tags:
 
-[{&#39;entity_group&#39;: &#39;I-LOC&#39;,
-  &#39;offsets&#39;: (-1, 2),
-  &#39;score&#39;: 0.11716679483652115,
-  &#39;word&#39;: &#39;[CLS] Novetta&#39;},
- {&#39;entity_group&#39;: &#39;B-ORG&#39;,
-  &#39;offsets&#39;: (2, 3),
-  &#39;score&#39;: 0.11758644878864288,
-  &#39;word&#39;: &#39;Solutions&#39;},
- {&#39;entity_group&#39;: &#39;I-LOC&#39;,
-  &#39;offsets&#39;: (3, 5),
-  &#39;score&#39;: 0.11716679483652115,
-  &#39;word&#39;: &#39;is the&#39;},
- {&#39;entity_group&#39;: &#39;B-ORG&#39;,
-  &#39;offsets&#39;: (5, 6),
-  &#39;score&#39;: 0.11758644878864288,
-  &#39;word&#39;: &#39;best&#39;},
- {&#39;entity_group&#39;: &#39;I-LOC&#39;,
-  &#39;offsets&#39;: (6, 13),
-  &#39;score&#39;: 0.11716679483652115,
-  &#39;word&#39;: &#39;. Albert Einstein used to be employed&#39;},
- {&#39;entity_group&#39;: &#39;B-ORG&#39;,
-  &#39;offsets&#39;: (13, 15),
-  &#39;score&#39;: 0.11758644878864288,
-  &#39;word&#39;: &#39;at Nov&#39;},
- {&#39;entity_group&#39;: &#39;I-LOC&#39;,
-  &#39;offsets&#39;: (15, 24),
-  &#39;score&#39;: 0.11716679483652115,
-  &#39;word&#39;: &#39;##etta Solutions. The Wright brothers loved to visit&#39;},
- {&#39;entity_group&#39;: &#39;B-ORG&#39;,
-  &#39;offsets&#39;: (24, 25),
-  &#39;score&#39;: 0.11758644878864288,
-  &#39;word&#39;: &#39;the&#39;},
- {&#39;entity_group&#39;: &#39;I-LOC&#39;,
-  &#39;offsets&#39;: (25, 27),
-  &#39;score&#39;: 0.11716679483652115,
-  &#39;word&#39;: &#39;JBF&#39;},
- {&#39;entity_group&#39;: &#39;B-ORG&#39;,
-  &#39;offsets&#39;: (27, 28),
-  &#39;score&#39;: 0.11758644878864288,
-  &#39;word&#39;: &#39;headquarters&#39;},
- {&#39;entity_group&#39;: &#39;I-LOC&#39;,
-  &#39;offsets&#39;: (28, 31),
-  &#39;score&#39;: 0.11716679483652115,
-  &#39;word&#39;: &#39;, and they&#39;},
- {&#39;entity_group&#39;: &#39;B-ORG&#39;,
-  &#39;offsets&#39;: (31, 32),
-  &#39;score&#39;: 0.11758644878864288,
-  &#39;word&#39;: &#39;would&#39;},
- {&#39;entity_group&#39;: &#39;I-LOC&#39;,
-  &#39;offsets&#39;: (32, 39),
-  &#39;score&#39;: 0.11716679483652115,
-  &#39;word&#39;: &#39;have a chat with Albert. [SEP]&#39;}]
+&#39;tags&#39;
 </pre>
 </div>
 </div>
@@ -491,7 +420,8 @@ nb_path: "nbs/05a_tutorial.token_tagging.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2021-04-20 16:39:53,487 loading file /root/.flair/models/ner-english-ontonotes-fast/0d55dd3b912da9cf26e003035a0c269a0e9ab222f0be1e48a3bbba3a58c0fed0.c9907cd5fde3ce84b71a4172e7ca03841cd81ab71d13eb68aa08b259f57c00b6
+<pre>
+2021-09-30 14:29:03,863 loading file /root/.flair/models/ner-english-ontonotes-fast/0d55dd3b912da9cf26e003035a0c269a0e9ab222f0be1e48a3bbba3a58c0fed0.c9907cd5fde3ce84b71a4172e7ca03841cd81ab71d13eb68aa08b259f57c00b6
 </pre>
 </div>
 </div>
@@ -787,7 +717,8 @@ Span [34]: &#34;Albert&#34;   [− Labels: PERSON (0.9979)]
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2021-04-20 16:39:58,139 loading file /root/.flair/models/pos-english-fast/36f7923039eed4c66e4275927daaff6cd275997d61d238355fb1fe0338fe10a1.ff87e5b4e47fdb42a0c00237d9506c671db773e0a7932179ace82e584383a1b8
+<pre>
+2021-09-30 14:29:10,760 loading file /root/.flair/models/pos-english-fast/36f7923039eed4c66e4275927daaff6cd275997d61d238355fb1fe0338fe10a1.ff87e5b4e47fdb42a0c00237d9506c671db773e0a7932179ace82e584383a1b8
 </pre>
 </div>
 </div>
@@ -1205,7 +1136,8 @@ Span [35]: &#34;.&#34;   [− Labels: . (0.9999)]
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2021-04-20 16:39:58,442 loading file /root/.flair/models/chunk-english-fast/be3a207f4993dd6d174d5083341a717d371ec16f721358e7a4d72158ebab28a6.a7f897d05c83e618a8235bbb7ddfca5a79d2daefb8a97c776eb73f97dbaea508
+<pre>
+2021-09-30 14:29:12,761 loading file /root/.flair/models/chunk-english-fast/be3a207f4993dd6d174d5083341a717d371ec16f721358e7a4d72158ebab28a6.a7f897d05c83e618a8235bbb7ddfca5a79d2daefb8a97c776eb73f97dbaea508
 </pre>
 </div>
 </div>
@@ -1418,7 +1350,8 @@ Span [34]: &#34;Albert&#34;   [− Labels: NP (0.9995)]
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2021-04-20 16:39:58,687 loading file /root/.flair/models/frame-english-fast/b2f10f9bc52898d86d8e6f3bf20369d681cc1e9badcb71650aa274ac696433c7.643ca10453770684aca3f2e886a7243adb2979c67a68de6379e50ccf5dc248da
+<pre>
+2021-09-30 14:29:16,367 loading file /root/.flair/models/frame-english-fast/b2f10f9bc52898d86d8e6f3bf20369d681cc1e9badcb71650aa274ac696433c7.643ca10453770684aca3f2e886a7243adb2979c67a68de6379e50ccf5dc248da
 </pre>
 </div>
 </div>
@@ -1508,13 +1441,14 @@ Novetta Solutions is &lt;be.01&gt; the best . Albert Einstein used &lt;use.03&gt
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2021-04-20 16:39:59,530 --------------------------------------------------------------------------------
-2021-04-20 16:39:59,531 The model key &#39;ner-ontonotes&#39; now maps to &#39;https://huggingface.co/flair/ner-english-ontonotes&#39; on the HuggingFace ModelHub
-2021-04-20 16:39:59,531  - The most current version of the model is automatically downloaded from there.
-2021-04-20 16:39:59,532  - (you can alternatively manually download the original model at https://nlp.informatik.hu-berlin.de/resources/models/ner-ontonotes/en-ner-ontonotes-v0.4.pt)
-2021-04-20 16:39:59,532 --------------------------------------------------------------------------------
-2021-04-20 16:39:59,551 loading file /root/.flair/models/ner-english-ontonotes/f46dcd14689a594a7dd2a8c9c001a34fd55b02fded2528410913c7e88dbe43d4.1207747bf5ae24291205b6f3e7417c8bedd5c32cacfb5a439f3eff38afda66f7
-2021-04-20 16:40:04,606 loading file /root/.flair/models/pos-english-fast/36f7923039eed4c66e4275927daaff6cd275997d61d238355fb1fe0338fe10a1.ff87e5b4e47fdb42a0c00237d9506c671db773e0a7932179ace82e584383a1b8
+<pre>2021-09-30 14:29:17,479 --------------------------------------------------------------------------------
+2021-09-30 14:29:17,480 The model key &#39;ner-ontonotes&#39; now maps to &#39;https://huggingface.co/flair/ner-english-ontonotes&#39; on the HuggingFace ModelHub
+2021-09-30 14:29:17,480  - The most current version of the model is automatically downloaded from there.
+2021-09-30 14:29:17,481  - (you can alternatively manually download the original model at https://nlp.informatik.hu-berlin.de/resources/models/ner-ontonotes/en-ner-ontonotes-v0.4.pt)
+2021-09-30 14:29:17,481 --------------------------------------------------------------------------------
+
+2021-09-30 14:29:56,400 loading file /root/.flair/models/ner-english-ontonotes/f46dcd14689a594a7dd2a8c9c001a34fd55b02fded2528410913c7e88dbe43d4.1207747bf5ae24291205b6f3e7417c8bedd5c32cacfb5a439f3eff38afda66f7
+2021-09-30 14:30:03,698 loading file /root/.flair/models/pos-english-fast/36f7923039eed4c66e4275927daaff6cd275997d61d238355fb1fe0338fe10a1.ff87e5b4e47fdb42a0c00237d9506c671db773e0a7932179ace82e584383a1b8
 </pre>
 </div>
 </div>
@@ -1552,7 +1486,7 @@ Novetta Solutions is &lt;be.01&gt; the best . Albert Einstein used &lt;use.03&gt
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2021-04-20 16:40:04,886 loading file /root/.flair/models/pos-english-fast/36f7923039eed4c66e4275927daaff6cd275997d61d238355fb1fe0338fe10a1.ff87e5b4e47fdb42a0c00237d9506c671db773e0a7932179ace82e584383a1b8
+<pre>2021-09-30 14:30:06,447 loading file /root/.flair/models/pos-english-fast/36f7923039eed4c66e4275927daaff6cd275997d61d238355fb1fe0338fe10a1.ff87e5b4e47fdb42a0c00237d9506c671db773e0a7932179ace82e584383a1b8
 </pre>
 </div>
 </div>
