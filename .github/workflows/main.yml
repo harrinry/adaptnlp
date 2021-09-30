@@ -22,7 +22,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        py: [3.6,3.7,3.8]
+        py: [3.8]
+        nb_dec : ['[0]','[1]']
+        nb_unit: ['[0-2]','[3-5]','[6-9]']
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -50,6 +52,6 @@ jobs:
     - name: Check if there is no diff library/notebooks
       run: |
         if [ -n "$(nbdev_diff_nbs)" ]; then echo -e "!!! Detected difference between the notebooks and the library"; false; fi
-    - name: Run tests
-      run: |
-        nbdev_test_nbs
+        
+    - name: Test notebooks batch ${{matrix.nb_dec}}${{matrix.nb_unit}}
+      run: nbdev_test_nbs --flags '' --n_workers 3 --pause 1.0 --fname "nbs/${{matrix.nb_dec}}${{matrix.nb_unit}}*.ipynb"
