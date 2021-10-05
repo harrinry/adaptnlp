@@ -14,6 +14,8 @@ from torch.utils.data import TensorDataset
 
 from flair.data import Sentence
 from flair.models import SequenceTagger
+from flair.tokenization import SegtokSentenceSplitter
+
 from transformers import (
     AutoTokenizer,
     AutoModelForTokenClassification,
@@ -31,7 +33,7 @@ from ..model_hub import HFModelResult, FlairModelResult, FlairModelHub, HFModelH
 
 from fastai.torch_core import to_detach, apply, to_device
 
-from fastcore.basics import Self, risinstance
+from fastcore.basics import Self, risinstance, filter_ex, listify
 from fastcore.xtras import Path
 
 # Cell
@@ -275,6 +277,7 @@ class FlairTokenTagger(AdaptiveModel):
         model_name_or_path: str # A key string of one of Flair's pre-trained Token tagger Model, [link](https://huggingface.co/models?filter=flair)
     ):
         self.tagger = SequenceTagger.load(model_name_or_path)
+        self.splitter = SegtokSentenceSplitter()
 
     @classmethod
     def load(
@@ -285,24 +288,78 @@ class FlairTokenTagger(AdaptiveModel):
         tagger = cls(model_name_or_path)
         return tagger
 
+    def _split_articles(self, tagged_articles):
+        "Takes merged NER results and splits them back out into their original articles"
+        all_payloads = []
+        for article in tagged_articles:
+            payload = [sentence.to_dict(tag_type=self.tagger.tag_type) for sentence in article]
+            curr_pos = 0
+            new_payload = {}
+            new_payload['entities'] = []
+            new_payload['labels'] = []
+            text = ''
+            for i, pay in enumerate(payload):
+                entities = pay['entities']
+                for e in entities:
+                    labels = e['labels']
+                    d = labels[0].to_dict()
+                    e['value'] = d['value']
+                    e['confidence'] = d['confidence']
+
+                if i > 0:
+                    for e in entities:
+                        # Get back the original positions
+                        e['start_pos'] += curr_length
+                        e['end_pos'] += curr_length
+
+                text += pay['text'] + ' '
+                curr_length = len(text)
+                new_payload['entities'] += entities
+                if len(entities) > 0:
+                    new_payload['labels'].append(entities)
+            new_payload['text'] = text
+            all_payloads.append(new_payload)
+        return all_payloads
+
+    def decode_articles(
+        self,
+        original_text: Union[List[str], str], # Original text inference was run on
+        sentences: List[Sentence] # Sentences inference was run on
+    ) -> List[dict]:
+        "Decodes `text` back into articles and extracts entities"
+        if not isinstance(original_text, list):
+            original_text = [original_text]
+        for i,sentence in enumerate(original_text):
+            if isinstance(sentence, Sentence):
+                text[i] = sentence.to_original_text()
+        tagged_articles = [[] for _ in range(len(original_text))]
+        for sentence in sentences:
+            for i, article in enumerate(original_text):
+                if sentence.to_original_text() in article:
+                    tagged_articles[i].append(sentence)
+        return self._split_articles(tagged_articles)
+
     def predict(
         self,
         text: Union[List[Sentence], Sentence, List[str], str], # Sentences to run inference on
         mini_batch_size: int = 32, # Mini batch size
+        raw:bool = False, # Whether to return a list of raw Sentences
         **kwargs, # Optional arguments for the Flair tagger
     ) -> List[Sentence]: # A list of predicted sentences
         "Predict method for running inference using the pre-trained token tagger model"
-
-        if isinstance(text, (Sentence, str)):
+        if not isinstance(text, list):
             text = [text]
-        if isinstance(text[0], str):
-            text = [Sentence(s) for s in text]
-        self.tagger.predict(
-            sentences=text,
-            mini_batch_size=mini_batch_size,
-            **kwargs,
-        )
-        return text
+        for i,sentence in enumerate(text):
+            if isinstance(sentence, Sentence):
+                text[i] = sentence.to_original_text()
+        tagged_articles = [[] for _ in range(len(text))]
+        t = '\n'.join(text)
+        sentences = self.splitter.split(t)
+        self.tagger.predict(sentences, mini_batch_size=mini_batch_size, **kwargs)
+
+        if not raw:
+            return self.decode_articles(text, sentences)
+        return sentences
 
 # Cell
 class EasyTokenTagger:
@@ -378,17 +435,67 @@ class EasyTokenTagger:
         mini_batch_size: int = 32, # The mini batch size for running inference
         detail_level:DetailLevel = DetailLevel.Low, # The level of detail for a TransformersTagger to return
         **kwargs, # Keyword arguments for Flair's `SequenceTagger.predict()` method
-    ) -> List[Sentence]: # A list of Flair's `Sentence`'s
+    ) -> List[dict]: # A dictionary of Token Tagging results
         "Tags tokens with all labels from all token classification models"
         if len(self.token_taggers) == 0:
             print("No token classification models loaded...")
             return Sentence()
-        sentences = text
-        for tagger_name in self.token_taggers.keys():
-            sentences = self.tag_text(
-                sentences,
-                model_name_or_path=tagger_name,
-                mini_batch_size=mini_batch_size,
-                **kwargs,
+        if not isinstance(text, list):
+            text = [text]
+        results = []
+        all_models = [o for o in list(self.token_taggers.keys()) if self.token_taggers[o]]
+        for tagger_name in all_models:
+            results.append(
+                self.tag_text(
+                    text,
+                    model_name_or_path=tagger_name,
+                    mini_batch_size=mini_batch_size,
+                    **kwargs,
+                )
             )
-        return sentences
+        tag_results = [{'entities':[], 'labels':[], 'text':None} for _ in range(len(results[0]))]
+        for tag in results:
+            for i, inp in enumerate(tag):
+                if not tag_results[i]['text']:
+                    tag_results[i]['text'] = inp['text']
+                if 'entities' in inp:
+                    if len(inp['entities']) > 0:
+                        tag_results[i]['entities'] += inp['entities']
+                if 'labels' in inp:
+                    if len(inp['labels']) > 0:
+                        tag_results[i]['labels'] += inp['labels']
+
+        all_results = []
+        for result in tag_results:
+            res = []
+            for entity in result['entities']:
+                unique_entities = []
+                new_entity = {
+                    'text':entity['text'],
+                    'start_pos':entity['start_pos'],
+                    'end_pos':entity['end_pos']}
+
+                if new_entity not in unique_entities:
+                    unique_entities.append(new_entity)
+                if len(unique_entities) > 0:
+                    merged = []
+                    for entity in unique_entities:
+                        instances = filter_ex(
+                                result['entities'],
+                                lambda x: (
+                                    x['text'] == entity['text'] and \
+                                    x['start_pos'] == entity['start_pos'] and \
+                                    x['end_pos'] == entity['end_pos']
+                                )
+                            )
+                        attrs = ('labels','value','confidence')
+                        for attr in attrs:
+                            entity[attr] = []
+                        for instance in instances:
+                            for attr in attrs:
+                                if attr in instance.keys():
+                                    entity[attr] += listify(instance[attr])
+                    merged = sorted(unique_entities, key=lambda x: x['start_pos'])
+                    res += merged
+            all_results.append(res)
+        return all_results
