@@ -51,7 +51,7 @@ async def root():
 async def token_tagger(token_tagging_request: TokenTaggingRequest):
     text = token_tagging_request.text
     sentences = _TOKEN_TAGGER.tag_text(
-        text=text, model_name_or_path=_TOKEN_TAGGING_MODEL
+        text=text, model_name_or_path=_TOKEN_TAGGING_MODEL, mini_batch_size=32
     )
 
     # Check if transformers model return type
@@ -69,7 +69,7 @@ async def token_tagger(token_tagging_request: TokenTaggingRequest):
                 e["confidence"] = e["score"]
         return payload
     
-    return payload
+    return sentences
 
 
 if __name__ == "__main__":

@@ -19,7 +19,7 @@ class Entities(BaseModel):
 
 # Token Tagging Data Model
 class TokenTaggingRequest(BaseModel):
-    text: str
+    text: List[str]
 
 
 class TokenTaggingResponse(BaseModel):

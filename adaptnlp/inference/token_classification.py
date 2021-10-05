@@ -315,8 +315,6 @@ class FlairTokenTagger(AdaptiveModel):
                 text += pay['text'] + ' '
                 curr_length = len(text)
                 new_payload['entities'] += entities
-                if len(entities) > 0:
-                    new_payload['labels'].append(entities)
             new_payload['text'] = text
             all_payloads.append(new_payload)
         return all_payloads
@@ -426,6 +424,7 @@ class EasyTokenTagger:
             return tagger.predict(
                 text=text,
                 mini_batch_size=mini_batch_size,
+                raw=False,
                 **kwargs,
             )
 
