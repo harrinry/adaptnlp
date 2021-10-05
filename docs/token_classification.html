@@ -54,7 +54,7 @@ nb_path: "nbs/05_token_classification.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="TokenClassificationResult" class="doc_header"><code>class</code> <code>TokenClassificationResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L41" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TokenClassificationResult</code>(<strong><code>inputs</code></strong>:<code>str</code>, <strong><code>tokenized_inputs</code></strong>:<code>tensor</code>, <strong><code>tagged_entities</code></strong>:<code>dict</code>)</p>
+<h2 id="TokenClassificationResult" class="doc_header"><code>class</code> <code>TokenClassificationResult</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L43" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TokenClassificationResult</code>(<strong><code>inputs</code></strong>:<code>str</code>, <strong><code>tokenized_inputs</code></strong>:<code>tensor</code>, <strong><code>tagged_entities</code></strong>:<code>dict</code>)</p>
 </blockquote>
 <p>A result class for Token Tagging tasks</p>
 <p><strong>Parameters:</strong></p>
@@ -62,7 +62,7 @@ nb_path: "nbs/05_token_classification.ipynb"
 <li><strong><code>inputs</code></strong> : <em><code>&lt;class 'str'&gt;</code></em> <p>Original text inputs</p></li>
 </ul>
 <ul>
-<li><strong><code>tokenized_inputs</code></strong> : <em><code>&lt;built-in method tensor of type object at 0x7fa2996f4ec0&gt;</code></em>   <p>Tokenized inputs</p></li>
+<li><strong><code>tokenized_inputs</code></strong> : <em><code>&lt;built-in method tensor of type object at 0x7f8bbf1adec0&gt;</code></em>   <p>Tokenized inputs</p></li>
 </ul>
 <ul>
 <li><strong><code>tagged_entities</code></strong> : <em><code>&lt;class 'dict'&gt;</code></em></li>
@@ -96,7 +96,7 @@ nb_path: "nbs/05_token_classification.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TokenClassificationResult.to_dict" class="doc_header"><code>TokenClassificationResult.to_dict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L53" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TokenClassificationResult.to_dict</code>(<strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>)</p>
+<h4 id="TokenClassificationResult.to_dict" class="doc_header"><code>TokenClassificationResult.to_dict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L55" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TokenClassificationResult.to_dict</code>(<strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>)</p>
 </blockquote>
 <p>Convert <code>self</code> to a dictionary</p>
 <p><strong>Parameters:</strong></p>
@@ -129,7 +129,7 @@ nb_path: "nbs/05_token_classification.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="TransformersTokenTagger" class="doc_header"><code>class</code> <code>TransformersTokenTagger</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L76" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersTokenTagger</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
+<h2 id="TransformersTokenTagger" class="doc_header"><code>class</code> <code>TransformersTokenTagger</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L78" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TransformersTokenTagger</code>(<strong><code>tokenizer</code></strong>:<code>PreTrainedTokenizer</code>, <strong><code>model</code></strong>:<code>PreTrainedModel</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
 </blockquote>
 <p>Adaptive model for Transformer's Token Tagger Model</p>
 <p><strong>Parameters:</strong></p>
@@ -168,7 +168,7 @@ nb_path: "nbs/05_token_classification.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TransformersTokenTagger.load" class="doc_header"><code>TransformersTokenTagger.load</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L90" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TransformersTokenTagger.load</code>(<strong><code>model_name_or_path</code></strong>:<code>str</code>)</p>
+<h4 id="TransformersTokenTagger.load" class="doc_header"><code>TransformersTokenTagger.load</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L92" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TransformersTokenTagger.load</code>(<strong><code>model_name_or_path</code></strong>:<code>str</code>)</p>
 </blockquote>
 <p>Class method for loading and constructing this tagger</p>
 <p><strong>Parameters:</strong></p>
@@ -201,7 +201,7 @@ nb_path: "nbs/05_token_classification.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="TransformersTokenTagger.predict" class="doc_header"><code>TransformersTokenTagger.predict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L102" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TransformersTokenTagger.predict</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>str</code>], <code>str</code>], <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong><code>grouped_entities</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="TransformersTokenTagger.predict" class="doc_header"><code>TransformersTokenTagger.predict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L104" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>TransformersTokenTagger.predict</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>str</code>], <code>str</code>], <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong><code>grouped_entities</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Predict method for running inference using the pre-trained token tagger model</p>
 <p><strong>Parameters:</strong></p>
@@ -246,7 +246,7 @@ nb_path: "nbs/05_token_classification.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="FlairTokenTagger" class="doc_header"><code>class</code> <code>FlairTokenTagger</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L270" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FlairTokenTagger</code>(<strong><code>model_name_or_path</code></strong>:<code>str</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
+<h2 id="FlairTokenTagger" class="doc_header"><code>class</code> <code>FlairTokenTagger</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L272" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FlairTokenTagger</code>(<strong><code>model_name_or_path</code></strong>:<code>str</code>) :: <a href="/adaptnlp/model.html#AdaptiveModel"><code>AdaptiveModel</code></a></p>
 </blockquote>
 <p>Adaptive Model for Flair's Token Tagger</p>
 <p><strong>Parameters:</strong></p>
@@ -274,6 +274,39 @@ nb_path: "nbs/05_token_classification.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">preds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 <div class="output_wrapper">
 <div class="output">
@@ -282,7 +315,7 @@ nb_path: "nbs/05_token_classification.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="FlairTokenTagger.load" class="doc_header"><code>FlairTokenTagger.load</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L279" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FlairTokenTagger.load</code>(<strong><code>model_name_or_path</code></strong>:<code>str</code>)</p>
+<h4 id="FlairTokenTagger.load" class="doc_header"><code>FlairTokenTagger.load</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L282" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FlairTokenTagger.load</code>(<strong><code>model_name_or_path</code></strong>:<code>str</code>)</p>
 </blockquote>
 <p>Class method for loading a constructing this tagger</p>
 <p><strong>Parameters:</strong></p>
@@ -315,7 +348,7 @@ nb_path: "nbs/05_token_classification.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="FlairTokenTagger.predict" class="doc_header"><code>FlairTokenTagger.predict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L288" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FlairTokenTagger.predict</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="FlairTokenTagger.predict" class="doc_header"><code>FlairTokenTagger.predict</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L340" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FlairTokenTagger.predict</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong><code>raw</code></strong>:<code>bool</code>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Predict method for running inference using the pre-trained token tagger model</p>
 <p><strong>Parameters:</strong></p>
@@ -324,6 +357,9 @@ nb_path: "nbs/05_token_classification.ipynb"
 </ul>
 <ul>
 <li><strong><code>mini_batch_size</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em>    <p>Mini batch size</p></li>
+</ul>
+<ul>
+<li><strong><code>raw</code></strong> : <em><code>&lt;class 'bool'&gt;</code></em>, <em>optional</em>   <p>Whether to return a list of raw Sentences</p></li>
 </ul>
 <ul>
 <li><strong><code>kwargs</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
@@ -354,7 +390,7 @@ nb_path: "nbs/05_token_classification.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="EasyTokenTagger" class="doc_header"><code>class</code> <code>EasyTokenTagger</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L308" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyTokenTagger</code>()</p>
+<h2 id="EasyTokenTagger" class="doc_header"><code>class</code> <code>EasyTokenTagger</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L363" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EasyTokenTagger</code>()</p>
 </blockquote>
 <p>Token level classification models</p>
 
@@ -378,6 +414,42 @@ nb_path: "nbs/05_token_classification.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tagger</span> <span class="o">=</span> <span class="n">EasyTokenTagger</span><span class="p">()</span>
+<span class="n">sentences</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Jack walked through the park on a Sunday.&quot;</span><span class="p">,</span> <span class="s2">&quot;Sunday was a nice and breezy afternoon.&quot;</span><span class="p">,</span> <span class="s2">&quot;Jack was going to meet Jill for dinner.&quot;</span><span class="p">]</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">sentences</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s1">&#39;flair/ner-english-ontonotes&#39;</span><span class="p">)</span>
+<span class="n">tagger</span><span class="o">.</span><span class="n">tag_text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">sentences</span><span class="p">,</span> <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;flair/pos&quot;</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">tagger</span><span class="o">.</span><span class="n">tag_all</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2021-10-05 20:24:53,169 loading file /root/.flair/models/ner-english-ontonotes-fast/0d55dd3b912da9cf26e003035a0c269a0e9ab222f0be1e48a3bbba3a58c0fed0.c9907cd5fde3ce84b71a4172e7ca03841cd81ab71d13eb68aa08b259f57c00b6
+2021-10-05 20:24:57,389 loading file /root/.flair/models/pos-english-fast/36f7923039eed4c66e4275927daaff6cd275997d61d238355fb1fe0338fe10a1.ff87e5b4e47fdb42a0c00237d9506c671db773e0a7932179ace82e584383a1b8
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 <div class="output_wrapper">
 <div class="output">
@@ -386,7 +458,7 @@ nb_path: "nbs/05_token_classification.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="EasyTokenTagger.tag_text" class="doc_header"><code>EasyTokenTagger.tag_text</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L314" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyTokenTagger.tag_text</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>model_name_or_path</code></strong>:<code>Union</code>[<code>str</code>, <a href="/adaptnlp/model_hub.html#FlairModelResult"><code>FlairModelResult</code></a>, <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a>]=<em><code>'ner-ontonotes'</code></em>, <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="EasyTokenTagger.tag_text" class="doc_header"><code>EasyTokenTagger.tag_text</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L369" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyTokenTagger.tag_text</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>model_name_or_path</code></strong>:<code>Union</code>[<code>str</code>, <a href="/adaptnlp/model_hub.html#FlairModelResult"><code>FlairModelResult</code></a>, <a href="/adaptnlp/model_hub.html#HFModelResult"><code>HFModelResult</code></a>]=<em><code>'ner-ontonotes'</code></em>, <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Tags tokens with labels the token classification models have been trained on</p>
 <p><strong>Parameters:</strong></p>
@@ -431,7 +503,7 @@ nb_path: "nbs/05_token_classification.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="EasyTokenTagger.tag_all" class="doc_header"><code>EasyTokenTagger.tag_all</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L375" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyTokenTagger.tag_all</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="EasyTokenTagger.tag_all" class="doc_header"><code>EasyTokenTagger.tag_all</code><a href="https://github.com/novetta/adaptnlp/tree/master/adaptnlp/inference/token_classification.py#L431" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>EasyTokenTagger.tag_all</code>(<strong><code>text</code></strong>:<code>Union</code>[<code>List</code>[<code>Sentence</code>], <code>Sentence</code>, <code>List</code>[<code>str</code>], <code>str</code>], <strong><code>mini_batch_size</code></strong>:<code>int</code>=<em><code>32</code></em>, <strong><code>detail_level</code></strong>:<code>DetailLevel</code>=<em><code>'low'</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Tags tokens with all labels from all token classification models</p>
 <p><strong>Parameters:</strong></p>
@@ -449,7 +521,7 @@ nb_path: "nbs/05_token_classification.ipynb"
 </ul>
 <p><strong>Returns</strong>:</p>
 <ul>
-<li><em><code>typing.List[flair.data.Sentence]</code></em> <p>A list of Flair's `Sentence`'s</p></li>
+<li><em><code>typing.List[dict]</code></em>    <p>A dictionary of Token Tagging results</p></li>
 </ul>
 
 </div>
