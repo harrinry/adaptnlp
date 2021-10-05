@@ -68,17 +68,7 @@ async def token_tagger(token_tagging_request: TokenTaggingRequest):
                 e["value"] = e["entity_group"]
                 e["confidence"] = e["score"]
         return payload
-
-    payload = [sentence.to_dict(tag_type=_TOKEN_TAGGING_MODE) for sentence in sentences]
-
-    # Need a better way to serialize
-    for p in payload:
-        entities = p["entities"]
-        for e in entities:
-            labels = e["labels"]
-            e["value"] = labels[0].to_dict()["value"]
-            e["confidence"] = labels[0].to_dict()["confidence"]
-
+    
     return payload
 
 
