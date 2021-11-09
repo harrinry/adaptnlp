@@ -291,12 +291,10 @@ class TokenClassificationTuner(AdaptiveTuner):
         if tokenizer is None: tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.num_classes = num_classes
 
-        base_metrics = SeqEvalMetrics(dls.entity_mapping)
-        new_metrics = []
+        # Ensure supported metrics are used
         for met in metrics:
             ner_met = getattr(met, NERMetrics, None)
-            if not ner_met: raise ValueError('Metric not supported')
-            else: new_metrics.append(ner_met)
+            if not ner_met: raise ValueError(f'Metric {met} is not supported')
 
         super().__init__(
             expose_fastai_api,
