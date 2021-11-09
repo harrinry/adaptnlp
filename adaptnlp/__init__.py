@@ -33,6 +33,7 @@ from .model_hub import HFModelHub, FlairModelHub, HF_TASKS, FLAIR_TASKS
 from .training.core import Strategy, TaskDatasets, AdaptiveTuner, AdaptiveDataLoaders
 from .training.sequence_classification import SequenceClassificationTuner, SequenceClassificationDatasets
 from .training.language_model import LanguageModelTuner, LanguageModelDatasets
+from .training.token_classification import NERMetric, TokenClassificationDatasets, TokenClassificationTuner
 
 
 __all__ = [
@@ -64,5 +65,8 @@ __all__ = [
     "SequenceClassificationDatasets",
     "LanguageModelDatasets",
     "SequenceClassificationTuner",
-    "LanguageModelTuner"
+    "LanguageModelTuner",
+    "NERMetric",
+    "TokenClassificationDatasets",
+    "TokenClassificationTuner"
 ]

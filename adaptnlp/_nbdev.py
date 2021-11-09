@@ -68,7 +68,11 @@ index = {"SentenceResult": "00_result.ipynb",
          "LanguageModelDatasets": "14_training.language_model.ipynb",
          "LanguageModelTuner": "14_training.language_model.ipynb",
          "TextNoNewLine": "15_training.arrow_utils.ipynb",
-         "TextNoNewLineDatasetReader": "15_training.arrow_utils.ipynb"}
+         "TextNoNewLineDatasetReader": "15_training.arrow_utils.ipynb",
+         "encode_tags": "17_training.token_classification.ipynb",
+         "TokenClassificationDatasets": "17_training.token_classification.ipynb",
+         "SeqEvalMetrics": "17_training.token_classification.ipynb",
+         "TokenClassificationTuner": "17_training.token_classification.ipynb"}
 
 modules = ["result.py",
            "callback.py",
@@ -85,7 +89,8 @@ modules = ["result.py",
            "training/core.py",
            "training/sequence_classification.py",
            "training/language_model.py",
-           "training/arrow_utils.py"]
+           "training/arrow_utils.py",
+           "training/token_classification.py"]
 
 doc_url = "https://novetta.github.io/adaptnlp/"
 
