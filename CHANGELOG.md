@@ -1,5 +1,10 @@
 # Release Notes
 
+## 0.3.6
+
+### New Features
+- NER Fine-Tuner
+
 ## 0.3.4
 
 ### Bugs Squashed
