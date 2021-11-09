@@ -246,7 +246,8 @@ class SeqEvalMetrics():
         return results['overall_f1']
 
 # Cell
-mk_class('NERMetric', **{prop.title():prop for prop in dir(SeqEvalMetrics) if not prop.startswith('_')},
+mk_class('NERMetric', **{prop.title():prop for prop in dir(SeqEvalMetrics)
+                         if not prop.startswith('_') and prop != 'compute_metrics'},
         doc="Class for all valid NER metrics usable during fine-tuning with typo-proofing")
 
 # Cell
