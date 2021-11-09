@@ -287,14 +287,20 @@ class TokenClassificationTuner(AdaptiveTuner):
         if hasattr(dls, 'entity_mapping'): num_classes = len(dls.entity_mapping)
         else: raise ValueError('Could not extract entity mapping from DataLoaders, please pass it in as a param')
         if num_classes is None: raise ValueError('Could not extrapolate number of classes, please pass it in as a param')
-        model = AutoModelForTokenClassification.from_pretrained(model_name, num_labels=num_classes, id2label=entity_mapping)
+        model = AutoModelForTokenClassification.from_pretrained(
+            model_name,
+            num_labels=num_classes,
+            id2label=dls.entity_mapping
+        )
         if tokenizer is None: tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.num_classes = num_classes
 
-        # Ensure supported metrics are used
+        self._base_metrics = SeqEvalMetrics(dls.entity_mapping)
+        new_metrics = []
         for met in metrics:
-            ner_met = getattr(met, NERMetrics, None)
-            if not ner_met: raise ValueError(f'Metric {met} is not supported')
+            ner_met = getattr(NERMetric, met.title(), None)
+            if not ner_met: raise ValueError('Metric not supported')
+            else: new_metrics.append(getattr(self._base_metrics, ner_met))
 
         super().__init__(
             expose_fastai_api,
