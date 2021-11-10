@@ -325,6 +325,8 @@ class AdaptiveDataLoaders(DataLoaders):
                         if hasattr(self, 'categorize'):
                             decoded_lbl.append(self.categorize.decode(lbls[i][j].cpu().numpy()))
 #                             decoded_lbl.append([self.categorize.decode(o.cpu().numpy()) for o in lbls])
+                        if hasattr(self, 'entity_mapping'):
+                            decoded_lbl.append([self.entity_mapping[l] for l in lbls[i][j].cpu().numpy() if l != -100])
                         else:
                             # It's a language model
                             decoded_lbl.append(self.tokenizer.batch_decode(lbls[i][j].unsqueeze(0), skip_special_tokens=True)[0])
@@ -357,7 +359,7 @@ class _AdaptiveLearner(Learner):
         out = self.model(**self.xb)
         if 'loss' in out.keys():
             self.loss_grad = out['loss'].to(self.device)
-        self.pred = out
+        self.pred = getattr(out, 'logits', out)
         self('after_pred')
         self.loss = self.loss_grad.clone()
         self('after_loss')
