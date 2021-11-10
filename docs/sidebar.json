@@ -25,7 +25,7 @@
                 "Core":"training.core",
 				"Language Models": "training.language_model",
 				"Sequence Classification": "training.sequence_classification",
-                "Token Tagging": "training.token_tagging"
+                "Token Tagging": "training.token_classification"
 			},
 			"Utilities and Foundations": {
 				"File Utilities": "file_utils.html",
@@ -58,9 +58,9 @@
 				"From Folders": "sequence_classification_from_folder.html",
 				"From (HF) Dataset": "sequence_classification_from_datasets.html"
 			},
-            "Token Tagging (NER)": {
-                "From Dataframes": "token_tagging_from_df.html",
-                "From CSVs": "token_tagging_from_csv.html"
+            "Token Classification (NER)": {
+                "From Dataframes": "token_classification_from_df.html",
+                "From CSVs": "token_classification_from_csv.html"
             }
 		}
 	},
