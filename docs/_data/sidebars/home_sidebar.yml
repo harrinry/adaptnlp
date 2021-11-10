@@ -69,6 +69,9 @@ entries:
         - output: web,pdf
           title: Sequence Classification
           url: training.sequence_classification
+        - output: web,pdf
+          title: Token Tagging
+          url: training.token_tagging
         title: Tuning Framework
       - output: web
         subfolderitems:
@@ -143,6 +146,15 @@ entries:
           title: From (HF) Dataset
           url: sequence_classification_from_datasets.html
         title: Sequence Classification
+      - output: web
+        subfolderitems:
+        - output: web,pdf
+          title: From Dataframes
+          url: token_tagging_from_df.html
+        - output: web,pdf
+          title: From CSVs
+          url: token_tagging_from_csv.html
+        title: Token Tagging (NER)
     output: web
     title: Training Cookbooks
   - folderitems:
